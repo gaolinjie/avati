@@ -35,3 +35,100 @@ margin-right: 0;
 	padding-left: 0;
 	padding-right: 0;
 }
+
+
+
+.label-topic {
+  color:  #13568d;
+  background-color: #dfeaf4;
+  padding: .3em .6em .3em;
+}
+.label-topic:hover,
+.label-topic:focus {
+	color: #fff !important;
+  background-color: #2980b9;
+}
+
+a {
+	color:  #13568d;
+}
+
+.comment, .share {
+	color: #5490c3;
+}
+
+.report, .invite {
+	color: #a9a9ac;
+}
+
+.bullet {
+	color: #858a8f;
+	font-size: .8em;
+	font-weight: normal;
+}
+
+.question {
+	
+	margin-bottom:  20px;
+}
+
+.answers-title {
+	border-top: 1px solid #ccc;
+border-bottom: 1px solid #EEE;
+position: relative;
+padding: 10px 0;
+line-height: 24px;
+}
+
+.answers-sorter {
+overflow: hidden;
+height: 24px;
+position: absolute;
+right: -9px;
+top: 18px;
+margin-top: -13px;
+background: #fff;
+}
+
+.answers-sorter .lbl, .answers-sorter a.lbl {
+padding: 0 19px 0 7px;
+text-decoration: none;
+display: block;
+color: #999;
+}
+
+.answers-sorter .lbl, .answers-sorter a.lbl {
+padding: 0 19px 0 7px;
+text-decoration: none;
+display: block;
+color: #999;
+}
+
+.answers-sorter .zg-icon-double-arrow {
+position: absolute;
+top: 4px;
+right: 3px;
+}
+
+.zg-icon-double-arrow {
+background-position: -191px -229px;
+width: 14px;
+height: 14px;
+}
+
+.zg-icon {
+width: 16px;
+height: 16px;
+background-image: url(http://static.zhihu.com/static/img/sprites-1.9.2.png);
+background-repeat: no-repeat;
+display: inline-block;
+vertical-align: middle;
+}
+
+.answers-title h3 {
+margin: 0;
+display: inline;
+font-weight: 700;
+font-size: 14px;
+outline: 0;
+}
