@@ -125,6 +125,9 @@ display: inline-block;
 vertical-align: middle;
 }
 
+.answers-title {
+	margin-bottom: 20px;
+}
 .answers-title h3 {
 margin: 0;
 display: inline;
@@ -132,3 +135,55 @@ font-weight: 700;
 font-size: 14px;
 outline: 0;
 }
+
+.col-md-9 {
+	padding-right: 60px;
+
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.user-name {
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.col-md-9 a {
+	color: #5490c3;
+}
+
+.user-meta {
+
+}
+
+.avatar-img {
+-webkit-border-radius: 50%;
+border-radius: 50%;
+}
+
+.user-wrapper {
+	position: relative;
+}
+
+.user-title {
+	float: left;
+}
+
+.user-avatar {
+	float: right;
+	margin-top: -2px;
+}
+
+.comment-area .form-control {
+	width: 638px;
+	margin: 20px 0;
+	display:inline;
+}
+
+.comment-box {
+	border-bottom: 1px solid #EEE;
+}
+
+
