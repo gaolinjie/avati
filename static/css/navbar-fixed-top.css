@@ -155,7 +155,7 @@ a:hover {
 }
 
 .user-meta {
-
+line-height: 2;
 }
 
 .avatar-img {
@@ -179,11 +179,23 @@ border-radius: 50%;
 .comment-area .form-control {
 	width: 638px;
 	margin: 20px 0;
-	display:inline;
 }
 
 .comment-box {
 	border-bottom: 1px solid #EEE;
+	margin-bottom: 20px;
 }
 
 
+.meta {
+font-size: 13px;
+
+}
+
+.answer-user-meta {
+color: #999;
+}
+
+.clear {
+	clear: both;
+}
