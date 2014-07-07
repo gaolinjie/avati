@@ -10,13 +10,13 @@ body {
 
 .navbar-brand {
 	width: 70px;
-	background: url(http://www.sproutgeek.com/wp-content/uploads/2013/01/quora-logo.png) 0 0 no-repeat;
+	background: url(/static/img/logo.png) 0 0 no-repeat;
 	background-size: 70px Auto;
 	background-position: center;
 }
 
 #search-input {
-	width: 485px;
+	width: 638px;
 }
 
 .nav li button {
@@ -36,7 +36,13 @@ margin-right: 0;
 	padding-right: 0;
 }
 
+.container>.navbar-header {
+	margin-left: -80px;
+}
 
+.navbar-form {
+padding-left: 0;
+}
 
 .label-topic {
   color:  #13568d;
@@ -173,17 +179,23 @@ border-radius: 50%;
 
 .user-avatar {
 	float: right;
-	margin-top: -2px;
 }
 
 .comment-area .form-control {
 	width: 638px;
 	margin: 20px 0;
+	min-height: 74px;
 }
 
 .comment-box {
 	border-bottom: 1px solid #EEE;
 	margin-bottom: 20px;
+	float: left;
+}
+
+.user-wrapper {
+	float: left;
+width: 638px;
 }
 
 
@@ -198,4 +210,180 @@ color: #999;
 
 .clear {
 	clear: both;
+}
+
+.comment-area {
+	float: left;
+}
+
+.answers-area {
+	float: left;
+}
+
+.answer-item {
+	float:left;
+	border-bottom: 1px solid #EEE;
+	margin-bottom: 20px;
+}
+.answer-text {
+	float: left;
+	margin: 20px 0;
+}
+
+.answer-meta  {
+	float: left;
+	clear: both;
+	margin-bottom: 20px;
+}
+
+.zm-votebar {
+position: absolute;
+left: -48px;
+}
+
+
+.zm-votebar .up, .zm-votebar .down {
+display: block;
+color: #698ebf;
+height: 24px;
+line-height: 24px;
+width: 38px;
+border-radius: 3px;
+border: 0;
+cursor: pointer;
+background: #eff6fa;
+font-weight: 700;
+font-weight: 500;
+position: relative;
+font-size: 13px;
+padding: 0;
+margin: 0;
+}
+
+.zm-votebar .up {
+height: 44px;
+}
+
+.zm-votebar .up .vote-arrow {
+background-position: 0 -229px;
+}
+
+
+.icon {
+width: 16px;
+height: 16px;
+background-image: url(/static/img/sprites-1.9.2.png);
+background-repeat: no-repeat;
+display: inline-block;
+vertical-align: middle;
+}
+
+
+.zm-votebar .up .vote-arrow {
+border-top-width: 0;
+border-bottom-color: #698ebf;
+border-top-style: solid;
+}
+
+.zm-votebar .vote-arrow {
+width: 0;
+height: 0;
+border: 6px solid transparent;
+font-size: 0;
+background-image: none;
+}
+
+.zm-votebar .label {
+display: block;
+text-indent: -9999px;
+}
+
+.zm-votebar .count {
+position: absolute;
+top: 18px;
+left: 0;
+width: 100%;
+}
+
+.zm-votebar .down {
+margin: 5px 0 0;
+}
+
+.zm-votebar .down .vote-arrow {
+background-position: -21px -229px;
+}
+
+.zm-votebar .down .vote-arrow {
+border-bottom-width: 0;
+border-top-color: #698ebf;
+margin-top: 10px;
+}
+
+.zm-votebar .up:hover, .zm-votebar .down:hover, .zm-votebar .up.pressed, .zm-votebar .down.pressed {
+background: #698ebf;
+color: #fff;
+}
+
+.zm-votebar .up:hover .vote-arrow, .zm-votebar .up.pressed .vote-arrow {
+border-bottom-color: #fff;
+}
+.zm-votebar .down:hover .vote-arrow, .zm-votebar .down.pressed .vote-arrow {
+border-top-color: #fff;
+}
+
+.btn-follow{
+	width: 232px;
+}
+
+.box {
+	padding: 20px 0;
+	border-bottom: 1px solid #EEE;
+}
+
+.promote-link {
+	margin-top: 10px;
+	text-align: center;
+	
+}
+
+.promote-link  a{
+	color: #5490c3;
+}
+
+.box h3 {
+margin: 0 0 15px;
+font-size: 15px;
+font-family: inherit;
+font-weight: 700;
+line-height: 1.25;
+color: inherit;
+}
+
+.box button {
+font-family: inherit;
+font-weight: 700;
+}
+
+.share-button {
+float: left;
+margin-right: 30px;
+}
+
+.share-img {
+	width: 28px;
+	height: 28px;
+}
+
+.share-text {
+	color: #5490c3;
+	font-size: 13px;
+}
+
+.zg-gray-normal, .zg-link-gray-normal, .zg-link-gray {
+color: #999;
+font-weight: 400;
+}
+
+.check-log{
+	color: #5490c3;
 }
