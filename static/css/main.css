@@ -1,5 +1,6 @@
 body {
   padding-top: 70px;
+  line-height: 1.5;
 }
 
 
@@ -179,6 +180,7 @@ border-radius: 50%;
 
 .user-title {
 	float: left;
+	width: 638px;
 }
 
 .user-avatar {
@@ -398,4 +400,42 @@ font-weight: 400;
 
 .status-box {
 	border-bottom:  0;
+}
+
+.feed .user-avatar {
+	position: absolute;
+	left: -54px;
+}
+
+.feed .user-meta {
+	color: #999;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.feed-title {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.summary {
+	float: left;
+	margin: 5px 0;
+}
+
+.feed .time {
+	float: right;
+	color: #999;
+font-size: 13px;
+line-height: 1.5;
+}
+
+.feed {
+float:left;
+	border-bottom: 1px solid #EEE;
+	margin-bottom: 20px;
+}
+
+.feed .answer-meta a {
+	color: #999;
 }
