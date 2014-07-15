@@ -180,7 +180,6 @@ border-radius: 50%;
 
 .user-title {
 	float: left;
-	width: 638px;
 }
 
 .user-avatar {
@@ -438,4 +437,76 @@ float:left;
 
 .feed .answer-meta a {
 	color: #999;
+}
+
+.feed .user-title {
+	width: 638px;
+}
+
+.feed img {
+	margin: 5px 0;
+}
+
+
+.icon-home {
+  background-image: url(/static/img/web-icon-large.png);
+}
+
+.icon-message {
+  background-image: url(/static/img/email-icon-large.png);
+}
+
+.icon-fav {
+  background-image: url(/static/img/folder-icon-large.png);
+}
+
+.icon-latter {
+  background-image: url(/static/img/note-icon-large.png);
+}
+
+.icon-follow {
+  background-image: url(/static/img/file-icon-large.png);
+}
+
+.icon-history {
+  background-image: url(/static/img/cart-icon-large.png);
+}
+
+.icon-first {
+  background-image: url(/static/img/iTunes.png);
+}
+
+.icon-second {
+  background-image: url(/static/img/Time-Machine.png);
+}
+
+.nav-list [class^="icon-"], .nav-list [class*=" icon-"] {
+width: 25px;
+height: 25px;
+margin-top: -3px;
+margin-right: 6px;
+vertical-align: text-top;
+background-position: 0px 0px;
+background-size:22.5px;
+background-repeat: no-repeat;
+display: inline-block;
+}
+
+.nav-list .icon-header {
+  width: 48px;
+height: 48px;
+margin-top: -15px;
+margin-left: -7px;
+margin-right: 6px;
+vertical-align: text-top;
+background-position: 0px 0px;
+background-size:48px;
+background-repeat: no-repeat;
+display: inline-block;
+}
+
+
+.nav.nav-list {
+	border: 1px solid #EEE;
+	border-radius: 5px;
 }

@@ -75,7 +75,7 @@
             <div class="user-title">
               <div class="time" >5 小时前</div>
               <div class="user-meta meta"><a class="user-link" href="#"> 陈炜 </a> 赞同了回答 </div>
-              <div class="feed-title"><a href="#">对于即将到来的小米 4 和魅族 MX4，谁能笑到最后？</a></div>
+              <div class="feed-title"><a href="/post">对于即将到来的小米 4 和魅族 MX4，谁能笑到最后？</a></div>
               
             </div>
             
@@ -114,7 +114,7 @@
             <div class="user-title">
               <div class="time" >20 分钟前</div>
               <div class="user-meta meta"><a class="user-link" href="#"> 平板电脑 </a> 下很多人喜欢了晒单 </div>
-              <div class="feed-title"><a href="#">盛夏，因你而生的一抹清凉 -- 三星 GALAXY Tab S 图赏</a></div>
+              <div class="feed-title"><a href="/post">盛夏，因你而生的一抹清凉 -- 三星 GALAXY Tab S 图赏</a></div>
               
             </div>
             
@@ -147,7 +147,7 @@
             <div class="user-title">
               <div class="time" >11 小时前</div>
               <div class="user-meta meta"><a class="user-link" href="#"> 海淘 </a> 下很多人关注了问题 </div>
-              <div class="feed-title"><a href="#">为什么海淘那么大的一个市场却没有一个像样的转运公司，在美国办一间这样的公司会很困难吗？美国的华人转运公司在面对什么样的困境？</a></div>
+              <div class="feed-title"><a href="/post">为什么海淘那么大的一个市场却没有一个像样的转运公司，在美国办一间这样的公司会很困难吗？美国的华人转运公司在面对什么样的困境？</a></div>
               
             </div>
             
@@ -172,7 +172,7 @@
             <div class="user-title">
               <div class="time" >9 小时前</div>
               <div class="user-meta meta"><a class="user-link" href="#"> Apple </a> 下很多人赞同了回答 </div>
-              <div class="feed-title"><a href="#">如何判断 iPhone 4s 和 iPhone 5 哪个更值得买？</a></div>
+              <div class="feed-title"><a href="/post">如何判断 iPhone 4s 和 iPhone 5 哪个更值得买？</a></div>
               
             </div>
             
@@ -216,7 +216,7 @@
             <div class="user-title">
               <div class="time" >1 天前</div>
               <div class="user-meta meta"><a class="user-link" href="#"> Setsuna </a> 发布了评测 </div>
-              <div class="feed-title"><a href="#">专为色彩代言 -- Nokia Lumia 930 香港入手+开箱</a></div>
+              <div class="feed-title"><a href="/post">专为色彩代言 -- Nokia Lumia 930 香港入手+开箱</a></div>
 
               <div class="summary">
             <div class="summary-text">
@@ -288,14 +288,56 @@
     </div>
 
     <div class=" col-xs-12 col-md-3">
-      <div class="follow-box box">
-        <button type="button" class="btn btn-success btn-follow">关注问题</button>
-        <div class="promote-link meta">
-          <a herf="#">推送问题给更多人</a>
-        </div>
-      </div>
-      <div class="related-box box">
-        <h3>相关问题</h3>
+      
+     <ul class="nav nav-list">
+      <li class="nav-item">
+        <a href="/"> <i class="icon-home"></i>
+          我的主页
+        </a>
+      </li>
+      <li class="nav-item {% if active_nav == "notification" %} actived {% endif %}">
+        <a href="/notification"> <i class="icon-message"></i>
+          
+我关注的问题
+        </a>
+      </li>
+      <li class="nav-item {% if active_nav == "favorite" %} actived {% endif %}">
+        <a href="/favorite">
+          <i class="icon-fav"></i>
+          我的收藏
+        </a>
+      </li>
+
+
+      <li class="nav-item {% if active_nav == "later" %} actived {% endif %}">
+        <a href="/later">
+          <i class="icon-latter"></i>
+          
+邀请我回答的问题
+
+        </a>
+      </li>
+      <li class="nav-item {% if active_nav == "follow" %} actived {% endif %}">
+        <a href="/follow">
+          <i class="icon-follow"></i>
+          
+我的草稿
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li class="nav-item {% if active_nav == "watch" %} actived {% endif %}">
+        <a href="/watch">
+          <i class="icon-history"></i>
+          
+邀请朋友加入
+        </a>
+      </li>
+    </ul>
+
+
+
+    <div class="related-box box">
+        <h3>热门问题</h3>
         <p>
           <a href="#">电视购物上卖的东西真的有人买吗？购买者是家庭主妇和老年人居多吗？ 11 个回答</a>
         </p>
@@ -313,42 +355,6 @@
         <p>
           <a href="#">在聚划算买的东西的价格，在成交记录里面是原价，算是欺骗行为么？ 11 个回答</a>
         </p>
-      </div>
-
-      <div class="share-box box">
-        <h3>分享问题</h3>
-        <div class="share-line">
-          <div class="share-button">
-            <a href="http://weibo.com">
-              <img src="/static/img/weibo.png" class="share-img">
-              <span class="share-text">新浪微博</span>
-            </a>
-          </div>
-
-          <div class="share-button">
-            <a href="http://weixin.qq.com/">
-              <img src="/static/img/weixin.png" class="share-img">
-              <span class="share-text">腾讯微信</span>
-            </a>
-          </div>
-          <div class="clear"></div>
-        </div>
-      </div>
-
-      <div class="status-box  box">
-        <h3>问题状态</h3>
-        <div class="zg-gray-normal">
-          最近活动于
-          <span class="time">02:00</span>
-          <span class="zg-bull">•</span>
-          <a href="/" class="check-log">查看问题日志</a>
-        </div>
-        <div class="zg-gray-normal">
-          被浏览 <strong>18193</strong>
-          次，关注者 <strong>432627</strong>
-          人
-        </div>
-
       </div>
 
     </div>
