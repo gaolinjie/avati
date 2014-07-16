@@ -3,9 +3,10 @@ body {
   line-height: 1.5;
 }
 
-
+@media screen and (min-width:959px) {
 .container {
 	width: 960px;
+}
 }
 
 .navbar-brand {
@@ -15,9 +16,13 @@ body {
 	background-position: center;
 }
 
+@media screen and (min-width:959px) {
 #search-input {
 	width: 638px;
 }
+}
+
+
 
 .nav li button {
 	margin-top: 8px;
@@ -186,11 +191,23 @@ border-radius: 50%;
 	float: right;
 }
 
+@media screen and (min-width:959px) {
 .comment-area .form-control {
 	width: 638px;
 	margin: 20px 0;
 	min-height: 74px;
 }
+}
+
+@media screen and (max-width:959px) {
+.comment-area .form-control {
+	width: 100%;
+	margin: 20px 0;
+	min-height: 74px;
+}
+}
+
+
 
 .comment-box {
 	border-bottom: 1px solid #EEE;
@@ -198,9 +215,20 @@ border-radius: 50%;
 	float: left;
 }
 
+
+
+@media screen and (min-width:959px) {
 .user-wrapper {
 	float: left;
-width: 638px;
+	width: 638px;
+}
+}
+
+@media screen and (max-width:959px) {
+.user-wrapper {
+	float: left;
+	width: 100%;
+}
 }
 
 
@@ -439,9 +467,15 @@ float:left;
 	color: #999;
 }
 
+
+
+@media screen and (min-width:959px) {
 .feed .user-title {
 	width: 638px;
 }
+}
+
+
 
 .feed img {
 	margin: 5px 0;
@@ -509,4 +543,16 @@ display: inline-block;
 .nav.nav-list {
 	border: 1px solid #EEE;
 	border-radius: 5px;
+}
+
+@media screen and (min-width:959px) {
+.feed .summary-text img {
+max-width:638px;
+}
+}
+
+@media screen and (max-width:959px) {
+.feed .summary-text img {
+max-width:100%;
+}
 }
