@@ -152,9 +152,11 @@ font-size: 14px;
 outline: 0;
 }
 
+@media screen and (min-width:959px) {
 .col-md-9 {
 	padding-right: 60px;
 
+}
 }
 
 a:hover {
