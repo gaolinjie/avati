@@ -10,9 +10,10 @@ body {
 }
 
 .navbar-brand {
-	width: 70px;
+	width: 78px;
+	height: 49px;
 	background: url(/static/img/logo.png) 0 0 no-repeat;
-	background-size: 70px Auto;
+	background-size: 78px Auto;
 	background-position: center;
 }
 
@@ -42,7 +43,7 @@ margin-right: 0;
 }
 
 .container>.navbar-header {
-	margin-left: -80px;
+	margin-left: -86px;
 }
 
 .navbar-form {
@@ -560,3 +561,4 @@ font-size: 15px;
 	margin: 0;
 	line-height: 1.5;
 }
+
