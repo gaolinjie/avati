@@ -440,11 +440,6 @@ font-weight: 400;
 	line-height: 1.5;
 }
 
-.feed-title {
-	font-size: 15px;
-	font-weight: bold;
-}
-
 .summary {
 	float: left;
 	margin: 5px 0;
@@ -477,7 +472,7 @@ float:left;
 
 
 
-.feed img {
+.feed .summary img {
 	margin: 5px 0;
 }
 
@@ -555,4 +550,11 @@ max-width:638px;
 .feed .summary-text img {
 max-width:100%;
 }
+}
+
+.feed .feed-title h2 {
+font-size: 15px;
+	font-weight: bold;
+	margin: 0;
+	line-height: 1.5;
 }
