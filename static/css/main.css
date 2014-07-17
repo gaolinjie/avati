@@ -562,3 +562,14 @@ font-size: 15px;
 	line-height: 1.5;
 }
 
+.new .title {
+	margin-top: 30px;
+}
+
+.new .note-editor {
+	margin-top: 20px;
+}
+
+.new .tag {
+	margin-top: 20px;
+}
