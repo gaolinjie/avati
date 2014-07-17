@@ -12,7 +12,7 @@
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
-  <link href="//oss.maxcdn.com/summernote/0.5.1/summernote.css" rel="stylesheet">
+  <link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="/static/css/main.css" rel="stylesheet">
@@ -168,19 +168,18 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.js"></script>
   <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-  <script src="//oss.maxcdn.com/summernote/0.5.1/summernote.min.js"></script>
+  <script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
+  <script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
   <script>
   $('#type_tab a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')
 })
-
-
 </script>
-
   <script type="text/javascript">
 $(document).ready(function() {
   $('#summernote').summernote({
+    
     height: 200,                 // set editor height
 
   minHeight: 200,             // set minimum height of editor
@@ -189,7 +188,7 @@ $(document).ready(function() {
   focus: true, 
   toolbar: [
       //['style', ['style']],
-      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['style', ['bold', 'italic', 'underline']],
       //['fontsize', ['fontsize']],
       //['color', ['color']],
       ['para', ['ul', 'ol'/*, 'paragraph'*/]],
@@ -198,9 +197,10 @@ $(document).ready(function() {
       ['insert', ['link', 'picture', 'video']], // no insert buttons
       //['insert', ['link']],
       ['view', ['fullscreen'/*, 'codeview'*/]],
-      ['help', ['help']]
       
-    ]
+    ],
+    lang: 'zh-CN'
+
   });
 });
 </script>
