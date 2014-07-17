@@ -38,3 +38,7 @@ class PostHandler(BaseHandler):
 class NewHandler(BaseHandler):
     def get(self, template_variables = {}):
         self.render("new.html", **template_variables)
+
+class TagHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        self.render("tag.html", **template_variables)
