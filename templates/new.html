@@ -1,0 +1,180 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+
+  <title>Avati</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/main.css" rel="stylesheet">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]>
+  <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
+  <![endif]-->
+  <script src="/static/js/ie-emulation-modes-warning.js"></script>
+  <style type="text/css" adt="123"></style>
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="/static/js/ie10-viewport-bug-workaround.js"></script>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <input type="text" id="search-input" class="form-control" placeholder="搜索一下，你就知道怎么买"></div>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="../navbar/">首页</a>
+          </li>
+          <li>
+            <a href="../navbar-static-top/">Setsuna</a>
+          </li>
+          <li class="">
+            <button class="btn btn-default">提问 or 发帖</button>
+          </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse --> </div>
+  </div>
+
+  <div class="container">
+
+    <div class="col-xs-12 col-md-9">
+     
+
+<ul id="myTab" class="nav nav-tabs" role="tablist" id="myTab">
+  <li class="active"><a href="#question" role="tab" data-toggle="tab">问 答</a></li>
+  <li><a href="#topic" role="tab" data-toggle="tab">文 章</a></li>
+  <li><a href="#discount" role="tab" data-toggle="tab">优 惠</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="question">
+
+
+  <input type="text" class="form-control" placeholder="标题">
+
+  <div class="comment-area clear">
+          <textarea class="form-control" placeholder="写下你的回答..."></textarea>
+        </div>
+
+  </div>
+  <div class="tab-pane" id="topic">...</div>
+  <div class="tab-pane" id="discount">...</div>
+</div>
+
+
+    </div>
+
+    <div class=" col-xs-12 col-md-3">
+      
+     <ul class="nav nav-list">
+      <li class="nav-item">
+        <a href="/"> <i class="icon-home"></i>
+          我的主页
+        </a>
+      </li>
+      <li class="nav-item {% if active_nav == "notification" %} actived {% endif %}">
+        <a href="/notification"> <i class="icon-message"></i>
+          
+我关注的问题
+        </a>
+      </li>
+      <li class="nav-item {% if active_nav == "favorite" %} actived {% endif %}">
+        <a href="/favorite">
+          <i class="icon-fav"></i>
+          我的收藏
+        </a>
+      </li>
+
+
+      <li class="nav-item {% if active_nav == "later" %} actived {% endif %}">
+        <a href="/later">
+          <i class="icon-latter"></i>
+          
+邀请我回答的问题
+
+        </a>
+      </li>
+      <li class="nav-item {% if active_nav == "follow" %} actived {% endif %}">
+        <a href="/follow">
+          <i class="icon-follow"></i>
+          
+我的草稿
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li class="nav-item {% if active_nav == "watch" %} actived {% endif %}">
+        <a href="/watch">
+          <i class="icon-history"></i>
+          
+邀请朋友加入
+        </a>
+      </li>
+    </ul>
+
+
+
+    <div class="related-box box">
+        <h3>热门问题</h3>
+        <p>
+          <a href="#">电视购物上卖的东西真的有人买吗？购买者是家庭主妇和老年人居多吗？ 11 个回答</a>
+        </p>
+        <p>
+          <a href="#">什么东西适合按月订购？ 13 个回答</a>
+        </p>
+        <p>
+          <a href="#">
+            有些小东西，特别需要，身边很难买，网购吧，运费都是物品的几倍了，感觉不划算。各大电商难道不能想办法解决的这个问题吗？ 11 个回答
+          </a>
+        </p>
+        <p>
+          <a href="#">在服装店里买了一件衣服，花掉300元，这300元分别落入谁的口袋？我国的消费者是否在被剥削？ 2 个回答</a>
+        </p>
+        <p>
+          <a href="#">在聚划算买的东西的价格，在成交记录里面是原价，算是欺骗行为么？ 11 个回答</a>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /container -->
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.js"></script>
+  <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+<script>
+  $('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
+
+</body>
+</html>

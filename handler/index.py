@@ -34,3 +34,7 @@ class IndexHandler(BaseHandler):
 class PostHandler(BaseHandler):
     def get(self, template_variables = {}):
         self.render("post.html", **template_variables)
+
+class NewHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        self.render("new.html", **template_variables)
