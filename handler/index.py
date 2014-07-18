@@ -42,3 +42,7 @@ class NewHandler(BaseHandler):
 class TagHandler(BaseHandler):
     def get(self, template_variables = {}):
         self.render("tag.html", **template_variables)
+
+class UserHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        self.render("user.html", **template_variables)

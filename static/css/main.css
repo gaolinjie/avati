@@ -618,3 +618,118 @@ border-bottom-right-radius:4px;
 .tab-pane {
 	padding-top: 30px; 
 }
+
+
+
+
+
+#c4-header-bg-container {
+position: relative;
+height: 175px;
+border-bottom: 1px solid #e2e2e2;
+background-color: #333;
+background-position: center center;
+}
+
+
+#c4-header-bg-container.has-custom-banner {
+background-color: transparent;
+background-size: cover;
+}
+
+#c4-header-bg-container .hd-banner{
+display: none;
+}
+
+#header-links {
+position: absolute;
+right: 15px;
+bottom: 0;
+padding: 0;
+font-size: 0;
+cursor: auto;
+}
+
+.about-network-links {
+margin-left: 2px;
+}
+
+
+.about-network-links, .channel-header .about-custom-links {
+float: right;
+padding: 10px;
+background-color: rgba(102,102,102,0.5);
+margin-bottom: 0;
+}
+
+.channel-header-profile-image-container {
+top: 0;
+left: 15px;
+height: 100px;
+width: 100px;
+position: absolute;
+background-color: rgba(0,0,0,.2);
+display: inline-block;
+}
+
+.channel-header-profile-image {
+width: 100px;
+height: 100px;
+background-color: #e9ecee;
+box-shadow: 0 1px 1px rgba(0,0,0,.4);
+}
+
+
+.about-network-links, .about-custom-links {
+float: right;
+padding: 11px;
+background-color: rgba(102,102,102,0.5);
+}
+
+.about-network-links .channel-links-item {
+margin-left: 5px;
+display: inline;
+}
+
+.about-network-links .channel-links-item:first-child {
+margin-left: 0;
+}
+
+.about-channel-link-favicon {
+vertical-align: middle;
+}
+
+.about-custom-links {
+float: right;
+padding: 10px;
+background-color: rgba(102,102,102,0.5);
+margin-bottom: 0;
+}
+
+.about-channel-link-text {
+margin-left: 5px;
+color: #fff;
+font-size: 11px;
+font-weight: bold;
+display: inline-block;
+}
+
+.about-channel-link-text {
+vertical-align: middle;
+}
+
+#gh-banner {
+	margin-bottom: 30px;
+}
+
+.user-text {
+
+
+text-align: center;
+color: #fff;
+}
+
+#gh-banner .user-name {
+	font-size: 60px;
+	font-weight: 300;
+}

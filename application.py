@@ -58,6 +58,7 @@ class Application(tornado.web.Application):
             (r"/post", handler.index.PostHandler),
             (r"/new", handler.index.NewHandler),
             (r"/tag", handler.index.TagHandler),
+            (r"/user", handler.index.UserHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)
