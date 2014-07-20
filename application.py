@@ -20,6 +20,7 @@ import tornado.options
 import tornado.web
 
 import handler.index
+import handler.user
 
 from tornado.options import define, options
 from lib.loader import Loader
@@ -57,9 +58,13 @@ class Application(tornado.web.Application):
             (r"/", handler.index.IndexHandler),
             (r"/post", handler.index.PostHandler),
             (r"/new", handler.index.NewHandler),
-            (r"/tag", handler.index.TagHandler),
-            (r"/user", handler.index.UserHandler),
+            (r"/tag", handler.index.TagHandler),   
             (r"/tags", handler.index.TagsHandler),
+
+            (r"/user", handler.user.UserHandler),
+            (r"/signin", handler.user.SigninHandler),
+            (r"/signout", handler.user.SignoutHandler),
+            (r"/signup", handler.user.SignupHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)
@@ -74,6 +79,16 @@ class Application(tornado.web.Application):
         self.loader = Loader(self.db)
 
         # Have one global model for db query
+        self.user_model = self.loader.use("user.model")
+        self.feed_model = self.loader.use("feed.model")
+        self.post_model = self.loader.use("post.model")
+        self.channel_model = self.loader.use("reply.model")
+        self.plus_model = self.loader.use("feed_type.model")
+        self.comment_model = self.loader.use("like.model")
+        self.nav_model = self.loader.use("agree.model")
+        self.subnav_model = self.loader.use("post_tag.model")
+        self.video_model = self.loader.use("tag.model")
+        self.favorite_model = self.loader.use("category.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)
