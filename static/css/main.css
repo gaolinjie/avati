@@ -868,4 +868,10 @@ border-bottom: 1px solid #eee;
 	top: -140px;
 }
 
+.note-editor .note-toolbar {
+background-color: #f8f8f8;
+}
 
+.note-editor .note-statusbar {
+background-color: #f8f8f8;
+}
