@@ -43,6 +43,10 @@ class BaseHandler(tornado.web.RequestHandler):
         template = self.jinja2.from_string(template_string)
         return template.render(**template_vars)
 
+    def get_current_user(self):
+        user_id = self.get_secure_cookie("user")
+        if not user_id: return None
+        return self.user_model.get_user_by_uid(int(user_id))
 
     @property
     def user_model(self):

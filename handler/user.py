@@ -155,5 +155,11 @@ class SignupHandler(BaseHandler):
         self.redirect(self.get_argument("next", "/"))
 
 class UserHandler(BaseHandler):
-    def get(self, template_variables = {}):
-        self.render("user.html", **template_variables)
+    def get(self, user, template_variables = {}):
+        user_info = self.current_user
+        template_variables["user_info"] = user_info
+
+        if(user_info):
+            self.render("user.html", **template_variables)
+        else:
+            self.redirect("/login")

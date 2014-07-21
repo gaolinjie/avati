@@ -875,3 +875,7 @@ background-color: #f8f8f8;
 .note-editor .note-statusbar {
 background-color: #f8f8f8;
 }
+
+.nav-btn {
+	padding: 0 !important;
+}
