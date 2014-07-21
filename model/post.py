@@ -10,3 +10,6 @@ class PostModel(Query):
         self.db = db
         self.table_name = "post"
         super(PostModel, self).__init__()
+
+    def add_new_post(self, post_info):
+        return self.data(post_info).add()

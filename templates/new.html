@@ -1,167 +1,167 @@
-{% extends 'layout.html' %}
-
-{% block title %}
+{% extends 'layout.html' %} {% block title %}
 <title>Avati</title>
-{% endblock %}
-
-{% block stylesheet %}
- <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css"/>
+{% endblock %} {% block stylesheet %}
+<link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
 <link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
-<link href="/static/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
-  {% endblock %}
-
- {% block main %}
-    <div class="col-xs-12 col-md-9">
-      <div class="new">
-        
-
+<link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.11.0/jquery-ui.css">
+<link href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css" rel="stylesheet" type="text/css">{% endblock %} {% block main %}
+<div class="col-xs-12 col-md-9">
+    <div class="new">
         <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
-          <li class="active">
-            <a href="#question" role="tab" data-toggle="tab">问 答</a>
-          </li>
-          <li>
-            <a href="#post" role="tab" data-toggle="tab">文 章</a>
-          </li>
-          <li>
-            <a href="#coupon" role="tab" data-toggle="tab">优 惠</a>
-          </li>
+            <li class="active">
+                <a href="#question" role="tab" data-toggle="tab">问 答</a>
+            </li>
+            <li>
+                <a href="#post" role="tab" data-toggle="tab">文 章</a>
+            </li>
+            <li>
+                <a href="#coupon" role="tab" data-toggle="tab">优 惠</a>
+            </li>
         </ul>
 
         <div class="tab-content">
-          <div class="tab-pane active" id="question">
-            <form class="mt10" action='/new' method="POST" enctype="multipart/form-data">
-              <div class="new-btn">
-                <input type="submit" id="checkall" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
-              </div>
-            <div class="title">
-              <input type="text" class="form-control" placeholder="输入你的问题"></div>
-            <div id="summernote" class="description"></div>
-
-            <div class="tag">
-              <input type="text" class="typeahead">
-
+            <div class="tab-pane active" id="question">
+                <form class="mt10" action='/new' method="POST" >
+                    <div class="new-btn">
+                        <input type="submit" id="postBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
+                    </div>
+                    <div class="title">
+                        <input type="text" name="title" class="form-control" placeholder="输入你的问题">
+                    </div>
+                    <div class="content">
+                        <div id="summernote" class="description"></div>
+                        <input type="hidden" name="content" id="contentText" value="">
+                    </div>
+                    <div class="tag">
+                        <input type="hidden" name="tag" id="mySingleField" value="">
+                        <ul id="myTags" class="">
+                        </ul>
+                    </div>
+                </form>
             </div>
-
-              
-            </form>
-
-          </div>
-          <div class="tab-pane" id="post">...</div>
-          <div class="tab-pane" id="coupon">...</div>
+            <div class="tab-pane" id="post">...</div>
+            <div class="tab-pane" id="coupon">...</div>
         </div>
-      
-      </div>
-
     </div>
+</div>
 
-    <div class=" col-xs-12 col-md-3">
+<div class=" col-xs-12 col-md-3">
 
-      <ul class="nav nav-list">
+    <ul class="nav nav-list">
         <li class="nav-item">
-          <a href="/"> <i class="icon-home"></i>
-            我的主页
-          </a>
+            <a href="/"> <i class="icon-home"></i>
+                我的主页
+            </a>
         </li>
-        <li class="nav-item {% if active_nav == "notification" %} actived {% endif %}">
-          <a href="/notification"> <i class="icon-message"></i>
-            我关注的问题
-          </a>
+        <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
+            <a href="/notification"> <i class="icon-message"></i>
+                我关注的问题
+            </a>
         </li>
-        <li class="nav-item {% if active_nav == "favorite" %} actived {% endif %}">
-          <a href="/favorite">
-            <i class="icon-fav"></i>
-            我的收藏
-          </a>
+        <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
+            <a href="/favorite">
+                <i class="icon-fav"></i>
+                我的收藏
+            </a>
         </li>
 
-        <li class="nav-item {% if active_nav == "later" %} actived {% endif %}">
-          <a href="/later">
-            <i class="icon-latter"></i>
-            邀请我回答的问题
-          </a>
+        <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
+            <a href="/later">
+                <i class="icon-latter"></i>
+                邀请我回答的问题
+            </a>
         </li>
-        <li class="nav-item {% if active_nav == "follow" %} actived {% endif %}">
-          <a href="/follow">
-            <i class="icon-follow"></i>
-            我的草稿
-          </a>
+        <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
+            <a href="/follow">
+                <i class="icon-follow"></i>
+                我的草稿
+            </a>
         </li>
         <li class="divider"></li>
-        <li class="nav-item {% if active_nav == "watch" %} actived {% endif %}">
-          <a href="/watch">
-            <i class="icon-history"></i>
-            邀请朋友加入
-          </a>
+        <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
+            <a href="/watch">
+                <i class="icon-history"></i>
+                邀请朋友加入
+            </a>
         </li>
-      </ul>
+    </ul>
 
-      <div class="related-box box">
+    <div class="related-box box">
         <h3>热门问题</h3>
         <p>
-          <a href="#">电视购物上卖的东西真的有人买吗？购买者是家庭主妇和老年人居多吗？ 11 个回答</a>
+            <a href="#">电视购物上卖的东西真的有人买吗？购买者是家庭主妇和老年人居多吗？ 11 个回答</a>
         </p>
         <p>
-          <a href="#">什么东西适合按月订购？ 13 个回答</a>
+            <a href="#">什么东西适合按月订购？ 13 个回答</a>
         </p>
         <p>
-          <a href="#">
+            <a href="#">
             有些小东西，特别需要，身边很难买，网购吧，运费都是物品的几倍了，感觉不划算。各大电商难道不能想办法解决的这个问题吗？ 11 个回答
           </a>
         </p>
         <p>
-          <a href="#">在服装店里买了一件衣服，花掉300元，这300元分别落入谁的口袋？我国的消费者是否在被剥削？ 2 个回答</a>
+            <a href="#">在服装店里买了一件衣服，花掉300元，这300元分别落入谁的口袋？我国的消费者是否在被剥削？ 2 个回答</a>
         </p>
         <p>
-          <a href="#">在聚划算买的东西的价格，在成交记录里面是原价，算是欺骗行为么？ 11 个回答</a>
+            <a href="#">在聚划算买的东西的价格，在成交记录里面是原价，算是欺骗行为么？ 11 个回答</a>
         </p>
-      </div>
-
     </div>
-{% endblock %}
 
-{% block javascript %}
+</div>
+{% endblock %} {% block javascript %}
+<script src="/static/jquery-ui-1.11.0/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/aehlke-tag-it-1d84585/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
-  <script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
-  <script src="/static/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-  <script src="https://github.com/bassjobsen/Bootstrap-3-Typeahead/blob/master/bootstrap3-typeahead.min.js"></script>
-  
-  <script>
-  $('#type_tab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
+<script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
+
+
+
+<script>
+$('#type_tab a').click(function(e) {
+    e.preventDefault()
+    $(this).tab('show')
 })
 </script>
-  <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() {
-  $('#summernote').summernote({
-    
-    height: 200,                 // set editor height
+    $('#summernote').summernote({
+        height: 200, // set editor height
+        minHeight: 200, // set minimum height of editor
+        maxHeight: 600, // set maximum height of editor
+        focus: true,
+        toolbar: [
+            //['style', ['style']],
+            ['style', ['bold', 'italic', 'underline']],
+            //['fontsize', ['fontsize']],
+            //['color', ['color']],
+            ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
+            //['height', ['height']],
+            //['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            //['insert', ['link']],
+            ['view', ['fullscreen' /*, 'codeview'*/ ]],
+        ],
+        lang: 'zh-CN',
+    });
+});
 
-  minHeight: 200,             // set minimum height of editor
-  maxHeight: 600,             // set maximum height of editor
-
-  focus: true, 
-  toolbar: [
-      //['style', ['style']],
-      ['style', ['bold', 'italic', 'underline']],
-      //['fontsize', ['fontsize']],
-      //['color', ['color']],
-      ['para', ['ul', 'ol'/*, 'paragraph'*/]],
-      //['height', ['height']],
-      //['table', ['table']],
-      ['insert', ['link', 'picture', 'video']], // no insert buttons
-      //['insert', ['link']],
-      ['view', ['fullscreen'/*, 'codeview'*/]],
-      
-    ],
-    lang: 'zh-CN'
-
-  });
+$(document).on('click', '#postBtn', function() {
+    $('#contentText').val($('#summernote').code());
+    //alert($('#mySingleField').val());
 });
 </script>
 
 <script type="text/javascript">
-$('.typeahead').tagsinput({typeahead : { source: ["Alabama","Alaska"] }});
+$(document).ready(function() {
+    var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+
+    $("#myTags").tagit({
+        availableTags: sampleTags,
+        singleField: true,
+        allowSpaces: true, //标签中是否允许空格
+        singleFieldNode: $('#mySingleField') //将值保存到mySingleField元素
+    });
+});
 </script>
 
 {% endblock %}
