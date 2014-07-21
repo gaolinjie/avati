@@ -879,3 +879,9 @@ background-color: #f8f8f8;
 .nav-btn {
 	padding: 0 !important;
 }
+
+.new-btn input{
+	position: absolute;
+top: 5px;
+right: 60px;
+}

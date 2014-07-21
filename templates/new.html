@@ -5,13 +5,15 @@
 {% endblock %}
 
 {% block stylesheet %}
- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+ <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css"/>
 <link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
+<link href="/static/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
   {% endblock %}
 
  {% block main %}
     <div class="col-xs-12 col-md-9">
       <div class="new">
+        
 
         <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
           <li class="active">
@@ -27,17 +29,27 @@
 
         <div class="tab-content">
           <div class="tab-pane active" id="question">
+            <form class="mt10" action='/new' method="POST" enctype="multipart/form-data">
+              <div class="new-btn">
+                <input type="submit" id="checkall" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
+              </div>
             <div class="title">
               <input type="text" class="form-control" placeholder="输入你的问题"></div>
             <div id="summernote" class="description"></div>
 
             <div class="tag">
-              <input type="text" class="form-control" placeholder="添加标签"></div>
+              <input type="text" class="typeahead">
+
+            </div>
+
+              
+            </form>
 
           </div>
           <div class="tab-pane" id="post">...</div>
           <div class="tab-pane" id="coupon">...</div>
         </div>
+      
       </div>
 
     </div>
@@ -110,6 +122,9 @@
 {% block javascript %}
 <script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
   <script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
+  <script src="/static/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+  <script src="https://github.com/bassjobsen/Bootstrap-3-Typeahead/blob/master/bootstrap3-typeahead.min.js"></script>
+  
   <script>
   $('#type_tab a').click(function (e) {
   e.preventDefault()
@@ -144,4 +159,9 @@ $(document).ready(function() {
   });
 });
 </script>
+
+<script type="text/javascript">
+$('.typeahead').tagsinput({typeahead : { source: ["Alabama","Alaska"] }});
+</script>
+
 {% endblock %}
