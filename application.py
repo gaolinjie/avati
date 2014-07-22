@@ -56,7 +56,7 @@ class Application(tornado.web.Application):
             (r"/(orca\.txt)", tornado.web.StaticFileHandler, dict(path = settings["static_path"])),
 
             (r"/", handler.index.IndexHandler),
-            (r"/post", handler.index.PostHandler),
+            (r"/p/(\d+)", handler.index.PostHandler),
             (r"/new", handler.index.NewHandler),
             (r"/tag", handler.index.TagHandler),   
             (r"/tags", handler.index.TagsHandler),
@@ -82,13 +82,13 @@ class Application(tornado.web.Application):
         self.user_model = self.loader.use("user.model")
         self.feed_model = self.loader.use("feed.model")
         self.post_model = self.loader.use("post.model")
-        self.channel_model = self.loader.use("reply.model")
-        self.plus_model = self.loader.use("feed_type.model")
-        self.comment_model = self.loader.use("like.model")
-        self.nav_model = self.loader.use("agree.model")
-        self.subnav_model = self.loader.use("post_tag.model")
-        self.video_model = self.loader.use("tag.model")
-        self.favorite_model = self.loader.use("category.model")
+        self.reply_model = self.loader.use("reply.model")
+        self.feed_type_model = self.loader.use("feed_type.model")
+        self.llike_model = self.loader.use("like.model")
+        self.agree_model = self.loader.use("agree.model")
+        self.post_tag_model = self.loader.use("post_tag.model")
+        self.tag_model = self.loader.use("tag.model")
+        self.category_model = self.loader.use("category.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)

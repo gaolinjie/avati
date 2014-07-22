@@ -38,7 +38,7 @@ class IndexHandler(BaseHandler):
             self.redirect("/signin")
 
 class PostHandler(BaseHandler):
-    def get(self, template_variables = {}):
+    def get(self, post_id, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
@@ -69,11 +69,35 @@ class NewHandler(BaseHandler):
         post_info = {
             "author_id": self.current_user["uid"],           
             "title": form.title.data,
-            "description": form.content.data,
+            "content": form.content.data,
+            "reply_num": 0,
+            "type": 0,
             "created": time.strftime('%Y-%m-%d %H:%M:%S'),
         }
 
         post_id = self.post_model.add_new_post(post_info)
+        self.redirect("/p/"+str(post_id))
+
+        # process tags
+        tagStr = form.tag.data
+        if tagStr:
+            print tagStr
+            tagNames = tagStr.split(',')  
+            for tagName in tagNames:  
+                tag = self.tag_model.get_tag_by_tag_name(tagName)
+                if tag:
+                    self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag.id})
+                    self.tag_model.update_tag_by_tag_id(tag.id, {"post_num": tag.post_num+1})
+                else:
+                    tag_id = self.tag_model.add_new_tag({
+                        "name": tagName, 
+                        "post_num": 1, 
+                        "is_new": 1, 
+                        "post_add": post_id, 
+                        "user_add":  self.current_user["uid"], 
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                        })
+                    self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
   
 
 class TagHandler(BaseHandler):
