@@ -246,20 +246,15 @@ class SettingAvatarHandler(BaseHandler):
 
         policy = qiniu.rs.PutPolicy(bucket_name)
         uptoken = policy.token()
-
         data=open(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name)
-
-        ret, err = qiniu.io.put(uptoken, "b_"+avatar_name, data)
-        
+        ret, err = qiniu.io.put(uptoken, "b_"+avatar_name+".png", data)  
         os.remove(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name)
-        print usr_home
 
-
-
-        #result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
+        avatar_name = "http://avati-avatar.qiniudn.com/b_"+avatar_name+".png"
+        result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
-        #updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
+        updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
         self.redirect("/setting")
 
 class SettingCoverHandler(BaseHandler):
