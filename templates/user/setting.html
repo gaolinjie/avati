@@ -9,9 +9,9 @@
                     <legend class="setting-title">用户设置</legend>
                 </div>
                 {{ errors|dump_errors }}
-                <div class="form-group save-btn">
+                <div class="save-btn">
                     <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="保存改动">{{ xsrf_form_html() }}</div>
-                <div class="form-group">
+                <div class="form-group left">
                     <!-- Username -->
                     <label for="username">用户名</label>
                     <input type="text" id="username" name="username" placeholder="" class="form-control" value="{{ user_info.username or '' }}" readonly></div>
@@ -21,7 +21,7 @@
                     <label for="email">E-mail</label>
                     <input type="text" id="email" name="email" placeholder="" class="form-control" value="{{ user_info.email or '' }}" readonly></div>
 
-                <div class="form-group">
+                <div class="form-group left">
                     <!-- Sign -->
                     <label for="sign">签&nbsp;&nbsp;&nbsp;&nbsp;名</label>
                     <input type="text" id="sign" name="sign" placeholder="一句话介绍自己" class="form-control" value="{{ user_info.sign or '' }}"></div>
@@ -35,7 +35,7 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group left">
                     <!-- Location -->
                     <label for="location">位&nbsp;&nbsp;&nbsp;&nbsp;置</label>
                     <input type="text" id="location" name="location" placeholder="你的位置" class="form-control" value="{{ user_info.location or '' }}"></div>
@@ -45,7 +45,7 @@
                     <label for="business">行&nbsp;&nbsp;&nbsp;&nbsp;业</label>
                     <input type="text" id="business" name="business" placeholder="你所处的行业" class="form-control" value="{{ user_info.business or '' }}"></div>
 
-                <div class="form-group">
+                <div class="form-group left">
                     <!-- Edu -->
                     <label for="edu">教&nbsp;&nbsp;&nbsp;&nbsp;育</label>
                     <input type="text" id="edu" name="edu" placeholder="你的教育信息" class="form-control" value="{{ user_info.edu or '' }}"></div>
@@ -55,7 +55,7 @@
                     <label for="company">单&nbsp;&nbsp;&nbsp;&nbsp;位</label>
                     <input type="text" id="company" name="company" placeholder="你工作的单位" class="form-control" value="{{ user_info.company or '' }}"></div>
 
-                <div class="form-group">
+                <div class="form-group left">
                     <!-- website -->
                     <label for="website">网&nbsp;&nbsp;&nbsp;&nbsp;站</label>
                     <input type="text" id="website" name="website" placeholder="你的个人网站" class="form-control" value="{{ user_info.website or '' }}"></div>
@@ -81,7 +81,7 @@
             </li>
             <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
                 <a href="/setting"> <i class="icon-message"></i>
-                    用户中心
+                    基本设置
                 </a>
             </li>
             <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">

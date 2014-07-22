@@ -4,6 +4,7 @@
 # Copyright 2013 meiritugua.com
 
 import uuid
+import uuid
 import hashlib
 import Image
 import StringIO
@@ -11,17 +12,31 @@ import time
 import json
 import re
 import urllib2
-import urllib
 import tornado.web
 import lib.jsonp
-import os.path
+import pprint
+import math
+import datetime 
+import os
 
 from base import *
-from lib.sendmail import send
+from lib.variables import *
+from form.topic import *
 from lib.variables import gen_random
-from lib.gravatar import Gravatar
-from form.user import *
+from lib.xss import XssCleaner
+from lib.utils import find_mentions
+from lib.reddit import hot
+from lib.utils import pretty_date
+
 from lib.mobile import is_mobile_browser
+
+import qiniu.conf
+import qiniu.io
+import qiniu.rs
+
+qiniu.conf.ACCESS_KEY = "hmHRMwms0cn9OM9PMETYwsXMLG93z3FiBmCtPu7y"
+qiniu.conf.SECRET_KEY = "nCDM7Tuggre39RiqXaDmjo8sZn6MLGmckUaCrOJU"
+bucket_name = 'avati-avatar'
 
 def do_login(self, user_id):
     user_info = self.user_model.get_user_by_uid(user_id)
@@ -226,24 +241,25 @@ class SettingAvatarHandler(BaseHandler):
         avatar_buffer = StringIO.StringIO(avatar_raw)
         avatar = Image.open(avatar_buffer)
 
-        # crop avatar if it's not square
-        avatar_w, avatar_h = avatar.size
-        avatar_border = avatar_w if avatar_w < avatar_h else avatar_h
-        avatar_crop_region = (0, 0, avatar_border, avatar_border)
-        avatar = avatar.crop(avatar_crop_region)
-
-        avatar_96x96 = avatar.resize((96, 96), Image.ANTIALIAS)
-        avatar_48x48 = avatar.resize((48, 48), Image.ANTIALIAS)
-        avatar_32x32 = avatar.resize((32, 32), Image.ANTIALIAS)
         usr_home = os.path.expanduser('~')
+        avatar.save(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name, "PNG")
+
+        policy = qiniu.rs.PutPolicy(bucket_name)
+        uptoken = policy.token()
+
+        data=open(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name)
+
+        ret, err = qiniu.io.put(uptoken, "b_"+avatar_name, data)
+        
+        os.remove(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name)
         print usr_home
-        avatar_96x96.save(usr_home+"/www/mifan.tv/static/avatar/user/b_%s.png" % avatar_name, "PNG")
-        avatar_48x48.save(usr_home+"/www/mifan.tv/static/avatar/user/m_%s.png" % avatar_name, "PNG")
-        avatar_32x32.save(usr_home+"/www/mifan.tv/static/avatar/user/s_%s.png" % avatar_name, "PNG")
-        result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
+
+
+
+        #result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
-        updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
+        #updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
         self.redirect("/setting")
 
 class SettingCoverHandler(BaseHandler):

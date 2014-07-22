@@ -929,8 +929,7 @@ text-align: center;
 
 .avatar-upload-zone {
 border: 2px dashed #ccc;
-margin-left: 250px;
-height: 100px;
+height: 152px;
 border-radius: 15px;
 line-height: 100px;
 cursor: pointer;
@@ -957,4 +956,46 @@ line-height: 25px;
 
 .ng-hide {
 display: none !important;
+}
+
+.setting-card  .form-group{
+	width: 313px;
+	float: left;
+}
+
+.form-group.left {
+	margin-right: 10px;
+}
+
+.s-avatar {
+	width: 128px;
+	height: 128px;
+	float: left;
+}
+
+.upload-text {
+	vertical-align: middle;
+	margin-top: 30px;
+}
+
+i.icon {
+font-size: 1em;
+}
+i.icon {
+display: inline-block;
+opacity: .75;
+margin: 0 .25em 0 0;
+width: 1.23em;
+height: 1em;
+font-family: FontAwesome;
+font-style: normal;
+line-height: 1;
+font-weight: 400;
+text-decoration: inherit;
+text-align: center;
+speak: none;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+-ms-box-sizing: border-box;
+box-sizing: border-box;
 }

@@ -1,8 +1,10 @@
 {% extends 'layout.html' %}
-
-{% block main %}
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+{% endblock %} 
+ {% block main %}
 <div class="col-xs-12 col-md-9">
-    <div class="setting-card">
+    <div class="setting--card">
         <form class="form-horizontal" action='' method="POST" enctype="multipart/form-data">
             <fieldset>
                 <div id="legend">
@@ -12,34 +14,24 @@
                 <div class="form-group save-btn">
                     <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="保存改动">{{ xsrf_form_html() }}</div>
 
-                <div ng-if="!avatar" class="empty center list avatar-upload-zone ng-scope">
-    <input ng-show="!uploading" type="file" name="file" file-upload="uploadSetting" id="avatar-upload-zone" class="ng-scope">
-    <div ng-show="!uploading" class="">
-      <p><i class="upload cloud icon"></i>点击或将图片拖拽至此上传！</p>
-      <p>仅支持 1M 以内，大于128*128且小于800*800的头像</p>
-    </div>
-    <div ng-show="uploading" class="ng-hide">
-      <i class="loading icon"></i>正在上传！
-      <div file-upload-progress="onUploadProgress" class="ng-scope"></div>
-    </div>
-  </div>
-  
-                <div class="form-group">
-                    <!-- Avatar -->
-                    <label for="username">头&nbsp;&nbsp;&nbsp;&nbsp;像</label>
-                    <div class="controls">
-                        <img src="/static/avatar/user/b_{{ user_info.avatar or 'default.png' }}?t={{ gen_random() }}" alt="" class="s-avatar" />
+
+
+                <div class="empty center list avatar-upload-zone ng-scope">
+                    <input type="file" id="avatar" name="avatar" class="ng-scope">
+                    <img src="{{ user_info.avatar or 'http://avati-avatar.qiniudn.com/b_default.png' }}" alt="" class="s-avatar" />
+                    <div class="upload-text">
+                        <p><i class="upload cloud icon  fa-cloud-upload"></i>点击或将图片拖拽至此上传！</p>
+                        <p>仅支持 1M 以内，大于128*128且小于800*800的头像</p>
+                    </div>
+                    <div class="ng-hide">
+                        <i class="loading icon"></i>正在上传！
+                        <div file-upload-progress="onUploadProgress" class="ng-scope"></div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <!-- Avatar-->
-                    <label for="avatar">上&nbsp;&nbsp;&nbsp;&nbsp;传</label>
-                    <div class="controls">
-                        <input type="file" id="avatar" name="avatar" placeholder="" class="input-xlarge">
-                        <p class="help-block">请选择要上传的头像文件</p>
-                    </div>
-                </div>
+                
+
+                
             </fieldset>
             {{ xsrf_form_html() }}
         </form>
