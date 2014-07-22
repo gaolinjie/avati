@@ -75,33 +75,28 @@ class SettingPasswordForm(Form):
 class SettingForm(Form):
     username = TextField('Username') # readonly
     email = TextField('Email') # readonly
-    nickname = TextField('Nickname', [
+    sign = TextField('Sign', [
         validators.Optional(),
-        validators.Length(min = 2, message = "昵称长度过短（2-12个字符）"),
-        validators.Length(max = 12, message = "昵称长度过长（3-12个字符）"),
     ])
-    signature = TextField('Signature', [
+    gender = TextField('Gender', [
         validators.Optional(),
     ])
     location = TextField('Location', [
         validators.Optional(),
     ])
-    website = TextField('Website', [
+    business = TextField('Business', [
         validators.Optional(),
-        validators.URL(message = "请填写合法的URL地址（如：http://mifan.tv）")
+    ])
+    edu = TextField('Edu', [
+        validators.Optional(),
     ])
     company = TextField('Company', [
         validators.Optional(),
     ])
-    github = TextField('Github', [
+    website = TextField('Website', [
         validators.Optional(),
+        validators.URL(message = "请填写合法的URL地址（如：http://avati.cn）")
     ])
-    twitter = TextField('Twitter', [
-        validators.Optional(),
-    ])
-    douban = TextField('Douban', [
-        validators.Optional(),
-    ])
-    self_intro = TextField('Self_intro', [
+    intro = TextField('Intro', [
         validators.Optional(),
     ])

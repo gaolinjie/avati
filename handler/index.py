@@ -59,6 +59,8 @@ class NewHandler(BaseHandler):
     def post(self, template_variables = {}):
         template_variables = {}
 
+        type = self.get_argument('t', "q")
+
         # validate the fields
         form = NewForm(self)
 
@@ -71,7 +73,7 @@ class NewHandler(BaseHandler):
             "title": form.title.data,
             "content": form.content.data,
             "reply_num": 0,
-            "type": 0,
+            "type": type,
             "created": time.strftime('%Y-%m-%d %H:%M:%S'),
         }
 

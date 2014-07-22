@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class="col-xs-12 col-md-9">
+    <div class="setting-card">
+        <form class="form-horizontal" action='' method="POST" enctype="multipart/form-data">
+            <fieldset>
+                <div id="legend">
+                    <legend class="setting-title">设置头像</legend>
+                </div>
+                {{ errors|dump_errors }}
+                <div class="form-group save-btn">
+                    <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="保存改动">{{ xsrf_form_html() }}</div>
+
+                <div ng-if="!avatar" class="empty center list avatar-upload-zone ng-scope">
+    <input ng-show="!uploading" type="file" name="file" file-upload="uploadSetting" id="avatar-upload-zone" class="ng-scope">
+    <div ng-show="!uploading" class="">
+      <p><i class="upload cloud icon"></i>点击或将图片拖拽至此上传！</p>
+      <p>仅支持 1M 以内，大于128*128且小于800*800的头像</p>
+    </div>
+    <div ng-show="uploading" class="ng-hide">
+      <i class="loading icon"></i>正在上传！
+      <div file-upload-progress="onUploadProgress" class="ng-scope"></div>
+    </div>
+  </div>
+  
+                <div class="form-group">
+                    <!-- Avatar -->
+                    <label for="username">头&nbsp;&nbsp;&nbsp;&nbsp;像</label>
+                    <div class="controls">
+                        <img src="/static/avatar/user/b_{{ user_info.avatar or 'default.png' }}?t={{ gen_random() }}" alt="" class="s-avatar" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- Avatar-->
+                    <label for="avatar">上&nbsp;&nbsp;&nbsp;&nbsp;传</label>
+                    <div class="controls">
+                        <input type="file" id="avatar" name="avatar" placeholder="" class="input-xlarge">
+                        <p class="help-block">请选择要上传的头像文件</p>
+                    </div>
+                </div>
+            </fieldset>
+            {{ xsrf_form_html() }}
+        </form>
+    </div>
+</div>
+
+<div class=" col-xs-12 col-md-3">
+    <div class="sidenav container-box">
+        <ul class="nav nav-list">
+            <li class="nav-item">
+                <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
+                    我的主页
+                </a>
+            </li>
+            <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
+                <a href="/setting"> <i class="icon-message"></i>
+                    用户中心
+                </a>
+            </li>
+            <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
+                <a href="/setting/avatar">
+                    <i class="icon-fav"></i>
+                    设置头像
+                </a>
+            </li>
+
+            <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
+                <a href="/setting/cover">
+                    <i class="icon-latter"></i>
+                    设置封面
+                </a>
+            </li>
+            <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
+                <a href="/setting/password">
+                    <i class="icon-follow"></i>
+                    设置密码
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
+                <a href="/">
+                    <i class="icon-history"></i>
+                    返回首页
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

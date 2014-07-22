@@ -85,3 +85,12 @@ HOWTO deploy on Linode
 	$ cd ~/www/avati
 	$ git pull
 
+
+###Inspire from
+    # quora.com
+    # zhihu.com
+    # segmentfault.com
+    # coding.net
+    # f2e.im
+    # dgtle.com
+

@@ -163,3 +163,209 @@ class UserHandler(BaseHandler):
             self.render("user.html", **template_variables)
         else:
             self.redirect("/login")
+
+class SettingHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, template_variables = {}):
+        user_info = self.get_current_user()
+        template_variables["user_info"] = user_info
+        template_variables["gen_random"] = gen_random
+        self.render("user/setting.html", **template_variables)
+
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        template_variables = {}
+
+        # validate the fields
+
+        form = SettingForm(self)
+
+        if not form.validate():
+            self.get({"errors": form.errors})
+            return
+
+        # continue while validate succeed
+
+        user_info = self.current_user
+        update_result = self.user_model.set_user_base_info_by_uid(user_info["uid"], {
+            "sign": form.sign.data,
+            "gender": form.gender.data,
+            "location": form.location.data,
+            "business": form.business.data,
+            "edu": form.edu.data,
+            "company": form.company.data,
+            "website": form.website.data,
+            "intro": form.intro.data,
+            "updated": time.strftime('%Y-%m-%d %H:%M:%S')
+        })
+
+        self.redirect("/u/" + form.username.data)
+
+class SettingAvatarHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, template_variables = {}):
+        user_info = self.get_current_user()
+        template_variables["user_info"] = user_info
+        template_variables["gen_random"] = gen_random
+        self.render("user/setting_avatar.html", **template_variables)
+
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        template_variables = {}
+
+        if(not "avatar" in self.request.files):
+            template_variables["errors"] = {}
+            template_variables["errors"]["invalid_avatar"] = [u"请先选择要上传的头像"]
+            self.get(template_variables)
+            return
+
+        user_info = self.current_user
+        user_id = user_info["uid"]
+        avatar_name = "%s" % uuid.uuid5(uuid.NAMESPACE_DNS, str(user_id))
+        avatar_raw = self.request.files["avatar"][0]["body"]
+        avatar_buffer = StringIO.StringIO(avatar_raw)
+        avatar = Image.open(avatar_buffer)
+
+        # crop avatar if it's not square
+        avatar_w, avatar_h = avatar.size
+        avatar_border = avatar_w if avatar_w < avatar_h else avatar_h
+        avatar_crop_region = (0, 0, avatar_border, avatar_border)
+        avatar = avatar.crop(avatar_crop_region)
+
+        avatar_96x96 = avatar.resize((96, 96), Image.ANTIALIAS)
+        avatar_48x48 = avatar.resize((48, 48), Image.ANTIALIAS)
+        avatar_32x32 = avatar.resize((32, 32), Image.ANTIALIAS)
+        usr_home = os.path.expanduser('~')
+        print usr_home
+        avatar_96x96.save(usr_home+"/www/mifan.tv/static/avatar/user/b_%s.png" % avatar_name, "PNG")
+        avatar_48x48.save(usr_home+"/www/mifan.tv/static/avatar/user/m_%s.png" % avatar_name, "PNG")
+        avatar_32x32.save(usr_home+"/www/mifan.tv/static/avatar/user/s_%s.png" % avatar_name, "PNG")
+        result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
+        template_variables["success_message"] = [u"用户头像更新成功"]
+        # update `updated`
+        updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
+        self.redirect("/setting")
+
+class SettingCoverHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, template_variables = {}):
+        user_info = self.get_current_user()
+        template_variables["user_info"] = user_info
+        template_variables["gen_random"] = gen_random
+        if(not user_info):
+            self.redirect("/login")
+
+        self.render("user/setting_cover.html", **template_variables)
+
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        template_variables = {}
+
+        if(not "avatar" in self.request.files):
+            template_variables["errors"] = {}
+            template_variables["errors"]["invalid_cover"] = [u"请先选择要上传的封面"]
+            self.get(template_variables)
+            return
+
+        user_info = self.current_user
+
+        cover_name = "%s" % uuid.uuid5(uuid.NAMESPACE_DNS, str(user_info.uid))
+        cover_raw = self.request.files["avatar"][0]["body"]
+        cover_buffer = StringIO.StringIO(cover_raw)
+        cover = Image.open(cover_buffer)
+
+        cover_520x260 = cover.resize((520, 260), Image.ANTIALIAS)
+     
+        usr_home = os.path.expanduser('~')
+        cover_520x260.save(usr_home+"/www/mifan.tv/static/cover/user/m_%s.png" % cover_name, "PNG")
+        
+        result = self.user_model.set_user_cover_by_uid(user_info.uid, "%s.png" % cover_name)
+        template_variables["success_message"] = [u"频道头像更新成功"]
+        # update `updated`
+        updated = self.user_model.set_user_base_info_by_uid(user_info.uid, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
+
+        self.redirect("/setting")
+
+class SettingPasswordHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, template_variables = {}):
+        user_info = self.get_current_user()
+        template_variables["user_info"] = user_info
+        self.render("user/setting_password.html", **template_variables)
+
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        template_variables = {}
+
+        # validate the fields
+
+        form = SettingPasswordForm(self)
+
+        if not form.validate():
+            self.get({"errors": form.errors})
+            return
+
+        # validate the password
+
+        user_info = self.current_user
+        user_id = user_info["uid"]
+        secure_password = hashlib.sha1(form.password_old.data).hexdigest()
+        secure_new_password = hashlib.sha1(form.password.data).hexdigest()
+
+        if(not user_info["password"] == secure_password):
+            template_variables["errors"] = {}
+            template_variables["errors"]["error_password"] = [u"当前密码输入有误"]
+            self.get(template_variables)
+            return
+
+        # continue while validate succeed
+
+        update_result = self.user_model.set_user_password_by_uid(user_id, secure_new_password)
+        template_variables["success_message"] = [u"您的用户密码已更新"]
+        # update `updated`
+        updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
+        self.redirect("/setting")
+
+class ForgotPasswordHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        do_logout(self)
+        self.render("user/forgot_password.html", **template_variables)
+
+    def post(self, template_variables = {}):
+        template_variables = {}
+
+        # validate the fields
+
+        form = ForgotPasswordForm(self)
+
+        if not form.validate():
+            self.get({"errors": form.errors})
+            return
+
+
+        # validate the post value
+
+        user_info = self.user_model.get_user_by_email_and_username(form.email.data, form.username.data)
+
+        if(not user_info):
+            template_variables["errors"] = {}
+            template_variables["errors"]["invalid_email_or_username"] = [u"所填用户名和邮箱有误"]
+            self.get(template_variables)
+            return
+
+        # continue while validate succeed
+        # update password
+
+        new_password = uuid.uuid1().hex
+        new_secure_password = hashlib.sha1(new_password).hexdigest()
+        update_result = self.user_model.set_user_password_by_uid(user_info["uid"], new_secure_password)
+
+        # send password reset link to user
+
+        mail_title = u"mifan.tv 找回密码"
+        template_variables = {"email": form.email.data, "new_password": new_password};
+        template_variables["success_message"] = [u"新密码已发送至您的注册邮箱"]
+        mail_content = self.render_string("user/forgot_password_mail.html", **template_variables)
+        send(mail_title, mail_content, form.email.data)
+
+        self.get(template_variables)

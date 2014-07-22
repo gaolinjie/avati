@@ -65,6 +65,11 @@ class Application(tornado.web.Application):
             (r"/signin", handler.user.SigninHandler),
             (r"/signout", handler.user.SignoutHandler),
             (r"/signup", handler.user.SignupHandler),
+            (r"/setting", handler.user.SettingHandler),
+            (r"/setting/avatar", handler.user.SettingAvatarHandler),
+            (r"/setting/cover", handler.user.SettingCoverHandler),
+            (r"/setting/password", handler.user.SettingPasswordHandler),
+            (r"/forgot", handler.user.ForgotPasswordHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)

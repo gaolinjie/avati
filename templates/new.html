@@ -21,26 +21,44 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="question">
-                <form class="mt10" action='/new' method="POST" >
+                <form class="mt10" action='/new?t=q' method="POST" >
                     <div class="new-btn">
-                        <input type="submit" id="postBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
+                        <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
                     </div>
                     <div class="title">
-                        <input type="text" name="title" class="form-control" placeholder="输入你的问题">
+                        <input type="text" id="qTitle" name="title" class="form-control" placeholder="输入你的问题">
                     </div>
                     <div class="content">
-                        <div id="summernote" class="description"></div>
-                        <input type="hidden" name="content" id="contentText" value="">
+                        <div id="qSummernote" class="description"></div>
+                        <input type="hidden" name="content" id="qContentText" value="">
                     </div>
                     <div class="tag">
-                        <input type="hidden" name="tag" id="mySingleField" value="">
-                        <ul id="myTags" class="">
+                        <input type="hidden" name="tag" id="qSingleField" value="">
+                        <ul id="qTags" class="">
                         </ul>
                     </div>
                 </form>
             </div>
-            <div class="tab-pane" id="post">...</div>
-            <div class="tab-pane" id="coupon">...</div>
+            <div class="tab-pane" id="post">
+                <form class="mt10" action='/new?t=p' method="POST" >
+                    <div class="new-btn">
+                        <input type="submit" id="pPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
+                    </div>
+                    <div class="title">
+                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的问题">
+                    </div>
+                    <div class="content">
+                        <div id="pSummernote" class="description"></div>
+                        <input type="hidden" name="content" id="pContentText" value="">
+                    </div>
+                    <div class="tag">
+                        <input type="hidden" name="tag" id="pSingleField" value="">
+                        <ul id="pTags" class="">
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane" id="coupon">Coming soon...</div>
         </div>
     </div>
 </div>
@@ -124,7 +142,27 @@ $('#type_tab a').click(function(e) {
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#summernote').summernote({
+    $('#qSummernote').summernote({
+        height: 200, // set editor height
+        minHeight: 200, // set minimum height of editor
+        maxHeight: 600, // set maximum height of editor
+        focus: true,
+        toolbar: [
+            //['style', ['style']],
+            ['style', ['bold', 'italic', 'underline']],
+            //['fontsize', ['fontsize']],
+            //['color', ['color']],
+            ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
+            //['height', ['height']],
+            //['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            //['insert', ['link']],
+            ['view', ['fullscreen' /*, 'codeview'*/ ]],
+        ],
+        lang: 'zh-CN',
+    });
+
+    $('#pSummernote').summernote({
         height: 200, // set editor height
         minHeight: 200, // set minimum height of editor
         maxHeight: 600, // set maximum height of editor
@@ -145,8 +183,13 @@ $(document).ready(function() {
     });
 });
 
-$(document).on('click', '#postBtn', function() {
-    $('#contentText').val($('#summernote').code());
+$(document).on('click', '#qPostBtn', function() {
+    $('#qContentText').val($('#qSummernote').code());
+    //alert($('#mySingleField').val());
+});
+
+$(document).on('click', '#pPostBtn', function() {
+    $('#pContentText').val($('#pSummernote').code());
     //alert($('#mySingleField').val());
 });
 </script>
@@ -155,11 +198,18 @@ $(document).on('click', '#postBtn', function() {
 $(document).ready(function() {
     var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
 
-    $("#myTags").tagit({
+    $("#qTags").tagit({
         availableTags: sampleTags,
         singleField: true,
         allowSpaces: true, //标签中是否允许空格
-        singleFieldNode: $('#mySingleField') //将值保存到mySingleField元素
+        singleFieldNode: $('#qSingleField') //将值保存到mySingleField元素
+    });
+
+    $("#pTags").tagit({
+        availableTags: sampleTags,
+        singleField: true,
+        allowSpaces: true, //标签中是否允许空格
+        singleFieldNode: $('#pSingleField') //将值保存到mySingleField元素
     });
 });
 </script>

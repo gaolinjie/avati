@@ -3,6 +3,11 @@ body {
   line-height: 1.5;
 }
 
+body, input, textarea {
+font-family: '微软雅黑','Helvetica Neue',sans-serif,SimHei;
+-webkit-font-smoothing: antialiased;
+}
+
 @media screen and (min-width:959px) {
 .container {
 	width: 960px;
@@ -889,4 +894,67 @@ right: 60px;
 
 .ui-state-default, .ui-widget-content .ui-state-default {
 font-weight: normal; 
+}
+
+.setting-card .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.setting-card  .help-block {
+margin-bottom: 0px;
+}
+
+.save-btn input{
+	position: absolute;
+top: 0;
+right: 60px;
+}
+
+.form-group label, legend {
+	color: #666;
+}
+
+.empty.list {
+width: auto;
+padding: 10px;
+font-size: 14px;
+color: #999;
+}
+
+.empty.list.center {
+text-align: center;
+}
+
+
+.avatar-upload-zone {
+border: 2px dashed #ccc;
+margin-left: 250px;
+height: 100px;
+border-radius: 15px;
+line-height: 100px;
+cursor: pointer;
+width: 570px;
+}
+
+
+.avatar-upload-zone input[type="file"] {
+display: block;
+position: absolute;
+margin: 0;
+opacity: 0;
+-ms-filter: 'alpha(opacity=0)';
+direction: ltr;
+cursor: pointer;
+z-index: 999;
+width: 570px;
+height: 100px;
+}
+
+.avatar-upload-zone p {
+line-height: 25px;
+}
+
+.ng-hide {
+display: none !important;
 }
