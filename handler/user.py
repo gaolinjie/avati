@@ -21,7 +21,7 @@ import os
 
 from base import *
 from lib.variables import *
-from form.topic import *
+from form.user import *
 from lib.variables import gen_random
 from lib.xss import XssCleaner
 from lib.utils import find_mentions
