@@ -250,7 +250,7 @@ class SettingAvatarHandler(BaseHandler):
         ret, err = qiniu.io.put(uptoken, "b_"+avatar_name+".png", data)  
         os.remove(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name)
 
-        avatar_name = "http://avati-avatar.qiniudn.com/b_"+avatar_name+".png"
+        avatar_name = "http://avati-avatar.qiniudn.com/b_"+avatar_name
         result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
