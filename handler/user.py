@@ -255,7 +255,7 @@ class SettingAvatarHandler(BaseHandler):
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
         updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
-        self.redirect("/setting")
+        self.redirect("/setting/avatar")
 
 class SettingCoverHandler(BaseHandler):
     @tornado.web.authenticated
@@ -272,30 +272,36 @@ class SettingCoverHandler(BaseHandler):
     def post(self, template_variables = {}):
         template_variables = {}
 
-        if(not "avatar" in self.request.files):
+        if(not "cover" in self.request.files):
             template_variables["errors"] = {}
             template_variables["errors"]["invalid_cover"] = [u"请先选择要上传的封面"]
             self.get(template_variables)
             return
 
         user_info = self.current_user
+        user_id = user_info["uid"]
 
         cover_name = "%s" % uuid.uuid5(uuid.NAMESPACE_DNS, str(user_info.uid))
-        cover_raw = self.request.files["avatar"][0]["body"]
+        cover_raw = self.request.files["cover"][0]["body"]
         cover_buffer = StringIO.StringIO(cover_raw)
         cover = Image.open(cover_buffer)
-
-        cover_520x260 = cover.resize((520, 260), Image.ANTIALIAS)
      
         usr_home = os.path.expanduser('~')
-        cover_520x260.save(usr_home+"/www/mifan.tv/static/cover/user/m_%s.png" % cover_name, "PNG")
-        
-        result = self.user_model.set_user_cover_by_uid(user_info.uid, "%s.png" % cover_name)
+        cover.save(usr_home+"/www/avati/static/tmp/cover/b_%s.png" % cover_name, "PNG")
+
+        policy = qiniu.rs.PutPolicy("avati-cover:b_%s.png" % cover_name)
+        uptoken = policy.token()
+        data=open(usr_home+"/www/avati/static/tmp/cover/b_%s.png" % cover_name)
+        ret, err = qiniu.io.put(uptoken, "b_"+cover_name+".png", data)  
+        os.remove(usr_home+"/www/avati/static/tmp/cover/b_%s.png" % cover_name)
+
+        cover_name = "http://avati-cover.qiniudn.com/b_"+cover_name
+        result = self.user_model.set_user_cover_by_uid(user_id, "%s.png-cover" % cover_name)
         template_variables["success_message"] = [u"频道头像更新成功"]
         # update `updated`
-        updated = self.user_model.set_user_base_info_by_uid(user_info.uid, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
+        updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
 
-        self.redirect("/setting")
+        self.redirect("/setting/cover")
 
 class SettingPasswordHandler(BaseHandler):
     @tornado.web.authenticated

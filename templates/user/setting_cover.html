@@ -1,47 +1,78 @@
 {% extends 'layout.html' %}
-
-{% block javascript %}
-{% endblock %}
-
-{% block main %}
-<div class="feeds">
-
-    <div class="c-setting-card">
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+{% endblock %} 
+ {% block main %}
+<div class="col-xs-12 col-md-9">
+    <div class="setting--card">
         <form class="form-horizontal" action='' method="POST" enctype="multipart/form-data">
             <fieldset>
                 <div id="legend">
-                    <legend class="setting-title">设置用户封面</legend>
+                    <legend class="setting-title">设置封面</legend>
                 </div>
                 {{ errors|dump_errors }}
-                <div class="control-group">
-                    <!-- Avatar -->
-                    <label class="control-label" for="username">封&nbsp;&nbsp;&nbsp;&nbsp;面</label>
-                    <div class="controls">
-                        <img src="/static/cover/user/m_{{ user_info.cover or 'default.png' }}?t={{ gen_random() }}" alt="" class="avatar" />
-                    </div>
-                </div>
+                <div class="form-group save-btn">
+                    <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="保存改动">{{ xsrf_form_html() }}</div>
 
-                <div class="control-group">
-                    <!-- Avatar-->
-                    <label class="control-label" for="avatar">上&nbsp;&nbsp;&nbsp;&nbsp;传</label>
-                    <div class="controls">
-                        <input type="file" id="avatar" name="avatar" placeholder="" class="input-xlarge">
-                        <p class="help-block">请选择要上传的封面文件</p>
+                <div class="empty center list cover-upload-zone ng-scope">
+                    <input type="file" id="cover" name="cover" class="ng-scope">
+                    <img src="{{ user_info.cover or 'http://avati-cover.qiniudn.com/b_default.png-cover' }}" alt="" class="s-cover" />
+                    <div class="upload-text">
+                        <p><i class="upload cloud icon  fa-cloud-upload"></i>点击上方区域选择图片上传！</p>
+                        <p>仅支持 4M 以内，大于638*174且小于2560x1600的图片</p>
+                    </div>
+                    <div class="ng-hide">
+                        <i class="loading icon"></i>正在上传！
+                        <div file-upload-progress="onUploadProgress" class="ng-scope"></div>
                     </div>
                 </div>
-
-                <div class="control-group">
-                    <!-- Button -->
-                    <div class="controls">
-                        <button class="btn btn-primary">保存更改</button>
-                    </div>
-                </div>
+                
             </fieldset>
             {{ xsrf_form_html() }}
         </form>
     </div>
 </div>
-{% endblock %}
 
-{% block right %}
+<div class=" col-xs-12 col-md-3">
+    <div class="sidenav container-box">
+        <ul class="nav nav-list">
+            <li class="nav-item">
+                <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
+                    我的主页
+                </a>
+            </li>
+            <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
+                <a href="/setting"> <i class="icon-message"></i>
+                    基本设置
+                </a>
+            </li>
+            <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
+                <a href="/setting/avatar">
+                    <i class="icon-fav"></i>
+                    设置头像
+                </a>
+            </li>
+
+            <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
+                <a href="/setting/cover">
+                    <i class="icon-latter"></i>
+                    设置封面
+                </a>
+            </li>
+            <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
+                <a href="/setting/password">
+                    <i class="icon-follow"></i>
+                    设置密码
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
+                <a href="/">
+                    <i class="icon-history"></i>
+                    返回首页
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 {% endblock %}

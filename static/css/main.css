@@ -946,11 +946,39 @@ opacity: 0;
 direction: ltr;
 cursor: pointer;
 z-index: 999;
-width: 570px;
-height: 100px;
+width: 615px;
+height: 132px;
 }
 
 .avatar-upload-zone p {
+line-height: 25px;
+}
+
+
+.cover-upload-zone {
+border: 2px dashed #ccc;
+height: 192px;
+border-radius: 15px;
+line-height: 100px;
+cursor: pointer;
+width: 570px;
+}
+
+
+.cover-upload-zone input[type="file"] {
+display: block;
+position: absolute;
+margin: 0;
+opacity: 0;
+-ms-filter: 'alpha(opacity=0)';
+direction: ltr;
+cursor: pointer;
+z-index: 999;
+width: 615px;
+height: 170px;
+}
+
+.cover-upload-zone p {
 line-height: 25px;
 }
 
@@ -998,4 +1026,9 @@ speak: none;
 -moz-box-sizing: border-box;
 -ms-box-sizing: border-box;
 box-sizing: border-box;
+}
+
+.s-cover {
+width: 614px;
+height: 167px;
 }
