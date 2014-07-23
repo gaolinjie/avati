@@ -48,6 +48,7 @@ class PostHandler(BaseHandler):
             template_variables["post"] = post
             template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
             template_variables["replys"] = self.reply_model.get_post_all_replys(post_id)
+            template_variables["follow"] = self.follow_model.get_follow(user_info.uid, post_id, post.post_type)
             self.render("post.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -65,7 +66,7 @@ class NewHandler(BaseHandler):
     def post(self, template_variables = {}):
         template_variables = {}
 
-        type = self.get_argument('t', "q")
+        post_type = self.get_argument('t', "q")
 
         # validate the fields
         form = NewForm(self)
@@ -79,7 +80,7 @@ class NewHandler(BaseHandler):
             "title": form.title.data,
             "content": form.content.data,
             "reply_num": 0,
-            "type": type,
+            "post_type": post_type,
             "created": time.strftime('%Y-%m-%d %H:%M:%S'),
         }
 
@@ -149,6 +150,39 @@ class ReplyHandler(BaseHandler):
 
             post = self.post_model.get_post_by_post_id(post_id)
             self.post_model.update_post_by_post_id(post_id, {"reply_num": post.reply_num+1,})
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                    "message": "successed",
+            }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                    "message": "failed",
+            }))
+
+
+class FollowHandler(BaseHandler):
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        user_info = self.current_user
+
+        data = json.loads(self.request.body)
+        obj_id = data["obj_id"]
+        obj_type = data["obj_type"]
+
+        if(user_info):
+            follow = self.follow_model.get_follow(user_info.uid, obj_id, obj_type)
+            if(follow):
+                self.follow_model.delete_follow_by_id(follow.id)
+            else:
+                follow_info = {
+                    "author_id": user_info["uid"],
+                    "obj_id": obj_id,
+                    "obj_type": obj_type,
+                    "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                }
+                self.follow_model.add_new_follow(follow_info)
+
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                     "message": "successed",

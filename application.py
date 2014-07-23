@@ -61,6 +61,7 @@ class Application(tornado.web.Application):
             (r"/tag", handler.index.TagHandler),   
             (r"/tags", handler.index.TagsHandler),
             (r"/reply/(\d+)", handler.index.ReplyHandler),
+            (r"/follow", handler.index.FollowHandler),
 
             (r"/u/(.*)", handler.user.UserHandler),
             (r"/signin", handler.user.SigninHandler),
@@ -95,6 +96,7 @@ class Application(tornado.web.Application):
         self.post_tag_model = self.loader.use("post_tag.model")
         self.tag_model = self.loader.use("tag.model")
         self.category_model = self.loader.use("category.model")
+        self.follow_model = self.loader.use("follow.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)

@@ -25,10 +25,6 @@
         {{post.content}}
       </div>
         <div class="item_action_bar meta">
-          <span>
-            <a class="comment" href="#">{{post.reply_num}} 条评论</a>
-          </span>
-          <span class="bullet">•</span>
           <a class="share" href="#" >分享</a>
           <span class="bullet">•</span>
           <span>
@@ -89,7 +85,7 @@
             <span class="bullet">•</span>
             <a herf="#">举报</a>
             <span class="bullet">•</span>
-            <a herf="#">{{reply.created}}</a>
+            <a herf="#">{{reply.created|pretty_date}}</a>
           </div>
         </div>
         {% endfor %}
@@ -125,7 +121,7 @@
 
     <div class=" col-xs-12 col-md-3">
       <div class="follow-box box">
-        <button type="button" class="btn btn-success btn-follow">关注问题</button>
+        <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
         <div class="promote-link meta">
           <a herf="#">推送问题给更多人</a>
         </div>
@@ -201,7 +197,6 @@ $(document).ready(function() {
 
         minHeight: 200, // set minimum height of editor
         maxHeight: 600, // set maximum height of editor
-        focus: true,
         toolbar: [
             //['style', ['style']],
             ['style', ['bold', 'italic', 'underline']],
@@ -218,15 +213,11 @@ $(document).ready(function() {
     });
 });
 
-$(document).on('click', '#qPostBtn', function() {
-    $('#qContentText').val($('#qSummernote').code());
-    //alert($('#mySingleField').val());
-});
-
-
 $(document).on('click', '#rPostBtn',  function() {
             var reply_text = $('#rSummernote').code();
             var post_id = $('#rPostBtn').attr('data-post');
+            var reply_list =  $('.answers-area');
+            var reply_string = reply_list.html()+'<div class="answer-item"><div class="user-wrapper"><div class="zm-votebar goog-scrollfloater"><button class="up"  title="赞同"> <i class="icon vote-arrow"></i><span class="label">赞同</span><span class="count">0</span></button><button class="down"  title="反对，不会显示你的姓名"><i class="icon vote-arrow"></i><span class="label">反对，不会显示你的姓名</span></button></div><div class="user-title"><div class="user-name">{{user_info.username}}，{{user_info.sign}}</div><div class="answer-user-meta meta"></div></div><div class="user-avatar"><a href="/u/{{user_info.username}}"><img src="{{ user_info.avatar}}" width="46px" height="46px" alt="" class="avatar-img" ></a></div></div><div class="answer-text">'+reply_text+'</div><div class="answer-meta meta"><a herf="#">0 条评论</a><span class="bullet">•</span><a herf="#">分享</a><span class="bullet">•</span><a herf="#">感谢</a><span class="bullet">•</span><a herf="#">举报</a><span class="bullet">•</span><a herf="#">刚刚</a></div></div>';
 
             $.ajax({
               type: "POST",
@@ -236,12 +227,46 @@ $(document).on('click', '#rPostBtn',  function() {
               data: JSON.stringify({reply_content: reply_text}), 
               success: function (msg) {
                 $('#rSummernote').code('');
-                alert("ok!");
+                reply_list.html(reply_string);
+                //alert("ok!");
               },
               error: function (msg) {
                 alert("error");
               }
             });
         });
+
+
+$(document).on('click', '#followBtn',  function() {
+
+      
+        var obj_id = $('#followBtn').attr('data-obj');
+            var obj_type = $('#followBtn').attr('data-type');
+
+            $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "/follow",
+              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
+              success: function (msg) {
+                if ($('#followBtn').hasClass('btn-success')) {
+                $('#followBtn').removeClass('btn-success');
+                $('#followBtn').addClass('btn-danger');
+                $('#followBtn').text('取消关注');
+                }
+                else {
+                  $('#followBtn').removeClass('btn-danger');
+                $('#followBtn').addClass('btn-success');
+                $('#followBtn').text('关注问题');
+                }
+              },
+              error: function (msg) {
+                alert("error");
+              }
+            });
+          
+        });
+            
 </script>
 {% endblock %}

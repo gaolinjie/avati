@@ -66,7 +66,7 @@ CREATE TABLE `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` text,
   `content` text,
-  `type` text,
+  `post_type` text,
   `thumb` text,
   `reply_num` int(11) DEFAULT NULL,
   `author_id` int(11) DEFAULT NULL,
@@ -174,6 +174,17 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `follow`;
+CREATE TABLE `follow` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `author_id` int(11) DEFAULT NULL,
+  `obj_id` int(11) DEFAULT NULL,
+  `obj_type` text,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

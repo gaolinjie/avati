@@ -57,6 +57,10 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.application.reply_model
 
     @property
+    def follow_model(self):
+        return self.application.follow_model
+
+    @property
     def post_model(self):
         return self.application.post_model
 

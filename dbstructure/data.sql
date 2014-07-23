@@ -1,17 +1,12 @@
-INSERT INTO `nav` VALUES (1, 'news', '新鲜事');
-INSERT INTO `nav` VALUES (2, 'ooxx', 'OX图');
-INSERT INTO `nav` VALUES (3, 'fuli', '福利社');
-INSERT INTO `nav` VALUES (4, 'bbs', '色区');
-
-INSERT INTO `channel` VALUES (1, 1, 'girl', '女人');
-INSERT INTO `channel` VALUES (2, 1, 'life', '生活');
-INSERT INTO `channel` VALUES (3, 1, 'school', '学堂');
-INSERT INTO `channel` VALUES (4, 1, 'gossip', '八卦');
-INSERT INTO `channel` VALUES (5, 1, 'sexy', '性趣');
-INSERT INTO `channel` VALUES (6, 1, 'video', '视频');
-INSERT INTO `channel` VALUES (7, 1, 'others', '其它');
-
-INSERT INTO `channel` VALUES (101, 2, 'lmz', '撸妹纸');
-INSERT INTO `channel` VALUES (102, 2, 'wjc', '无节操');
-
-INSERT INTO `channel` VALUES (201, 3, 'sex', '性福');
+INSERT INTO `feed_type` VALUES (1, '提出了问题');
+INSERT INTO `feed_type` VALUES (2, '回答了问题');
+INSERT INTO `feed_type` VALUES (3, '关注了问题');
+INSERT INTO `feed_type` VALUES (4, '下很多人关注了问题');
+INSERT INTO `feed_type` VALUES (5, '赞同了回答');
+INSERT INTO `feed_type` VALUES (6, '下很多人赞同了回答');
+INSERT INTO `feed_type` VALUES (7, '发布了文章');
+INSERT INTO `feed_type` VALUES (8, '评论了文章');
+INSERT INTO `feed_type` VALUES (9, '喜欢了文章');
+INSERT INTO `feed_type` VALUES (10, '下很多人喜欢了文章');
+INSERT INTO `feed_type` VALUES (11, '赞同了评论');
+INSERT INTO `feed_type` VALUES (12, '下很多人赞同了评论');
