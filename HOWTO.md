@@ -18,11 +18,11 @@ HOWTO deploy on Linode
 	$ pip install supervisor 
 
 ###Config Git
-	$ ssh-keygen -t rsa -C "meiritugua@gmail.com"
+	$ ssh-keygen -t rsa -C "avatti@gmail.com"
 	$ cat ~/.ssh/id_rsa.pub
 	# copy and paste the RSA key to the Deploy keys setting
 	$ git config --global user.name "avati"  
-	$ git config --global user.email meiritugua@gmail.com  
+	$ git config --global user.email avatti@gmail.com  
 
 ###Make directories for your app
 	$ mkdir ~/www
@@ -53,14 +53,17 @@ HOWTO deploy on Linode
 
 ###Create database and then execute sql file in dbstructure/
 	$ mysql -u root -p
-	mysql> CREATE DATABASE meiritugua;
-	mysql> GRANT ALL PRIVILEGES ON meiritugua.* TO 'meiritugua'@'localhost' IDENTIFIED BY 'meiritugua';
+	mysql> CREATE DATABASE avatti;
+	mysql> GRANT ALL PRIVILEGES ON avatti.* TO 'avatti'@'localhost' IDENTIFIED BY 'avatti';
 	mysql> exit
-	$ mysql -u meiritugua -p --database=meiritugua < dbstructure/meiritugua.sql
-	$ mysql -u meiritugua -p --database=meiritugua < dbstructure/data.sql
+	$ mysql -u avatti -p --database=avatti < dbstructure/avatti.sql
+	$ mysql -u avatti -p --database=avatti < dbstructure/data.sql
 
 ###Install Torndb
     $ pip install torndb
+
+###Install Qiniu sdk
+    $ pip install qiniu
 
 ###Create symbolic links to conf files
 	$ cd /etc/nginx 

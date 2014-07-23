@@ -18,7 +18,7 @@
 
                 <div class="empty center list avatar-upload-zone ng-scope">
                     <input type="file" id="avatar" name="avatar" class="ng-scope">
-                    <img src="{{ user_info.avatar or 'http://avati-avatar.qiniudn.com/b_default.png' }}" alt="" class="s-avatar" />
+                    <img src="{{ user_info.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" alt="" class="s-avatar" />
                     <div class="upload-text">
                         <p><i class="upload cloud icon  fa-cloud-upload"></i>点击或将图片拖拽至此上传！</p>
                         <p>仅支持 1M 以内，大于128*128且小于800*800的头像</p>
@@ -48,7 +48,7 @@
             </li>
             <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
                 <a href="/setting"> <i class="icon-message"></i>
-                    用户中心
+                    基本设置
                 </a>
             </li>
             <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">

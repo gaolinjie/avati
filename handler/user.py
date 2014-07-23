@@ -36,7 +36,7 @@ import qiniu.rs
 
 qiniu.conf.ACCESS_KEY = "hmHRMwms0cn9OM9PMETYwsXMLG93z3FiBmCtPu7y"
 qiniu.conf.SECRET_KEY = "nCDM7Tuggre39RiqXaDmjo8sZn6MLGmckUaCrOJU"
-bucket_name = 'avati-avatar'
+
 
 def do_login(self, user_id):
     user_info = self.user_model.get_user_by_uid(user_id)
@@ -242,16 +242,16 @@ class SettingAvatarHandler(BaseHandler):
         avatar = Image.open(avatar_buffer)
 
         usr_home = os.path.expanduser('~')
-        avatar.save(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name, "PNG")
+        avatar.save(usr_home+"/www/avati/static/tmp/avatar/b_%s.png" % avatar_name, "PNG")
 
-        policy = qiniu.rs.PutPolicy(bucket_name)
+        policy = qiniu.rs.PutPolicy("avati-avatar:b_%s.png" % avatar_name)
         uptoken = policy.token()
-        data=open(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name)
+        data=open(usr_home+"/www/avati/static/tmp/avatar/b_%s.png" % avatar_name)
         ret, err = qiniu.io.put(uptoken, "b_"+avatar_name+".png", data)  
-        os.remove(usr_home+"/www/avati/static/avatar/user/b_%s.png" % avatar_name)
+        os.remove(usr_home+"/www/avati/static/tmp/avatar/b_%s.png" % avatar_name)
 
         avatar_name = "http://avati-avatar.qiniudn.com/b_"+avatar_name
-        result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
+        result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png-avatar" % avatar_name)
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
         updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
