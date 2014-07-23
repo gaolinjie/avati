@@ -16,6 +16,7 @@ import lib.jsonp
 import pprint
 import math
 import datetime 
+import os
 
 from base import *
 from lib.variables import *
@@ -41,7 +42,12 @@ class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
+
         if(user_info):
+            post = self.post_model.get_post_by_post_id(post_id)
+            template_variables["post"] = post
+            template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
+            template_variables["replys"] = self.reply_model.get_post_all_replys(post_id)
             self.render("post.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -119,3 +125,36 @@ class TagsHandler(BaseHandler):
             self.render("tags.html", **template_variables)
         else:
             self.redirect("/signin")
+
+
+class ReplyHandler(BaseHandler):
+    def get(self, post_id, template_variables = {}):
+        user_info = self.current_user
+
+    @tornado.web.authenticated
+    def post(self, post_id, template_variables = {}):
+        user_info = self.current_user
+
+        data = json.loads(self.request.body)
+        reply_content = data["reply_content"]
+
+        if(user_info):
+            reply_info = {
+                "author_id": user_info["uid"],
+                "post_id": post_id,
+                "content": reply_content,
+                "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+            }
+            reply_id = self.reply_model.add_new_reply(reply_info)
+
+            post = self.post_model.get_post_by_post_id(post_id)
+            self.post_model.update_post_by_post_id(post_id, {"reply_num": post.reply_num+1,})
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                    "message": "successed",
+            }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                    "message": "failed",
+            }))

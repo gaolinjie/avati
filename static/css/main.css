@@ -218,8 +218,7 @@ border-radius: 50%;
 
 
 .comment-box {
-	border-bottom: 1px solid #EEE;
-	margin-bottom: 20px;
+	margin-bottom: 140px;
 	float: left;
 }
 
@@ -254,9 +253,10 @@ color: #999;
 }
 
 .comment-area {
-	float: left;
+float: left;
+width: 638px;
+margin-top: 10px;
 }
-
 .answers-area {
 	float: left;
 }
@@ -901,6 +901,11 @@ font-weight: normal;
 	margin-right: 0;
 }
 
+.setting-password-card .form-group {
+	margin-left: 0;
+	margin-right: 0;
+}
+
 .setting-card  .help-block {
 margin-bottom: 0px;
 }
@@ -1031,4 +1036,20 @@ box-sizing: border-box;
 .s-cover {
 width: 614px;
 height: 167px;
+}
+
+.reply-btn {
+	float: right;
+	margin-top: 10px;
+}
+
+#rPostBtn {
+position: absolute;
+right: 65px;
+margin-top: 5px;
+padding: 3px 10px;
+}
+
+.note-editor .note-editable {
+min-height: 100px;
 }

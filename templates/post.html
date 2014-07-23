@@ -1,7 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-<title>Avati</title>
+<title>{{post.title}}</title>
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+<link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
 {% endblock %}
 
  {% block main %}
@@ -9,18 +14,19 @@
 
       <div class="question">
         <div class="topic-tags">
-          <span class="label label-topic">互联网</span>
-          <span class="label label-topic">创业</span>
-          <span class="label label-topic">生活</span>
-          <span class="label label-topic">商业</span>
-          <span class="label label-topic">网上购物</span>
+          {% for tag in tags.list %}
+          <a href="/tag/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
+          {% endfor %}
         </div>
-        <h2>哪些东西买了之后，会让人因生活质量和幸福感提升而感觉相见恨晚？</h2>
-        <p>物品可以是很常见具体化的，也可以是稀有略抽象的，单纯罗列清单不算，希望回答是结合具体应用场景。当然前提是不能违法啦</p>
-
+        <div class="topic-title">
+        <h2>{{post.title}}</h2>
+      </div>
+      <div class="topic-content">
+        {{post.content}}
+      </div>
         <div class="item_action_bar meta">
           <span>
-            <a class="comment" href="#">5+ 条评论</a>
+            <a class="comment" href="#">{{post.reply_num}} 条评论</a>
           </span>
           <span class="bullet">•</span>
           <a class="share" href="#" >分享</a>
@@ -43,37 +49,19 @@
           <a class="lbl" href="">按时间排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
         </div>
 
-        <h3 id="question-answer-num">2 个回答</h3>
+        <h3 id="question-answer-num">{{post.reply_num}} 个回答</h3>
       </div>
 
-      <div class="comment-box">
-        <div class="user-wrapper">
-          <div class="user-title">
-            <div class="user-name">丘小鱼，你们一群没有梦的人醒着也不许别人睡着</div>
-            <div class="user-meta meta">
-              <a href="#">
-                修改话题经验
- • 匿名
-              </a>
-            </div>
-          </div>
-          <div class="user-avatar">
-            <a href="#">
-              <img src="http://tp2.sinaimg.cn/1826792401/180/5672475243/1" width="46px" height="46px" alt="" class="avatar-img" ></a>
-          </div>
-        </div>
-        <div class="comment-area clear">
-          <textarea class="form-control" placeholder="写下你的回答..."></textarea>
-        </div>
-      </div>
+      
 
       <div class="answers-area">
+        {% for reply in replys.list %}
         <div class="answer-item">
           <div class="user-wrapper">
             <div class="zm-votebar goog-scrollfloater">
               <button class="up"  title="赞同"> <i class="icon vote-arrow"></i>
                 <span class="label">赞同</span>
-                <span class="count">6833</span>
+                <span class="count">{{reply.up_num}}</span>
               </button>
               <button class="down"  title="反对，不会显示你的姓名">
                 <i class="icon vote-arrow"></i>
@@ -81,29 +69,16 @@
               </button>
             </div>
             <div class="user-title">
-              <div class="user-name">张春，最近被知友誉为说书人</div>
+              <div class="user-name">{{reply.author_username}}，{{reply.author_sign}}</div>
               <div class="answer-user-meta meta">Zikiong Lim、吕归尘、jia najia 等人赞同</div>
             </div>
             <div class="user-avatar">
-              <a href="#">
-                <img src="http://tp2.sinaimg.cn/1640571365/180/22874912861/1" width="46px" height="46px" alt="" class="avatar-img" ></a>
+              <a href="/u/{{reply.author_username}}">
+                <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
             </div>
           </div>
           <div class="answer-text">
-            <div class=" zm-editable-content clearfix">
-              电动牙刷
-              <br>
-              <br>
-              电动牙刷它和普通牙刷不是一个意义。刚开始可能会有点出血习惯后就好了，牙齿的光滑和清洁度实在是普通牙刷不能比的。
-              <br>
-              果壳网有过一个帖子说正确的刷牙方法，我们小时候了解的横着刷竖着刷都是不对的，其实应该是一颗一颗刷。而电动牙刷的运动原理正是一颗一颗刷。这听起来很麻烦很难坚持。但由于它本身会震动，所以把一颗一颗刷牙的工作量大大变小了。
-              <br>
-              <br>
-              我每年去一次牙科，医生都说连牙结石都没有，很少见哒。
-              <br>
-              我本人最放松的时刻，就是慢慢刷牙时。应该和电动牙刷这种好工具有关系。
-              <br>
-              <br>做电动牙刷的公司是不是太不会营销啦，这么好的东西，不是早就该把普通牙刷淘汰了吗？</div>
+            {{reply.content}}
           </div>
           <div class="answer-meta meta">
             <a herf="#">18+ 条评论</a>
@@ -114,58 +89,36 @@
             <span class="bullet">•</span>
             <a herf="#">举报</a>
             <span class="bullet">•</span>
-            <a herf="#">2013-03-11</a>
+            <a herf="#">{{reply.created}}</a>
           </div>
         </div>
+        {% endfor %}
+      </div>
 
-        <div class="answer-item">
-          <div class="user-wrapper">
-            <div class="zm-votebar goog-scrollfloater">
-              <button class="up"  title="赞同">
-                <i class="icon vote-arrow"></i>
-                <span class="label">赞同</span>
-                <span class="count">5298</span>
-              </button>
-              <button class="down"  title="反对，不会显示你的姓名">
-                <i class="icon vote-arrow"></i>
-                <span class="label">反对，不会显示你的姓名</span>
-              </button>
-            </div>
-            <div class="user-title">
-              <div class="user-name">刘颖，想象移动互联网上的阅读空间</div>
-              <div class="answer-user-meta meta">张瑞、郁结于、普罗米修斯君 等人赞同</div>
-            </div>
-            <div class="user-avatar">
+      <div class="comment-box">
+        <div class="user-wrapper">
+          <div class="user-title">
+            <div class="user-name">{{user_info.username}}，{{user_info.sign}}</div>
+            <div class="user-meta meta">
               <a href="#">
-                <img src="http://tp2.sinaimg.cn/1577826897/180/40035810742/1" width="46px" height="46px" alt="" class="avatar-img" ></a>
+                修改话题经验
+ • 匿名
+              </a>
             </div>
           </div>
-          <div class="answer-text">
-            <div class=" zm-editable-content clearfix">
-              车。
-              <br>
-              之前环保主义一直没考虑买车。结果搬的新家竟然五年没通公共汽车。第二年买了一辆车，生活质量大大提高。
-              <br>
-              第一大好处是交际圈大大扩展。比如北京这个地方从西到东，路稍微不顺一点，乘公交走一趟差不多一天就没了。所以有车之后对于事业上升中的年轻人特别有帮助。可以多安排几个朋友聚会，业余上课什么的，生活方式根本改变。
-              <br>
-              二是精力和形象有所提升。大热天挤一两小时精神面貌可想而知，用在工作的精力自然打折扣。开车虽然也累，但是私家车舒适多了，化个妆也行。至少不会出现裤子鞋子被踩脏啊汗臭啊之类的尴尬。
-              <br>
-              三是生活圈扩大，郊外露营什么的都可以去，很方便。
-              <br>
-              <br></div>
-          </div>
-          <div class="answer-meta meta">
-            <a herf="#">43+ 条评论</a>
-            <span class="bullet">•</span>
-            <a herf="#">分享</a>
-            <span class="bullet">•</span>
-            <a herf="#">感谢</a>
-            <span class="bullet">•</span>
-            <a herf="#">举报</a>
-            <span class="bullet">•</span>
-            <a herf="#">2013-10-03</a>
+          <div class="user-avatar">
+            <a href="/u/{{user_info.username}}">
+              <img src="{{ user_info.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
           </div>
         </div>
+        <div class="comment-area clear">
+                        <div id="rSummernote" class="description"></div>
+                        <input type="hidden" name="reply" id="rReplyText" value="">
+
+        </div>
+        <div class="reply-btn">
+                        <input type="submit" id="rPostBtn" data-post="{{ post.id }}" class="btn btn-sm btn-default" value="立即发布">{{ xsrf_form_html() }}
+                    </div>
       </div>
 
     </div>
@@ -235,4 +188,60 @@
       </div>
 
     </div>
-{% endblock %} 
+{% endblock %}
+
+
+{% block javascript %}
+<script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
+<script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#rSummernote').summernote({
+
+        minHeight: 200, // set minimum height of editor
+        maxHeight: 600, // set maximum height of editor
+        focus: true,
+        toolbar: [
+            //['style', ['style']],
+            ['style', ['bold', 'italic', 'underline']],
+            //['fontsize', ['fontsize']],
+            //['color', ['color']],
+            ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
+            //['height', ['height']],
+            //['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            //['insert', ['link']],
+            ['view', ['fullscreen' /*, 'codeview'*/ ]],
+        ],
+        lang: 'zh-CN',
+    });
+});
+
+$(document).on('click', '#qPostBtn', function() {
+    $('#qContentText').val($('#qSummernote').code());
+    //alert($('#mySingleField').val());
+});
+
+
+$(document).on('click', '#rPostBtn',  function() {
+            var reply_text = $('#rSummernote').code();
+            var post_id = $('#rPostBtn').attr('data-post');
+
+            $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "/reply/"+post_id,
+              data: JSON.stringify({reply_content: reply_text}), 
+              success: function (msg) {
+                $('#rSummernote').code('');
+                alert("ok!");
+              },
+              error: function (msg) {
+                alert("error");
+              }
+            });
+        });
+</script>
+{% endblock %}

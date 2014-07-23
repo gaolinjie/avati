@@ -60,6 +60,7 @@ class Application(tornado.web.Application):
             (r"/new", handler.index.NewHandler),
             (r"/tag", handler.index.TagHandler),   
             (r"/tags", handler.index.TagsHandler),
+            (r"/reply/(\d+)", handler.index.ReplyHandler),
 
             (r"/u/(.*)", handler.user.UserHandler),
             (r"/signin", handler.user.SigninHandler),

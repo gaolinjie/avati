@@ -386,3 +386,9 @@ class ForgotPasswordHandler(BaseHandler):
         send(mail_title, mail_content, form.email.data)
 
         self.get(template_variables)
+
+class SignoutHandler(BaseHandler):
+    def get(self):
+        do_logout(self)
+        # redirect
+        self.redirect(self.get_argument("next", "/"))
