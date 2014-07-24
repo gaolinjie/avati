@@ -9,20 +9,24 @@
 
       <div class="tag-header">
         <div class="tag-avatar">
-          <a href="#">
-                <img src="http://avati.qiniudn.com/e1792119701338b4.jpg" width="128px" height="128px" alt="" class="tag-avatar-img" ></a>
+          <a href="/t/{{tag.name}}">
+                <img src="{{tag.thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="128px" height="128px" alt="" class="tag-avatar-img" ></a>
         </div>
         <div class="tag-text">
           <div class="tag-title">
             <h2>
-            <a href="#">
-              别克君越
+            <a href="/t/{{tag.name}}">
+              {{tag.name}}
             </a>
           </h2>
           </div>
           <div class="tag-desciption">
             <p>
-            君越（Lacrosse）是上海通用在2006年2月22日推出的一款全新中高档轿车，它的定位是在君威和荣御之间，主要竞争对手为天籁、雅阁等。上海通用推出君越的目的是为了取代君威的位置，占据国内中高档车市场的重要一席。
+              {%if tag.intro%}
+            {{tag.into}}
+            {%else%}
+            目前还没有关于这个标签的解释
+            {%endif%}
           </p>
 
           </div>
@@ -243,7 +247,7 @@
 
     <div class=" col-xs-12 col-md-3">
       <div class="follow-box box">
-        <button type="button" class="btn btn-success btn-follow">关注标签</button>
+        <a id="followBtn" data-obj="{{tag.id}}" data-type="{{'t'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注标签{% endif %}</a>
         <div class="promote-link meta">
           <a herf="#">推送问题给更多人</a>
         </div>
@@ -313,6 +317,36 @@
   e.preventDefault()
   $(this).tab('show')
 })
+
+
+  $(document).on('click', '#followBtn',  function() {
+        var obj_id = $('#followBtn').attr('data-obj');
+            var obj_type = $('#followBtn').attr('data-type');
+
+            $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "/follow",
+              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
+              success: function (msg) {
+                if ($('#followBtn').hasClass('btn-success')) {
+                $('#followBtn').removeClass('btn-success');
+                $('#followBtn').addClass('btn-danger');
+                $('#followBtn').text('取消关注');
+                }
+                else {
+                  $('#followBtn').removeClass('btn-danger');
+                $('#followBtn').addClass('btn-success');
+                $('#followBtn').text('关注标签');
+                }
+              },
+              error: function (msg) {
+                alert("error");
+              }
+            });
+          
+        });
 </script>
 {% endblock %}
 

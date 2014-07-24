@@ -58,7 +58,7 @@ class Application(tornado.web.Application):
             (r"/", handler.index.IndexHandler),
             (r"/p/(\d+)", handler.index.PostHandler),
             (r"/new", handler.index.NewHandler),
-            (r"/tag", handler.index.TagHandler),   
+            (r"/t/(.*)", handler.index.TagHandler),   
             (r"/tags", handler.index.TagsHandler),
             (r"/reply/(\d+)", handler.index.ReplyHandler),
             (r"/follow", handler.index.FollowHandler),

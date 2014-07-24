@@ -170,11 +170,15 @@ class SignupHandler(BaseHandler):
         self.redirect(self.get_argument("next", "/"))
 
 class UserHandler(BaseHandler):
-    def get(self, user, template_variables = {}):
+    def get(self, username, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
 
         if(user_info):
+            view_user = self.user_model.get_user_by_username(username)
+            template_variables["view_user"] = view_user
+            template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
+
             self.render("user.html", **template_variables)
         else:
             self.redirect("/login")

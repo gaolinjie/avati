@@ -87,6 +87,15 @@ class NewHandler(BaseHandler):
         post_id = self.post_model.add_new_post(post_info)
         self.redirect("/p/"+str(post_id))
 
+        # add follow
+        follow_info = {
+            "author_id": self.current_user["uid"],
+            "obj_id": post_id,
+            "obj_type": post_type,
+            "created": time.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        self.follow_model.add_new_follow(follow_info)
+
         # process tags
         tagStr = form.tag.data
         if tagStr:
@@ -110,10 +119,13 @@ class NewHandler(BaseHandler):
   
 
 class TagHandler(BaseHandler):
-    def get(self, template_variables = {}):
+    def get(self, tag_name, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
+            tag = self.tag_model.get_tag_by_tag_name(tag_name)
+            template_variables["tag"] = tag
+            template_variables["follow"] = self.follow_model.get_follow(user_info.uid, tag.id, 't')
             self.render("tag.html", **template_variables)
         else:
             self.redirect("/signin")

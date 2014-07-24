@@ -1053,3 +1053,8 @@ padding: 3px 10px;
 .note-editor .note-editable {
 min-height: 100px;
 }
+
+.sidenav li.actived{
+
+background-color: #eee;
+}

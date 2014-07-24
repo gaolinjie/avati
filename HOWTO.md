@@ -18,11 +18,11 @@ HOWTO deploy on Linode
 	$ pip install supervisor 
 
 ###Config Git
-	$ ssh-keygen -t rsa -C "avatti@gmail.com"
+	$ ssh-keygen -t rsa -C "avati@gmail.com"
 	$ cat ~/.ssh/id_rsa.pub
 	# copy and paste the RSA key to the Deploy keys setting
 	$ git config --global user.name "avati"  
-	$ git config --global user.email avatti@gmail.com  
+	$ git config --global user.email avati@gmail.com  
 
 ###Make directories for your app
 	$ mkdir ~/www
@@ -53,11 +53,11 @@ HOWTO deploy on Linode
 
 ###Create database and then execute sql file in dbstructure/
 	$ mysql -u root -p
-	mysql> CREATE DATABASE avatti;
-	mysql> GRANT ALL PRIVILEGES ON avatti.* TO 'avatti'@'localhost' IDENTIFIED BY 'avatti';
+	mysql> CREATE DATABASE avati;
+	mysql> GRANT ALL PRIVILEGES ON avati.* TO 'avati'@'localhost' IDENTIFIED BY 'avati';
 	mysql> exit
-	$ mysql -u avatti -p --database=avatti < dbstructure/avatti.sql
-	$ mysql -u avatti -p --database=avatti < dbstructure/data.sql
+	$ mysql -u avati -p --database=avati < dbstructure/avati.sql
+	$ mysql -u avati -p --database=avati < dbstructure/data.sql
 
 ###Install Torndb
     $ pip install torndb

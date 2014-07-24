@@ -15,7 +15,7 @@
       <div class="question">
         <div class="topic-tags">
           {% for tag in tags.list %}
-          <a href="/tag/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
+          <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
           {% endfor %}
         </div>
         <div class="topic-title">
@@ -65,7 +65,7 @@
               </button>
             </div>
             <div class="user-title">
-              <div class="user-name">{{reply.author_username}}，{{reply.author_sign}}</div>
+              <div class="user-name">{{reply.author_username}}{%if reply.author_sign%}，{{reply.author_sign}}{%endif%}</div>
               <div class="answer-user-meta meta">Zikiong Lim、吕归尘、jia najia 等人赞同</div>
             </div>
             <div class="user-avatar">
@@ -94,7 +94,7 @@
       <div class="comment-box">
         <div class="user-wrapper">
           <div class="user-title">
-            <div class="user-name">{{user_info.username}}，{{user_info.sign}}</div>
+            <div class="user-name">{{user_info.username}}{%if user_info.sign%}，{{user_info.sign}}{%endif%}</div>
             <div class="user-meta meta">
               <a href="#">
                 修改话题经验
