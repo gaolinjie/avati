@@ -5,10 +5,10 @@
 
 from lib.query import Query
 
-class AgreeModel(Query):
+class VoteModel(Query):
     def __init__(self, db):
         self.db = db
-        self.table_name = "agree"
-        super(AgreeModel, self).__init__()
+        self.table_name = "vote"
+        super(VoteModel, self).__init__()
 
 

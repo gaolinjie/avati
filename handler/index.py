@@ -252,3 +252,30 @@ class FollowHandler(BaseHandler):
                     "success": 0,
                     "message": "failed",
             }))
+
+class VoteHandler(BaseHandler):
+    def get(self, reply_id, template_variables = {}):
+        user_info = self.current_user
+        vote_type = self.get_argument('v', "null")
+
+        if(user_info):
+            vote = self.vote_model.get_vote(user_info.uid, reply_id)
+            if vote_type=="u":
+                self.vote_model.update_vote_by_post_id(post_id, {"love": vote.love+1})
+                if vote.love+1 > 3:
+                    hot = self.hot_model.get_hot_by_post_id(post_id)
+                    if not hot:
+                        post = self.post_model.get_post_by_post_id(post_id)
+                        hot_id = self.hot_model.add_new_hot({"post_id": post_id, "channel_id": post.channel_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})     
+            if vote_type=="d":
+                self.vote_model.update_vote_by_post_id(post_id, {"omg": vote.omg+1})
+                if vote.omg+1 > 3:
+                    hot = self.hot_model.get_hot_by_post_id(post_id)
+                    if not hot:
+                        post = self.post_model.get_post_by_post_id(post_id)
+                        hot_id = self.hot_model.add_new_hot({"post_id": post_id, "channel_id": post.channel_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})     
+            
+            
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))

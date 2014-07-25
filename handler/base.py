@@ -77,8 +77,8 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.application.like_model
 
     @property
-    def agree_model(self):
-        return self.application.agree_model
+    def vote_model(self):
+        return self.application.vote_model
 
     @property
     def post_tag_model(self):

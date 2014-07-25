@@ -62,6 +62,7 @@ class Application(tornado.web.Application):
             (r"/tags", handler.index.TagsHandler),
             (r"/reply/(\d+)", handler.index.ReplyHandler),
             (r"/follow", handler.index.FollowHandler),
+            (r"/vote/(\d+)", handler.index.VoteHandler),
 
             (r"/u/(.*)", handler.user.UserHandler),
             (r"/signin", handler.user.SigninHandler),
@@ -92,7 +93,7 @@ class Application(tornado.web.Application):
         self.reply_model = self.loader.use("reply.model")
         self.feed_type_model = self.loader.use("feed_type.model")
         self.llike_model = self.loader.use("like.model")
-        self.agree_model = self.loader.use("agree.model")
+        self.vote_model = self.loader.use("vote.model")
         self.post_tag_model = self.loader.use("post_tag.model")
         self.tag_model = self.loader.use("tag.model")
         self.category_model = self.loader.use("category.model")

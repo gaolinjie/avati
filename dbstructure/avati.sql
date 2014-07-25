@@ -120,13 +120,13 @@ CREATE TABLE `like` (
 
 
 -- ----------------------------
---  Table structure for `agree`
+--  Table structure for `vote`
 -- ----------------------------
-DROP TABLE IF EXISTS `agree`;
-CREATE TABLE `agree` (
+DROP TABLE IF EXISTS `vote`;
+CREATE TABLE `vote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `reply_id` int(11) DEFAULT NULL,
-  `up_down` int(11) DEFAULT NULL,
+  `up_down` text,
   `author_id` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
