@@ -11,4 +11,8 @@ class FeedModel(Query):
         self.table_name = "feed"
         super(FeedModel, self).__init__()
 
+    def add_new_feed(self, feed_info):
+        return self.data(feed_info).add()
+
+
 

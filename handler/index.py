@@ -34,6 +34,7 @@ class IndexHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
+            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid)
             self.render("index.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -86,6 +87,15 @@ class NewHandler(BaseHandler):
 
         post_id = self.post_model.add_new_post(post_info)
         self.redirect("/p/"+str(post_id))
+
+        # add feed
+        feed_info = {
+            "user_id": self.current_user["uid"],           
+            "post_id": post_id,
+            "feed_type": 1,
+            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+        }
+        self.feed_model.add_new_feed(feed_info)
 
         # add follow
         follow_info = {

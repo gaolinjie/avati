@@ -20,32 +20,28 @@ class FollowModel(Query):
 
     def get_user_all_follow_feeds(self, author_id, num = 10, current_page = 1):
         where = "follow.author_id = %s" % author_id
-        join = "RIGHT JOIN feed ON (follow.obj_type = 'u' AND follow.obj_id = feed.user_id) OR (follow.obj_type = 'q' AND follow.obj_id = feed.post_id)\
-                LEFT JOIN user AS author_user ON post.author_id = author_user.uid \
-                LEFT JOIN channel ON post.channel_id = channel.id \
-                LEFT JOIN video ON post.video_id = video.id \
-                LEFT JOIN nav ON channel.nav_id = nav.id \
-                LEFT JOIN comment ON post.last_comment = comment.id \
-                LEFT JOIN user AS comment_user ON comment.author_id = comment_user.uid \
-                LEFT JOIN favorite ON '%s' = favorite.user_id AND post.id = favorite.post_id \
-                LEFT JOIN later ON '%s' = later.user_id AND post.id = later.post_id" % (user_id, user_id)
-        order = "post.created DESC, post.id DESC"
-        field = "post.*, \
+        join = "RIGHT JOIN feed ON (follow.obj_type = 'u' AND follow.obj_id = feed.user_id) OR (follow.obj_type = 'q' AND follow.obj_id = feed.post_id) OR (follow.obj_type = 'p' AND follow.obj_id = feed.post_id) OR (follow.obj_type = 't' AND follow.obj_id = feed.tag_id)\
+                LEFT JOIN user AS author_user ON feed.user_id = author_user.uid \
+                LEFT JOIN tag ON feed.tag_id = tag.id \
+                LEFT JOIN post ON feed.post_id = post.id \
+                LEFT JOIN user AS post_user ON post.author_id = post_user.uid \
+                LEFT JOIN reply ON feed.reply_id = reply.id \
+                LEFT JOIN user AS reply_user ON reply.author_id = reply_user.uid\
+                LEFT JOIN feed_type ON feed.feed_type = feed_type.id " 
+        order = "feed.created DESC, feed.id DESC"
+        field = "feed.*, \
                 author_user.username as author_username, \
                 author_user.avatar as author_avatar, \
-                channel.id as channel_id, \
-                channel.name as channel_name, \
-                nav.name as nav_name, \
-                nav.title as nav_title, \
-                video.source as video_source, \
-                video.flash as video_flash, \
-                video.title as video_title, \
-                video.thumb as video_thumb, \
-                video.link as video_link, \
-                comment.content as comment_content, \
-                comment.created as comment_created, \
-                comment_user.username as comment_user_name, \
-                comment_user.avatar as comment_user_avatar, \
-                favorite.id as favorite_id, \
-                later.id as later_id"
+                tag.name as tag_name, \
+                tag.thumb as tag_thumb, \
+                post.id as post_id, \
+                post.title as post_title, \
+                post.content as post_content, \
+                post.post_type as post_type, \
+                post.thumb as post_thumb, \
+                post.reply_num as post_reply_num, \
+                post.created as post_created, \
+                reply.id as reply_id, \
+                reply.content as reply_content,\
+                feed_type.feed_text as feed_text"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)

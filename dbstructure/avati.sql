@@ -84,7 +84,7 @@ CREATE TABLE `feed` (
   `tag_id` int(11) DEFAULT NULL,
   `post_id` int(11) DEFAULT NULL,
   `reply_id` int(11) DEFAULT NULL,
-  `feed_ype` int(11) DEFAULT NULL,
+  `feed_type` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
