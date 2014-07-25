@@ -88,7 +88,7 @@ class NewHandler(BaseHandler):
         post_id = self.post_model.add_new_post(post_info)
         self.redirect("/p/"+str(post_id))
 
-        # add feed
+        # add feed: user 提出了问题
         feed_info = {
             "user_id": self.current_user["uid"],           
             "post_id": post_id,
@@ -172,6 +172,17 @@ class ReplyHandler(BaseHandler):
 
             post = self.post_model.get_post_by_post_id(post_id)
             self.post_model.update_post_by_post_id(post_id, {"reply_num": post.reply_num+1,})
+
+            # add feed: user 回答了问题
+            feed_info = {
+                "user_id": self.current_user["uid"],           
+                "post_id": post.id,
+                "reply_id": reply_id,
+                "feed_type": 2,
+                "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+            }
+            self.feed_model.add_new_feed(feed_info)
+
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                     "message": "successed",
@@ -204,6 +215,33 @@ class FollowHandler(BaseHandler):
                     "created": time.strftime('%Y-%m-%d %H:%M:%S')
                 }
                 self.follow_model.add_new_follow(follow_info)
+
+                if obj_type=='q' or obj_type=='p':
+                    # add feed: user 关注了问题
+                    feed_info = {
+                        "user_id": self.current_user["uid"],           
+                        "post_id": obj_id,
+                        "feed_type": 3,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    self.feed_model.add_new_feed(feed_info)
+
+                    follows = self.follow_model.get_post_all_follows(obj_id)
+                    if len(follows) > 2:
+                        tags = self.post_tag_model.get_post_all_tags(obj_id)
+                        for tag in tags["list"]:
+                            # add feed: tag 下很多人关注了问题
+                            feed_info = {
+                                "tag_id": tag.id,           
+                                "post_id": obj_id,
+                                "feed_type": 4,
+                                "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                            }
+                            self.feed_model.add_new_feed(feed_info)
+
+
+
+
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,

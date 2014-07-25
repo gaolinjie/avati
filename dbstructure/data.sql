@@ -14,11 +14,6 @@ INSERT INTO `feed_type` VALUES (12, '下很多人赞同了评论');
 
 
 
-
-
-
-
-
 问答：
 
 user 提出了问题

@@ -13,6 +13,10 @@ class FollowModel(Query):
         where = "author_id = %s AND obj_id = %s AND obj_type = '%s'" % (author_id, obj_id, obj_type)
         return self.where(where).find()
 
+    def get_post_all_follows(self, obj_id):
+        where = "obj_id = %s AND (obj_type = 'p' OR obj_type = 'q')" % obj_id
+        return self.where(where).select()
+
 
     def delete_follow_by_id(self, follow_id):
         where = "id = %s " % follow_id
