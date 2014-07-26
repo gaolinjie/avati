@@ -14,5 +14,13 @@ class FeedModel(Query):
     def add_new_feed(self, feed_info):
         return self.data(feed_info).add()
 
+    def get_feed_user_vote_feed(self, user_id, reply_id):
+        where = "user_id = %s AND reply_id = %s AND (feed_type = 5 OR feed_type = 11)" % (user_id, reply_id)
+        return self.where(where).find()
+
+    def delete_feed_by_id(self, feed_id):
+        where = "feed.id = %s " % feed_id
+        return self.where(where).delete()
+
 
 

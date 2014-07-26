@@ -256,26 +256,65 @@ class FollowHandler(BaseHandler):
 class VoteHandler(BaseHandler):
     def get(self, reply_id, template_variables = {}):
         user_info = self.current_user
-        vote_type = self.get_argument('v', "null")
+        vote_type = self.get_argument('vote', "null")
 
         if(user_info):
-            vote = self.vote_model.get_vote(user_info.uid, reply_id)
-            if vote_type=="u":
-                self.vote_model.update_vote_by_post_id(post_id, {"love": vote.love+1})
-                if vote.love+1 > 3:
-                    hot = self.hot_model.get_hot_by_post_id(post_id)
-                    if not hot:
-                        post = self.post_model.get_post_by_post_id(post_id)
-                        hot_id = self.hot_model.add_new_hot({"post_id": post_id, "channel_id": post.channel_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})     
-            if vote_type=="d":
-                self.vote_model.update_vote_by_post_id(post_id, {"omg": vote.omg+1})
-                if vote.omg+1 > 3:
-                    hot = self.hot_model.get_hot_by_post_id(post_id)
-                    if not hot:
-                        post = self.post_model.get_post_by_post_id(post_id)
-                        hot_id = self.hot_model.add_new_hot({"post_id": post_id, "channel_id": post.channel_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})     
-            
-            
+            reply = self.reply_model.get_reply_by_id(reply_id)
+            vote = self.vote_model.get_vote_by_user_and_reply(user_info.uid, reply_id)
+            post = self.post_model.get_post_by_post_id(reply.post_id)
+            if post.post_type == 'q':
+                feed_type = 5;
+            else:
+                feed_type = 11;
+
+            if vote:
+                if vote_type==vote.up_down:
+                    self.vote_model.delete_vote_by_id(vote.id)
+                    if vote.up_down=='up':
+                        self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num-1})
+                        feed = self.feed_model.get_feed_user_vote_feed(user_info.uid, reply.id)
+                        if feed:
+                            self.feed_model.delete_feed_by_id(feed.id)
+                    else:
+                        self.reply_model.update_reply_by_id(reply.id, {"down_num": reply.down_num-1})
+                else:
+                    if vote.up_down=='up':
+                        self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num-1, "down_num": reply.down_num+1})
+                        feed = self.feed_model.get_feed_user_vote_feed(user_info.uid, reply.id)
+                        if feed:
+                            self.feed_model.delete_feed_by_id(feed.id)
+                    else:
+                        self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num+1, "down_num": reply.down_num-1})
+                        # add feed: user 赞同了回答
+                        feed_info = {
+                            "user_id": user_info.uid,           
+                            "post_id": reply.post_id,
+                            "reply_id": reply.id,
+                            "feed_type": feed_type,
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                        }
+                        self.feed_model.add_new_feed(feed_info)
+                    self.vote_model.update_vote_by_id(vote.id, {"up_down": vote_type, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
+            else:
+                self.vote_model.add_new_vote({"reply_id": reply_id, "up_down": vote_type, "author_id": user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
+                if vote_type=='up':
+                    self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num+1})
+
+                    # add feed: user 赞同了回答
+                    feed_info = {
+                        "user_id": user_info.uid,           
+                        "post_id": reply.post_id,
+                        "reply_id": reply.id,
+                        "feed_type": feed_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    self.feed_model.add_new_feed(feed_info)
+                else:
+                    self.reply_model.update_reply_by_id(reply.id, {"down_num": reply.down_num+1})
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
                 }))

@@ -19,7 +19,7 @@ class FollowModel(Query):
 
 
     def delete_follow_by_id(self, follow_id):
-        where = "id = %s " % follow_id
+        where = "follow.id = %s " % follow_id
         return self.where(where).delete()
 
     def get_user_all_follow_feeds(self, author_id, num = 10, current_page = 1):
@@ -47,5 +47,7 @@ class FollowModel(Query):
                 post.created as post_created, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
-                feed_type.feed_text as feed_text"
+                feed_type.feed_text as feed_text, \
+                reply_user.username as reply_user_username, \
+                reply_user.sign as reply_user_sign"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)

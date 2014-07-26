@@ -24,3 +24,11 @@ class ReplyModel(Query):
                 user.sign as author_sign, \
                 user.avatar as author_avatar"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+
+    def get_reply_by_id(self, reply_id):
+        where = "reply.id = %s" % reply_id
+        return self.where(where).find()
+
+    def update_reply_by_id(self, reply_id, reply_info):
+        where = "reply.id = %s" % reply_id
+        return self.where(where).data(reply_info).save()

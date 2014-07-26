@@ -156,6 +156,7 @@ CREATE TABLE `tag` (
   `name` text,
   `thumb` text,
   `intro` text,
+  `tag_type` text,
   `category` int(11) DEFAULT NULL,
   `post_num` int(11) DEFAULT NULL,
   `is_new` int(11) DEFAULT NULL,

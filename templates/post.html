@@ -55,11 +55,11 @@
         <div class="answer-item">
           <div class="user-wrapper">
             <div class="zm-votebar">
-              <button class="up vote-btn"  title="赞同" data-id="{{reply.id}}" data-type="u"> <i class="icon vote-arrow"></i>
+              <button class="up vote-btn"  title="赞同" data-id="{{reply.id}}" data-type="up"> <i class="icon vote-arrow"></i>
                 <span class="label">赞同</span>
                 <span class="count">{{reply.up_num}}</span>
               </button>
-              <button class="down vote-btn"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="d">
+              <button class="down vote-btn"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
                 <i class="icon vote-arrow"></i>
                 <span class="label">反对，不会显示你的姓名</span>
                 <span class="count" style="display: none;">{{reply.down_num}}</span>
@@ -273,20 +273,20 @@ $(document).on('click', '.vote-btn',  function() {
   var vote_id = $(this).attr('data-id');
   var vote_type = $(this).attr('data-type');
   var vote_btn = $(this);
-  var vote_up = $(this).parent().find.('.up');
-  var vote_down = $(this).parent().find.('.down');
+  var vote_up = $(this).parent().find('.up');
+  var vote_down = $(this).parent().find('.down');
   var vote_num = $(this).find('.count');
-  $.getJSON('/vote/' + vote_id + '?v=' + vote_type, function (data) {
+  $.getJSON('/vote/' + vote_id + '?vote=' + vote_type, function (data) {
     if (data.success != 0) {
       if (vote_btn.hasClass('voted')) {
         vote_btn.removeClass('voted');
-        if (vote_type=='u') {
+        if (vote_type=='up') {
           vote_num.text(parseInt(vote_num.text()) - 1);
         }
       }
       else {
         vote_btn.addClass('voted');
-        if (vote_type=='u') {
+        if (vote_type=='up') {
           vote_num.text(parseInt(vote_num.text()) + 1);
           if (vote_down.hasClass('voted')) {
             vote_down.removeClass('voted');
@@ -300,7 +300,7 @@ $(document).on('click', '.vote-btn',  function() {
       } 
     }
   });
-}
+});
             
 </script>
 {% endblock %}
