@@ -1059,4 +1059,11 @@ min-height: 100px;
 background-color: #eee;
 }
 
+.vote-btn.voted {
+background: #698ebf;
+color: #fff;
+}
 
+.vote-btn.voted .vote-arrow {
+border-bottom-color: #fff;
+}

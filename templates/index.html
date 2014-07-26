@@ -117,13 +117,13 @@
         <div class="feed">
             <div class="user-wrapper">
                 <div class="user-avatar">
-                    <a href="#/t/{{feed.tag_name}}">
+                    <a href="/t/{{feed.tag_name}}">
                         <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img">
                     </a>
                 </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
-                    <div class="user-meta meta"><a class="user-link" href="#/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
                     <div class="feed-title">
                         <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
                         </h2>
@@ -187,6 +187,39 @@
         {%endif%}
 
         {%if feed.feed_type==6%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/t/{{feed.tag_name}}">
+                        <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a herf="#">关注问题</a>
+                <span class="bullet">•</span>
+                <a herf="#">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a herf="#">分享</a>
+                <span class="bullet">•</span>
+                <a herf="#">感谢</a>
+                <span class="bullet">•</span>
+                <a herf="#">举报</a>
+            </div>
         {%endif%}
 
         {%if feed.feed_type==7%}

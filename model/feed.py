@@ -22,5 +22,9 @@ class FeedModel(Query):
         where = "feed.id = %s " % feed_id
         return self.where(where).delete()
 
+    def delete_feed_by_reply_and_type(self, reply_id, feed_type):
+    	where = "feed.reply_id = %s AND feed.feed_type = %s" % (reply_id, feed_type)
+        return self.where(where).delete()
+
 
 
