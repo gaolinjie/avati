@@ -55,11 +55,11 @@
         <div class="answer-item">
           <div class="user-wrapper">
             <div class="zm-votebar">
-              <button class="btn up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up"> <i class="icon vote-arrow"></i>
+              <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up"> <i class="icon vote-arrow"></i>
                 <span class="label">赞同</span>
                 <span class="count">{{reply.up_num}}</span>
               </button>
-              <button class="btn down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
+              <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
                 <i class="icon vote-arrow"></i>
                 <span class="label">反对，不会显示你的姓名</span>
                 <span class="count" style="display: none;">{{reply.down_num}}</span>
