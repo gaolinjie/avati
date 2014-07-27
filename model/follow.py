@@ -24,7 +24,7 @@ class FollowModel(Query):
 
     def get_user_all_follow_feeds(self, author_id, num = 10, current_page = 1):
         where = "follow.author_id = %s" % author_id
-        join = "RIGHT JOIN feed ON (follow.obj_type = 'u' AND follow.obj_id = feed.user_id) OR (follow.obj_type = 'q' AND follow.obj_id = feed.post_id) OR (follow.obj_type = 'p' AND follow.obj_id = feed.post_id) OR (follow.obj_type = 't' AND follow.obj_id = feed.tag_id)\
+        join = "RIGHT JOIN feed ON (follow.obj_type = 'u' AND follow.obj_id = feed.user_id) OR ((follow.obj_type = 'q' OR follow.obj_type = 'p') AND follow.obj_id = feed.post_id AND (feed.feed_type = 2 OR  feed.feed_type = 8)) OR (follow.obj_type = 't' AND follow.obj_id = feed.tag_id)\
                 LEFT JOIN user AS author_user ON feed.user_id = author_user.uid \
                 LEFT JOIN tag ON feed.tag_id = tag.id \
                 LEFT JOIN post ON feed.post_id = post.id \

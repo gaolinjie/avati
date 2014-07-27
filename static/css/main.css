@@ -199,21 +199,9 @@ border-radius: 50%;
 	float: right;
 }
 
-@media screen and (min-width:959px) {
-.comment-area .form-control {
-	width: 638px;
-	margin: 20px 0;
-	min-height: 74px;
-}
-}
 
-@media screen and (max-width:959px) {
-.comment-area .form-control {
-	width: 100%;
-	margin: 20px 0;
-	min-height: 74px;
-}
-}
+
+
 
 
 
@@ -1066,4 +1054,20 @@ color: #fff;
 
 .vote-btn.voted .vote-arrow {
 border-bottom-color: #fff;
+}
+
+.meta a {
+color: #999;
+}
+
+.meta a:hover {
+color: #5490c3;
+}
+
+.label {
+font-size: 14px;
+}
+
+.zm-votebar .down.voted .vote-arrow {
+border-top-color: #fff;
 }

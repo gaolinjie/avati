@@ -217,6 +217,20 @@ class FollowHandler(BaseHandler):
             follow = self.follow_model.get_follow(user_info.uid, obj_id, obj_type)
             if(follow):
                 self.follow_model.delete_follow_by_id(follow.id)
+                if obj_type=='q' or obj_type=='p':
+                    if obj_type == 'q':
+                        feed_type = 3
+                    else:
+                        feed_type = 9
+                    self.feed_model.delete_feed_by_user_post__and_type(user_info.uid,  obj_id, feed_type)
+
+                    follows = self.follow_model.get_post_all_follows(obj_id)
+                    if len(follows) <= THRESHOLD:
+                        if obj_type == 'q':
+                            feed_type = 4
+                        else:
+                            feed_type = 10
+                        self.feed_model.delete_feed_by_post_and_type(obj_id, feed_type)
             else:
                 follow_info = {
                     "author_id": user_info["uid"],
