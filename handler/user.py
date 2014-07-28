@@ -187,6 +187,23 @@ class UserHandler(BaseHandler):
             template_variables["view_user"] = view_user
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
 
+            template_variables["feeds"] = self.feed_model.get_user_all_feeds(view_user.uid, user_info.uid)
+
+            feeds1 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 1)
+            feeds2 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 2)
+            feeds7 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 7)
+            feeds8 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 8)
+
+            template_variables["feeds1"] = feeds1
+            template_variables["feeds2"] = feeds2
+            template_variables["feeds7"] = feeds7
+            template_variables["feeds8"] = feeds8
+
+            template_variables["feeds1_len"] = len(feeds1["list"])
+            template_variables["feeds2_len"] = len(feeds2["list"])
+            template_variables["feeds7_len"] = len(feeds7["list"])
+            template_variables["feeds8_len"] = len(feeds8["list"])
+
             self.render("user.html", **template_variables)
         else:
             self.redirect("/login")

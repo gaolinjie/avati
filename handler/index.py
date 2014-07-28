@@ -35,6 +35,7 @@ class IndexHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
+            template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
             template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid)
             self.render("index.html", **template_variables)
         else:

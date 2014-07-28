@@ -66,7 +66,7 @@
               </button>
             </div>
             <div class="user-title">
-              <div class="user-name">{{reply.author_username}}{%if reply.author_sign%}，{{reply.author_sign}}{%endif%}</div>
+              <div class="user-name"><a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>{%if reply.author_sign%}，{{reply.author_sign}}{%endif%}</div>
               <div class="answer-user-meta meta">
                 Zikiong Lim、吕归尘、jia najia 等人赞同
               </div>
@@ -97,7 +97,7 @@
       <div class="comment-box">
         <div class="user-wrapper">
           <div class="user-title">
-            <div class="user-name">{{user_info.username}}{%if user_info.sign%}，{{user_info.sign}}{%endif%}</div>
+            <div class="user-name"><a href="/u/{{user_info.username}}">{{user_info.username}}</a>{%if user_info.sign%}，{{user_info.sign}}{%endif%}</div>
             <div class="user-meta meta">
               <a href="#">
                 修改话题经验
@@ -129,6 +129,7 @@
           <a href="#">推送问题给更多人</a>
         </div>
       </div>
+      {% if related_posts.list %}
       <div class="related-box box">
         <h3>相关问题</h3>
         {% for related_post in related_posts.list %}
@@ -137,6 +138,7 @@
         </p>
         {% endfor %}
       </div>
+      {% endif %}
 
       <div class="share-box box">
         <h3>分享问题</h3>

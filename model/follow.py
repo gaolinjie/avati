@@ -53,3 +53,11 @@ class FollowModel(Query):
                 reply_user.sign as reply_user_sign, \
                 post_follow.id as post_follow_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+
+    def get_user_follow_hot_posts(self, author_id, num = 10, current_page = 1):
+        where = "follow.author_id = %s AND follow.obj_type = 't'" % author_id
+        join = "RIGHT JOIN post_tag AS related_post_tag ON follow.obj_id = related_post_tag.tag_id\
+                LEFT JOIN post ON related_post_tag.post_id = post.id"
+        order = "post.reply_num DESC, post.created DESC, post.id DESC"
+        field = "post.*"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)

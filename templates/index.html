@@ -123,7 +123,7 @@
                 </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
-                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a> {{feed.feed_text}}</div>
                     <div class="feed-title">
                         <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
                         </h2>
@@ -253,7 +253,7 @@
 
     <ul class="nav nav-list">
         <li class="nav-item">
-            <a href="/"> <i class="icon-home"></i>
+            <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
                 我的主页
             </a>
         </li>
@@ -292,28 +292,16 @@
         </li>
     </ul>
 
-
-
-    <div class="related-box box">
+    {% if 0 and related_posts.list %}
+      <div class="related-box box">
         <h3>热门问题</h3>
+        {% for related_post in related_posts.list %}
         <p>
-            <a href="#">电视购物上卖的东西真的有人买吗？购买者是家庭主妇和老年人居多吗？ 11 个回答</a>
+          <a href="/p/{{related_post.id}}">{{related_post.title}}</a>
         </p>
-        <p>
-            <a href="#">什么东西适合按月订购？ 13 个回答</a>
-        </p>
-        <p>
-            <a href="#">
-            有些小东西，特别需要，身边很难买，网购吧，运费都是物品的几倍了，感觉不划算。各大电商难道不能想办法解决的这个问题吗？ 11 个回答
-          </a>
-        </p>
-        <p>
-            <a href="#">在服装店里买了一件衣服，花掉300元，这300元分别落入谁的口袋？我国的消费者是否在被剥削？ 2 个回答</a>
-        </p>
-        <p>
-            <a href="#">在聚划算买的东西的价格，在成交记录里面是原价，算是欺骗行为么？ 11 个回答</a>
-        </p>
-    </div>
+        {% endfor %}
+      </div>
+      {% endif %}
 
 </div>
 {% endblock %}

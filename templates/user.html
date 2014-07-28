@@ -89,247 +89,332 @@
 
         <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
           <li class="active">
-            <a href="#question" role="tab" data-toggle="tab">问答 12</a>
+            <a href="#feed" role="tab" data-toggle="tab">最新动态</a>
           </li>
           <li>
-            <a href="#post" role="tab" data-toggle="tab">文章 18</a>
+            <a href="#question" role="tab" data-toggle="tab">问题 {{feeds1_len}}</a>
           </li>
           <li>
-            <a href="#coupon" role="tab" data-toggle="tab">优惠 34</a>
+            <a href="#answer" role="tab" data-toggle="tab">回答 {{feeds2_len}}</a>
+          </li>
+          <li>
+            <a href="#post" role="tab" data-toggle="tab">文章 {{feeds7_len}}</a>
+          </li>
+          <li>
+            <a href="#comment" role="tab" data-toggle="tab">评论 {{feeds8_len}}</a>
           </li>
         </ul>
 
         <div class="tab-content">
-          <div class="tab-pane active" id="question">
+          <div class="tab-pane active" id="feed">
             <div class="feed-list">
-              <div class="feed">
+        {%for feed in feeds.list%}
 
-                <div class="user-wrapper">
-                  <div class="user-title">
-                    <div class="time" >5 小时前</div>
-                    <div class="user-meta meta">
-                      <a class="user-link" href="#">陈炜</a>
-                      赞同了回答
-                    </div>
+        {%if feed.feed_type==1%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
                     <div class="feed-title">
-                      <h2>
-                        <a href="/post">对于即将到来的小米 4 和魅族 MX4，谁能笑到最后？</a>
-                      </h2>
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
                     </div>
-
-                  </div>
-
                 </div>
-                <div class="summary">
-                  <div class="user-name">黄轶轩，发烧的事情，怎么是偷！</div>
-                  <div class="summary-text">
-                    谢邀。这个问题太大了。我觉得还是换个角度解读吧。其实我想问， <b>谁胜谁负重要么？</b> <b>请注意，智能手机市场并没有发展到你死我活的地步。你看，即使份额衰落迅速之黑莓，也有我这样的脑残粉。</b>
-                    <b>服务好自己的用户，才是真正的立足之本。</b>
-                    从产品层面来看，真正问题的…
-                    <a href="/question/24439560/answer/27923618" class="toggle-expand">显示全部</a>
-
-                  </div>
-                </div>
-                <div class="answer-meta meta">
-                  <a herf="#">关注问题</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">18+ 条评论</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">分享</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">感谢</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">举报</a>
-                </div>
-
-              </div>
-
-              <div class="feed">
-
-                <div class="user-wrapper">
-                  <div class="user-title">
-                    <div class="time" >20 分钟前</div>
-                    <div class="user-meta meta">
-                      <a class="user-link" href="#">平板电脑</a>
-                      下很多人喜欢了晒单
-                    </div>
-                    <div class="feed-title">
-                      <h2>
-                        <a href="/post">盛夏，因你而生的一抹清凉 -- 三星 GALAXY Tab S 图赏</a>
-                      </h2>
-                    </div>
-
-                  </div>
-
-                </div>
-                <div class="summary">
-                  <div class="user-name">auxten，没有蛀牙，太有想法</div>
-                  <div class="summary-text">
-
-                    <a href="#" target="_blank">
-                      <img src="http://img.dgtle.com/portal/201407/14/114749rpjpb8t9b509cm19.jpg!680px" alt="盛夏，因你而生的一抹清凉 -- 三星 GALAXY Tab S 图赏" ></a>
-
-                  </div>
-                </div>
-                <div class="answer-meta meta">
-                  <a herf="#">7+ 条评论</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">15 个人喜欢</a>
-                </div>
-
-              </div>
-
-              <div class="feed">
-
-                <div class="user-wrapper">
-                  <div class="user-title">
-                    <div class="time" >11 小时前</div>
-                    <div class="user-meta meta">
-                      <a class="user-link" href="#">海淘</a>
-                      下很多人关注了问题
-                    </div>
-                    <div class="feed-title">
-                      <h2>
-                        <a href="/post">
-                          为什么海淘那么大的一个市场却没有一个像样的转运公司，在美国办一间这样的公司会很困难吗？美国的华人转运公司在面对什么样的困境？
-                        </a>
-                      </h2>
-                    </div>
-
-                  </div>
-
-                </div>
-                <div class="answer-meta meta">
-                  <a herf="#">关注问题</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">2+ 条评论</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">5 个回答</a>
-                </div>
-
-              </div>
-
-              <div class="feed">
-
-                <div class="user-wrapper">
-                  <div class="user-title">
-                    <div class="time" >9 小时前</div>
-                    <div class="user-meta meta">
-                      <a class="user-link" href="#">Apple</a>
-                      下很多人赞同了回答
-                    </div>
-                    <div class="feed-title">
-                      <h2>
-                        <a href="/post">如何判断 iPhone 4s 和 iPhone 5 哪个更值得买？</a>
-                      </h2>
-                    </div>
-
-                  </div>
-
-                </div>
-                <div class="summary">
-                  <div class="user-name">叶之行，广告人、摄影师、设计师、导演。未来，有…</div>
-                  <div class="summary-text">
-                    说说我的感受：一个月前入手5，我是女孩子，对手机没有什么研究，说不出那些参数、数据等有技术含量的问题，只是因为寒假的时候，之前的手机（安卓的）坏掉了，又机缘巧合在当地办了一个合算的套餐，拿了5的电信合约机。
-                    <a href="/question/24439560/answer/27923618" class="toggle-expand">显示全部</a>
-
-                  </div>
-                </div>
-                <div class="answer-meta meta">
-                  <a herf="#">关注问题</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">7+ 条评论</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">分享</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">感谢</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">举报</a>
-                </div>
-
-              </div>
-
-              <div class="feed">
-
-                <div class="user-wrapper">
-                  <div class="user-title">
-                    <div class="time" >1 天前</div>
-                    <div class="user-meta meta">
-                      <a class="user-link" href="#">Setsuna</a>
-                      发布了评测
-                    </div>
-                    <div class="feed-title">
-                      <h2>
-                        <a href="/post">专为色彩代言 -- Nokia Lumia 930 香港入手+开箱</a>
-                      </h2>
-                    </div>
-
-                    <div class="summary">
-                      <div class="summary-text">
-
-                        <a href="http://www.dgtle.com/article-6990-1.html" target="_blank" sl-processed="1">
-                          <img src="http://img.dgtle.com/portal/201407/12/130816kg8uacqc6cptty8u.jpg!680px"></a>
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-                <div class="answer-meta meta">
-                  <a herf="#">7+ 条评论</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">15 个人喜欢</a>
-                </div>
-
-              </div>
-
-              <div class="feed">
-
-                <div class="user-wrapper">
-                  <div class="user-title">
-                    <div class="time" >6 分钟前</div>
-                    <div class="user-meta meta">
-                      <a class="user-link" href="#">Lawrence Li</a>
-                      回答了问题
-                    </div>
-                    <div class="feed-title">
-                      <h2>
-                        <a href="#">为什么有些女生喜欢在微信朋友圈里晒电影票和飞机票？</a>
-                      </h2>
-                    </div>
-
-                  </div>
-
-                </div>
-                <div class="summary">
-                  <div class="summary-text">
-                    对有些女生来说，发微信朋友圈的作用可能不是”晒“，而是”收集“和”记录“
-
-根据进化心理学，女生擅长”收集“。同时女生也更容易多愁善感和怀旧。
-
-保存电影票和飞机票本身就是一个值得鼓励的行为，尤其是飞机票。因为它们记录了一个人的足迹。可以想象，在晚年的时候，选个阳光明媚的下午，闲来无事翻看一沓保存已久的，泛黄的飞机票，可以勾起多少美好的回忆。
-                    <a href="/question/24439560/answer/27923618" class="toggle-expand">显示全部</a>
-
-                  </div>
-                </div>
-                <div class="answer-meta meta">
-                  <a herf="#">关注问题</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">9+ 条评论</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">分享</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">感谢</a>
-                  <span class="bullet">•</span>
-                  <a herf="#">举报</a>
-                </div>
-
-              </div>
-
             </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+
+        {%if feed.feed_type==2%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+
+        {%if feed.feed_type==3%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+
+        {%if feed.feed_type==4%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+
+        {%if feed.feed_type==5%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+
+        {%if feed.feed_type==6%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+
+        {%if feed.feed_type==7%}
+        {%endif%}
+
+        {%if feed.feed_type==8%}
+        {%endif%}
+
+        {%if feed.feed_type==9%}
+        {%endif%}
+
+        {%if feed.feed_type==10%}
+        {%endif%}
+
+        {%if feed.feed_type==11%}
+        {%endif%}
+
+        {%if feed.feed_type==12%}
+        {%endif%}
+
+
+
+
+        {%endfor%}
+    </div>
           </div>
-          <div class="tab-pane" id="post">...</div>
-          <div class="tab-pane" id="coupon">...</div>
+          <div class="tab-pane" id="question">
+            <div class="feed-list">
+        {%for feed in feeds1.list%}
+        {%if feed.feed_type==1%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/u/{{feed.author_username}}">
+                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+          </div>
+          <div class="tab-pane" id="answer">
+            <div class="feed-list">
+        {%for feed in feeds2.list%}
+        {%if feed.feed_type==2%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+          </div>
+          <div class="tab-pane" id="post">
+            <div class="feed-list">
+        {%for feed in feeds7.list%}
+        {%if feed.feed_type==7%}
+        {%endif%}
+        {%endfor%}
+    </div>
+          </div>
+          <div class="tab-pane" id="comment">
+            <div class="feed-list">
+        {%for feed in feeds8.list%}
+        {%if feed.feed_type==8%}
+        {%endif%}
+        {%endfor%}
+    </div>
+          </div>
         </div>
       </div>
 
@@ -384,64 +469,7 @@
           <a herf="#">推送问题给更多人</a>
         </div>
       </div>
-      <div class="related-box box">
-        <h3>相关问题</h3>
-        <p>
-          <a href="#">电视购物上卖的东西真的有人买吗？购买者是家庭主妇和老年人居多吗？ 11 个回答</a>
-        </p>
-        <p>
-          <a href="#">什么东西适合按月订购？ 13 个回答</a>
-        </p>
-        <p>
-          <a href="#">
-            有些小东西，特别需要，身边很难买，网购吧，运费都是物品的几倍了，感觉不划算。各大电商难道不能想办法解决的这个问题吗？ 11 个回答
-          </a>
-        </p>
-        <p>
-          <a href="#">在服装店里买了一件衣服，花掉300元，这300元分别落入谁的口袋？我国的消费者是否在被剥削？ 2 个回答</a>
-        </p>
-        <p>
-          <a href="#">在聚划算买的东西的价格，在成交记录里面是原价，算是欺骗行为么？ 11 个回答</a>
-        </p>
-      </div>
-
-      <div class="share-box box">
-        <h3>分享问题</h3>
-        <div class="share-line">
-          <div class="share-button">
-            <a href="http://weibo.com">
-              <img src="/static/img/weibo.png" class="share-img">
-              <span class="share-text">新浪微博</span>
-            </a>
-          </div>
-
-          <div class="share-button">
-            <a href="http://weixin.qq.com/">
-              <img src="/static/img/weixin.png" class="share-img">
-              <span class="share-text">腾讯微信</span>
-            </a>
-          </div>
-          <div class="clear"></div>
-        </div>
-      </div>
-
-      <div class="status-box  box">
-        <h3>问题状态</h3>
-        <div class="zg-gray-normal">
-          最近活动于
-          <span class="time">02:00</span>
-          <span class="zg-bull">•</span>
-          <a href="/" class="check-log">查看问题日志</a>
-        </div>
-        <div class="zg-gray-normal">
-          被浏览 <strong>18193</strong>
-          次，关注者 <strong>432627</strong>
-          人
-        </div>
-
-      </div>
       {%endif%}
-
     </div>
 {% endblock %} 
 
@@ -480,5 +508,16 @@
             });
           
         });
+
+$(document).ready(function() {
+    $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.html();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.html(str.substring(0,textLeng)+"...");
+            } 
+    });
+});
 </script>
 {% endblock %}
