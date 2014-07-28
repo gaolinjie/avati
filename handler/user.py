@@ -159,6 +159,14 @@ class SignupHandler(BaseHandler):
         user_id = self.user_model.add_new_user(user_info)
         
         if(user_id):
+            follow_info = {
+                "author_id": user_id,
+                "obj_id": user_id,
+                "obj_type": "u",
+                "created": time.strftime('%Y-%m-%d %H:%M:%S')
+            }
+            self.follow_model.add_new_follow(follow_info)
+
             do_login(self, user_id)
 
             # send register success mail to user

@@ -28,15 +28,15 @@
                 </div>
             </div>
             <div class="answer-meta meta">
-                <a herf="#">关注问题</a>
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
-                <a herf="#">{{feed.post_reply_num}} 个回答</a>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a herf="#">分享</a>
+                <a href="#">分享</a>
                 <span class="bullet">•</span>
-                <a herf="#">感谢</a>
+                <a href="#">感谢</a>
                 <span class="bullet">•</span>
-                <a herf="#">举报</a>
+                <a href="#">举报</a>
             </div>
         </div>
         {%endif%}
@@ -64,15 +64,15 @@
                 </div>
             </div>
             <div class="answer-meta meta">
-                <a herf="#">关注问题</a>
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
-                <a herf="#">{{feed.post_reply_num}} 条评论</a>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a herf="#">分享</a>
+                <a href="#">分享</a>
                 <span class="bullet">•</span>
-                <a herf="#">感谢</a>
+                <a href="#">感谢</a>
                 <span class="bullet">•</span>
-                <a herf="#">举报</a>
+                <a href="#">举报</a>
             </div>
         </div>
         {%endif%}
@@ -100,15 +100,15 @@
                 </div>
             </div>
             <div class="answer-meta meta">
-                <a herf="#">关注问题</a>
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
-                <a herf="#">{{feed.post_reply_num}} 个回答</a>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a herf="#">分享</a>
+                <a href="#">分享</a>
                 <span class="bullet">•</span>
-                <a herf="#">感谢</a>
+                <a href="#">感谢</a>
                 <span class="bullet">•</span>
-                <a herf="#">举报</a>
+                <a href="#">举报</a>
             </div>
         </div>
         {%endif%}
@@ -136,15 +136,15 @@
                 </div>
             </div>
             <div class="answer-meta meta">
-                <a herf="#">关注问题</a>
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
-                <a herf="#">{{feed.post_reply_num}} 个回答</a>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a herf="#">分享</a>
+                <a href="#">分享</a>
                 <span class="bullet">•</span>
-                <a herf="#">感谢</a>
+                <a href="#">感谢</a>
                 <span class="bullet">•</span>
-                <a herf="#">举报</a>
+                <a href="#">举报</a>
             </div>
         </div>
         {%endif%}
@@ -173,15 +173,15 @@
                 </div>
             </div>
             <div class="answer-meta meta">
-                <a herf="#">关注问题</a>
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
-                <a herf="#">{{feed.post_reply_num}} 个回答</a>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a herf="#">分享</a>
+                <a href="#">分享</a>
                 <span class="bullet">•</span>
-                <a herf="#">感谢</a>
+                <a href="#">感谢</a>
                 <span class="bullet">•</span>
-                <a herf="#">举报</a>
+                <a href="#">举报</a>
             </div>
         </div>
         {%endif%}
@@ -210,15 +210,15 @@
                 </div>
             </div>
             <div class="answer-meta meta">
-                <a herf="#">关注问题</a>
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
-                <a herf="#">{{feed.post_reply_num}} 个回答</a>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a herf="#">分享</a>
+                <a href="#">分享</a>
                 <span class="bullet">•</span>
-                <a herf="#">感谢</a>
+                <a href="#">感谢</a>
                 <span class="bullet">•</span>
-                <a herf="#">举报</a>
+                <a href="#">举报</a>
             </div>
         </div>
         {%endif%}
@@ -330,5 +330,34 @@ $(document).ready(function() {
             } 
     });
 });
+
+
+$(document).on('click', '.feed-post-follow-btn',  function() {
+        var obj_id = $(this).attr('data-obj');
+            var obj_type = $(this).attr('data-type');
+            var follow_btn = $(this);
+
+            $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "/follow",
+              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
+              success: function (msg) {
+                if (follow_btn.text()=='关注问题') {
+                follow_btn.text('取消关注');
+                }
+                else {
+                follow_btn.text('关注问题');
+                }
+              },
+              error: function (msg) {
+                alert("error");
+              }
+            });
+          
+        });
 </script>
+
+
 {% endblock %}

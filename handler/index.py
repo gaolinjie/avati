@@ -48,9 +48,14 @@ class PostHandler(BaseHandler):
         if(user_info):
             post = self.post_model.get_post_by_post_id(post_id)
             template_variables["post"] = post
+            template_variables["related_posts"] = self.post_tag_model.get_post_related_posts(post_id)
             template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
-            template_variables["replys"] = self.reply_model.get_post_all_replys(post_id, user_info.uid)
+            replys = self.reply_model.get_post_all_replys(post_id, user_info.uid)
+            template_variables["replys"] = replys
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, post_id, post.post_type)
+            for reply in replys["list"]:
+                template_variables["votes"+str(reply.id)] = self.vote_model.get_reply_all_up_votes(reply.id)
+
             self.render("post.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -247,7 +252,7 @@ class FollowHandler(BaseHandler):
                         feed_type = 9
                     # add feed: user 关注了问题
                     feed_info = {
-                        "user_id": self.current_user["uid"],           
+                        "user_id": user_info["uid"],           
                         "post_id": obj_id,
                         "feed_type": feed_type,
                         "created": time.strftime('%Y-%m-%d %H:%M:%S'),
