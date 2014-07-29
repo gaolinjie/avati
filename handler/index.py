@@ -34,9 +34,12 @@ class IndexHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
+        template_variables["gen_random"] = gen_random
+        p = int(self.get_argument("p", "1"))
+        print p
         if(user_info):
             template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
-            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid)
+            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)
             self.render("index.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -148,6 +151,13 @@ class TagHandler(BaseHandler):
             tag = self.tag_model.get_tag_by_tag_name(tag_name)
             template_variables["tag"] = tag
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, tag.id, 't')
+            template_variables["feeds"] = self.tag_model.get_tag_all_feeds(tag.id, user_info.uid)
+            feeds1 = self.feed_model.get_user_all_feeds_by_type(tag.id, user_info.uid, 1)
+            feeds7 = self.feed_model.get_user_all_feeds_by_type(tag.id, user_info.uid, 7)
+            template_variables["feeds1"] = feeds1
+            template_variables["feeds7"] = feeds7
+            template_variables["feeds1_len"] = len(feeds1["list"])
+            template_variables["feeds7_len"] = len(feeds7["list"])
             self.render("tag.html", **template_variables)
         else:
             self.redirect("/signin")

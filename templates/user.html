@@ -299,26 +299,222 @@
         {%endif%}
 
         {%if feed.feed_type==7%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/u/{{feed.author_username}}">
+                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
         {%endif%}
 
         {%if feed.feed_type==8%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/u/{{feed.author_username}}">
+                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
         {%endif%}
 
         {%if feed.feed_type==9%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/u/{{feed.author_username}}">
+                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
         {%endif%}
 
         {%if feed.feed_type==10%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/t/{{feed.tag_name}}">
+                        <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
         {%endif%}
 
         {%if feed.feed_type==11%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/u/{{feed.author_username}}">
+                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
         {%endif%}
 
         {%if feed.feed_type==12%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-avatar">
+                    <a href="/t/{{feed.tag_name}}">
+                        <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                <span class="bullet">•</span>
+                <a href="#">分享</a>
+                <span class="bullet">•</span>
+                <a href="#">感谢</a>
+                <span class="bullet">•</span>
+                <a href="#">举报</a>
+            </div>
+        </div>
         {%endif%}
-
-
-
-
         {%endfor%}
     </div>
           </div>
@@ -328,11 +524,6 @@
         {%if feed.feed_type==1%}
         <div class="feed">
             <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/u/{{feed.author_username}}">
-                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
