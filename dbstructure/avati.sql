@@ -68,8 +68,11 @@ CREATE TABLE `post` (
   `content` text,
   `post_type` text,
   `thumb` text,
-  `reply_num` int(11) DEFAULT NULL,
+  `reply_num` int(11) DEFAULT 0,
+  `view_num` int(11) DEFAULT 0,
+  `follow_num` int(11) DEFAULT 0,
   `author_id` int(11) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

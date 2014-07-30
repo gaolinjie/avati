@@ -32,8 +32,6 @@
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
-                <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
                 <a href="#">举报</a>
@@ -67,8 +65,6 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                <span class="bullet">•</span>
-                <a href="#">分享</a>
                 <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
@@ -104,8 +100,6 @@
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
-                <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
                 <a href="#">举报</a>
@@ -139,8 +133,6 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                <span class="bullet">•</span>
-                <a href="#">分享</a>
                 <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
@@ -177,8 +169,6 @@
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
-                <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
                 <a href="#">举报</a>
@@ -214,8 +204,6 @@
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
-                <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
                 <a href="#">举报</a>
@@ -249,8 +237,6 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                <span class="bullet">•</span>
-                <a href="#">分享</a>
                 <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
@@ -286,8 +272,6 @@
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
-                <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
                 <a href="#">举报</a>
@@ -322,8 +306,6 @@
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
-                <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
                 <a href="#">举报</a>
@@ -357,8 +339,6 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                <span class="bullet">•</span>
-                <a href="#">分享</a>
                 <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
@@ -395,8 +375,6 @@
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
-                <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
                 <a href="#">举报</a>
@@ -431,8 +409,6 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                <span class="bullet">•</span>
-                <a href="#">分享</a>
                 <span class="bullet">•</span>
                 <a href="#">感谢</a>
                 <span class="bullet">•</span>
@@ -558,6 +534,14 @@ $(document).on('click', '.feed-post-follow-btn',  function() {
           itemSelector: ".feed",
           maxPage: {{feeds.page.pages}},   
       }, function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.html();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.html(str.substring(0,textLeng)+"...");
+            } 
+    });
 
       });
      });

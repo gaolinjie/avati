@@ -170,8 +170,11 @@ a:hover {
 }
 
 .user-name {
-	font-weight: bold;
 	font-size: 1em;
+}
+
+.user-name a {
+font-weight: bold;
 }
 
 .col-md-9 a {
@@ -1095,4 +1098,49 @@ color: #666!important;
 width: 100%;
 background-color: #f8f8f8;
 border: 1 solid #e7e7e7;
+}
+
+
+.bds_tsina {
+	width: 115px !important;
+height: 28px !important;
+background: url(/static/img/weibo.png) 0 0 no-repeat !important;
+background-size: 28px 28px !important;
+
+font-size: 13px !important; 
+padding-left: 32px !important;
+line-height: 26px !important;
+color: #5490c3 !important;
+margin: 0 !important; 
+}
+
+
+.bds_weixin {
+	width: 115px !important;
+height: 28px !important;
+background: url(/static/img/weixin.png) 0 0 no-repeat !important;
+background-size: 28px 28px !important;
+
+font-size: 13px !important; 
+padding-left: 32px !important;
+line-height: 26px !important;
+color: #5490c3 !important;
+margin: 0 !important; 
+}
+
+#bdshare_weixin_qrcode_dialog {
+	height: 308px !important;
+}
+
+#post-user-avatar {
+	position: absolute;
+left: -54px;
+}
+
+.topic-title h2 {
+	margin-top: 0px;
+}
+
+#post-user-wrapper {
+	margin-top: 18px;
 }

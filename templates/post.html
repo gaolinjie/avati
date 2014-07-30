@@ -18,15 +18,28 @@
           <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
           {% endfor %}
         </div>
-        <div class="topic-title">
+
+        <div id="post-user-wrapper" class="user-wrapper">
+                <div id="post-user-avatar" class="user-avatar">
+                    <a href="/u/{{post.author_username}}">
+                        <img src="{{post.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
+                    </a>
+                </div>
+                <div class="user-title">
+              <div class="user-name"><a href="/u/{{post.author_username}}">{{post.author_username}}</a>{%if post.author_sign%}，{{post.author_sign}}{%endif%}</div>
+              <div class="topic-title">
         <h2>{{post.title}}</h2>
       </div>
+            </div>
+            </div>
+
+        
       <div class="topic-content">
         {{post.content}}
       </div>
         <div class="item_action_bar meta">
-          <a class="share" href="#" >分享</a>
-          <span class="bullet">•</span>
+          <a href="#">感谢</a>
+            <span class="bullet">•</span>
           <span>
             <a class="report" href="#" >举报</a>
           </span>
@@ -34,6 +47,8 @@
           <span>
             <a class="invite" href="#" >邀请回答</a>
           </span>
+          <span class="bullet">•</span>
+            <a href="#">{{post.created|pretty_date}}</a>
         </div>
       </div>
 
@@ -80,10 +95,6 @@
             {{reply.content}}
           </div>
           <div class="answer-meta meta">
-            <a href="#">18+ 条评论</a>
-            <span class="bullet">•</span>
-            <a href="#">分享</a>
-            <span class="bullet">•</span>
             <a href="#">感谢</a>
             <span class="bullet">•</span>
             <a href="#">举报</a>
@@ -143,21 +154,18 @@
       <div class="share-box box">
         <h3>分享问题</h3>
         <div class="share-line">
-          <div class="share-button">
-            <a href="http://weibo.com">
-              <img src="/static/img/weibo.png" class="share-img">
-              <span class="share-text">新浪微博</span>
-            </a>
-          </div>
+          <div class="bdsharebuttonbox bdshare-button-style0-16" data-tag="bd_share_toolbar" data-bd-bind="1391875707839">
+                <a class="bds_tsina bds_has_name share-img" data-cmd="tsina" title="分享到新浪微博">
+              新浪微博</a>
+                <a class="bds_weixin bds_has_name share-img" data-cmd="weixin" title="分享到微信">
+              腾讯微信</a>
+              </div>
 
-          <div class="share-button">
-            <a href="http://weixin.qq.com/">
-              <img src="/static/img/weixin.png" class="share-img">
-              <span class="share-text">腾讯微信</span>
-            </a>
-          </div>
           <div class="clear"></div>
         </div>
+
+
+        
       </div>
 
       <div class="status-box  box">
@@ -292,5 +300,20 @@ $(document).on('click', '.vote-btn',  function() {
   });
 });
             
+</script>
+
+<script>
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "{{post.title}}-@avati",
+            "bdMini": "2",
+            "bdPic": "",
+            "bdStyle": "0",
+            "bdSize": "16"
+        },
+        "share": {}
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
 </script>
 {% endblock %}
