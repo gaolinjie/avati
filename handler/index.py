@@ -48,13 +48,20 @@ class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
+        sort = self.get_argument('sort', "voted")
 
         if(user_info):
             post = self.post_model.get_post_by_post_id(post_id)
             template_variables["post"] = post
+            self.post_model.update_post_by_post_id(post.id, {"view_num": post.view_num+1})
             template_variables["related_posts"] = self.post_tag_model.get_post_related_posts(post_id)
             template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
-            replys = self.reply_model.get_post_all_replys(post_id, user_info.uid)
+            if sort== "voted":
+                replys = self.reply_model.get_post_all_replys_sort_by_voted(post_id, user_info.uid)
+                template_variables["sort"] = "voted"
+            else:
+                replys = self.reply_model.get_post_all_replys_sort_by_created(post_id, user_info.uid)
+                template_variables["sort"] = "created"
             template_variables["replys"] = replys
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, post_id, post.post_type)
             template_variables["thank"] = self.thank_model.get_thank(user_info.uid, post.author_id, post_id, 'post')
@@ -93,7 +100,10 @@ class NewHandler(BaseHandler):
             "title": form.title.data,
             "content": form.content.data,
             "reply_num": 0,
+            "view_num": 1,
+            "follow_num": 1,
             "post_type": post_type,
+            "updated": time.strftime('%Y-%m-%d %H:%M:%S'),
             "created": time.strftime('%Y-%m-%d %H:%M:%S'),
         }
 
@@ -242,6 +252,9 @@ class FollowHandler(BaseHandler):
                         feed_type = 9
                     self.feed_model.delete_feed_by_user_post__and_type(user_info.uid,  obj_id, feed_type)
 
+                    post = self.post_model.get_post_by_post_id(obj_id)
+                    self.post_model.update_post_by_post_id(post.id, {"follow_num": post.follow_num-1})
+
                     follows = self.follow_model.get_post_all_follows(obj_id)
                     if len(follows) <= THRESHOLD:
                         if obj_type == 'q':
@@ -271,6 +284,9 @@ class FollowHandler(BaseHandler):
                         "created": time.strftime('%Y-%m-%d %H:%M:%S'),
                     }
                     self.feed_model.add_new_feed(feed_info)
+
+                    post = self.post_model.get_post_by_post_id(obj_id)
+                    self.post_model.update_post_by_post_id(post.id, {"follow_num": post.follow_num+1})
 
                     follows = self.follow_model.get_post_all_follows(obj_id)
                     if len(follows) > THRESHOLD:

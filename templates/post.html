@@ -52,11 +52,14 @@
   <div class="answers-title clearfix">
 
     <div id="answers-filter" class="answers-sorter">
-
+      {% if sort=="voted" %}
       <span class="lbl">按票数排序</span>
-      <a class="lbl" href="">按时间排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
+      <a class="lbl" href="/p/{{post.id}}?sort=created">按时间排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
+      {% else %}
+      <span class="lbl">按时间排序</span>
+      <a class="lbl" href="/p/{{post.id}}">按票数排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
+      {% endif %}
     </div>
-
     <h3 id="question-answer-num">{{post.reply_num}} 个回答</h3>
   </div>
 
@@ -107,6 +110,8 @@
     </div>
     {% endfor %}
   </div>
+
+  <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">更多</a>
 
   <div class="comment-box">
     <div class="user-wrapper">
@@ -170,13 +175,13 @@
     <h3>问题状态</h3>
     <div class="zg-gray-normal">
       最近活动于
-      <span class="time">02:00</span>
+      <span class="time">{{post.updated|pretty_date}}</span>
       <span class="zg-bull">•</span>
       <a href="/" class="check-log">查看问题日志</a>
     </div>
     <div class="zg-gray-normal">
-      被浏览 <strong>18193</strong>
-      次，关注者 <strong>432627</strong>
+      被浏览 <strong>{{post.view_num}}</strong>
+      次，关注者 <strong id="followNum">{{post.follow_num}}</strong>
       人
     </div>
 
@@ -251,11 +256,13 @@ $(document).on('click', '#followBtn',  function() {
                 $('#followBtn').removeClass('btn-success');
                 $('#followBtn').addClass('btn-danger');
                 $('#followBtn').text('取消关注');
+                $('#followNum').text(parseInt($('#followNum').text())+1);
                 }
                 else {
                   $('#followBtn').removeClass('btn-danger');
                 $('#followBtn').addClass('btn-success');
                 $('#followBtn').text('关注问题');
+                $('#followNum').text(parseInt($('#followNum').text())-1);
                 }
               },
               error: function (msg) {
@@ -310,6 +317,8 @@ $(document).on('click', '.thank',  function() {
   $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function (data) {
     if (data.success != 0) {
       thank_text.text('已感谢'); 
+      thank_text.removeAttr("href");
+      thank_text.addClass("thanked");
     }
   });
 });
@@ -326,6 +335,8 @@ $(document).on('click', '.report',  function() {
   $.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
     if (data.success != 0) {
       report_text.text('已举报'); 
+      report_text.removeAttr("href");
+      report_text.addClass("reported");
     }
   });
 });          

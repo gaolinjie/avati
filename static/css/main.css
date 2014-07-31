@@ -1090,7 +1090,7 @@ box-sizing: border-box;
 	float: left;
 	display: block;
 font-size: 13px;
-margin: 10px 0 60px 0;
+margin: 10px 0 30px 0;
 padding: 5px 1px;
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f8f8f9', endColorstr='#e6e6e8', GradientType=0);
 text-shadow: 0 1px 0 #fff;
@@ -1154,13 +1154,30 @@ left: -54px;
 }
 
 .thanked:hover {
-	color: rgb(153, 153, 153) !important;
+	color: #999 !important;
 }
 
 .reported:hover {
-	color: rgb(153, 153, 153) !important;
+	color: #999 !important;
 }
 
 .meta .time {
 	color: rgb(153, 153, 153);
+}
+
+
+.answers-sorter:hover, .answers-sorter.activated {
+right: -10px;
+top: 17px;
+z-index: 1;
+height: auto;
+border: 1px solid #ddd;
+border-color: #ddd;
+border-radius: 3px;
+box-shadow: 0 1px 1px rgba(0,0,0,.05);
+text-decoration: none;
+}
+
+.answers-sorter a.lbl:hover {
+background-color: #eee;
 }
