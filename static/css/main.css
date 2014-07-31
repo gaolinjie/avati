@@ -1144,3 +1144,23 @@ left: -54px;
 #post-user-wrapper {
 	margin-top: 18px;
 }
+
+.zm-votebar .vote-self-btn {
+	height: 24px;
+}
+
+.zm-votebar .vote-self-btn .count {
+	top: 1px;
+}
+
+.thanked:hover {
+	color: rgb(153, 153, 153) !important;
+}
+
+.reported:hover {
+	color: rgb(153, 153, 153) !important;
+}
+
+.meta .time {
+	color: rgb(153, 153, 153);
+}

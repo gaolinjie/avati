@@ -18,13 +18,17 @@ class ReplyModel(Query):
     def get_post_all_replys(self, post_id, user_id, num = 16, current_page = 1):
         where = "post_id = %s" % post_id
         join = "LEFT JOIN user ON reply.author_id = user.uid \
-                LEFT JOIN vote ON vote.author_id = %s AND reply.id = vote.reply_id" % user_id
+                LEFT JOIN vote ON vote.author_id = %s AND reply.id = vote.reply_id \
+                LEFT JOIN thank ON thank.from_user = %s AND thank.to_user = reply.author_id AND thank.obj_id = reply.id AND thank.obj_type = 'reply' \
+                LEFT JOIN report ON report.from_user = %s AND report.to_user = reply.author_id AND report.obj_id = reply.id AND report.obj_type = 'reply'" % (user_id, user_id, user_id)
         order = "id ASC"
         field = "reply.*, \
                 user.username as author_username, \
                 user.sign as author_sign, \
                 user.avatar as author_avatar, \
-                vote.up_down as vote_up_down"
+                vote.up_down as vote_up_down, \
+                thank.id as reply_thank_id, \
+                report.id as reply_report_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_reply_by_id(self, reply_id):

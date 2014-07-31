@@ -10,181 +10,179 @@
 {% endblock %}
 
  {% block main %}
-    <div class="col-xs-12 col-md-9">
+<div class="col-xs-12 col-md-9">
 
-      <div class="question">
-        <div class="topic-tags">
-          {% for tag in tags.list %}
-          <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
-          {% endfor %}
-        </div>
-
-        <div id="post-user-wrapper" class="user-wrapper">
-                <div id="post-user-avatar" class="user-avatar">
-                    <a href="/u/{{post.author_username}}">
-                        <img src="{{post.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
-                <div class="user-title">
-              <div class="user-name"><a href="/u/{{post.author_username}}">{{post.author_username}}</a>{%if post.author_sign%}，{{post.author_sign}}{%endif%}</div>
-              <div class="topic-title">
-        <h2>{{post.title}}</h2>
-      </div>
-            </div>
-            </div>
-
-        
-      <div class="topic-content">
-        {{post.content}}
-      </div>
-        <div class="item_action_bar meta">
-          <a href="#">感谢</a>
-            <span class="bullet">•</span>
-          <span>
-            <a class="report" href="#" >举报</a>
-          </span>
-          <span class="bullet">•</span>
-          <span>
-            <a class="invite" href="#" >邀请回答</a>
-          </span>
-          <span class="bullet">•</span>
-            <a href="#">{{post.created|pretty_date}}</a>
-        </div>
-      </div>
-
-      <div class="answers-title clearfix">
-
-        <div id="answers-filter" class="answers-sorter">
-
-          <span class="lbl">按票数排序</span>
-          <a class="lbl" href="">按时间排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
-        </div>
-
-        <h3 id="question-answer-num">{{post.reply_num}} 个回答</h3>
-      </div>
-
-      
-
-      <div class="answers-area">
-        {% for reply in replys.list %}
-        <div class="answer-item">
-          <div class="user-wrapper">
-            <div class="zm-votebar">
-              <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up"> <i class="icon vote-arrow"></i>
-                <span class="label">赞同</span>
-                <span class="count">{{reply.up_num}}</span>
-              </button>
-              <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
-                <i class="icon vote-arrow"></i>
-                <span class="label">反对，不会显示你的姓名</span>
-                <span class="count" style="display: none;">{{reply.down_num}}</span>
-              </button>
-            </div>
-            <div class="user-title">
-              <div class="user-name"><a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>{%if reply.author_sign%}，{{reply.author_sign}}{%endif%}</div>
-              <div class="answer-user-meta meta">
-                Zikiong Lim、吕归尘、jia najia 等人赞同
-              </div>
-            </div>
-            <div class="user-avatar">
-              <a href="/u/{{reply.author_username}}">
-                <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
-            </div>
-          </div>
-          <div class="answer-text">
-            {{reply.content}}
-          </div>
-          <div class="answer-meta meta">
-            <a href="#">感谢</a>
-            <span class="bullet">•</span>
-            <a href="#">举报</a>
-            <span class="bullet">•</span>
-            <a href="#">{{reply.created|pretty_date}}</a>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-      <div class="comment-box">
-        <div class="user-wrapper">
-          <div class="user-title">
-            <div class="user-name"><a href="/u/{{user_info.username}}">{{user_info.username}}</a>{%if user_info.sign%}，{{user_info.sign}}{%endif%}</div>
-            <div class="user-meta meta">
-              <a href="#">
-                修改话题经验
- • 匿名
-              </a>
-            </div>
-          </div>
-          <div class="user-avatar">
-            <a href="/u/{{user_info.username}}">
-              <img src="{{ user_info.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
-          </div>
-        </div>
-        <div class="comment-area clear">
-                        <div id="rSummernote" class="description"></div>
-                        <input type="hidden" name="reply" id="rReplyText" value="">
-
-        </div>
-        <div class="reply-btn">
-                        <input type="submit" id="rPostBtn" data-post="{{ post.id }}" class="btn btn-sm btn-default" value="立即发布">{{ xsrf_form_html() }}
-                    </div>
-      </div>
-
+  <div class="question">
+    <div class="topic-tags">
+      {% for tag in tags.list %}
+      <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
+      {% endfor %}
     </div>
 
-    <div class=" col-xs-12 col-md-3">
-      <div class="follow-box box">
-        <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
-        <div class="promote-link meta">
-          <a href="#">推送问题给更多人</a>
+    <div id="post-user-wrapper" class="user-wrapper">
+      <div id="post-user-avatar" class="user-avatar">
+        <a href="/u/{{post.author_username}}">
+          <img src="{{post.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img"></a>
+      </div>
+      <div class="user-title">
+        <div class="user-name">
+          <a href="/u/{{post.author_username}}">{{post.author_username}}</a>
+          {%if post.author_sign%}，{{post.author_sign}}{%endif%}
+        </div>
+        <div class="topic-title">
+          <h2>{{post.title}}</h2>
         </div>
       </div>
-      {% if related_posts.list %}
-      <div class="related-box box">
-        <h3>相关问题</h3>
-        {% for related_post in related_posts.list %}
-        <p>
-          <a href="/p/{{related_post.id}}">{{related_post.title}}</a>
-        </p>
-        {% endfor %}
-      </div>
+    </div>
+
+    <div class="topic-content">{{post.content}}</div>
+    <div class="item_action_bar meta">
+      {% if post.author_id != user_info.uid %}
+      <a class="thank {% if thank %}thanked{% endif %}" {% if thank == none %}href="javascript:;"{% endif %} data-id="{{post.id}}" data-type="post">{% if thank %}已感谢{% else %}感谢{% endif %}</a>
+      <span class="bullet">•</span>
+      <a class="report {% if report %}reported{% endif %}" {% if report == none %}href="javascript:;"{% endif %} data-id="{{post.id}}" data-type="post">{% if report %}已举报{% else %}举报{% endif %}</a>
+      <span class="bullet">•</span>
       {% endif %}
-
-      <div class="share-box box">
-        <h3>分享问题</h3>
-        <div class="share-line">
-          <div class="bdsharebuttonbox bdshare-button-style0-16" data-tag="bd_share_toolbar" data-bd-bind="1391875707839">
-                <a class="bds_tsina bds_has_name share-img" data-cmd="tsina" title="分享到新浪微博">
-              新浪微博</a>
-                <a class="bds_weixin bds_has_name share-img" data-cmd="weixin" title="分享到微信">
-              腾讯微信</a>
-              </div>
-
-          <div class="clear"></div>
-        </div>
-
-
-        
-      </div>
-
-      <div class="status-box  box">
-        <h3>问题状态</h3>
-        <div class="zg-gray-normal">
-          最近活动于
-          <span class="time">02:00</span>
-          <span class="zg-bull">•</span>
-          <a href="/" class="check-log">查看问题日志</a>
-        </div>
-        <div class="zg-gray-normal">
-          被浏览 <strong>18193</strong>
-          次，关注者 <strong>432627</strong>
-          人
-        </div>
-
-      </div>
-
+      <a class="invite" href="javascript:;" >邀请回答</a>
+      <span class="bullet">•</span>
+      <span class="time">{{post.created|pretty_date}}</span>
     </div>
+  </div>
+
+  <div class="answers-title clearfix">
+
+    <div id="answers-filter" class="answers-sorter">
+
+      <span class="lbl">按票数排序</span>
+      <a class="lbl" href="">按时间排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
+    </div>
+
+    <h3 id="question-answer-num">{{post.reply_num}} 个回答</h3>
+  </div>
+
+  <div class="answers-area">
+    {% for reply in replys.list %}
+    <div class="answer-item">
+      <div class="user-wrapper">
+        <div class="zm-votebar">
+          {% if reply.author_id != user_info.uid %}
+          <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up"> <i class="icon vote-arrow"></i>
+            <span class="label">赞同</span>
+            <span class="count">{{reply.up_num}}</span>
+          </button>
+          <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
+            <i class="icon vote-arrow"></i>
+            <span class="label">反对，不会显示你的姓名</span>
+            <span class="count" style="display: none;">{{reply.down_num}}</span>
+          </button>
+          {% else %}
+          <button class="up vote-btn vote-self-btn"  title="赞同"> 
+            <span class="label">赞同</span>
+            <span class="count">{{reply.up_num}}</span>
+          </button>
+          {% endif %}
+        </div>
+        <div class="user-title">
+          <div class="user-name">
+            <a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
+            {%if reply.author_sign%}，{{reply.author_sign}}{%endif%}
+          </div>
+          <div class="answer-user-meta meta">Zikiong Lim、吕归尘、jia najia 等人赞同</div>
+        </div>
+        <div class="user-avatar">
+          <a href="/u/{{reply.author_username}}">
+            <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
+        </div>
+      </div>
+      <div class="answer-text">{{reply.content}}</div>
+      <div class="answer-meta meta">
+        {% if reply.author_id != user_info.uid %}
+        <a class="thank {% if reply.reply_thank_id %}thanked{% endif %}" {% if reply.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+        <span class="bullet">•</span>
+        <a class="report {% if reply.reply_report_id %}reported{% endif %}" {% if reply.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+        <span class="bullet">•</span>
+        {% endif %}
+        <span class="time">{{reply.created|pretty_date}}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="comment-box">
+    <div class="user-wrapper">
+      <div class="user-title">
+        <div class="user-name">
+          <a href="/u/{{user_info.username}}">{{user_info.username}}</a>
+          {%if user_info.sign%}，{{user_info.sign}}{%endif%}
+        </div>
+        <div class="user-meta meta">
+          <a href="#">
+            修改话题经验
+ • 匿名
+          </a>
+        </div>
+      </div>
+      <div class="user-avatar">
+        <a href="/u/{{user_info.username}}">
+          <img src="{{ user_info.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
+      </div>
+    </div>
+    <div class="comment-area clear">
+      <div id="rSummernote" class="description"></div>
+      <input type="hidden" name="reply" id="rReplyText" value=""></div>
+    <div class="reply-btn">
+      <input type="submit" id="rPostBtn" data-post="{{ post.id }}" class="btn btn-sm btn-default" value="立即发布">{{ xsrf_form_html() }}</div>
+  </div>
+
+</div>
+
+<div class=" col-xs-12 col-md-3">
+  <div class="follow-box box">
+    <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
+    <div class="promote-link meta">
+      <a href="#">推送问题给更多人</a>
+    </div>
+  </div>
+  {% if related_posts.list %}
+  <div class="related-box box">
+    <h3>相关问题</h3>
+    {% for related_post in related_posts.list %}
+    <p>
+      <a href="/p/{{related_post.id}}">{{related_post.title}}</a>
+    </p>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="share-box box">
+    <h3>分享问题</h3>
+    <div class="share-line">
+      <div class="bdsharebuttonbox bdshare-button-style0-16" data-tag="bd_share_toolbar" data-bd-bind="1391875707839">
+        <a class="bds_tsina bds_has_name share-img" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+        <a class="bds_weixin bds_has_name share-img" data-cmd="weixin" title="分享到微信">腾讯微信</a>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+  </div>
+
+  <div class="status-box  box">
+    <h3>问题状态</h3>
+    <div class="zg-gray-normal">
+      最近活动于
+      <span class="time">02:00</span>
+      <span class="zg-bull">•</span>
+      <a href="/" class="check-log">查看问题日志</a>
+    </div>
+    <div class="zg-gray-normal">
+      被浏览 <strong>18193</strong>
+      次，关注者 <strong>432627</strong>
+      人
+    </div>
+
+  </div>
+
+</div>
 {% endblock %}
 
 
@@ -299,7 +297,38 @@ $(document).on('click', '.vote-btn',  function() {
     }
   });
 });
-            
+
+$(document).on('click', '.thank',  function() {
+  var thank_id = $(this).attr('data-id');
+  var thank_type = $(this).attr('data-type');
+  var thank_text = $(this);
+
+  if (thank_text.text()=='已感谢') {
+    return;
+  }
+  
+  $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function (data) {
+    if (data.success != 0) {
+      thank_text.text('已感谢'); 
+    }
+  });
+});
+
+$(document).on('click', '.report',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = $(this).attr('data-type');
+  var report_text = $(this);
+
+  if (report_text.text()=='已举报') {
+    return;
+  }
+  
+  $.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
+    if (data.success != 0) {
+      report_text.text('已举报'); 
+    }
+  });
+});          
 </script>
 
 <script>

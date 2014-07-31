@@ -57,6 +57,8 @@ class PostHandler(BaseHandler):
             replys = self.reply_model.get_post_all_replys(post_id, user_info.uid)
             template_variables["replys"] = replys
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, post_id, post.post_type)
+            template_variables["thank"] = self.thank_model.get_thank(user_info.uid, post.author_id, post_id, 'post')
+            template_variables["report"] = self.report_model.get_report(user_info.uid, post.author_id, post_id, 'post')
             for reply in replys["list"]:
                 template_variables["votes"+str(reply.id)] = self.vote_model.get_reply_all_up_votes(reply.id)
 
@@ -403,6 +405,96 @@ class VoteHandler(BaseHandler):
                                 self.feed_model.add_new_feed(feed_info2)
                 else:
                     self.reply_model.update_reply_by_id(reply.id, {"down_num": reply.down_num+1})
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+
+
+class ThankHandler(BaseHandler):
+    def get(self, obj_id, template_variables = {}):
+        user_info = self.current_user
+        obj_type = self.get_argument('type', "null")
+
+        if(user_info):
+            if obj_type=='post':
+                post = self.post_model.get_post_by_post_id(obj_id)
+                self.thank_model.add_new_thank({
+                        "from_user": user_info.uid,
+                        "to_user": post.author_id,
+                        "obj_id": obj_id,
+                        "obj_type": obj_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    })
+                to_user = self.user_model.get_user_by_uid(post.author_id)
+                self.user_model.update_user_info_by_user_id(to_user.uid, {
+                        "thank_num": to_user.thank_num+1,
+                        "reputation": to_user.reputation+2,
+                    })
+            else:
+                reply = self.reply_model.get_reply_by_id(obj_id)
+                self.thank_model.add_new_thank({
+                        "from_user": user_info.uid,
+                        "to_user": reply.author_id,
+                        "obj_id": obj_id,
+                        "obj_type": obj_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    })
+                to_user = self.user_model.get_user_by_uid(reply.author_id)
+                self.user_model.update_user_info_by_user_id(to_user.uid, {
+                        "thank_num": to_user.thank_num+1,
+                        "reputation": to_user.reputation+1,
+                    })
+
+
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+
+
+class ReportHandler(BaseHandler):
+    def get(self, obj_id, template_variables = {}):
+        user_info = self.current_user
+        obj_type = self.get_argument('type', "null")
+
+        if(user_info):
+            if obj_type=='post':
+                post = self.post_model.get_post_by_post_id(obj_id)
+                self.report_model.add_new_report({
+                        "from_user": user_info.uid,
+                        "to_user": post.author_id,
+                        "obj_id": obj_id,
+                        "obj_type": obj_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    })
+                to_user = self.user_model.get_user_by_uid(post.author_id)
+                self.user_model.update_user_info_by_user_id(to_user.uid, {
+                        "report_num": to_user.report_num+1,
+                        "reputation": to_user.reputation-1,
+                    })
+            else:
+                reply = self.reply_model.get_reply_by_id(obj_id)
+                self.report_model.add_new_report({
+                        "from_user": user_info.uid,
+                        "to_user": reply.author_id,
+                        "obj_id": obj_id,
+                        "obj_type": obj_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    })
+                to_user = self.user_model.get_user_by_uid(reply.author_id)
+                self.user_model.update_user_info_by_user_id(to_user.uid, {
+                        "report_num": to_user.report_num+1,
+                        "reputation": to_user.reputation-1,
+                    })
+
+
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                 }))

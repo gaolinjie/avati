@@ -91,3 +91,12 @@ class BaseHandler(tornado.web.RequestHandler):
     @property
     def category_model(self):
         return self.application.category_model
+
+    @property
+    def thank_model(self):
+        return self.application.thank_model
+
+    @property
+    def report_model(self):
+        return self.application.report_model
+

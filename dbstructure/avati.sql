@@ -36,6 +36,11 @@ CREATE TABLE `user` (
   `intro` text,
   `avatar` text,
   `cover` text,
+  `up_num` int(11) DEFAULT 0,
+  `down_num` int(11) DEFAULT 0,
+  `thank_num` int(11) DEFAULT 0,
+  `report_num` int(11) DEFAULT 0,
+  `reputation` int(11) DEFAULT 0,
   `permission` int(11) DEFAULT 0,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
@@ -102,24 +107,6 @@ CREATE TABLE `feed_type` (
   `feed_text` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
-
-
-
--- ----------------------------
---  Table structure for `like`
--- ----------------------------
-DROP TABLE IF EXISTS `like`;
-CREATE TABLE `like` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `post_id` int(11) DEFAULT NULL,
-  `author_id` int(11) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-
 
 
 -- ----------------------------
@@ -189,6 +176,37 @@ CREATE TABLE `follow` (
   `author_id` int(11) DEFAULT NULL,
   `obj_id` int(11) DEFAULT NULL,
   `obj_type` text,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
+--  Table structure for `thank`
+-- ----------------------------
+DROP TABLE IF EXISTS `thank`;
+CREATE TABLE `thank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_user` int(11) DEFAULT NULL,
+  `to_user` int(11) DEFAULT NULL,
+  `obj_id` int(11) DEFAULT NULL,
+  `obj_type` text,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+-- ----------------------------
+--  Table structure for `report`
+-- ----------------------------
+DROP TABLE IF EXISTS `report`;
+CREATE TABLE `report` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_user` int(11) DEFAULT NULL,
+  `to_user` int(11) DEFAULT NULL,
+  `obj_id` int(11) DEFAULT NULL,
+  `obj_type` text,
+  `report_type` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
