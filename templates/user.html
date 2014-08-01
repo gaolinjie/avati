@@ -8,24 +8,7 @@
     <div class="col-xs-12 col-md-9">
 
       <div id="gh-banner">
-        <style>
-      #c4-header-bg-container {
-      background-image: url({{view_user.cover or 'http://avati-cover.qiniudn.com/b_default.png-cover'}});
-  }
-
-
-  @media screen and (-webkit-min-device-pixel-ratio: 1.5),
-         screen and (min-resolution: 1.5dppx) {
-#c4-header-bg-container {
-        background-image: url({{view_user.cover or 'http://avati-cover.qiniudn.com/b_default.png-cover'}});
-    }
-  }
-
-#c4-header-bg-container .hd-banner-image {
-      background-image: url({{view_user.cover or 'http://avati-cover.qiniudn.com/b_default.png-cover'}});
-  }
-
-    </style>
+       
         <div id="c4-header-bg-container" class=" has-custom-banner">
           <div class="hd-banner">
             <div class="hd-banner-image"></div>
@@ -665,6 +648,17 @@
 {% endblock %} 
 
 {% block javascript %}
+<script src="/static/js/d3.v3.min.js"></script>
+<script src="/static/trianglify-gh-pages/trianglify.js"></script>
+ <script type="text/javascript">
+$(document).ready(function() {
+    var t = new Trianglify();
+    var x= document.getElementById('c4-header-bg-container');
+var pattern = t.generate(x.offsetWidth, x.offsetHeight);
+x.setAttribute('style', 'background-image: '+pattern.dataUrl);
+});
+</script>
+
   <script type="text/javascript">
   $('#type_tab a').click(function (e) {
   e.preventDefault()

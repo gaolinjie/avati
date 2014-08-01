@@ -60,6 +60,7 @@ CREATE TABLE `reply` (
   `down_num` int(11) DEFAULT 0,
   `author_id` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
+  `anon` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -77,6 +78,7 @@ CREATE TABLE `post` (
   `view_num` int(11) DEFAULT 0,
   `follow_num` int(11) DEFAULT 0,
   `author_id` int(11) DEFAULT NULL,
+  `anon` text,
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)

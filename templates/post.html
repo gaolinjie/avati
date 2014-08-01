@@ -64,6 +64,7 @@
   </div>
 
   <div class="answers-area">
+    {% set i=0 %}
     {% for reply in replys.list %}
     <div class="answer-item">
       <div class="user-wrapper">
@@ -87,15 +88,32 @@
         </div>
         <div class="user-title">
           <div class="user-name">
+            {% if reply.anon=='false' %}
             <a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
             {%if reply.author_sign%}，{{reply.author_sign}}{%endif%}
+            {%else%}
+            匿名用户
+            {%endif%}
           </div>
-          <div class="answer-user-meta meta">Zikiong Lim、吕归尘、jia najia 等人赞同</div>
+          {% set votes=votesList[i] %}
+          <div class="answer-user-meta meta">
+            {% if votes.list %}
+            {% for vote in votes.list %}
+            <a href="/u/{{vote.author_username}}">{{vote.author_username}}</a>{%if vote!=votes.list[votes.list|length-1] %}、{%endif%}
+            {% endfor %}
+            等人赞同
+            {%else%}
+            还没有人赞同
+            {%endif%}
+          </div>
+          {% set i=i+1 %}
         </div>
+        {% if reply.anon=='false' %}
         <div class="user-avatar">
           <a href="/u/{{reply.author_username}}">
             <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
         </div>
+        {%endif%}
       </div>
       <div class="answer-text">{{reply.content}}</div>
       <div class="answer-meta meta">
@@ -121,10 +139,11 @@
           {%if user_info.sign%}，{{user_info.sign}}{%endif%}
         </div>
         <div class="user-meta meta">
-          <a href="#">
+          <a href="javascript:;">
             修改话题经验
- • 匿名
           </a>
+          <span class="bullet">•</span>
+          <a class='anon' href="javascript:;">匿名</a>
         </div>
       </div>
       <div class="user-avatar">
@@ -145,7 +164,7 @@
   <div class="follow-box box">
     <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
     <div class="promote-link meta">
-      <a href="#">推送问题给更多人</a>
+      <a href="javascript:;">推送问题给更多人</a>
     </div>
   </div>
   {% if related_posts.list %}
@@ -177,7 +196,7 @@
       最近活动于
       <span class="time">{{post.updated|pretty_date}}</span>
       <span class="zg-bull">•</span>
-      <a href="/" class="check-log">查看问题日志</a>
+      <a href="javascript:;" class="check-log">查看问题日志</a>
     </div>
     <div class="zg-gray-normal">
       被浏览 <strong>{{post.view_num}}</strong>
@@ -223,12 +242,21 @@ $(document).on('click', '#rPostBtn',  function() {
             var reply_list =  $('.answers-area');
             var reply_string = reply_list.html()+'<div class="answer-item"><div class="user-wrapper"><div class="zm-votebar goog-scrollfloater"><button class="up"  title="赞同"> <i class="icon vote-arrow"></i><span class="label">赞同</span><span class="count">0</span></button><button class="down"  title="反对，不会显示你的姓名"><i class="icon vote-arrow"></i><span class="label">反对，不会显示你的姓名</span></button></div><div class="user-title"><div class="user-name">{{user_info.username}}，{{user_info.sign}}</div><div class="answer-user-meta meta"></div></div><div class="user-avatar"><a href="/u/{{user_info.username}}"><img src="{{ user_info.avatar}}" width="46px" height="46px" alt="" class="avatar-img" ></a></div></div><div class="answer-text">'+reply_text+'</div><div class="answer-meta meta"><a href="#">0 条评论</a><span class="bullet">•</span><a href="#">分享</a><span class="bullet">•</span><a href="#">感谢</a><span class="bullet">•</span><a href="#">举报</a><span class="bullet">•</span><a href="#">刚刚</a></div></div>';
 
+            var anon_text = $(this);
+            var anon;
+            if (anon_text.text()=='匿名') {
+              anon = 'false';
+            }
+            else {
+              anon = 'true';;
+            }
+
             $.ajax({
               type: "POST",
               contentType: "application/json; charset=utf-8",
               dataType: "json",
               url: "/reply/"+post_id,
-              data: JSON.stringify({reply_content: reply_text}), 
+              data: JSON.stringify({reply_content: reply_text, anon: anon}), 
               success: function (msg) {
                 $('#rSummernote').code('');
                 reply_list.html(reply_string);
@@ -339,7 +367,19 @@ $(document).on('click', '.report',  function() {
       report_text.addClass("reported");
     }
   });
-});          
+});
+
+
+$(document).on('click', '.anon',  function() {
+  var anon_text = $(this);
+
+  if (anon_text.text()=='匿名') {
+    anon_text.text('取消匿名');
+  }
+  else {
+    anon_text.text('匿名');
+  }
+});       
 </script>
 
 <script>

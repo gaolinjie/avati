@@ -66,8 +66,10 @@ class PostHandler(BaseHandler):
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, post_id, post.post_type)
             template_variables["thank"] = self.thank_model.get_thank(user_info.uid, post.author_id, post_id, 'post')
             template_variables["report"] = self.report_model.get_report(user_info.uid, post.author_id, post_id, 'post')
+            votesList = []
             for reply in replys["list"]:
-                template_variables["votes"+str(reply.id)] = self.vote_model.get_reply_all_up_votes(reply.id)
+                votesList.append(self.vote_model.get_reply_all_up_votes(reply.id)) 
+            template_variables["votesList"] = votesList
 
             self.render("post.html", **template_variables)
         else:
@@ -194,12 +196,14 @@ class ReplyHandler(BaseHandler):
 
         data = json.loads(self.request.body)
         reply_content = data["reply_content"]
+        anon = data["anon"]
 
         if(user_info):
             reply_info = {
                 "author_id": user_info["uid"],
                 "post_id": post_id,
                 "content": reply_content,
+                "anon": anon,
                 "created": time.strftime('%Y-%m-%d %H:%M:%S'),
             }
             reply_id = self.reply_model.add_new_reply(reply_info)
