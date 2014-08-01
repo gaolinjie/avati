@@ -160,7 +160,7 @@
                     var $next = $(this).find(_options.nextSelector).first();
                     data.waiting = false;
                     data.nextHref = $next.attr('href') ? $.trim($next.attr('href') + ' ' + _options.contentSelector) : false;
-                    $('.jscroll-next-parent', $e).remove(); // Remove the previous next link now that we have a new one
+                    //$('.jscroll-next-parent', $e).remove(); // Remove the previous next link now that we have a new one
                     _checkNextHref();
                     if (_options.callback) {
                         _options.callback.call(this);

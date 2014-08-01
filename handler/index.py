@@ -48,7 +48,9 @@ class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
+        template_variables["gen_random"] = gen_random
         sort = self.get_argument('sort', "voted")
+        p = int(self.get_argument("p", "1"))
 
         if(user_info):
             post = self.post_model.get_post_by_post_id(post_id)
@@ -57,10 +59,10 @@ class PostHandler(BaseHandler):
             template_variables["related_posts"] = self.post_tag_model.get_post_related_posts(post_id)
             template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
             if sort== "voted":
-                replys = self.reply_model.get_post_all_replys_sort_by_voted(post_id, user_info.uid)
+                replys = self.reply_model.get_post_all_replys_sort_by_voted(post_id, user_info.uid, current_page = p)
                 template_variables["sort"] = "voted"
             else:
-                replys = self.reply_model.get_post_all_replys_sort_by_created(post_id, user_info.uid)
+                replys = self.reply_model.get_post_all_replys_sort_by_created(post_id, user_info.uid, current_page = p)
                 template_variables["sort"] = "created"
             template_variables["replys"] = replys
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, post_id, post.post_type)

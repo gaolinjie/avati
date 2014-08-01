@@ -64,6 +64,7 @@
   </div>
 
   <div class="answers-area">
+     <div class="answers-inner">
     {% set i=0 %}
     {% for reply in replys.list %}
     <div class="answer-item">
@@ -88,7 +89,7 @@
         </div>
         <div class="user-title">
           <div class="user-name">
-            {% if reply.anon=='false' %}
+            {% if reply.anon==0 %}
             <a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
             {%if reply.author_sign%}，{{reply.author_sign}}{%endif%}
             {%else%}
@@ -108,7 +109,7 @@
           </div>
           {% set i=i+1 %}
         </div>
-        {% if reply.anon=='false' %}
+        {% if reply.anon==0 %}
         <div class="user-avatar">
           <a href="/u/{{reply.author_username}}">
             <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
@@ -127,9 +128,14 @@
       </div>
     </div>
     {% endfor %}
+    {% if replys.page.next!=replys.page.current %}
+<div class="next jscroll-next-parent" ><a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%endif%}
+    
+  </div>
   </div>
 
-  <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">更多</a>
+  
 
   <div class="comment-box">
     <div class="user-wrapper">
@@ -211,6 +217,15 @@
 
 
 {% block javascript %}
+<script src="/static/jscroll-master/jquery.jscroll.js"></script>
+<script>
+$('.answers-area').jscroll({
+loadingHtml: '<a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.answers-inner',
+    autoTrigger: false,
+});
+</script>
+
 <script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
 <script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
 
@@ -242,13 +257,13 @@ $(document).on('click', '#rPostBtn',  function() {
             var reply_list =  $('.answers-area');
             var reply_string = reply_list.html()+'<div class="answer-item"><div class="user-wrapper"><div class="zm-votebar goog-scrollfloater"><button class="up"  title="赞同"> <i class="icon vote-arrow"></i><span class="label">赞同</span><span class="count">0</span></button><button class="down"  title="反对，不会显示你的姓名"><i class="icon vote-arrow"></i><span class="label">反对，不会显示你的姓名</span></button></div><div class="user-title"><div class="user-name">{{user_info.username}}，{{user_info.sign}}</div><div class="answer-user-meta meta"></div></div><div class="user-avatar"><a href="/u/{{user_info.username}}"><img src="{{ user_info.avatar}}" width="46px" height="46px" alt="" class="avatar-img" ></a></div></div><div class="answer-text">'+reply_text+'</div><div class="answer-meta meta"><a href="#">0 条评论</a><span class="bullet">•</span><a href="#">分享</a><span class="bullet">•</span><a href="#">感谢</a><span class="bullet">•</span><a href="#">举报</a><span class="bullet">•</span><a href="#">刚刚</a></div></div>';
 
-            var anon_text = $(this);
+            var anon_text = $('.anon');
             var anon;
             if (anon_text.text()=='匿名') {
-              anon = 'false';
+              anon = 0;
             }
             else {
-              anon = 'true';;
+              anon =1;
             }
 
             $.ajax({
@@ -396,4 +411,6 @@ $(document).on('click', '.anon',  function() {
     };
     with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
 </script>
+
+
 {% endblock %}
