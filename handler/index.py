@@ -524,3 +524,52 @@ class ReportHandler(BaseHandler):
             self.write(lib.jsonp.print_JSON({
                     "success": 0,
                 }))
+
+class DeleteReplyHandler(BaseHandler):
+    def get(self, reply_id, template_variables = {}):
+        user_info = self.current_user
+
+        if(user_info):
+            self.reply_model.delete_reply_by_id(reply_id)
+
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+
+class EditReplyHandler(BaseHandler):
+    @tornado.web.authenticated
+    def post(self, reply_id, template_variables = {}):
+        user_info = self.current_user
+        data = json.loads(self.request.body)
+        reply_content = data["reply_content"]
+
+        print reply_content
+
+        if(user_info):
+            self.reply_model.update_reply_by_id(reply_id, {"content": reply_content})
+
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+
+class DeletePostHandler(BaseHandler):
+    def get(self, post_id, template_variables = {}):
+        user_info = self.current_user
+
+        if(user_info):
+            self.post_model.delete_post_by_post_id(post_id)
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))

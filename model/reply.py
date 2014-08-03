@@ -15,7 +15,7 @@ class ReplyModel(Query):
     def add_new_reply(self, reply_info):
         return self.data(reply_info).add()
 
-    def get_post_all_replys_sort_by_voted(self, post_id, user_id, num = 10, current_page = 1):
+    def get_post_all_replys_sort_by_voted(self, post_id, user_id, num = 5, current_page = 1):
         where = "post_id = %s" % post_id
         join = "LEFT JOIN user ON reply.author_id = user.uid \
                 LEFT JOIN vote ON vote.author_id = %s AND reply.id = vote.reply_id \
@@ -55,3 +55,8 @@ class ReplyModel(Query):
     def update_reply_by_id(self, reply_id, reply_info):
         where = "reply.id = %s" % reply_id
         return self.where(where).data(reply_info).save()
+
+
+    def delete_reply_by_id(self, reply_id):
+        where = "reply.id = %s " % reply_id
+        return self.where(where).delete()

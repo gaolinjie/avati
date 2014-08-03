@@ -65,6 +65,9 @@ class Application(tornado.web.Application):
             (r"/vote/(\d+)", handler.index.VoteHandler),
             (r"/thank/(\d+)", handler.index.ThankHandler),
             (r"/report/(\d+)", handler.index.ReportHandler),
+            (r"/delete/reply/(\d+)", handler.index.DeleteReplyHandler),
+            (r"/edit/reply/(\d+)", handler.index.EditReplyHandler),
+            (r"/delete/post/(\d+)", handler.index.DeletePostHandler),
 
             (r"/u/(.*)", handler.user.UserHandler),
             (r"/signin", handler.user.SigninHandler),

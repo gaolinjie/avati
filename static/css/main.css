@@ -1181,3 +1181,72 @@ text-decoration: none;
 .answers-sorter a.lbl:hover {
 background-color: #eee;
 }
+
+
+
+#delReplyModal .modal-dialog {
+	margin-top: 300px;
+	width: 400px;
+}
+
+#delReplyModal .modal-dialog .modal-header h4 {
+	font-weight: 100;
+}
+
+#delReplyModal .modal-dialog .modal-header{
+ background-color: #f8f8f8; 
+ border-radius: 6px 6px  0 0;	
+}
+
+#delPostModal .modal-dialog {
+	margin-top: 300px;
+	width: 400px;
+}
+
+#delPostModal .modal-dialog .modal-header h4 {
+	font-weight: 100;
+}
+
+#delPostModal .modal-dialog .modal-header{
+ background-color: #f8f8f8; 
+ border-radius: 6px 6px  0 0;	
+}
+
+a:focus {
+outline: 0;
+text-decoration: none;
+}
+
+.editor-wrapper .note-editor {
+width: 638px;	
+}
+
+.editor-wrapper {
+float: left;
+margin: 20px 0;
+}
+
+.edit-cancel-btn {
+float: right;
+margin-top: 0px;
+}
+
+.edit-reply-btn {
+float: right;
+margin-top: 0px;
+}
+
+#editPostBtn {
+position: absolute;
+right: 65px;
+margin-top: 5px;
+padding: 3px 10px;
+}
+
+#editCancelBtn {
+position: absolute;
+right: 135px;
+margin-top: 5px;
+padding: 3px 0px;
+width: 40px;
+}

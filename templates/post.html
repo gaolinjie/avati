@@ -46,6 +46,12 @@
       <a class="invite" href="javascript:;" >邀请回答</a>
       <span class="bullet">•</span>
       <span class="time">{{post.created|pretty_date}}</span>
+      {% if post.author_id == user_info.uid %}
+        <span class="bullet">•</span>
+        <a class="edit" href="javascript:;" data-id="{{post.id}}" data-type="post">修改</a>
+        <span class="bullet">•</span>
+        <a class="delete" href="javascript:;" data-id="{{post.id}}" data-type="post" data-toggle="modal" data-target="#delPostModal">删除</a>
+        {% endif %}
     </div>
   </div>
 
@@ -67,7 +73,7 @@
      <div class="answers-inner">
     {% set i=0 %}
     {% for reply in replys.list %}
-    <div class="answer-item">
+    <div id="{{reply.id}}" class="answer-item">
       <div class="user-wrapper">
         <div class="zm-votebar">
           {% if reply.author_id != user_info.uid %}
@@ -125,11 +131,20 @@
         <span class="bullet">•</span>
         {% endif %}
         <span class="time">{{reply.created|pretty_date}}</span>
+        {% if reply.author_id == user_info.uid %}
+        <span class="bullet">•</span>
+        <a class="edit" href="javascript:;" data-id="{{reply.id}}" data-type="reply">修改</a>
+        <span class="bullet">•</span>
+        <a class="delete" href="javascript:;" data-id="{{reply.id}}" data-type="reply" data-toggle="modal" data-target="#delReplyModal">删除</a>
+        {% endif %}
+        
       </div>
     </div>
     {% endfor %}
     {% if replys.page.next!=replys.page.current %}
-<div class="next jscroll-next-parent" ><a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">更多</a></div>
+<div class="next jscroll-next-parent" ><a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
 {%endif%}
     
   </div>
@@ -159,7 +174,8 @@
     </div>
     <div class="comment-area clear">
       <div id="rSummernote" class="description"></div>
-      <input type="hidden" name="reply" id="rReplyText" value=""></div>
+      <input type="hidden" name="reply" id="rReplyText" value="">
+    </div>
     <div class="reply-btn">
       <input type="submit" id="rPostBtn" data-post="{{ post.id }}" class="btn btn-sm btn-default" value="立即发布">{{ xsrf_form_html() }}</div>
   </div>
@@ -213,6 +229,44 @@
   </div>
 
 </div>
+
+
+
+<div id="delReplyModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">你确定要删除自己的答案吗？</h4>
+      </div>
+      <div class="modal-body">
+        <p>如果选择确认，你的答案将会被永久删除。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success" data-id="0">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="delPostModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">你确定要删除自己的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}吗？</h4>
+      </div>
+      <div class="modal-body">
+        <p>如果选择确认，你的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}将会被永久删除。</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success" data-id="0">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 
@@ -222,6 +276,7 @@
 $('.answers-area').jscroll({
 loadingHtml: '<a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
     contentSelector: '.answers-inner',
+    nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
 });
 </script>
@@ -255,7 +310,7 @@ $(document).on('click', '#rPostBtn',  function() {
             var reply_text = $('#rSummernote').code();
             var post_id = $('#rPostBtn').attr('data-post');
             var reply_list =  $('.answers-area');
-            var reply_string = reply_list.html()+'<div class="answer-item"><div class="user-wrapper"><div class="zm-votebar goog-scrollfloater"><button class="up"  title="赞同"> <i class="icon vote-arrow"></i><span class="label">赞同</span><span class="count">0</span></button><button class="down"  title="反对，不会显示你的姓名"><i class="icon vote-arrow"></i><span class="label">反对，不会显示你的姓名</span></button></div><div class="user-title"><div class="user-name">{{user_info.username}}，{{user_info.sign}}</div><div class="answer-user-meta meta"></div></div><div class="user-avatar"><a href="/u/{{user_info.username}}"><img src="{{ user_info.avatar}}" width="46px" height="46px" alt="" class="avatar-img" ></a></div></div><div class="answer-text">'+reply_text+'</div><div class="answer-meta meta"><a href="#">0 条评论</a><span class="bullet">•</span><a href="#">分享</a><span class="bullet">•</span><a href="#">感谢</a><span class="bullet">•</span><a href="#">举报</a><span class="bullet">•</span><a href="#">刚刚</a></div></div>';
+            var reply_string = '<div class="answer-item"><div class="user-wrapper"><div class="zm-votebar"><button class="up vote-btn vote-self-btn" title="赞同"> <span class="label">赞同</span><span class="count">0</span></button></div><div class="user-title"><div class="user-name"><a href="/u/{{user_info.username}}">{{user_info.username}}</a>{%if user_info.sign%}，{{user_info.sign}}{%endif%}</div><div class="answer-user-meta meta">还没有人赞同</div></div><div class="user-avatar"><a href="/u/{{user_info.username}}"><img src="{{ user_info.avatar }}" width="46px" height="46px" alt="" class="avatar-img"></a></div></div><div class="answer-text">'+reply_text+'</div><div class="answer-meta meta"><span class="time">刚刚</span></div></div>';
 
             var anon_text = $('.anon');
             var anon;
@@ -274,7 +329,8 @@ $(document).on('click', '#rPostBtn',  function() {
               data: JSON.stringify({reply_content: reply_text, anon: anon}), 
               success: function (msg) {
                 $('#rSummernote').code('');
-                reply_list.html(reply_string);
+                $(reply_string).insertBefore('.jscroll-next-parent:last')
+                //reply_list.html(reply_string);
                 //alert("ok!");
               },
               error: function (msg) {
@@ -395,6 +451,96 @@ $(document).on('click', '.anon',  function() {
     anon_text.text('匿名');
   }
 });       
+
+$(document).on('click', '.delete',  function() {
+  var delete_id = $(this).attr('data-id');
+  var delete_type = $(this).attr('data-type');
+ 
+ if (delete_type=='reply') {
+  $('#delReplyModal .btn-success').attr('data-id', delete_id);
+ }
+ else {
+  $('#delPostModal .btn-success').attr('data-id', delete_id);
+ }
+});
+
+$(document).on('click', '#delReplyModal .btn-success',  function() {
+  var delete_id = $(this).attr('data-id');
+
+ $.getJSON('/delete/reply/' + delete_id , function (data) {
+    if (data.success != 0) {
+      $('#'+delete_id).hide();
+      $('#delReplyModal').modal('hide');
+    }
+  });
+});
+
+$(document).on('click', '#delPostModal .btn-success',  function() {
+  var delete_id = $(this).attr('data-id');
+
+ $.getJSON('/delete/post/' + delete_id , function (data) {
+  window.location.replace("/");
+  });
+});
+
+$(document).on('click', '.edit',  function() {
+  var edit_id = $(this).attr('data-id');
+  var edit_type = $(this).attr('data-type');
+ 
+ if (edit_type=='reply') {
+  var reply_text =  $('#' + edit_id + ' .answer-text').html();
+  $('#' + edit_id + ' .answer-text').toggle();
+  $('<div class="editor-wrapper"><div id="editSummernote" class="description"></div></div>').insertAfter('#' + edit_id + ' .answer-text');
+  $('#editSummernote').summernote({
+        minHeight: 200, // set minimum height of editor
+        maxHeight: 600, // set maximum height of editor
+        toolbar: [
+            //['style', ['style']],
+            ['style', ['bold', 'italic', 'underline']],
+            //['fontsize', ['fontsize']],
+            //['color', ['color']],
+            ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
+            //['height', ['height']],
+            //['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            //['insert', ['link']],
+            ['view', ['fullscreen' /*, 'codeview'*/ ]],
+        ],
+        lang: 'zh-CN',
+    });
+  $('#editSummernote').code(reply_text);
+  $('<div class="edit-cancel-btn"><input type="cancel" id="editCancelBtn" data-id="'+edit_id+'" class="btn btn-sm btn-default" value="取消"></div>').insertAfter('#' + edit_id + ' .editor-wrapper #editSummernote');
+  $('<div class="edit-reply-btn"><input type="submit" id="editPostBtn" data-id="'+edit_id+'" class="btn btn-sm btn-default" value="立即发布"></div>').insertAfter('#' + edit_id + ' .editor-wrapper #editSummernote');
+ }
+});
+
+$(document).on('click', '#editCancelBtn',  function() {
+  $(this).parent().parent().parent().find('.answer-text').toggle();
+  $(this).parent().parent().remove();
+  });
+
+$(document).on('click', '#editPostBtn',  function() {
+  var reply_text = $(this).parent().parent().find('.note-editable').html();
+  var reply_id = $(this).attr('data-id');
+  var answer_text =  $(this).parent().parent().parent().find('.answer-text');
+  var editor_wrapper = $(this).parent().parent();
+  
+  $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "/edit/reply/"+reply_id,
+              data: JSON.stringify({reply_content: reply_text}), 
+              success: function (msg) {
+               answer_text.html(reply_text);
+                answer_text.toggle();
+                editor_wrapper.remove();
+              },
+              error: function (msg) {
+                alert("error");
+              }
+            });
+  });
 </script>
 
 <script>
