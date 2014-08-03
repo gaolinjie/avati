@@ -157,6 +157,90 @@ class NewHandler(BaseHandler):
                         "created": time.strftime('%Y-%m-%d %H:%M:%S')
                         })
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
+
+
+class EditHandler(BaseHandler):
+    def get(self, post_id, template_variables = {}):
+        user_info = self.current_user
+        template_variables["user_info"] = user_info
+        if(user_info):
+            post = self.post_model.get_post_by_post_id(post_id)
+            template_variables["post"] = post
+            self.render("edit.html", **template_variables)
+        else:
+            self.redirect("/signin")
+
+    @tornado.web.authenticated
+    def post(self, post_id, template_variables = {}):
+        template_variables = {}
+
+        post_type = self.get_argument('t', "q")
+
+        # validate the fields
+        form = NewForm(self)
+
+        if not form.validate():
+            self.get({"errors": form.errors})
+            return
+
+        post_info = {
+            "author_id": self.current_user["uid"],           
+            "title": form.title.data,
+            "content": form.content.data,
+            "reply_num": 0,
+            "view_num": 1,
+            "follow_num": 1,
+            "post_type": post_type,
+            "updated": time.strftime('%Y-%m-%d %H:%M:%S'),
+            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+        }
+
+        post_id = self.post_model.add_new_post(post_info)
+        self.redirect("/p/"+str(post_id))
+
+        if post_type == 'q':
+            feed_type = 1
+        else:
+            feed_type = 7
+
+        # add feed: user 提出了问题
+        feed_info = {
+            "user_id": self.current_user["uid"],           
+            "post_id": post_id,
+            "feed_type": feed_type,
+            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+        }
+        self.feed_model.add_new_feed(feed_info)
+
+        # add follow
+        follow_info = {
+            "author_id": self.current_user["uid"],
+            "obj_id": post_id,
+            "obj_type": post_type,
+            "created": time.strftime('%Y-%m-%d %H:%M:%S')
+        }
+        self.follow_model.add_new_follow(follow_info)
+
+        # process tags
+        tagStr = form.tag.data
+        if tagStr:
+            print tagStr
+            tagNames = tagStr.split(',')  
+            for tagName in tagNames:  
+                tag = self.tag_model.get_tag_by_tag_name(tagName)
+                if tag:
+                    self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag.id})
+                    self.tag_model.update_tag_by_tag_id(tag.id, {"post_num": tag.post_num+1})
+                else:
+                    tag_id = self.tag_model.add_new_tag({
+                        "name": tagName, 
+                        "post_num": 1, 
+                        "is_new": 1, 
+                        "post_add": post_id, 
+                        "user_add":  self.current_user["uid"], 
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                        })
+                    self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
   
 
 class TagHandler(BaseHandler):
@@ -530,7 +614,14 @@ class DeleteReplyHandler(BaseHandler):
         user_info = self.current_user
 
         if(user_info):
+            reply = self.reply_model.get_reply_by_id(reply_id)
+            post = self.post_model.get_post_by_post_id(reply.post_id)
+            self.post_model.update_post_by_post_id(post.id, {"reply_num": post.reply_num-1, "updated": time.strftime('%Y-%m-%d %H:%M:%S')})
+            self.vote_model.delete_vote_by_reply_id(reply_id)
+            self.thank_model.delete_thank_by_reply_id(reply_id)
+            self.report_model.delete_report_by_reply_id(reply_id)
             self.reply_model.delete_reply_by_id(reply_id)
+            self.feed_model.delete_feed_by_reply_id(reply_id)
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
@@ -566,6 +657,11 @@ class DeletePostHandler(BaseHandler):
 
         if(user_info):
             self.post_model.delete_post_by_post_id(post_id)
+            self.feed_model.delete_feed_by_post_id(post_id)
+            self.post_tag_model.delete_post_tag_by_post_id(post_id)
+            self.follow_model.delete_follow_by_post_id(post_id)
+            self.thank_model.delete_thank_by_post_id(post_id)
+            self.report_model.delete_report_by_post_id(post_id)
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                 }))

@@ -19,6 +19,10 @@ class VoteModel(Query):
         where = "vote.id = %s " % vote_id
         return self.where(where).delete()
 
+    def delete_vote_by_reply_id(self, reply_id):
+        where = "vote.reply_id = %s " % reply_id
+        return self.where(where).delete()
+
     def update_vote_by_id(self, vote_id, vote_info):
         where = "vote.id = %s" % vote_id
         return self.where(where).data(vote_info).save()

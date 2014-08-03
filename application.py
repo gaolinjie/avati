@@ -68,6 +68,7 @@ class Application(tornado.web.Application):
             (r"/delete/reply/(\d+)", handler.index.DeleteReplyHandler),
             (r"/edit/reply/(\d+)", handler.index.EditReplyHandler),
             (r"/delete/post/(\d+)", handler.index.DeletePostHandler),
+            (r"/edit/(\d+)", handler.index.EditHandler),
 
             (r"/u/(.*)", handler.user.UserHandler),
             (r"/signin", handler.user.SigninHandler),

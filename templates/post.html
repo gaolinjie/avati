@@ -48,9 +48,11 @@
       <span class="time">{{post.created|pretty_date}}</span>
       {% if post.author_id == user_info.uid %}
         <span class="bullet">•</span>
-        <a class="edit" href="javascript:;" data-id="{{post.id}}" data-type="post">修改</a>
+        <a class="edit" href="/edit/{{post.id}}" data-id="{{post.id}}" data-type="post">修改</a>
+       {% if replys.list|length ==0 %}
         <span class="bullet">•</span>
         <a class="delete" href="javascript:;" data-id="{{post.id}}" data-type="post" data-toggle="modal" data-target="#delPostModal">删除</a>
+        {% endif %}
         {% endif %}
     </div>
   </div>
@@ -186,7 +188,8 @@
   <div class="follow-box box">
     <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
     <div class="promote-link meta">
-      <a href="javascript:;">推送问题给更多人</a>
+      <a href="javascript:;">关注者 <strong id="followNum">{{post.follow_num}}</strong>
+      人</a>
     </div>
   </div>
   {% if related_posts.list %}
@@ -218,12 +221,8 @@
       最近活动于
       <span class="time">{{post.updated|pretty_date}}</span>
       <span class="zg-bull">•</span>
-      <a href="javascript:;" class="check-log">查看问题日志</a>
-    </div>
-    <div class="zg-gray-normal">
       被浏览 <strong>{{post.view_num}}</strong>
-      次，关注者 <strong id="followNum">{{post.follow_num}}</strong>
-      人
+      次
     </div>
 
   </div>

@@ -15,6 +15,14 @@ class ReportModel(Query):
         where = "report.id = %s " % report_id
         return self.where(where).delete()
 
+    def delete_report_by_post_id(self, post_id):
+        where = "report.obj_id = %s AND report.obj_type = 'post'" % post_id
+        return self.where(where).delete()
+
+    def delete_report_by_reply_id(self, reply_id):
+        where = "report.obj_id = %s AND report.obj_type = 'reply'" % reply_id
+        return self.where(where).delete()
+
     def add_new_report(self, report_info):
         return self.data(report_info).add()
 

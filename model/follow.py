@@ -22,6 +22,12 @@ class FollowModel(Query):
         where = "follow.id = %s " % follow_id
         return self.where(where).delete()
 
+    def delete_follow_by_post_id(self, post_id):
+        where = "follow.obj_id = %s AND (follow.obj_type = 'q' OR follow.obj_type = 'p')" % post_id
+        return self.where(where).delete()
+
+    
+
     def get_user_all_follow_feeds(self, author_id, num = 10, current_page = 1):
         where = "follow.author_id = %s" % author_id
         join = "RIGHT JOIN feed ON (follow.obj_type = 'u' AND follow.obj_id = feed.user_id) OR ((follow.obj_type = 'q' OR follow.obj_type = 'p') AND follow.obj_id = feed.post_id AND (feed.feed_type = 2 OR  feed.feed_type = 8)) OR (follow.obj_type = 't' AND follow.obj_id = feed.tag_id)\

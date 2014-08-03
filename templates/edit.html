@@ -1,0 +1,211 @@
+{% extends 'layout.html' %} {% block title %}
+<title>Avati</title>
+{% endblock %} {% block stylesheet %}
+<link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+<link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.11.0/jquery-ui.css">
+<link href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css" rel="stylesheet" type="text/css">{% endblock %} {% block main %}
+<div class="col-xs-12 col-md-9">
+    <div class="new">
+        <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
+            {% if post.post_type == 'q' %}
+            <li class="active">
+                <a href="#question" role="tab" data-toggle="tab">问 答</a>
+            </li>
+            {% else %}
+            <li class="active">
+                <a href="#post" role="tab" data-toggle="tab">文 章</a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+        <div class="tab-content">
+            {% if post.post_type == 'q' %}
+            <div class="tab-pane active" id="question">
+                <form class="mt10" action='/new?t=q' method="POST" >
+                    <div class="new-btn">
+                        <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
+                    </div>
+                    <div class="title">
+                        <input type="text" id="qTitle" name="title" class="form-control" placeholder="输入你的问题" value="{{post.title}}">
+                    </div>
+                    <div class="content">
+                        <div id="qSummernote" class="description"></div>
+                        <input type="hidden" name="content" id="qContentText" value="">
+                        <div id="qContentText2" style="display: none;">
+                            {{post.content}}
+                        </div>
+                    </div>
+                    <div class="tag">
+                        <input type="hidden" name="tag" id="qSingleField" value="">
+                        <ul id="qTags" class="">
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <div class="tab-pane active" id="post">
+                <form class="mt10" action='/new?t=p' method="POST" >
+                    <div class="new-btn">
+                        <input type="submit" id="pPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
+                    </div>
+                    <div class="title">
+                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的问题" value="{{post.title}}">
+                    </div>
+                    <div class="content">
+                        <div id="pSummernote" class="description"></div>
+                        <input type="hidden" name="content" id="pContentText" value="">
+                        <div id="pContentText2" style="display: none;">
+                            {{post.content}}
+                        </div>
+                    </div>
+                    <div class="tag">
+                        <input type="hidden" name="tag" id="pSingleField" value="">
+                        <ul id="pTags" class="">
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class=" col-xs-12 col-md-3">
+
+    <ul class="nav nav-list">
+        <li class="nav-item">
+            <a href="/"> <i class="icon-home"></i>
+                我的主页
+            </a>
+        </li>
+        <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
+            <a href="/notification"> <i class="icon-message"></i>
+                我关注的问题
+            </a>
+        </li>
+        <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
+            <a href="/favorite">
+                <i class="icon-fav"></i>
+                我的收藏
+            </a>
+        </li>
+
+        <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
+            <a href="/later">
+                <i class="icon-latter"></i>
+                邀请我回答的问题
+            </a>
+        </li>
+        <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
+            <a href="/follow">
+                <i class="icon-follow"></i>
+                我的草稿
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
+            <a href="/watch">
+                <i class="icon-history"></i>
+                邀请朋友加入
+            </a>
+        </li>
+    </ul>
+
+</div>
+{% endblock %} {% block javascript %}
+<script src="/static/jquery-ui-1.11.0/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/aehlke-tag-it-1d84585/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
+<script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
+
+
+
+<script>
+$('#type_tab a').click(function(e) {
+    e.preventDefault()
+    $(this).tab('show')
+})
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    {% if post.post_type == 'q' %}
+    $('#qSummernote').summernote({
+        height: 200, // set editor height
+        minHeight: 200, // set minimum height of editor
+        maxHeight: 600, // set maximum height of editor
+        focus: true,
+        toolbar: [
+            //['style', ['style']],
+            ['style', ['bold', 'italic', 'underline']],
+            //['fontsize', ['fontsize']],
+            //['color', ['color']],
+            ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
+            //['height', ['height']],
+            //['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            //['insert', ['link']],
+            ['view', ['fullscreen' /*, 'codeview'*/ ]],
+        ],
+        lang: 'zh-CN',
+    });
+    var qContent = $('#qContentText2').html();
+    $('#qSummernote').code(qContent);
+{% else %}
+    $('#pSummernote').summernote({
+        height: 200, // set editor height
+        minHeight: 200, // set minimum height of editor
+        maxHeight: 600, // set maximum height of editor
+        focus: true,
+        toolbar: [
+            //['style', ['style']],
+            ['style', ['bold', 'italic', 'underline']],
+            //['fontsize', ['fontsize']],
+            //['color', ['color']],
+            ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
+            //['height', ['height']],
+            //['table', ['table']],
+            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            //['insert', ['link']],
+            ['view', ['fullscreen' /*, 'codeview'*/ ]],
+        ],
+        lang: 'zh-CN',
+    });
+    var pContent = $('#pContentText2').html();
+    $('#pSummernote').code(pContent);
+    {% endif %}
+});
+
+$(document).on('click', '#qPostBtn', function() {
+    $('#qContentText').val($('#qSummernote').code());
+    //alert($('#mySingleField').val());
+});
+
+$(document).on('click', '#pPostBtn', function() {
+    $('#pContentText').val($('#pSummernote').code());
+    //alert($('#mySingleField').val());
+});
+</script>
+
+<script type="text/javascript">
+
+    var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+
+    $("#qTags").tagit({
+        availableTags: sampleTags,
+        singleField: true,
+        allowSpaces: true, //标签中是否允许空格
+        singleFieldNode: $('#qSingleField') //将值保存到mySingleField元素
+    });
+
+    $("#pTags").tagit({
+        availableTags: sampleTags,
+        singleField: true,
+        allowSpaces: true, //标签中是否允许空格
+        singleFieldNode: $('#pSingleField') //将值保存到mySingleField元素
+    });
+
+</script>
+
+{% endblock %}

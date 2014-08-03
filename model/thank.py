@@ -15,6 +15,14 @@ class ThankModel(Query):
         where = "thank.id = %s " % thank_id
         return self.where(where).delete()
 
+    def delete_thank_by_post_id(self, post_id):
+        where = "thank.obj_id = %s  AND thank.obj_type = 'post'" % post_id
+        return self.where(where).delete()
+
+    def delete_thank_by_reply_id(self, reply_id):
+        where = "thank.obj_id = %s  AND thank.obj_type = 'reply'" % reply_id
+        return self.where(where).delete()
+
     def add_new_thank(self, thank_info):
         return self.data(thank_info).add()
 
