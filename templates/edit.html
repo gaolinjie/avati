@@ -23,7 +23,7 @@
         <div class="tab-content">
             {% if post.post_type == 'q' %}
             <div class="tab-pane active" id="question">
-                <form class="mt10" action='/new?t=q' method="POST" >
+                <form class="mt10" action='/edit/{{post.id}}?t=q' method="POST" >
                     <div class="new-btn">
                         <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
                     </div>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="tag">
-                        <input type="hidden" name="tag" id="qSingleField" value="">
+                        <input type="hidden" name="tag" id="qSingleField" data-all="{{allTagStr}}" value="{{tagStr}}">
                         <ul id="qTags" class="">
                         </ul>
                     </div>
@@ -46,12 +46,12 @@
             </div>
             {% else %}
             <div class="tab-pane active" id="post">
-                <form class="mt10" action='/new?t=p' method="POST" >
+                <form class="mt10" action='/edit/{{post.id}}?t=p' method="POST" >
                     <div class="new-btn">
                         <input type="submit" id="pPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
                     </div>
                     <div class="title">
-                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的问题" value="{{post.title}}">
+                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的标题" value="{{post.title}}">
                     </div>
                     <div class="content">
                         <div id="pSummernote" class="description"></div>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="tag">
-                        <input type="hidden" name="tag" id="pSingleField" value="">
+                        <input type="hidden" name="tag" id="pSingleField" data-all="{{allTagStr}}" value="{{tagStr}}">
                         <ul id="pTags" class="">
                         </ul>
                     </div>
@@ -189,8 +189,9 @@ $(document).on('click', '#pPostBtn', function() {
 </script>
 
 <script type="text/javascript">
-
-    var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+{% if post.post_type == 'q' %}
+    var str = $('#qSingleField').attr('data-all');
+    var sampleTags =  str.split(",");
 
     $("#qTags").tagit({
         availableTags: sampleTags,
@@ -198,6 +199,9 @@ $(document).on('click', '#pPostBtn', function() {
         allowSpaces: true, //标签中是否允许空格
         singleFieldNode: $('#qSingleField') //将值保存到mySingleField元素
     });
+{% else %}
+    var str = $('#pSingleField').attr('data-all');
+    var sampleTags =  str.split(",");
 
     $("#pTags").tagit({
         availableTags: sampleTags,
@@ -205,7 +209,7 @@ $(document).on('click', '#pPostBtn', function() {
         allowSpaces: true, //标签中是否允许空格
         singleFieldNode: $('#pSingleField') //将值保存到mySingleField元素
     });
-
+{% endif %}
 </script>
 
 {% endblock %}

@@ -28,6 +28,8 @@ class Post_tagModel(Query):
         join = "LEFT JOIN tag ON post_tag.tag_id = tag.id"
         order = "post_tag.id ASC"
         field = "post_tag.*, \
+                tag.id as tag_id, \
+                tag.post_num as tag_post_num, \
                 tag.name as tag_name"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 

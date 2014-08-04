@@ -146,7 +146,8 @@
     {% if replys.page.next!=replys.page.current %}
 <div class="next jscroll-next-parent" ><a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
 {%else%}
-<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
 {%endif%}
     
   </div>

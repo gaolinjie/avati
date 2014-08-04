@@ -33,7 +33,7 @@
                         <input type="hidden" name="content" id="qContentText" value="">
                     </div>
                     <div class="tag">
-                        <input type="hidden" name="tag" id="qSingleField" value="">
+                        <input type="hidden" name="tag" id="qSingleField" data-all="{{allTagStr}}" value="">
                         <ul id="qTags" class="">
                         </ul>
                     </div>
@@ -196,7 +196,8 @@ $(document).on('click', '#pPostBtn', function() {
 
 <script type="text/javascript">
 $(document).ready(function() {
-    var sampleTags = ['c++', 'java', 'php', 'coldfusion', 'javascript', 'asp', 'ruby', 'python', 'c', 'scala', 'groovy', 'haskell', 'perl', 'erlang', 'apl', 'cobol', 'go', 'lua'];
+    var str = $('#qSingleField').attr('data-all');
+    var sampleTags =  str.split(",");
 
     $("#qTags").tagit({
         availableTags: sampleTags,

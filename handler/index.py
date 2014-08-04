@@ -82,6 +82,16 @@ class NewHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
+            allTags = self.tag_model.get_all_tags()
+            allTagStr = ''
+            i=0
+            for tag in allTags:
+                if i==0:
+                    allTagStr = tag.name
+                else:
+                    allTagStr = allTagStr + ','+ tag.name
+                i=i+1
+            template_variables["allTagStr"] = allTagStr 
             self.render("new.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -166,6 +176,27 @@ class EditHandler(BaseHandler):
         if(user_info):
             post = self.post_model.get_post_by_post_id(post_id)
             template_variables["post"] = post
+            tags = self.post_tag_model.get_post_all_tags(post_id)
+            tagStr = ''
+            i=0
+            for tag in tags["list"]:
+                if i==0:
+                    tagStr = tag.tag_name
+                else:
+                    tagStr = tagStr + ','+tag.tag_name
+                i=i+1
+            template_variables["tagStr"] = tagStr 
+
+            allTags = self.tag_model.get_all_tags()
+            allTagStr = ''
+            i=0
+            for tag in allTags:
+                if i==0:
+                    allTagStr = tag.name
+                else:
+                    allTagStr = allTagStr + ','+ tag.name
+                i=i+1
+            template_variables["allTagStr"] = allTagStr 
             self.render("edit.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -183,48 +214,23 @@ class EditHandler(BaseHandler):
             self.get({"errors": form.errors})
             return
 
-        post_info = {
-            "author_id": self.current_user["uid"],           
+        post_info = {          
             "title": form.title.data,
             "content": form.content.data,
-            "reply_num": 0,
-            "view_num": 1,
-            "follow_num": 1,
-            "post_type": post_type,
             "updated": time.strftime('%Y-%m-%d %H:%M:%S'),
-            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+
         }
 
-        post_id = self.post_model.add_new_post(post_info)
+        self.post_model.update_post_by_post_id(post_id, post_info)
         self.redirect("/p/"+str(post_id))
 
-        if post_type == 'q':
-            feed_type = 1
-        else:
-            feed_type = 7
-
-        # add feed: user 提出了问题
-        feed_info = {
-            "user_id": self.current_user["uid"],           
-            "post_id": post_id,
-            "feed_type": feed_type,
-            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
-        }
-        self.feed_model.add_new_feed(feed_info)
-
-        # add follow
-        follow_info = {
-            "author_id": self.current_user["uid"],
-            "obj_id": post_id,
-            "obj_type": post_type,
-            "created": time.strftime('%Y-%m-%d %H:%M:%S')
-        }
-        self.follow_model.add_new_follow(follow_info)
-
+        tags = self.post_tag_model.get_post_all_tags(post_id)
+        for tag in tags["list"]:
+                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"post_num": tag.tag_post_num-1})
+        self.post_tag_model.delete_post_tag_by_post_id(post_id)
         # process tags
         tagStr = form.tag.data
         if tagStr:
-            print tagStr
             tagNames = tagStr.split(',')  
             for tagName in tagNames:  
                 tag = self.tag_model.get_tag_by_tag_name(tagName)
