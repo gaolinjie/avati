@@ -16,29 +16,29 @@
           <div id="header-links">
             <ul class="about-network-links">
               <li class="channel-links-item">
-                <a class="sina" href="{{user_info.weibo or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank" ></a>
+                <a class="sina" href="{{view_user.weibo or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank" ></a>
               </li>
 
               <li class="channel-links-item">
-                <a class="qzone" href="{{user_info.qzone or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.qzone %}的QQ空间{% else %}还未设置{% endif %}" target="_blank"></a>
+                <a class="qzone" href="{{view_user.qzone or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.qzone %}的QQ空间{% else %}还未设置{% endif %}" target="_blank"></a>
               </li>
 
               <li class="channel-links-item">
-                <a class="douban" href="{{user_info.douban or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.douban %}的豆瓣主页{% else %}还未设置{% endif %}" target="_blank"></a>
+                <a class="douban" href="{{view_user.douban or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.douban %}的豆瓣主页{% else %}还未设置{% endif %}" target="_blank"></a>
               </li>
 
               <li class="channel-links-item">
-                <a class="renren" href="{{user_info.renren or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"></a>
+                <a class="renren" href="{{view_user.renren or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"></a>
               </li>
 
             </ul>
 
-            {% if user_info.website %}
+            {% if view_user.website %}
             <ul class="about-custom-links">
               <li class="channel-links-item">
-                <a href="{{user_info.website}}" rel="me nofollow" target="_blank" title="theverge.com" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
+                <a href="{{view_user.website}}" rel="me nofollow" target="_blank" title="{{view_user.website}}" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
                   <img src="/static/img/website.png" class="about-channel-link-favicon" alt="" width="16" height="16">
-                  <span class="about-channel-link-text">{{user_info.website}}</span>
+                  <span class="about-channel-link-text">{{view_user.website}}</span>
                 </a>
               </li>
 
@@ -53,6 +53,8 @@
               <div class="user-name">
                 
                   {{view_user.username}}
+
+                  <a class="rank" data-container="body" data-toggle="popover" data-placement="right" data-content="声望：{{view_user.reputation}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}。"></a>
                 
               </div>
               {%if view_user.sign%}
@@ -702,5 +704,12 @@ $(document).ready(function() {
             } 
     });
 });
+
+$(".rank").hover(function () {
+    $(".rank").popover('show')
+},function(){
+  $(".rank").popover('hide')
+});
+
 </script>
 {% endblock %}
