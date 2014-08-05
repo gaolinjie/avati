@@ -79,6 +79,7 @@ class Application(tornado.web.Application):
             (r"/setting/cover", handler.user.SettingCoverHandler),
             (r"/setting/password", handler.user.SettingPasswordHandler),
             (r"/forgot", handler.user.ForgotPasswordHandler),
+            (r"/social", handler.user.SocialHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)

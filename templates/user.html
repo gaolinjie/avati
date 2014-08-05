@@ -16,36 +16,34 @@
           <div id="header-links">
             <ul class="about-network-links">
               <li class="channel-links-item">
-                <a href="https://plus.google.com/u/0/100601380617286837373" rel="me nofollow" target="_blank" title="" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
-                  <img src="http://avati.qiniudn.com/favicons.png" class="about-channel-link-favicon" alt="" width="16" height="16"></a>
+                <a class="sina" href="{{user_info.weibo or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank" ></a>
               </li>
 
               <li class="channel-links-item">
-                <a href="http://twitter.com/verge" rel="me nofollow" target="_blank" title="" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
-                  <img src="http://avati.qiniudn.com/favicons%20(1).png" class="about-channel-link-favicon" alt="" width="16" height="16"></a>
+                <a class="qzone" href="{{user_info.qzone or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.qzone %}的QQ空间{% else %}还未设置{% endif %}" target="_blank"></a>
               </li>
 
               <li class="channel-links-item">
-                <a href="http://facebook.com/thisistheverge" rel="me nofollow" target="_blank" title="" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
-                  <img src="http://avati.qiniudn.com/favicons%20(2).png" class="about-channel-link-favicon" alt="" width="16" height="16"></a>
+                <a class="douban" href="{{user_info.douban or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.douban %}的豆瓣主页{% else %}还未设置{% endif %}" target="_blank"></a>
               </li>
 
               <li class="channel-links-item">
-                <a href="http://thisistheverge.tumblr.com" rel="me nofollow" target="_blank" title="" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
-                  <img src="http://avati.qiniudn.com/favicons%20(3).png" class="about-channel-link-favicon" alt="" width="16" height="16"></a>
+                <a class="renren" href="{{user_info.renren or 'javascript:;'}}" title="@{{user_info.username}} {%if user_info.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"></a>
               </li>
 
             </ul>
 
+            {% if user_info.website %}
             <ul class="about-custom-links">
               <li class="channel-links-item">
-                <a href="http://www.theverge.com" rel="me nofollow" target="_blank" title="theverge.com" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
+                <a href="{{user_info.website}}" rel="me nofollow" target="_blank" title="theverge.com" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
                   <img src="/static/img/website.png" class="about-channel-link-favicon" alt="" width="16" height="16">
-                  <span class="about-channel-link-text">theverge.com</span>
+                  <span class="about-channel-link-text">{{user_info.website}}</span>
                 </a>
               </li>
 
             </ul>
+            {% endif %}
           </div>
 
           <a class="channel-header-profile-image-container spf-link" href="/u/{{view_user.username}}">
@@ -629,9 +627,9 @@
             </li>
             <li class="divider"></li>
             <li class="nav-item">
-                <a href="/">
+                <a href="/social">
                     <i class="icon-history"></i>
-                    返回首页
+                    社交网络
                 </a>
             </li>
         </ul>

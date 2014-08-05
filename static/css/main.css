@@ -1254,3 +1254,36 @@ width: 40px;
 .load-more-btn {
 	width: 638px;
 }
+
+
+a.sina {
+height: 16px;
+width: 16px;
+display: inline-block;
+background: url('/static/img/16-sinaweibo.png')no-repeat;
+position: relative;
+}
+a.qzone {
+height: 16px;
+width: 16px;
+display: inline-block;
+background: url('/static/img/16-qzone.png')no-repeat;
+position: relative;
+}
+a.douban {
+height: 16px;
+width: 16px;
+display: inline-block;
+background: url('/static/img/16-douban.png')no-repeat;
+position: relative;
+}
+a.renren {
+height: 16px;
+width: 16px;
+display: inline-block;
+background: url('/static/img/16-renren.png')no-repeat;
+position: relative;
+}
+
+
+

@@ -421,3 +421,39 @@ class SignoutHandler(BaseHandler):
         do_logout(self)
         # redirect
         self.redirect(self.get_argument("next", "/"))
+
+class SocialHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, template_variables = {}):
+        user_info = self.get_current_user()
+        template_variables["user_info"] = user_info
+        template_variables["gen_random"] = gen_random
+        if user_info:
+            self.render("user/social.html", **template_variables)
+
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        template_variables = {}
+
+        user_info = self.get_current_user()
+
+        # validate the fields
+
+        form = SocialForm(self)
+
+        if not form.validate():
+            self.get({"errors": form.errors})
+            return
+
+        # continue while validate succeed
+
+        user_info = self.current_user
+        update_result = self.user_model.set_user_base_info_by_uid(user_info["uid"], {
+            "weibo": form.weibo.data,
+            "qzone": form.qzone.data,
+            "douban": form.douban.data,
+            "renren": form.renren.data,
+            "updated": time.strftime('%Y-%m-%d %H:%M:%S')
+        })
+
+        self.redirect("/u/" + user_info.username)

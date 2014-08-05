@@ -95,8 +95,23 @@ class SettingForm(Form):
     ])
     website = TextField('Website', [
         validators.Optional(),
-        validators.URL(message = "请填写合法的URL地址（如：http://avati.cn）")
+        validators.Length(min = 4, message = "网址长度过短（4-30个字符）"),
+        validators.Length(max = 30, message = "网址长度过长（4-30个字符）"),
     ])
     intro = TextField('Intro', [
+        validators.Optional(),
+    ])
+
+class SocialForm(Form):
+    weibo = TextField('Weibo', [
+        validators.Optional(),
+    ])
+    qzone = TextField('Qzone', [
+        validators.Optional(),
+    ])
+    douban = TextField('Douban', [
+        validators.Optional(),
+    ])
+    renren = TextField('Renren', [
         validators.Optional(),
     ])
