@@ -138,6 +138,7 @@
                 </div>
             </div>
             <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
                 <div class="summary-text">
                     {{feed.reply_content}}
                 </div>
@@ -326,6 +327,7 @@
                 </div>
             </div>
             <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
                 <div class="summary-text">
                     {{feed.reply_content}}
                 </div>
@@ -544,6 +546,7 @@
                 </div>
             </div>
             <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
                 <div class="summary-text">
                     {{feed.reply_content}}
                 </div>
@@ -633,6 +636,7 @@
                 </div>
             </div>
             <div class="summary">
+                <div class="user-name">{{feed.reply_user_username}}{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}</div>
                 <div class="summary-text">
                     {{feed.reply_content}}
                 </div>
@@ -735,7 +739,7 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
   $('#type_tab a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')
-})
+});
 
   $(document).on('click', '#followBtn',  function() {
         var obj_id = $('#followBtn').attr('data-obj');

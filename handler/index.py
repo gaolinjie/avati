@@ -253,17 +253,16 @@ class TagHandler(BaseHandler):
     def get(self, tag_name, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
+        p = int(self.get_argument("p", "1"))
         if(user_info):
             tag = self.tag_model.get_tag_by_tag_name(tag_name)
             template_variables["tag"] = tag
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, tag.id, 't')
-            template_variables["feeds"] = self.tag_model.get_tag_all_feeds(tag.id, user_info.uid)
-            feeds1 = self.feed_model.get_user_all_feeds_by_type(tag.id, user_info.uid, 1)
-            feeds7 = self.feed_model.get_user_all_feeds_by_type(tag.id, user_info.uid, 7)
-            template_variables["feeds1"] = feeds1
-            template_variables["feeds7"] = feeds7
-            template_variables["feeds1_len"] = len(feeds1["list"])
-            template_variables["feeds7_len"] = len(feeds7["list"])
+            template_variables["feeds"] = self.tag_model.get_tag_all_feeds(tag.id, user_info.uid, current_page = p)
+            template_variables["feeds1"] = self.tag_model.get_tag_all_feeds_by_type(tag.id, user_info.uid, 1, current_page = p)
+            template_variables["feeds7"] = self.tag_model.get_tag_all_feeds_by_type(tag.id, user_info.uid, 7, current_page = p)
+            template_variables["feeds1_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, user_info.uid, 1)
+            template_variables["feeds7_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, user_info.uid, 7)
             self.render("tag.html", **template_variables)
         else:
             self.redirect("/signin")

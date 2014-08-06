@@ -122,5 +122,9 @@ class FeedModel(Query):
                 reply_report.id as reply_report_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
+    def get_user_all_feeds_count_by_type(self, author_id, user_id, feed_type):
+        where = "feed.user_id = %s AND feed.feed_type = %s" % (author_id, feed_type)
+        return self.where(where).count()
+
 
 
