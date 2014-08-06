@@ -51,7 +51,11 @@ class FeedModel(Query):
                 LEFT JOIN reply ON feed.reply_id = reply.id \
                 LEFT JOIN user AS reply_user ON reply.author_id = reply_user.uid\
                 LEFT JOIN feed_type ON feed.feed_type = feed_type.id\
-                LEFT JOIN follow AS post_follow ON post_follow.author_id = %s AND post.id = post_follow.obj_id AND (post_follow.obj_type='q' OR post_follow.obj_type='p')" % user_id
+                LEFT JOIN follow AS post_follow ON post_follow.author_id = %s AND post.id = post_follow.obj_id AND (post_follow.obj_type='q' OR post_follow.obj_type='p')\
+                LEFT JOIN thank AS post_thank ON post_thank.from_user = %s AND post_thank.to_user = post.author_id AND post_thank.obj_id = post.id AND post_thank.obj_type = 'post'\
+                LEFT JOIN report AS post_report ON post_report.from_user = %s AND post_report.to_user = post.author_id AND post_report.obj_id = post.id AND post_report.obj_type = 'post'\
+                LEFT JOIN thank AS reply_thank ON reply_thank.from_user = %s AND reply_thank.to_user = reply.author_id AND reply_thank.obj_id = reply.id AND reply_thank.obj_type = 'reply'\
+                LEFT JOIN report AS reply_report ON reply_report.from_user = %s AND reply_report.to_user = reply.author_id AND reply_report.obj_id = reply.id AND reply_report.obj_type = 'reply'" % (user_id, user_id, user_id, user_id, user_id)
         order = "feed.created DESC, feed.id DESC"
         field = "feed.*, \
                 author_user.username as author_username, \
@@ -65,12 +69,17 @@ class FeedModel(Query):
                 post.thumb as post_thumb, \
                 post.reply_num as post_reply_num, \
                 post.created as post_created, \
+                post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
                 feed_type.feed_text as feed_text, \
                 reply_user.username as reply_user_username, \
                 reply_user.sign as reply_user_sign, \
-                post_follow.id as post_follow_id"
+                post_follow.id as post_follow_id, \
+                post_thank.id as post_thank_id, \
+                post_report.id as post_report_id, \
+                reply_thank.id as reply_thank_id, \
+                reply_report.id as reply_report_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_user_all_feeds_by_type(self, author_id, user_id, feed_type, num = 10, current_page = 1):
@@ -82,7 +91,11 @@ class FeedModel(Query):
                 LEFT JOIN reply ON feed.reply_id = reply.id \
                 LEFT JOIN user AS reply_user ON reply.author_id = reply_user.uid\
                 LEFT JOIN feed_type ON feed.feed_type = feed_type.id\
-                LEFT JOIN follow AS post_follow ON post_follow.author_id = %s AND post.id = post_follow.obj_id AND (post_follow.obj_type='q' OR post_follow.obj_type='p')" % user_id
+                LEFT JOIN follow AS post_follow ON post_follow.author_id = %s AND post.id = post_follow.obj_id AND (post_follow.obj_type='q' OR post_follow.obj_type='p')\
+                LEFT JOIN thank AS post_thank ON post_thank.from_user = %s AND post_thank.to_user = post.author_id AND post_thank.obj_id = post.id AND post_thank.obj_type = 'post'\
+                LEFT JOIN report AS post_report ON post_report.from_user = %s AND post_report.to_user = post.author_id AND post_report.obj_id = post.id AND post_report.obj_type = 'post'\
+                LEFT JOIN thank AS reply_thank ON reply_thank.from_user = %s AND reply_thank.to_user = reply.author_id AND reply_thank.obj_id = reply.id AND reply_thank.obj_type = 'reply'\
+                LEFT JOIN report AS reply_report ON reply_report.from_user = %s AND reply_report.to_user = reply.author_id AND reply_report.obj_id = reply.id AND reply_report.obj_type = 'reply'" % (user_id, user_id, user_id, user_id, user_id)
         order = "feed.created DESC, feed.id DESC"
         field = "feed.*, \
                 author_user.username as author_username, \
@@ -96,12 +109,17 @@ class FeedModel(Query):
                 post.thumb as post_thumb, \
                 post.reply_num as post_reply_num, \
                 post.created as post_created, \
+                post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
                 feed_type.feed_text as feed_text, \
                 reply_user.username as reply_user_username, \
                 reply_user.sign as reply_user_sign, \
-                post_follow.id as post_follow_id"
+                post_follow.id as post_follow_id, \
+                post_thank.id as post_thank_id, \
+                post_report.id as post_report_id, \
+                reply_thank.id as reply_thank_id, \
+                reply_report.id as reply_report_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
 

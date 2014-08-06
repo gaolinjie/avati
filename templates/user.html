@@ -91,6 +91,7 @@
         <div class="tab-content">
           <div class="tab-pane active" id="feed">
             <div class="feed-list">
+                <div class="feeds-inner">
         {%for feed in feeds.list%}
 
         {%if feed.feed_type==1%}
@@ -114,12 +115,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -145,12 +146,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -176,12 +177,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -207,12 +208,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -239,12 +240,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -271,12 +272,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -284,11 +285,6 @@
         {%if feed.feed_type==7%}
         <div class="feed">
             <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/u/{{feed.author_username}}">
-                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
@@ -307,12 +303,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -320,11 +316,6 @@
         {%if feed.feed_type==8%}
         <div class="feed">
             <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/u/{{feed.author_username}}">
-                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
@@ -343,12 +334,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -356,11 +347,6 @@
         {%if feed.feed_type==9%}
         <div class="feed">
             <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/u/{{feed.author_username}}">
-                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
@@ -379,12 +365,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -392,11 +378,6 @@
         {%if feed.feed_type==10%}
         <div class="feed">
             <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/t/{{feed.tag_name}}">
-                        <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a> {{feed.feed_text}}</div>
@@ -415,12 +396,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -428,11 +409,6 @@
         {%if feed.feed_type==11%}
         <div class="feed">
             <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/u/{{feed.author_username}}">
-                        <img src="{{feed.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
@@ -452,12 +428,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -465,11 +441,6 @@
         {%if feed.feed_type==12%}
         <div class="feed">
             <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/t/{{feed.tag_name}}">
-                        <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
                 <div class="user-title">
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
@@ -489,21 +460,31 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
         {%endfor%}
+
+        {% if feeds.page.next!=feeds.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+    </div>
     </div>
           </div>
           <div class="tab-pane" id="question">
-            <div class="feed-list">
+            <div class="feed-list1">
+                <div class="feeds-inner1">
         {%for feed in feeds1.list%}
+
         {%if feed.feed_type==1%}
         <div class="feed">
             <div class="user-wrapper">
@@ -525,20 +506,30 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
+        
         {%endfor%}
+
+        {% if feeds1.page.next!=feeds1.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds1.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+    </div>
     </div>
           </div>
           <div class="tab-pane" id="answer">
-            <div class="feed-list">
+            <div class="feed-list2">
+                <div class="feeds-inner2">
         {%for feed in feeds2.list%}
         {%if feed.feed_type==2%}
         <div class="feed">
@@ -561,32 +552,113 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">分享</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
-                <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
         {%endfor%}
+
+        {% if feeds2.page.next!=feeds2.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+    </div>
     </div>
           </div>
           <div class="tab-pane" id="post">
-            <div class="feed-list">
+            <div class="feed-list7">
+                <div class="feeds-inner7">
         {%for feed in feeds7.list%}
         {%if feed.feed_type==7%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.post_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
+                <span class="bullet">•</span>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                <span class="bullet">•</span>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
+            </div>
+        </div>
         {%endif%}
         {%endfor%}
+        {% if feeds7.page.next!=feeds7.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds7.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+</div>
     </div>
           </div>
           <div class="tab-pane" id="comment">
-            <div class="feed-list">
+            <div class="feed-list8">
+                <div class="feeds-inner8">
         {%for feed in feeds8.list%}
         {%if feed.feed_type==8%}
+        <div class="feed">
+            <div class="user-wrapper">
+                <div class="user-title">
+                    <div class="time">{{feed.created|pretty_date}}</div>
+                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
+                    <div class="feed-title">
+                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="summary-text">
+                    {{feed.reply_content}}
+                </div>
+            </div>
+            <div class="answer-meta meta">
+                <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                <span class="bullet">•</span>
+                <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
+                <span class="bullet">•</span>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                <span class="bullet">•</span>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
+            </div>
+        </div>
         {%endif%}
         {%endfor%}
+
+        {% if feeds8.page.next!=feeds8.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds8.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+    </div>
     </div>
           </div>
         </div>
@@ -711,5 +783,80 @@ $(".rank").hover(function () {
   $(".rank").popover('hide')
 });
 
+
+$(document).on('click', '.thank',  function() {
+  var thank_id = $(this).attr('data-id');
+  var thank_type = $(this).attr('data-type');
+  var thank_text = $(this);
+
+  if (thank_text.text()=='已感谢') {
+    return;
+  }
+  
+  $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function (data) {
+    if (data.success != 0) {
+      thank_text.text('已感谢'); 
+      thank_text.removeAttr("href");
+      thank_text.addClass("thanked");
+    }
+  });
+});
+
+$(document).on('click', '.report',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = $(this).attr('data-type');
+  var report_text = $(this);
+
+  if (report_text.text()=='已举报') {
+    return;
+  }
+  
+  $.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
+    if (data.success != 0) {
+      report_text.text('已举报'); 
+      report_text.removeAttr("href");
+      report_text.addClass("reported");
+    }
+  });
+});
+
+</script>
+
+<script src="/static/jscroll-master/jquery.jscroll.js"></script>
+<script>
+$('.feed-list').jscroll({
+loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.feeds-inner',
+    nextSelector: 'a.jscroll-next:last',
+    autoTrigger: false,
+});
+
+$('.feed-list1').jscroll({
+loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds1.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.feeds-inner1',
+    nextSelector: 'a.jscroll-next:last',
+    autoTrigger: false,
+});
+
+$('.feed-list2').jscroll({
+loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds2.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.feeds-inner2',
+    nextSelector: 'a.jscroll-next:last',
+    autoTrigger: false,
+});
+
+$('.feed-list7').jscroll({
+loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds7.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.feeds-inner7',
+    nextSelector: 'a.jscroll-next:last',
+    autoTrigger: false,
+});
+
+$('.feed-list8').jscroll({
+loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds8.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.feeds-inner8',
+    nextSelector: 'a.jscroll-next:last',
+    autoTrigger: false,
+});
 </script>
 {% endblock %}

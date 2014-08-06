@@ -181,18 +181,19 @@ class UserHandler(BaseHandler):
     def get(self, username, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
+        p = int(self.get_argument("p", "1"))
 
         if(user_info):
             view_user = self.user_model.get_user_by_username(username)
             template_variables["view_user"] = view_user
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
 
-            template_variables["feeds"] = self.feed_model.get_user_all_feeds(view_user.uid, user_info.uid)
+            template_variables["feeds"] = self.feed_model.get_user_all_feeds(view_user.uid, user_info.uid, current_page = p)
 
-            feeds1 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 1)
-            feeds2 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 2)
-            feeds7 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 7)
-            feeds8 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 8)
+            feeds1 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 1, current_page = p)
+            feeds2 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 2, current_page = p)
+            feeds7 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 7, current_page = p)
+            feeds8 = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 8, current_page = p)
 
             template_variables["feeds1"] = feeds1
             template_variables["feeds2"] = feeds2

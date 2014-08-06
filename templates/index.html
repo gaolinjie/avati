@@ -31,10 +31,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -51,7 +53,7 @@
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
                     <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        <h2><a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
                         </h2>
                     </div>
                 </div>
@@ -65,10 +67,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -99,10 +103,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -133,10 +139,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -153,7 +161,7 @@
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
                     <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        <h2><a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
                         </h2>
                     </div>
                 </div>
@@ -168,10 +176,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -188,7 +198,7 @@
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
                     <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        <h2><a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
                         </h2>
                     </div>
                 </div>
@@ -203,10 +213,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -237,10 +249,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -257,7 +271,7 @@
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
                     <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        <h2><a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
                         </h2>
                     </div>
                 </div>
@@ -271,10 +285,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.author_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -305,10 +321,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -339,10 +357,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.post_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.post_thank_id %}thanked{% endif %}" {% if feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.post_report_id %}reported{% endif %}" {% if feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -359,7 +379,7 @@
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}"> {{feed.author_username}} </a> {{feed.feed_text}}</div>
                     <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        <h2><a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
                         </h2>
                     </div>
                 </div>
@@ -374,10 +394,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -394,7 +416,7 @@
                     <div class="time">{{feed.created|pretty_date}}</div>
                     <div class="user-meta meta"><a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>{{feed.feed_text}}</div>
                     <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                        <h2><a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
                         </h2>
                     </div>
                 </div>
@@ -409,10 +431,12 @@
                 <a class="feed-post-follow-btn" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                 <span class="bullet">•</span>
                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                {% if user_info.username != feed.reply_user_username %}
                 <span class="bullet">•</span>
-                <a href="#">感谢</a>
+                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %}" {% if feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                 <span class="bullet">•</span>
-                <a href="#">举报</a>
+                <a class="report {% if feed.reply_report_id %}reported{% endif %}" {% if feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                {% endif %}
             </div>
         </div>
         {%endif%}
@@ -523,6 +547,42 @@ $(document).on('click', '.feed-post-follow-btn',  function() {
             });
           
         });
+
+$(document).on('click', '.thank',  function() {
+  var thank_id = $(this).attr('data-id');
+  var thank_type = $(this).attr('data-type');
+  var thank_text = $(this);
+
+  if (thank_text.text()=='已感谢') {
+    return;
+  }
+  
+  $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function (data) {
+    if (data.success != 0) {
+      thank_text.text('已感谢'); 
+      thank_text.removeAttr("href");
+      thank_text.addClass("thanked");
+    }
+  });
+});
+
+$(document).on('click', '.report',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = $(this).attr('data-type');
+  var report_text = $(this);
+
+  if (report_text.text()=='已举报') {
+    return;
+  }
+  
+  $.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
+    if (data.success != 0) {
+      report_text.text('已举报'); 
+      report_text.removeAttr("href");
+      report_text.addClass("reported");
+    }
+  });
+});
 </script>
 
 <script src="/static/js/jquery.infinitescroll.js"></script>
