@@ -126,8 +126,10 @@ class NewHandler(BaseHandler):
 
         if post_type == 'q':
             feed_type = 1
+            notice_type = 6
         else:
             feed_type = 7
+            notice_type = 13
 
         # add feed: user 提出了问题
         feed_info = {
@@ -167,6 +169,28 @@ class NewHandler(BaseHandler):
                         "created": time.strftime('%Y-%m-%d %H:%M:%S')
                         })
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
+
+        # create @username notification
+        for username in set(find_mentions(form.content.data)):
+            mentioned_user = self.user_model.get_user_by_username(username)
+
+            if not mentioned_user:
+                continue
+
+            if mentioned_user["uid"] == self.current_user["uid"]:
+                continue
+
+            if mentioned_user["uid"] == post.author_id:
+                continue
+
+            notice_info = {
+                "author_id": mentioned_user["uid"],
+                "user_id": self.current_user["uid"],          
+                "post_id": post_id,
+                "notice_type": notice_type,
+                "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+            }
+            self.notice_model.add_new_notice(notice_info)
 
 
 class EditHandler(BaseHandler):
@@ -305,9 +329,11 @@ class ReplyHandler(BaseHandler):
             if post.post_type == 'q':
                 feed_type = 2
                 notice_type = 1
+                notice_type2 = 7
             else:
                 feed_type = 8
                 notice_type = 8
+                notice_type2 = 14
             # add feed: user 回答了问题
             feed_info = {
                 "user_id": self.current_user["uid"],           
@@ -328,6 +354,30 @@ class ReplyHandler(BaseHandler):
                 "created": time.strftime('%Y-%m-%d %H:%M:%S'),
             }
             self.notice_model.add_new_notice(notice_info)
+
+
+            # create @username notification
+            for username in set(find_mentions(reply_content)):
+                mentioned_user = self.user_model.get_user_by_username(username)
+
+                if not mentioned_user:
+                    continue
+
+                if mentioned_user["uid"] == self.current_user["uid"]:
+                    continue
+
+                if mentioned_user["uid"] == post.author_id:
+                    continue
+
+                notice_info2 = {
+                    "author_id": mentioned_user["uid"],
+                    "user_id": self.current_user["uid"],          
+                    "post_id": post_id,
+                    "reply_id": reply_id,
+                    "notice_type": notice_type2,
+                    "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                self.notice_model.add_new_notice(notice_info2)
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
@@ -366,7 +416,7 @@ class FollowHandler(BaseHandler):
                     follows = self.follow_model.get_post_all_follows(obj_id)
                     if len(follows) <= THRESHOLD:
                         if obj_type == 'q':
-                            feed_type = 4
+                            feed_type = 4                         
                         else:
                             feed_type = 10
                         self.feed_model.delete_feed_by_post_and_type(obj_id, feed_type)
@@ -379,11 +429,23 @@ class FollowHandler(BaseHandler):
                 }
                 self.follow_model.add_new_follow(follow_info)
 
+                if obj_type=='u':
+                    # add notice: user 关注了你
+                    notice_info = {
+                        "author_id": obj_id,
+                        "user_id": user_info["uid"],           
+                        "notice_type": 15,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    self.notice_model.add_new_notice(notice_info)
+
                 if obj_type=='q' or obj_type=='p':
                     if obj_type == 'q':
                         feed_type = 3
+                        notice_type = 2
                     else:
                         feed_type = 9
+                        notice_type = 9
                     # add feed: user 关注了问题
                     feed_info = {
                         "user_id": user_info["uid"],           
@@ -395,6 +457,16 @@ class FollowHandler(BaseHandler):
 
                     post = self.post_model.get_post_by_post_id(obj_id)
                     self.post_model.update_post_by_post_id(post.id, {"follow_num": post.follow_num+1})
+
+                    # add notice: user 关注了问题
+                    notice_info = {
+                        "author_id": post.author_id,
+                        "user_id": user_info["uid"],           
+                        "post_id": obj_id,
+                        "notice_type": notice_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    self.notice_model.add_new_notice(notice_info)
 
                     follows = self.follow_model.get_post_all_follows(obj_id)
                     if len(follows) > THRESHOLD:
@@ -514,9 +586,9 @@ class VoteHandler(BaseHandler):
                     if reply.up_num+1 > THRESHOLD:
                             tags = self.post_tag_model.get_post_all_tags(post.id)
                             if post.post_type == 'q':
-                                feed_type2 = 6;
+                                feed_type2 = 6
                             else:
-                                feed_type2 = 12;
+                                feed_type2 = 12
                             for tag in tags["list"]:
                                 # add feed: tag 下很多人关注了问题
                                 feed_info2 = {
@@ -527,6 +599,21 @@ class VoteHandler(BaseHandler):
                                     "created": time.strftime('%Y-%m-%d %H:%M:%S'),
                                 }
                                 self.feed_model.add_new_feed(feed_info2)
+
+                    if post.post_type == 'q':
+                        notice_type = 4
+                    else:
+                        notice_type = 11
+                    # add notice: 赞同了你的回答
+                    notice_info = {
+                        "author_id": reply.author_id,
+                        "user_id": user_info["uid"],           
+                        "post_id": reply.post_id,
+                        "reply_id": reply.id,
+                        "notice_type": notice_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    self.notice_model.add_new_notice(notice_info)
                 else:
                     self.reply_model.update_reply_by_id(reply.id, {"down_num": reply.down_num+1})
             self.write(lib.jsonp.print_JSON({
@@ -558,6 +645,20 @@ class ThankHandler(BaseHandler):
                         "thank_num": to_user.thank_num+1,
                         "reputation": to_user.reputation+2,
                     })
+
+                if post.post_type=='q':
+                    notice_type = 3
+                else:
+                    notice_type = 10
+                # add notice: user 感谢了问题
+                notice_info = {
+                    "author_id": post.author_id,
+                    "user_id": user_info["uid"],           
+                    "post_id": post.id,
+                    "notice_type": notice_type,
+                    "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                self.notice_model.add_new_notice(notice_info)
             else:
                 reply = self.reply_model.get_reply_by_id(obj_id)
                 self.thank_model.add_new_thank({
@@ -573,6 +674,21 @@ class ThankHandler(BaseHandler):
                         "reputation": to_user.reputation+1,
                     })
 
+                post = self.post_model.get_post_by_post_id(reply.post_id)
+                if post.post_type=='q':
+                    notice_type = 5
+                else:
+                    notice_type = 12
+                # add notice: user 感谢了问题
+                notice_info = {
+                    "author_id": reply.author_id,
+                    "user_id": user_info["uid"],   
+                    "reply_id": reply.id,           
+                    "post_id": post.id,
+                    "notice_type": notice_type,
+                    "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                self.notice_model.add_new_notice(notice_info)
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
