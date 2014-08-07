@@ -100,3 +100,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def report_model(self):
         return self.application.report_model
 
+    @property
+    def notice_model(self):
+        return self.application.notice_model
+

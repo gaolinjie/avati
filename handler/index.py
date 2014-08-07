@@ -304,8 +304,10 @@ class ReplyHandler(BaseHandler):
 
             if post.post_type == 'q':
                 feed_type = 2
+                notice_type = 1
             else:
                 feed_type = 8
+                notice_type = 8
             # add feed: user 回答了问题
             feed_info = {
                 "user_id": self.current_user["uid"],           
@@ -315,6 +317,17 @@ class ReplyHandler(BaseHandler):
                 "created": time.strftime('%Y-%m-%d %H:%M:%S'),
             }
             self.feed_model.add_new_feed(feed_info)
+
+            # add notice: user 回答了问题
+            notice_info = {
+                "author_id": post.author_id,
+                "user_id": self.current_user["uid"],          
+                "post_id": post.id,
+                "reply_id": reply_id,
+                "notice_type": notice_type,
+                "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+            }
+            self.notice_model.add_new_notice(notice_info)
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
@@ -674,3 +687,16 @@ class DeletePostHandler(BaseHandler):
             self.write(lib.jsonp.print_JSON({
                     "success": 0,
                 }))
+
+
+class NoticeHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        user_info = self.current_user
+        template_variables["user_info"] = user_info
+        template_variables["gen_random"] = gen_random
+        p = int(self.get_argument("p", "1"))
+        if(user_info):
+            template_variables["notices"] = self.notice_model.get_user_all_notices(user_info.uid, current_page = p)
+            self.render("notice.html", **template_variables)
+        else:
+            self.redirect("/signin")

@@ -49,3 +49,17 @@ tag 下很多人赞同了评论
        gao                 2                      9
 
        gao                 2            2         11
+
+
+
+`id` `author_id` `user_id` `post_id` `reply_id` `notice_type` `created`
+      me          gao       1         1          1
+      me          gao       1                    2
+      me          gao       1                    3
+      me          gao       1         1          4
+      me          gao       1         1          5
+      me          gao       1                    6
+      me          gao       1         1          7
+
+
+      me          gao                            15

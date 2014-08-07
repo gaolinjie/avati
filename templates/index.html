@@ -450,7 +450,7 @@
 </div>
 
 <div class=" col-xs-12 col-md-3">
-
+<div class="sidenav container-box">
     <ul class="nav nav-list">
         <li class="nav-item">
             <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
@@ -463,9 +463,9 @@
             </a>
         </li>
         <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
-            <a href="/favorite">
+            <a href="/notice">
                 <i class="icon-fav"></i>
-                我的收藏
+                我的消息
             </a>
         </li>
 
@@ -502,7 +502,7 @@
         {% endfor %}
       </div>
       {% endif %}
-
+</div>
 </div>
 
 <div id="navigation" align="center">

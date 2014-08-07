@@ -80,6 +80,7 @@ class Application(tornado.web.Application):
             (r"/setting/password", handler.user.SettingPasswordHandler),
             (r"/forgot", handler.user.ForgotPasswordHandler),
             (r"/social", handler.user.SocialHandler),
+            (r"/notice", handler.index.NoticeHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)
@@ -107,6 +108,7 @@ class Application(tornado.web.Application):
         self.follow_model = self.loader.use("follow.model")
         self.thank_model = self.loader.use("thank.model")
         self.report_model = self.loader.use("report.model")
+        self.notice_model = self.loader.use("notice.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)
