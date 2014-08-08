@@ -80,7 +80,8 @@ class Application(tornado.web.Application):
             (r"/setting/password", handler.user.SettingPasswordHandler),
             (r"/forgot", handler.user.ForgotPasswordHandler),
             (r"/social", handler.user.SocialHandler),
-            (r"/notice", handler.index.NoticeHandler),
+            (r"/notifications", handler.index.NoticeHandler),
+            (r"/follows/(.*)", handler.index.FollowsHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)

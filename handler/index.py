@@ -816,3 +816,22 @@ class NoticeHandler(BaseHandler):
             self.render("notice.html", **template_variables)
         else:
             self.redirect("/signin")
+
+class FollowsHandler(BaseHandler):
+    def get(self, username, template_variables = {}):
+        user_info = self.current_user
+        template_variables["user_info"] = user_info
+        p = int(self.get_argument("p", "1"))
+
+        if(user_info):
+            view_user = self.user_model.get_user_by_username(username)
+            template_variables["view_user"] = view_user
+            template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
+
+            template_variables["feeds1"] = self.follow_model.get_user_follow_questions(view_user.uid, current_page = p)
+            template_variables["feeds7"] = self.follow_model.get_user_follow_posts(view_user.uid, current_page = p)
+
+
+            self.render("follows.html", **template_variables)
+        else:
+            self.redirect("/login")
