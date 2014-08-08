@@ -112,9 +112,9 @@
           </div>
           
           <div class="tab-pane" id="post">
-            <div class="feed-list7">
-                <div class="feeds-inner7">
-        {%for feed in feeds7.list%}
+            <div class="feed-list2">
+                <div class="feeds-inner2">
+        {%for feed in feeds2.list%}
         <div class="feed">
             <div class="user-wrapper">
                 <div class="user-title">
@@ -128,8 +128,8 @@
             </div>
         </div>
         {%endfor%}
-        {% if feeds7.page.next!=feeds7.page.current %}
-<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds7.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+        {% if feeds2.page.next!=feeds2.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
 {%else%}
 <div class="next jscroll-next-parent" >
 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
@@ -309,9 +309,9 @@ loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds1.page.next}}" id="lo
     autoTrigger: false,
 });
 
-$('.feed-list7').jscroll({
-loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds7.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner7',
+$('.feed-list2').jscroll({
+loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds2.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.feeds-inner2',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
 });

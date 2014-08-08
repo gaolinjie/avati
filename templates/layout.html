@@ -36,7 +36,7 @@
                 <a class="navbar-brand" href="/"></a>
             </div>
             <div class="navbar-collapse collapse">
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left J_search" role="search">
                     <div class="form-group">
                         <input type="text" id="search-input" class="form-control" placeholder="搜索一下，你就知道怎么买">
                     </div>
@@ -77,6 +77,19 @@
     <script src="/static/js/jquery-2.1.1.min.js"></script>
     <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
     {% block javascript %}{% endblock %}
+
+    <script type="text/javascript">
+        $(document).ready(function()  {
+            $('.J_search').submit(function(e) {
+                var _node = $(this);
+                var query = _node.find('input').val();
+                e.preventDefault();
+                window.open('http://baidu.com/search?q=site:mifan.tv/p%20' + query, "_blank");
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>
