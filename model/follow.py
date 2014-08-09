@@ -96,3 +96,21 @@ class FollowModel(Query):
                 post_user.username as author_username, \
                 post_user.avatar as author_avatar"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)     
+
+    def get_user_followees(self, view_user, author_id, num = 10, current_page = 1):
+        where = "follow.author_id = %s AND follow.obj_type = 'u'" % view_user
+        join = "LEFT JOIN user ON follow.obj_id = user.uid\
+                LEFT JOIN follow as author_follow ON (author_follow.author_id = %s AND author_follow.obj_id = user.uid AND author_follow.obj_type = 'u')" % author_id
+        order = "user.reputation DESC, user.thank_num DESC, user.up_num DESC, user.created DESC"
+        field = "user.*,\
+                author_follow.id as author_follow_id"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num) 
+
+    def get_user_followers(self, view_user, author_id, num = 10, current_page = 1):
+        where = "follow.obj_id = %s AND follow.obj_type = 'u'" % view_user
+        join = "LEFT JOIN user ON follow.author_id = user.uid\
+                LEFT JOIN follow as author_follow ON (author_follow.author_id = %s AND author_follow.obj_id = user.uid AND author_follow.obj_type = 'u')" % author_id
+        order = "user.reputation DESC, user.thank_num DESC, user.up_num DESC, user.created DESC"
+        field = "user.*,\
+                author_follow.id as author_follow_id"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)

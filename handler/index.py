@@ -830,6 +830,8 @@ class FollowsHandler(BaseHandler):
 
             template_variables["feeds1"] = self.follow_model.get_user_follow_questions(view_user.uid, current_page = p)
             template_variables["feeds2"] = self.follow_model.get_user_follow_posts(view_user.uid, current_page = p)
+            template_variables["feeds3"] = self.follow_model.get_user_followees(view_user.uid, user_info.uid, current_page = p)
+            template_variables["feeds4"] = self.follow_model.get_user_followers(view_user.uid, user_info.uid, current_page = p)
 
 
             self.render("follows.html", **template_variables)

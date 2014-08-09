@@ -77,6 +77,12 @@
           <li>
             <a href="#post" role="tab" data-toggle="tab">喜欢的文章</a>
           </li>
+          <li>
+            <a href="#followees" role="tab" data-toggle="tab">关注了</a>
+          </li>
+          <li>
+            <a href="#followers" role="tab" data-toggle="tab">关注者</a>
+          </li>
         </ul>
 
         <div class="tab-content">
@@ -130,6 +136,68 @@
         {%endfor%}
         {% if feeds2.page.next!=feeds2.page.current %}
 <div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+</div>
+    </div>
+          </div>
+
+
+          <div class="tab-pane" id="followees">
+            <div class="feed-list3">
+                <div class="feeds-inner3">
+        {%for feed in feeds3.list%}
+        <div class="feed feed-f">
+        <div class="btn-right">
+<a id="followBtn" data-obj="1" data-type="q" type="button" class="btn btn-f btn-success">关注</a>
+</div>
+
+            <div class="user-wrapper-f">
+            <div class="user-avatar-f">
+                    <a href="/u/{{feed.username}}">
+                        <img src="{{feed.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="50px" height="50px" alt="" class="avatar-img-f">
+                    </a>
+                </div>
+                <div class="user-title-f">
+                <div class="feed-title">
+                        <h2><a href="/u/{{feed.username}}">{{feed.username}}</a></h2>                      
+                    </div>
+                    <div class="user-meta-s meta">{{feed.sign}}</div>
+
+                    <div class="user-meta-f meta">
+<a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">172 关注者</a>
+/
+<a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">0 提问</a>
+/
+<a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">5 回答</a>
+/
+<a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">119 赞同</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+        {% if feeds3.page.next!=feeds3.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds3.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+</div>
+    </div>
+          </div>
+
+
+          <div class="tab-pane" id="followers">
+            <div class="feed-list4">
+                <div class="feeds-inner4">
+        {%for feed in feeds4.list%}
+ 
+        {%endfor%}
+        {% if feeds4.page.next!=feeds4.page.current %}
+<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds4.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
 {%else%}
 <div class="next jscroll-next-parent" >
 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
