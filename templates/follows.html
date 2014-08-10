@@ -108,7 +108,7 @@
         {%endfor%}
 
         {% if feeds1.page.next!=feeds1.page.current %}
-<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds1.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds1.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
 {%else%}
 <div class="next jscroll-next-parent" >
 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
@@ -135,7 +135,7 @@
         </div>
         {%endfor%}
         {% if feeds2.page.next!=feeds2.page.current %}
-<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
 {%else%}
 <div class="next jscroll-next-parent" >
 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
@@ -151,7 +151,7 @@
         {%for feed in feeds3.list%}
         <div class="feed feed-f">
         <div class="btn-right">
-<a id="followBtn" data-obj="1" data-type="q" type="button" class="btn btn-f btn-success">关注</a>
+<a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
 </div>
 
             <div class="user-wrapper-f">
@@ -164,23 +164,25 @@
                 <div class="feed-title">
                         <h2><a href="/u/{{feed.username}}">{{feed.username}}</a></h2>                      
                     </div>
+                    {% if feed.sign %}
                     <div class="user-meta-s meta">{{feed.sign}}</div>
+                    {% endif %}
 
                     <div class="user-meta-f meta">
-<a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">172 关注者</a>
+<a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">{{feed.followees}} 关注者</a>
 /
-<a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">0 提问</a>
+<a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">{{feed.questions}} 提问</a>
 /
-<a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">5 回答</a>
+<a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">{{feed.answers}} 回答</a>
 /
-<a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">119 赞同</a>
+<a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">{{feed.posts}} 文章</a>
                     </div>
                 </div>
             </div>
         </div>
         {%endfor%}
         {% if feeds3.page.next!=feeds3.page.current %}
-<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds3.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds3.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
 {%else%}
 <div class="next jscroll-next-parent" >
 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
@@ -194,10 +196,40 @@
             <div class="feed-list4">
                 <div class="feeds-inner4">
         {%for feed in feeds4.list%}
- 
+        <div class="feed feed-f">
+        <div class="btn-right">
+<a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
+</div>
+
+            <div class="user-wrapper-f">
+            <div class="user-avatar-f">
+                    <a href="/u/{{feed.username}}">
+                        <img src="{{feed.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="50px" height="50px" alt="" class="avatar-img-f">
+                    </a>
+                </div>
+                <div class="user-title-f">
+                <div class="feed-title">
+                        <h2><a href="/u/{{feed.username}}">{{feed.username}}</a></h2>                      
+                    </div>
+                    {% if feed.sign %}
+                    <div class="user-meta-s meta">{{feed.sign}}</div>
+                    {% endif %}
+
+                    <div class="user-meta-f meta">
+<a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">{{feed.followees}} 关注者</a>
+/
+<a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">{{feed.questions}} 提问</a>
+/
+<a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">{{feed.answers}} 回答</a>
+/
+<a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">{{feed.posts}} 文章</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         {%endfor%}
         {% if feeds4.page.next!=feeds4.page.current %}
-<div class="next jscroll-next-parent" ><a href="/u/{{view_user.username}}?p={{feeds4.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds4.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
 {%else%}
 <div class="next jscroll-next-parent" >
 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>

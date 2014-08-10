@@ -127,9 +127,15 @@ class NewHandler(BaseHandler):
         if post_type == 'q':
             feed_type = 1
             notice_type = 6
+
+            # update user_info
+            self.user_model.update_user_info_by_user_id(user_info.uid, {"questions": user_info.questions+1})
         else:
             feed_type = 7
             notice_type = 13
+
+            # update user_info
+            self.user_model.update_user_info_by_user_id(user_info.uid, {"posts": user_info.posts+1})
 
         # add feed: user 提出了问题
         feed_info = {
@@ -330,10 +336,14 @@ class ReplyHandler(BaseHandler):
                 feed_type = 2
                 notice_type = 1
                 notice_type2 = 7
+                # update user_info
+                self.user_model.update_user_info_by_user_id(user_info.uid, {"answers": user_info.answers+1})
             else:
                 feed_type = 8
                 notice_type = 8
                 notice_type2 = 14
+                # update user_info
+                self.user_model.update_user_info_by_user_id(user_info.uid, {"comments": user_info.comments+1})
             # add feed: user 回答了问题
             feed_info = {
                 "user_id": self.current_user["uid"],           
@@ -420,6 +430,11 @@ class FollowHandler(BaseHandler):
                         else:
                             feed_type = 10
                         self.feed_model.delete_feed_by_post_and_type(obj_id, feed_type)
+                if obj_type=='u':
+                    # update user_info
+                    user = self.user_model.get_user_by_uid(obj_id)
+                    self.user_model.update_user_info_by_user_id(obj_id, {"followers": user.followers-1})
+                    self.user_model.update_user_info_by_user_id(user_info.uid, {"followees": user_info.followees-1})
             else:
                 follow_info = {
                     "author_id": user_info["uid"],
@@ -438,6 +453,11 @@ class FollowHandler(BaseHandler):
                         "created": time.strftime('%Y-%m-%d %H:%M:%S'),
                     }
                     self.notice_model.add_new_notice(notice_info)
+
+                    # update user_info
+                    user = self.user_model.get_user_by_uid(obj_id)
+                    self.user_model.update_user_info_by_user_id(obj_id, {"followers": user.followers+1})
+                    self.user_model.update_user_info_by_user_id(user_info.uid, {"followees": user_info.followees+1})
 
                 if obj_type=='q' or obj_type=='p':
                     if obj_type == 'q':
@@ -757,6 +777,14 @@ class DeleteReplyHandler(BaseHandler):
             self.reply_model.delete_reply_by_id(reply_id)
             self.feed_model.delete_feed_by_reply_id(reply_id)
 
+            post = self.post_model.get_post_by_post_id(reply.post_id)
+            if post.post_type=='q':
+                # update user_info
+                self.user_model.update_user_info_by_user_id(user_info.uid, {"answers": user_info.answers-1})
+            else:
+                # update user_info
+                self.user_model.update_user_info_by_user_id(user_info.uid, {"comments": user_info.comments-1})
+
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                 }))
@@ -771,8 +799,6 @@ class EditReplyHandler(BaseHandler):
         user_info = self.current_user
         data = json.loads(self.request.body)
         reply_content = data["reply_content"]
-
-        print reply_content
 
         if(user_info):
             self.reply_model.update_reply_by_id(reply_id, {"content": reply_content})
@@ -796,6 +822,15 @@ class DeletePostHandler(BaseHandler):
             self.follow_model.delete_follow_by_post_id(post_id)
             self.thank_model.delete_thank_by_post_id(post_id)
             self.report_model.delete_report_by_post_id(post_id)
+
+            post = self.post_model.get_post_by_post_id(post_id)
+            if post.post_type=='q':
+                # update user_info
+                self.user_model.update_user_info_by_user_id(user_info.uid, {"questions": user_info.questions-1})
+            else:
+                # update user_info
+                self.user_model.update_user_info_by_user_id(user_info.uid, {"posts": user_info.posts-1})
+
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                 }))
