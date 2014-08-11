@@ -1,5 +1,5 @@
 {% extends 'layout.html' %} {% block title %}
-<title>Avati</title>
+<title>@{{user_info.username}} 的消息 - 买买买</title>
 {% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="feed-list">
@@ -422,10 +422,10 @@
 $(document).ready(function() {
     $(".summary-text").each(function(){
         var text = $(this);
-        str = text.html();
+        str = text.text();
             textLeng = 130;
             if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
+                  text.text(str.substring(0,textLeng)+"...");
             } 
     });
 });

@@ -98,6 +98,7 @@ class NewHandler(BaseHandler):
 
     @tornado.web.authenticated
     def post(self, template_variables = {}):
+        user_info = self.current_user
         template_variables = {}
 
         post_type = self.get_argument('t', "q")
@@ -293,6 +294,7 @@ class TagHandler(BaseHandler):
             template_variables["feeds7"] = self.tag_model.get_tag_all_feeds_by_type(tag.id, user_info.uid, 7, current_page = p)
             template_variables["feeds1_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, user_info.uid, 1)
             template_variables["feeds7_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, user_info.uid, 7)
+            template_variables["follow_num"] = self.follow_model.get_tag_followers_count(tag.id)
             self.render("tag.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -857,8 +859,10 @@ class FollowsHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         p = int(self.get_argument("p", "1"))
+        active_tab = self.get_argument('tab', "question")
 
         if(user_info):
+            template_variables["active_tab"] = active_tab
             view_user = self.user_model.get_user_by_username(username)
             template_variables["view_user"] = view_user
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')

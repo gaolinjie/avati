@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-<title>Avati</title>
+<title>标签：{{tag.name}} - 买买买</title>
 {% endblock %}
 
  {% block main %}
@@ -25,7 +25,7 @@
               {%if tag.intro%}
             {{tag.into}}
             {%else%}
-            目前还没有关于这个标签的解释
+            目前还没有关于这个标签的介绍
             {%endif%}
           </p>
 
@@ -539,8 +539,9 @@
       <div class="follow-box box">
         <a id="followBtn" data-obj="{{tag.id}}" data-type="{{'t'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注标签{% endif %}</a>
         <div class="promote-link meta">
-          <a herf="#">推送问题给更多人</a>
-        </div>
+      <a href="javascript:;">关注者 <strong id="followNum">{{follow_num}}</strong>
+      人</a>
+    </div>
       </div>
     </div>
 {% endblock %} 
@@ -556,10 +557,10 @@
 
     $(".summary-text").each(function(){
         var text = $(this);
-        str = text.html();
+        str = text.text();
             textLeng = 130;
             if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
+                  text.text(str.substring(0,textLeng)+"...");
             } 
     });
 
@@ -593,6 +594,69 @@
               }
             });         
         });
+
+$(document).on('click', '.feed-post-follow-btn',  function() {
+        var obj_id = $(this).attr('data-obj');
+            var obj_type = $(this).attr('data-type');
+            var follow_btn = $(this);
+
+            $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "/follow",
+              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
+              success: function (msg) {
+                if (follow_btn.text()=='关注问题') {
+                follow_btn.text('取消关注');
+                }
+                else {
+                follow_btn.text('关注问题');
+                }
+              },
+              error: function (msg) {
+                alert("error");
+              }
+            });
+          
+        });
+
+$(document).on('click', '.thank',  function() {
+  var thank_id = $(this).attr('data-id');
+  var thank_type = $(this).attr('data-type');
+  var thank_text = $(this);
+
+  if (thank_text.text()=='已感谢') {
+    return;
+  }
+  
+  $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function (data) {
+    if (data.success != 0) {
+      thank_text.text('已感谢'); 
+      thank_text.removeAttr("href");
+      thank_text.addClass("thanked");
+    }
+  });
+});
+
+$(document).on('click', '.report',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = $(this).attr('data-type');
+  var report_text = $(this);
+
+  if (report_text.text()=='已举报') {
+    return;
+  }
+  
+  $.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
+    if (data.success != 0) {
+      report_text.text('已举报'); 
+      report_text.removeAttr("href");
+      report_text.addClass("reported");
+    }
+  });
+});
+
 
 
 $('.feed-list').jscroll({

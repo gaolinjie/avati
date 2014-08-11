@@ -515,10 +515,10 @@
 $(document).ready(function() {
     $(".summary-text").each(function(){
         var text = $(this);
-        str = text.html();
+        str = text.text();
             textLeng = 130;
             if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
+                  text.text(str.substring(0,textLeng)+"...");
             } 
     });
 });
@@ -598,10 +598,10 @@ $(document).on('click', '.report',  function() {
       }, function(newElems) {
         $(".summary-text").each(function(){
         var text = $(this);
-        str = text.html();
+        str = text.text();
             textLeng = 130;
             if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
+                  text.text(str.substring(0,textLeng)+"...");
             } 
     });
 

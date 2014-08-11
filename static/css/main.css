@@ -171,6 +171,7 @@ a:hover {
 
 .user-name {
 	font-size: 1em;
+	font-weight: bold;
 }
 
 .user-name a {
@@ -209,7 +210,7 @@ border-radius: 50%;
 
 
 .comment-box {
-	margin-bottom: 140px;
+	margin-bottom: 60px;
 	float: left;
 }
 
@@ -1361,3 +1362,43 @@ color: #fff;
 .feed-f .btn-right a {
 	color: #fff;
 }
+
+.zm-profile-side-following {
+border-bottom: 1px solid #eee;
+margin-bottom: 15px;
+}
+.zg-clear {
+height: 58px;
+}
+
+.zm-profile-side-following .item {
+float: left;
+text-decoration: none;
+padding: 2px 30px 8px 0;
+}
+
+.zg-gray-normal, .zg-link-gray-normal, .zg-link-gray {
+color: #999;
+font-weight: 400;
+}
+
+.zm-profile-side-following .item strong {
+font-size: 16px;
+font-weight: 700;
+color: #666;
+}
+
+.zm-profile-side-following .item label {
+font-size: 13px;
+font-weight: 400;
+vertical-align: 1px;
+color: #666;
+cursor: pointer;
+}
+
+.zm-profile-side-following .item+.item {
+padding-left: 20px;
+border-left: 1px solid #eee;
+}
+
+

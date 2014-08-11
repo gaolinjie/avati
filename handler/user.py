@@ -199,6 +199,8 @@ class UserHandler(BaseHandler):
             template_variables["feeds7_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid, user_info.uid, 7)
             template_variables["feeds8_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid, user_info.uid, 8)
 
+            template_variables["followees_count"] = self.follow_model.get_user_followees_count(view_user.uid)
+            template_variables["followers_count"] = self.follow_model.get_user_followers_count(view_user.uid)
             self.render("user.html", **template_variables)
         else:
             self.redirect("/login")

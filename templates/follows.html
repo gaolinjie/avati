@@ -71,22 +71,22 @@
       <div class="tag-feed">
 
         <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
-          <li class="active">
+          <li {%if active_tab=="question" %}class="active"{%endif%}>
             <a href="#question" role="tab" data-toggle="tab">关注的问题</a>
           </li>
-          <li>
+          <li {%if active_tab=="post" %}class="active"{%endif%}>
             <a href="#post" role="tab" data-toggle="tab">喜欢的文章</a>
           </li>
-          <li>
+          <li {%if active_tab=="followees" %}class="active"{%endif%}>
             <a href="#followees" role="tab" data-toggle="tab">关注了</a>
           </li>
-          <li>
+          <li {%if active_tab=="followers" %}class="active"{%endif%}>
             <a href="#followers" role="tab" data-toggle="tab">关注者</a>
           </li>
         </ul>
 
         <div class="tab-content">
-          <div class="tab-pane active" id="question">
+          <div class="tab-pane {%if active_tab=="question" %}active{%endif%}" id="question">
             <div class="feed-list1">
                 <div class="feeds-inner1">
         {%for feed in feeds1.list%}
@@ -117,7 +117,7 @@
     </div>
           </div>
           
-          <div class="tab-pane" id="post">
+          <div class="tab-pane {%if active_tab=="post" %}active{%endif%}" id="post">
             <div class="feed-list2">
                 <div class="feeds-inner2">
         {%for feed in feeds2.list%}
@@ -145,7 +145,7 @@
           </div>
 
 
-          <div class="tab-pane" id="followees">
+          <div class="tab-pane {%if active_tab=="followees" %}active{%endif%}" id="followees">
             <div class="feed-list3">
                 <div class="feeds-inner3">
         {%for feed in feeds3.list%}
@@ -192,7 +192,7 @@
           </div>
 
 
-          <div class="tab-pane" id="followers">
+          <div class="tab-pane {%if active_tab=="followers" %}active{%endif%}" id="followers">
             <div class="feed-list4">
                 <div class="feeds-inner4">
         {%for feed in feeds4.list%}
@@ -346,10 +346,10 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
 $(document).ready(function() {
     $(".summary-text").each(function(){
         var text = $(this);
-        str = text.html();
+        str = text.text();
             textLeng = 130;
             if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
+                  text.text(str.substring(0,textLeng)+"...");
             } 
     });
 });

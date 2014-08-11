@@ -713,11 +713,19 @@
         </ul>
     </div>
       {%else%}
+      <div class="zm-profile-side-following zg-clear">
+<a class="item" href="/follows/{{view_user.username}}?tab=followees">
+<span class="zg-gray-normal">关注了</span><br>
+<strong>{{followees_count}}</strong><label> 人</label>
+</a>
+<a class="item" href="/follows/{{view_user.username}}?tab=followers">
+<span class="zg-gray-normal">关注者</span><br>
+<strong>{{followers_count}}</strong><label> 人</label>
+</a>
+<div class="clear"></div>
+</div>
       <div class="follow-box box">
         <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
-        <div class="promote-link meta">
-          <a herf="#">推送问题给更多人</a>
-        </div>
       </div>
       {%endif%}
     </div>
@@ -773,10 +781,10 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
 $(document).ready(function() {
     $(".summary-text").each(function(){
         var text = $(this);
-        str = text.html();
+        str = text.text();
             textLeng = 130;
             if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
+                  text.text(str.substring(0,textLeng)+"...");
             } 
     });
 });
@@ -787,6 +795,31 @@ $(".rank").hover(function () {
   $(".rank").popover('hide')
 });
 
+$(document).on('click', '.feed-post-follow-btn',  function() {
+        var obj_id = $(this).attr('data-obj');
+            var obj_type = $(this).attr('data-type');
+            var follow_btn = $(this);
+
+            $.ajax({
+              type: "POST",
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              url: "/follow",
+              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
+              success: function (msg) {
+                if (follow_btn.text()=='关注问题') {
+                follow_btn.text('取消关注');
+                }
+                else {
+                follow_btn.text('关注问题');
+                }
+              },
+              error: function (msg) {
+                alert("error");
+              }
+            });
+          
+        });
 
 $(document).on('click', '.thank',  function() {
   var thank_id = $(this).attr('data-id');

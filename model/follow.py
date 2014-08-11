@@ -98,7 +98,7 @@ class FollowModel(Query):
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)     
 
     def get_user_followees(self, view_user, author_id, num = 10, current_page = 1):
-        where = "follow.author_id = %s AND follow.obj_id != %s AND follow.obj_id != %s AND follow.obj_type = 'u'" % (view_user, view_user, author_id)
+        where = "follow.author_id = %s AND follow.obj_id != %s AND follow.obj_type = 'u'" % (view_user, view_user)
         join = "LEFT JOIN user ON follow.obj_id = user.uid\
                 LEFT JOIN follow as author_follow ON (author_follow.author_id = %s AND author_follow.obj_id = user.uid AND author_follow.obj_type = 'u')" % author_id
         order = "user.reputation DESC, user.thank_num DESC, user.up_num DESC, user.created DESC"
@@ -107,10 +107,22 @@ class FollowModel(Query):
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num) 
 
     def get_user_followers(self, view_user, author_id, num = 10, current_page = 1):
-        where = "follow.obj_id = %s AND follow.author_id != %s  AND follow.author_id != %s AND follow.obj_type = 'u'" % (view_user, view_user, author_id)
+        where = "follow.obj_id = %s AND follow.author_id != %s  AND follow.obj_type = 'u'" % (view_user, view_user)
         join = "LEFT JOIN user ON follow.author_id = user.uid\
                 LEFT JOIN follow as author_follow ON (author_follow.author_id = %s AND author_follow.obj_id = user.uid AND author_follow.obj_type = 'u')" % author_id
         order = "user.reputation DESC, user.thank_num DESC, user.up_num DESC, user.created DESC"
         field = "user.*,\
                 author_follow.id as author_follow_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+
+    def get_user_followees_count(self, view_user):
+        where = "follow.author_id = %s AND follow.obj_id != %s AND follow.obj_type = 'u'" % (view_user, view_user)
+        return self.where(where).count()
+
+    def get_user_followers_count(self, view_user):
+        where = "follow.obj_id = %s AND follow.author_id != %s AND follow.obj_type = 'u'" % (view_user, view_user)
+        return self.where(where).count()
+
+    def get_tag_followers_count(self, tag_id):
+        where = "follow.obj_id = %s AND follow.obj_type = 't'" % tag_id
+        return self.where(where).count()
