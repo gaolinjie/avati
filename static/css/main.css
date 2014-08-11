@@ -178,7 +178,7 @@ a:hover {
 font-weight: bold;
 }
 
-.col-md-9 a {
+a {
 	color: #5490c3;
 }
 
@@ -1402,3 +1402,162 @@ border-left: 1px solid #eee;
 }
 
 
+
+
+.question-invite-panel {
+position: relative;
+margin: 5px 0 35px;
+padding: 12px;
+color: #222;
+border: 1px solid #ddd;
+border-radius: 4px;
+box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.icon-spike {
+position: absolute;
+top: -8px;
+left: 23px;
+width: 13px;
+height: 8px;
+background-position: -200px -165px;
+background-image: url(/static/img/sprites-1.9.2.png);
+background-repeat: no-repeat;
+display: inline-block;
+vertical-align: middle;
+}
+
+.question-invite-panel>.icon-spike {
+left: 18px;
+}
+
+.question-invite-panel .invite-title {
+position: relative;
+}
+
+.question-invite-panel .input-wrapper {
+position: relative;
+display: inline-block;
+}
+
+.question-invite-panel .search-input {
+padding-right: 20px;
+width: 130px;
+line-height: 15px;
+font-size: 13px;
+color: #777;
+}
+
+.question-invite-panel .input-wrapper .zg-icon {
+position: absolute;
+right: 6px;
+top: 50%;
+margin-top: -6px;
+}
+.icon-magnify {
+width: 12px;
+height: 12px;
+background-position: -45px -52px;
+vertical-align: -3px;
+}
+
+.zg-icon{
+
+background-image: url(/static/img/sprites-1.9.2.png);
+background-repeat: no-repeat;
+display: inline-block;
+
+}
+
+
+.question-invite-panel .suggest-persons {
+list-style: none;
+margin-top: 12px;
+padding-left: 0px;
+margin-bottom: 0px;
+}
+
+.question-invite-panel .suggest-persons>.person.bordered {
+padding-bottom: 12px;
+margin-bottom: 12px;
+border-bottom: 1px dotted #eee;
+}
+.question-invite-panel .suggest-persons>.person {
+float: left;
+width: 50%;
+height: 74px;
+overflow: hidden;
+}
+
+.question-invite-panel .suggest-persons>.person.odd>.blk {
+padding-right: 10px;
+}
+
+.question-invite-panel .suggest-persons>.person .zm-item-link-avatar {
+float: left;
+margin-right: 12px;
+width: 36px;
+height: 36px;
+}
+
+.question-invite-panel .suggest-persons>.person .zm-item-img-avatar {
+border-radius: 3px;
+}
+
+.question-invite-panel .suggest-persons>.person .content {
+overflow: hidden;
+}
+
+.question-invite-panel .suggest-persons .invite-button {
+float: right;
+}
+
+.zg-link {
+cursor: pointer;
+text-decoration: none;
+}
+
+.question-invite-panel .suggest-persons>.person .bio, .question-invite-panel .suggest-persons>.person .reason {
+word-wrap: normal;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.question-invite-panel .suggest-persons>.person .reason {
+word-wrap: normal;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+.question-invite-panel .reason, .question-invite-panel .invite-status {
+color: #999;
+}
+
+.zm-item-img-avatar {
+	width: 34px;
+	height: 34px;
+}
+
+a.btn {
+color: #fff;
+}
+
+.question-invite-panel .suggest-persons>.person.even>.blk {
+padding-left: 10px;
+}
+
+.zm-invite-pager {
+text-align: center;
+}
+
+.link-disabled {
+color: #999;
+font-weight: 400;
+text-decoration: none;
+cursor: default;
+}
+
+.invite-email {
+margin-bottom: 30px;
+}
