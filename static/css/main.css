@@ -1561,3 +1561,7 @@ cursor: default;
 .invite-email {
 margin-bottom: 30px;
 }
+
+.topic-tags a {
+	color: #5490c3;
+}
