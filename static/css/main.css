@@ -1472,7 +1472,7 @@ display: inline-block;
 
 .question-invite-panel .suggest-persons {
 list-style: none;
-margin-top: 12px;
+margin-top: 30px;
 padding-left: 0px;
 margin-bottom: 0px;
 }
@@ -1558,10 +1558,14 @@ text-decoration: none;
 cursor: default;
 }
 
-.invite-email {
-margin-bottom: 30px;
-}
-
 .topic-tags a {
 	color: #5490c3;
+}
+
+a.link-disabled {
+	color: #999;
+}
+
+.question-invite-panel .suggest-persons>.person.even>.blk {
+padding-left: 10px;
 }

@@ -882,10 +882,20 @@ class GetInviteUsersHandler(BaseHandler):
         user_info = self.current_user
 
         if(user_info):  
-            users = self.post_tag_model.get_post_related_users(post_id)          
+            users = self.post_tag_model.get_post_related_users(post_id, user_info.uid)          
             jarray = []
+            uids = []
             i = 0
             for user in users["list"]:
+                if len(uids) == 20:
+                    continue
+                if user.uid==None:
+                    continue
+                if user.uid in uids:
+                    continue
+                invite = self.invite_model.get_invite(user_info.uid, user.uid, post_id)
+                if invite:
+                    continue
                 if user.avatar==None:
                     user.avatar = "http://avati-avatar.qiniudn.com/b_default.png-avatar"
                 if user.sign==None:
@@ -898,6 +908,7 @@ class GetInviteUsersHandler(BaseHandler):
                     "answers": user.answers
                 }
                 jarray.append(jobject)
+                uids.append(user.uid)
                 i=i+1
 
             self.write(lib.jsonp.print_JSON({"users": jarray}))
@@ -926,3 +937,14 @@ class InviteAnswerHandler(BaseHandler):
             self.write(lib.jsonp.print_JSON({
                     "success": 0,
                 }))
+
+class InvitationsHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        user_info = self.current_user
+
+        if(user_info):
+            invites = self.invite_model.get_user_invites(user_info.uid)
+            template_variables["invites"] = invites
+            self.render("invitations.html", **template_variables)
+        else:
+            self.redirect("/login")

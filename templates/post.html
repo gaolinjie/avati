@@ -442,12 +442,33 @@ $(document).on('click', '.invite',  function() {
   
   $.getJSON('/get/users/' + post_id, function (data) {
     if (data.success != 0) {
-      var users_string='';
+      if (data.users.length>0) {
+            var users_string='';
             for(i=0;i<data.users.length;i++){
-              users_string+='<li class="person odd bordered" style=""><div class="blk"><a title="'+data.users[i].username+'" class="zm-item-link-avatar" href="/u/'+data.users[i].username+'"><img src="'+data.users[i].avatar+'" class="zm-item-img-avatar"></a><div class="content"><a class="invite-button btn btn-f btn-success " data-id="'+data.users[i].uid+'" data-post="'+post_id+'">邀请回答</a><a href="'+data.users[i].username+'" class="zg-link">'+data.users[i].username+'</a><div class="bio" title="'+data.users[i].sign+'">'+data.users[i].sign+'</div><div class="reason" title="在相关话题下有 '+data.users[i].answers+' 个回答">在相关话题下有 '+data.users[i].answers+' 个回答</div></div></div></li>'
+              if (i%2==0) {
+                position = "odd";
+              }
+              else {
+                position = "even";
+              }
+              if (i>3) {
+                style = "display: none;";
+              }
+              else {
+                style = '';
+              }
+              users_string+='<li class="person '+position+' bordered" style="'+style+'"><div class="blk"><a title="'+data.users[i].username+'" class="zm-item-link-avatar" href="/u/'+data.users[i].username+'"><img src="'+data.users[i].avatar+'" class="zm-item-img-avatar"></a><div class="content"><a class="invite-button btn btn-f btn-success " data-id="'+data.users[i].uid+'" data-post="'+post_id+'">邀请回答</a><a href="'+data.users[i].username+'" class="zg-link">'+data.users[i].username+'</a><div class="bio" title="'+data.users[i].sign+'">'+data.users[i].sign+'</div><div class="reason" title="在相关话题下有 '+data.users[i].answers+' 个回答">在相关话题下有 '+data.users[i].answers+' 个回答</div></div></div></li>'
             }
             $('.suggest-persons').html(users_string);
-
+            if (data.users.length<5) {
+              //$('.js-next').addClass('link-disabled');
+              $('.zm-invite-pager').hide();
+            }
+      }
+      else {
+        $('.suggest-persons').hide();
+        $('.zm-invite-pager').hide();
+      }
       $('.panel-container').fadeIn("slow");
     }
   });
@@ -460,11 +481,76 @@ $(document).on('click', '.invite-button',  function() {
   
   $.getJSON('/invite/answer/' + post_id + '?u=' + user_id, function (data) {
     if (data.success != 0) {
-      invite_btn.text('取消邀请'); 
-      invite_btn.removeClass("btn-success");
-      invite_btn.addClass("btn-danger");
+      if (invite_btn.hasClass("btn-success")) {
+        invite_btn.text('取消邀请'); 
+        invite_btn.removeClass("btn-success");
+        invite_btn.addClass("btn-danger");
+      }
+      else {
+        invite_btn.text('邀请回答'); 
+        invite_btn.removeClass("btn-danger");
+        invite_btn.addClass("btn-success");
+      }
+      
     }
   });
+});
+
+$(document).on('click', '.js-next',  function() {
+    if($('.js-next').hasClass('link-disabled')) {
+      return;
+    }
+    var element = $('.suggest-persons').find('li:visible:first');
+
+    for (i=0; i<4; i++) {
+      if (!element.hasClass('person')) {
+        break;
+      }
+      element.hide();
+      element = element.next();
+    }
+
+    for (i=0; i<4; i++) {
+      if (!element.hasClass('person')) {
+        break;
+      }
+      element.show();
+      element = element.next();
+    }
+
+    if (!element.hasClass('person')) {
+      $('.js-next').addClass('link-disabled');
+      $('.js-prev').removeClass('link-disabled');
+    }
+});
+
+$(document).on('click', '.js-prev',  function() {
+    if($('.js-prev').hasClass('link-disabled')) {
+      return;
+    }
+    var element = $('.suggest-persons').find('li:visible:first');
+    var elementPrev = element.prev();
+
+    for (i=0; i<4; i++) {
+      if (!element.hasClass('person')) {
+        break;
+      }
+      element.hide();
+      element = element.next();
+    }
+
+    for (i=0; i<4; i++) {
+      if (!elementPrev.hasClass('person')) {
+        break;
+      }
+      elementPrev.show();
+      elementPrev = elementPrev.prev();
+    }
+
+    if (!elementPrev.hasClass('person')) {
+      $('.js-prev').addClass('link-disabled');
+      $('.js-next').removeClass('link-disabled');
+    }
 });
 
 $(document).on('click', '.thank',  function() {

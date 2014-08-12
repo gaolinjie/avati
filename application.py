@@ -84,6 +84,7 @@ class Application(tornado.web.Application):
             (r"/follows/(.*)", handler.index.FollowsHandler),
             (r"/get/users/(\d+)", handler.index.GetInviteUsersHandler),
             (r"/invite/answer/(\d+)", handler.index.InviteAnswerHandler),
+            (r"/invitations", handler.index.InvitationsHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)
