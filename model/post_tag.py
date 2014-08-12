@@ -50,3 +50,12 @@ class Post_tagModel(Query):
         order = "post.reply_num DESC, post.created DESC, post.id DESC"
         field = "post.*"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+
+    def get_post_related_users(self, post_id, num = 4, current_page = 1):
+        where = "post_tag.post_id = %s" % post_id
+        join = "RIGHT JOIN post_tag AS related_post_tag ON post_tag.tag_id = related_post_tag.tag_id \
+                LEFT JOIN reply ON related_post_tag.post_id = reply.post_id \
+                LEFT JOIN user ON reply.author_id = user.uid"
+        order = "reply.up_num DESC, user.answers DESC, user.reputation DESC"
+        field = "user.*"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)

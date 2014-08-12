@@ -104,3 +104,6 @@ class BaseHandler(tornado.web.RequestHandler):
     def notice_model(self):
         return self.application.notice_model
 
+    @property
+    def invite_model(self):
+        return self.application.invite_model

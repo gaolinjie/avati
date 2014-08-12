@@ -249,3 +249,16 @@ CREATE TABLE `notice_type` (
   `notice_text` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `invite`
+-- ----------------------------
+DROP TABLE IF EXISTS `invite`;
+CREATE TABLE `invite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `from_user` int(11) DEFAULT NULL,
+  `to_user` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

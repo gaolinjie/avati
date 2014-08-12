@@ -876,3 +876,53 @@ class FollowsHandler(BaseHandler):
             self.render("follows.html", **template_variables)
         else:
             self.redirect("/login")
+
+class GetInviteUsersHandler(BaseHandler):
+    def get(self, post_id, template_variables = {}):
+        user_info = self.current_user
+
+        if(user_info):  
+            users = self.post_tag_model.get_post_related_users(post_id)          
+            jarray = []
+            i = 0
+            for user in users["list"]:
+                if user.avatar==None:
+                    user.avatar = "http://avati-avatar.qiniudn.com/b_default.png-avatar"
+                if user.sign==None:
+                    user.sign=""
+                jobject = {
+                    "uid": user.uid,
+                    "username": user.username,
+                    "avatar": user.avatar,
+                    "sign": user.sign,
+                    "answers": user.answers
+                }
+                jarray.append(jobject)
+                i=i+1
+
+            self.write(lib.jsonp.print_JSON({"users": jarray}))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+
+class InviteAnswerHandler(BaseHandler):
+    def get(self, post_id, template_variables = {}):
+        user_info = self.current_user
+        invite_user = self.get_argument('u', "null")
+
+        if(user_info):
+            post = self.post_model.get_post_by_post_id(post_id)
+            invite = self.invite_model.get_invite(user_info.uid, invite_user, post_id)
+            if invite:
+                self.invite_model.delete_invite_by_id(invite.id)
+            else:
+                self.invite_model.add_new_invite({"from_user": user_info.uid, "to_user": invite_user, "post_id": post_id})   
+
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))

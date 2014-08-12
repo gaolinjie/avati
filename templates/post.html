@@ -37,8 +37,8 @@
 
     <div class="topic-content">{{post.content}}</div>
     <div class="item_action_bar meta">
-      
-      <a class="invite" href="javascript:;" >邀请回答</a>
+
+      <a class="invite" data-id="{{post.id}}" href="javascript:;" >邀请回答</a>
       <span class="bullet">•</span>
       {% if post.author_id != user_info.uid %}
       <a class="thank {% if thank %}thanked{% endif %}" {% if thank == none %}href="javascript:;"{% endif %} data-id="{{post.id}}" data-type="post">{% if thank %}已感谢{% else %}感谢{% endif %}</a>
@@ -48,127 +48,37 @@
       {% endif %}
       <span class="time">{{post.created|pretty_date}}</span>
       {% if post.author_id == user_info.uid %}
-        <span class="bullet">•</span>
-        <a class="edit" href="/edit/{{post.id}}" data-id="{{post.id}}" data-type="post">修改</a>
-       {% if replys.list|length ==0 %}
-        <span class="bullet">•</span>
-        <a class="delete" href="javascript:;" data-id="{{post.id}}" data-type="post" data-toggle="modal" data-target="#delPostModal">删除</a>
-        {% endif %}
+      <span class="bullet">•</span>
+      <a class="edit" href="/edit/{{post.id}}" data-id="{{post.id}}" data-type="post">修改</a>
+      {% if replys.list|length ==0 %}
+      <span class="bullet">•</span>
+      <a class="delete" href="javascript:;" data-id="{{post.id}}" data-type="post" data-toggle="modal" data-target="#delPostModal">删除</a>
+      {% endif %}
         {% endif %}
     </div>
 
-    <div class="panel-container">
+    <div class="panel-container" style="display:none">
+      <div class="question-invite-panel" id="question-invite-panel" data-showsearch="true"> <i class="icon icon-spike"></i>
 
-<div class="question-invite-panel" id="question-invite-panel" data-showsearch="true">
-<i class="icon icon-spike"></i>
+        <div class="invite-main-wrap">
+          <div class="invite-email input-group">
+            <input type="text" class="form-control" placeholder="输入 email 邀请朋友回答这个问题">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">邀请回答</button>
+            </span>
+          </div>
 
-<div class="invite-main-wrap">
-<div class="invite-email input-group">
-<input type="text" class="form-control" placeholder="输入 email 邀请朋友回答这个问题">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">邀请回答</button>
-      </span>
-</div>
+          <ul class="suggest-persons clearfix">
+            
+          </ul>
 
-
-
-
-
-<ul class="suggest-persons clearfix">
-
-<li class="person odd bordered" style="">
-<div class="blk">
-<a title="李楠" data-tip="p$t$linan" class="zm-item-link-avatar" href="/people/linan">
-<img src="http://avati-avatar.qiniudn.com/b_default.png-avatar" class="zm-item-img-avatar">
-</a>
-<div class="content">
-
-<a class="invite-button btn btn-f btn-default " data-uid="29c3654588fd4246bb90cbd345242d65">邀请回答</a>
-
-<a data-tip="p$t$linan" href="http://www.zhihu.com/people/linan" class="zg-link" data-original_title="李楠">李楠</a>
-<div class="bio" title="混迹日本职场十年">
-混迹日本职场十年
-</div>
-<div class="reason" title="在该话题下有 66 个回答">
-在 <a href="/people/linan/topic/19550917/answers" data-tip="t$b$19550917" data-token="19550917" data-topicid="229"> 日本 </a> 话题下有 66 个回答
-</div>
-</div>
-</div>
-</li>
-
-<li class="person even bordered" style="">
-<div class="blk">
-<a data-tip="p$t$shimizumint" class="zm-item-link-avatar" href="/people/shimizumint" data-original_title="Shimizumint">
-<img src="http://avati-avatar.qiniudn.com/b_default.png-avatar" class="zm-item-img-avatar">
-</a>
-<div class="content">
-
-<a class="invite-button btn btn-f btn-default " data-uid="c6a88903a476789b098a088182c69fe1">邀请回答</a>
-
-<a data-tip="p$t$shimizumint" href="http://www.zhihu.com/people/shimizumint" class="zg-link" data-original_title="Shimizumint">Shimizumint</a>
-<div class="bio" title="好好的一个人就这么被爱马仕毁了……">
-好好的一个人就这么被爱马仕毁…
-</div>
-<div class="reason" title="在该话题下有 37 个回答">
-在 <a href="/people/shimizumint/topic/19550917/answers" data-tip="t$b$19550917" data-token="19550917" data-topicid="229"> 日本 </a> 话题下有 37 个回答
-</div>
-</div>
-</div>
-</li>
-
-<li class="person odd bordered" style="">
-<div class="blk">
-<a title="苏菲" data-tip="p$t$su-fei-17" class="zm-item-link-avatar" href="/people/su-fei-17">
-<img src="http://avati-avatar.qiniudn.com/b_default.png-avatar" class="zm-item-img-avatar">
-</a>
-<div class="content">
-
-<a class="invite-button btn btn-f btn-default " data-uid="acb05f758c6249ff1a1d8aac2fe2aee6">邀请回答</a>
-
-<a data-tip="p$t$su-fei-17" href="http://www.zhihu.com/people/su-fei-17" class="zg-link" title="苏菲">苏菲</a>
-<div class="bio" title="微博“苏菲desu”，欢迎互粉！">
-微博“苏菲desu”，欢迎互粉！
-</div>
-<div class="reason" title="在该话题下有 60 个回答">
-在 <a href="/people/su-fei-17/topic/19550917/answers" data-tip="t$b$19550917" data-token="19550917" data-topicid="229"> 日本 </a> 话题下有 60 个回答
-</div>
-</div>
-</div>
-</li>
-
-<li class="person even bordered" style="">
-<div class="blk">
-<a title="thinkind" data-tip="p$t$thinkind" class="zm-item-link-avatar" href="/people/thinkind">
-<img src="http://avati-avatar.qiniudn.com/b_default.png-avatar" class="zm-item-img-avatar">
-</a>
-<div class="content">
-
-<a class="invite-button btn btn-f btn-default" data-uid="8e91ebc17363efa65076877ed7730d70">邀请回答</a>
-
-<a data-tip="p$t$thinkind" href="http://www.zhihu.com/people/thinkind" class="zg-link" data-original_title="thinkind">thinkind</a>
-<div class="bio" title="微信公众号 ShenYangCN">
-微信公众号 ShenYangCN
-</div>
-<div class="reason" title="在该话题下有 16 个回答">
-在 <a href="/people/thinkind/topic/19550917/answers" data-tip="t$b$19550917" data-token="19550917" data-topicid="229"> 日本 </a> 话题下有 16 个回答
-</div>
-</div>
-</div>
-</li>
-
-
-
-</ul>
-
-<div class="zm-invite-pager" style="">
-<a class="js-prev link-disabled" href="javascript:;" style="margin-right: 20px;">上一页</a>
-<a class="js-next" href="javascript:;" style="">下一页</a>
-</div>
-
-
-</div>
-
-</div></div>
+          <div class="zm-invite-pager" style="">
+            <a class="js-prev link-disabled" href="javascript:;" style="margin-right: 20px;">上一页</a>
+            <a class="js-next" href="javascript:;" style="">下一页</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="answers-title clearfix">
@@ -179,95 +89,97 @@
       <a class="lbl" href="/p/{{post.id}}?sort=created">按时间排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
       {% else %}
       <span class="lbl">按时间排序</span>
-      <a class="lbl" href="/p/{{post.id}}">按票数排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
+      <a class="lbl" href="/p/{{post.id}}">按票数排序</a>
+      <i class="zg-icon zg-icon-double-arrow"></i>
       {% endif %}
     </div>
     <h3 id="question-answer-num">{{post.reply_num}} 个回答</h3>
   </div>
 
   <div class="answers-area">
-     <div class="answers-inner">
-    {% set i=0 %}
+    <div class="answers-inner">
+      {% set i=0 %}
     {% for reply in replys.list %}
-    <div id="{{reply.id}}" class="answer-item">
-      <div class="user-wrapper">
-        <div class="zm-votebar">
-          {% if reply.author_id != user_info.uid %}
-          <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up"> <i class="icon vote-arrow"></i>
-            <span class="label">赞同</span>
-            <span class="count">{{reply.up_num}}</span>
-          </button>
-          <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
-            <i class="icon vote-arrow"></i>
-            <span class="label">反对，不会显示你的姓名</span>
-            <span class="count" style="display: none;">{{reply.down_num}}</span>
-          </button>
-          {% else %}
-          <button class="up vote-btn vote-self-btn"  title="赞同"> 
-            <span class="label">赞同</span>
-            <span class="count">{{reply.up_num}}</span>
-          </button>
-          {% endif %}
-        </div>
-        <div class="user-title">
-          <div class="user-name">
-            {% if reply.anon==0 %}
-            <a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
-            {%if reply.author_sign%}，{{reply.author_sign}}{%endif%}
+      <div id="{{reply.id}}" class="answer-item">
+        <div class="user-wrapper">
+          <div class="zm-votebar">
+            {% if reply.author_id != user_info.uid %}
+            <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up">
+              <i class="icon vote-arrow"></i>
+              <span class="label">赞同</span>
+              <span class="count">{{reply.up_num}}</span>
+            </button>
+            <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
+              <i class="icon vote-arrow"></i>
+              <span class="label">反对，不会显示你的姓名</span>
+              <span class="count" style="display: none;">{{reply.down_num}}</span>
+            </button>
+            {% else %}
+            <button class="up vote-btn vote-self-btn"  title="赞同">
+              <span class="label">赞同</span>
+              <span class="count">{{reply.up_num}}</span>
+            </button>
+            {% endif %}
+          </div>
+          <div class="user-title">
+            <div class="user-name">
+              {% if reply.anon==0 %}
+              <a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
+              {%if reply.author_sign%}，{{reply.author_sign}}{%endif%}
             {%else%}
             匿名用户
             {%endif%}
-          </div>
-          {% set votes=votesList[i] %}
-          <div class="answer-user-meta meta">
-            {% if votes.list %}
+            </div>
+            {% set votes=votesList[i] %}
+            <div class="answer-user-meta meta">
+              {% if votes.list %}
             {% for vote in votes.list %}
-            <a href="/u/{{vote.author_username}}">{{vote.author_username}}</a>{%if vote!=votes.list[votes.list|length-1] %}、{%endif%}
+              <a href="/u/{{vote.author_username}}">{{vote.author_username}}</a>
+              {%if vote!=votes.list[votes.list|length-1] %}、{%endif%}
             {% endfor %}
             等人赞同
             {%else%}
             还没有人赞同
             {%endif%}
+            </div>
+            {% set i=i+1 %}
           </div>
-          {% set i=i+1 %}
+          {% if reply.anon==0 %}
+          <div class="user-avatar">
+            <a href="/u/{{reply.author_username}}">
+              <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
+          </div>
+          {%endif%}
         </div>
-        {% if reply.anon==0 %}
-        <div class="user-avatar">
-          <a href="/u/{{reply.author_username}}">
-            <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
+        <div class="answer-text">{{reply.content}}</div>
+        <div class="answer-meta meta">
+          {% if reply.author_id != user_info.uid %}
+          <a class="thank {% if reply.reply_thank_id %}thanked{% endif %}" {% if reply.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+          <span class="bullet">•</span>
+          <a class="report {% if reply.reply_report_id %}reported{% endif %}" {% if reply.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+          <span class="bullet">•</span>
+          {% endif %}
+          <span class="time">{{reply.created|pretty_date}}</span>
+          {% if reply.author_id == user_info.uid %}
+          <span class="bullet">•</span>
+          <a class="edit" href="javascript:;" data-id="{{reply.id}}" data-type="reply">修改</a>
+          <span class="bullet">•</span>
+          <a class="delete" href="javascript:;" data-id="{{reply.id}}" data-type="reply" data-toggle="modal" data-target="#delReplyModal">删除</a>
+          {% endif %}
         </div>
-        {%endif%}
       </div>
-      <div class="answer-text">{{reply.content}}</div>
-      <div class="answer-meta meta">
-        {% if reply.author_id != user_info.uid %}
-        <a class="thank {% if reply.reply_thank_id %}thanked{% endif %}" {% if reply.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-        <span class="bullet">•</span>
-        <a class="report {% if reply.reply_report_id %}reported{% endif %}" {% if reply.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_report_id %}已举报{% else %}举报{% endif %}</a>
-        <span class="bullet">•</span>
-        {% endif %}
-        <span class="time">{{reply.created|pretty_date}}</span>
-        {% if reply.author_id == user_info.uid %}
-        <span class="bullet">•</span>
-        <a class="edit" href="javascript:;" data-id="{{reply.id}}" data-type="reply">修改</a>
-        <span class="bullet">•</span>
-        <a class="delete" href="javascript:;" data-id="{{reply.id}}" data-type="reply" data-toggle="modal" data-target="#delReplyModal">删除</a>
-        {% endif %}
-        
-      </div>
-    </div>
-    {% endfor %}
+      {% endfor %}
     {% if replys.page.next!=replys.page.current %}
-<div class="next jscroll-next-parent" ><a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
-{%else%}
-<div class="next jscroll-next-parent" >
-<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
-{%endif%}
-    
+      <div class="next jscroll-next-parent" >
+        <a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
+      </div>
+      {%else%}
+      <div class="next jscroll-next-parent" >
+        <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
+      </div>
+      {%endif%}
+    </div>
   </div>
-  </div>
-
-  
 
   <div class="comment-box">
     <div class="user-wrapper">
@@ -277,9 +189,7 @@
           {%if user_info.sign%}，{{user_info.sign}}{%endif%}
         </div>
         <div class="user-meta meta">
-          <a href="javascript:;">
-            修改话题经验
-          </a>
+          <a href="javascript:;">修改话题经验</a>
           <span class="bullet">•</span>
           <a class='anon' href="javascript:;">匿名</a>
         </div>
@@ -291,8 +201,7 @@
     </div>
     <div class="comment-area clear">
       <div id="rSummernote" class="description"></div>
-      <input type="hidden" name="reply" id="rReplyText" value="">
-    </div>
+      <input type="hidden" name="reply" id="rReplyText" value=""></div>
     <div class="reply-btn">
       <input type="submit" id="rPostBtn" data-post="{{ post.id }}" class="btn btn-sm btn-default" value="立即发布">{{ xsrf_form_html() }}</div>
   </div>
@@ -303,8 +212,10 @@
   <div class="follow-box box">
     <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
     <div class="promote-link meta">
-      <a href="javascript:;">关注者 <strong id="followNum">{{post.follow_num}}</strong>
-      人</a>
+      <a href="javascript:;">
+        关注者 <strong id="followNum">{{post.follow_num}}</strong>
+        人
+      </a>
     </div>
   </div>
   {% if related_posts.list %}
@@ -344,13 +255,14 @@
 
 </div>
 
-
-
 <div id="delReplyModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
         <h4 class="modal-title">你确定要删除自己的答案吗？</h4>
       </div>
       <div class="modal-body">
@@ -368,11 +280,18 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">你确定要删除自己的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}吗？</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">
+          你确定要删除自己的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}吗？
+        </h4>
       </div>
       <div class="modal-body">
-        <p>如果选择确认，你的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}将会被永久删除。</p>
+        <p>
+          如果选择确认，你的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}将会被永久删除。
+        </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -514,6 +433,36 @@ $(document).on('click', '.vote-btn',  function() {
           }
         }
       } 
+    }
+  });
+});
+
+$(document).on('click', '.invite',  function() {
+  var post_id = $(this).attr('data-id');
+  
+  $.getJSON('/get/users/' + post_id, function (data) {
+    if (data.success != 0) {
+      var users_string='';
+            for(i=0;i<data.users.length;i++){
+              users_string+='<li class="person odd bordered" style=""><div class="blk"><a title="'+data.users[i].username+'" class="zm-item-link-avatar" href="/u/'+data.users[i].username+'"><img src="'+data.users[i].avatar+'" class="zm-item-img-avatar"></a><div class="content"><a class="invite-button btn btn-f btn-success " data-id="'+data.users[i].uid+'" data-post="'+post_id+'">邀请回答</a><a href="'+data.users[i].username+'" class="zg-link">'+data.users[i].username+'</a><div class="bio" title="'+data.users[i].sign+'">'+data.users[i].sign+'</div><div class="reason" title="在相关话题下有 '+data.users[i].answers+' 个回答">在相关话题下有 '+data.users[i].answers+' 个回答</div></div></div></li>'
+            }
+            $('.suggest-persons').html(users_string);
+
+      $('.panel-container').fadeIn("slow");
+    }
+  });
+});
+
+$(document).on('click', '.invite-button',  function() {
+  var user_id = $(this).attr('data-id');
+  var post_id = $(this).attr('data-post');
+  var invite_btn = $(this);
+  
+  $.getJSON('/invite/answer/' + post_id + '?u=' + user_id, function (data) {
+    if (data.success != 0) {
+      invite_btn.text('取消邀请'); 
+      invite_btn.removeClass("btn-success");
+      invite_btn.addClass("btn-danger");
     }
   });
 });
@@ -671,6 +620,4 @@ $(document).on('click', '#editPostBtn',  function() {
     };
     with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
 </script>
-
-
 {% endblock %}
