@@ -86,6 +86,7 @@ class Application(tornado.web.Application):
             (r"/invite/answer/(\d+)", handler.index.InviteAnswerHandler),
             (r"/invitations", handler.index.InvitationsHandler),
             (r"/invite/email/(\d+)", handler.index.InviteEmailHandler),
+            (r"/invite/join/", handler.index.InviteJoinHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)

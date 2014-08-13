@@ -970,3 +970,22 @@ class InviteEmailHandler(BaseHandler):
             self.write(lib.jsonp.print_JSON({
                     "success": 0,
                 }))
+
+class InviteJoinHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        user_info = self.current_user
+        email = self.get_argument('email', "null")
+
+        if(user_info):
+            # send invite to answer mail to user
+            mail_title = u"邀请回答"
+            mail_content = self.render_string("invite-answer.html")
+            send(mail_title, mail_content, email)
+
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))

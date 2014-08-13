@@ -487,14 +487,14 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/follow">
+            <a href="/list">
                 <i class="icon-follow"></i>
-                我的草稿
+                欲望清单
             </a>
         </li>
         <li class="divider"></li>
         <li class="nav-item">
-            <a href="/watch">
+            <a href="javascript:;" id="inviteJoin" data-toggle="modal" data-target="#inviteJoinModal">
                 <i class="icon-history"></i>
                 邀请朋友加入
             </a>
@@ -514,8 +514,28 @@
 </div>
 </div>
 
-<div id="navigation" align="center">
-<a href="/?p={{feeds.page.next}}"></a>
+<div id="inviteJoinModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">
+          邀请朋友加入
+        </h4>
+      </div>
+      <div class="modal-body">
+        <div class="invite-email input-group">
+            <input id="inviteEmailInput" type="text" class="form-control" placeholder="输入 email 邀请朋友加入买买买">
+            <span class="input-group-btn">
+              <button id="inviteEmail" class="btn btn-default" type="button" data-post="">发送邀请</button>
+            </span>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
@@ -590,6 +610,19 @@ $(document).on('click', '.report',  function() {
       report_text.text('已举报'); 
       report_text.removeAttr("href");
       report_text.addClass("reported");
+    }
+  });
+});
+
+$(document).on('click', '#inviteEmail',  function() {
+  var email = $('#inviteEmailInput');
+
+  $.getJSON('/invite/join?email='+email , function (data) {
+    if (data.success != 0) {
+      $('#inviteEmailInput').val('');
+      alert('邀请发送成功!');
+    } else {
+      alert('邀请发送失败!');
     }
   });
 });

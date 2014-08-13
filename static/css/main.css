@@ -1569,3 +1569,17 @@ a.link-disabled {
 .question-invite-panel .suggest-persons>.person.even>.blk {
 padding-left: 10px;
 }
+
+#inviteJoinModal .modal-dialog {
+	margin-top: 300px;
+	width: 400px;
+}
+
+#inviteJoinModal .modal-dialog .modal-header h4 {
+	font-weight: 100;
+}
+
+#inviteJoinModal .modal-dialog .modal-header{
+ background-color: #f8f8f8; 
+ border-radius: 6px 6px  0 0;	
+}
