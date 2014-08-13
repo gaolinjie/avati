@@ -664,6 +664,16 @@ loadingHtml: '<a href="/t/{{tag.name}}?p={{feeds.page.next}}" id="load-more" cla
     contentSelector: '.feeds-inner',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 
 $('.feed-list1').jscroll({
@@ -671,6 +681,16 @@ loadingHtml: '<a href="/t/{{tag.name}}?p={{feeds1.page.next}}" id="load-more" cl
     contentSelector: '.feeds-inner1',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 
 $('.feed-list7').jscroll({
@@ -678,6 +698,16 @@ loadingHtml: '<a href="/t/{{tag.name}}?p={{feeds7.page.next}}" id="load-more" cl
     contentSelector: '.feeds-inner7',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 </script>
 {% endblock %}

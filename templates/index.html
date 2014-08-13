@@ -3,6 +3,7 @@
 {% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="feed-list">
+        <div class="feeds-inner">
         {%for feed in feeds.list%}
 
         {%if feed.feed_type==1%}
@@ -444,6 +445,14 @@
         {%endif%}
 
         {%endfor%}
+
+        {% if feeds.page.next!=feeds.page.current %}
+<div class="next jscroll-next-parent" ><a href="/?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
+{%else%}
+<div class="next jscroll-next-parent" >
+<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
+{%endif%}
+    </div>
     </div>
 
 
@@ -457,12 +466,12 @@
                 我的主页
             </a>
         </li>
-        <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/follows/{{user_info.username}}"> <i class="icon-message"></i>
                 我关注的问题
             </a>
         </li>
-        <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/notifications">
                 <i class="icon-fav"></i>
                 我的消息
@@ -470,21 +479,21 @@
         </li>
 
 
-        <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/invitations">
                 <i class="icon-latter"></i>
                 邀请我回答的问题
 
             </a>
         </li>
-        <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/follow">
                 <i class="icon-follow"></i>
                 我的草稿
             </a>
         </li>
         <li class="divider"></li>
-        <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/watch">
                 <i class="icon-history"></i>
                 邀请朋友加入
@@ -512,7 +521,7 @@
 
 {% block javascript %}
 <script>
-$(document).ready(function() {
+
     $(".summary-text").each(function(){
         var text = $(this);
         str = text.text();
@@ -521,7 +530,6 @@ $(document).ready(function() {
                   text.text(str.substring(0,textLeng)+"...");
             } 
     });
-});
 
 
 $(document).on('click', '.feed-post-follow-btn',  function() {
@@ -587,15 +595,14 @@ $(document).on('click', '.report',  function() {
 });
 </script>
 
-<script src="/static/js/jquery.infinitescroll.js"></script>
+<script src="/static/jscroll-master/jquery.jscroll.js"></script>
 <script>
- $(document).ready(function (){
-    $(".feed-list").infinitescroll({
-          navSelector: "#navigation",
-          nextSelector: "#navigation a",
-          itemSelector: ".feed",
-          maxPage: {{feeds.page.pages}},   
-      }, function(newElems) {
+$('.feed-list').jscroll({
+loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+    contentSelector: '.feeds-inner',
+    nextSelector: 'a.jscroll-next:last',
+    autoTrigger: false,
+    callback: function(newElems) {
         $(".summary-text").each(function(){
         var text = $(this);
         str = text.text();
@@ -603,10 +610,9 @@ $(document).on('click', '.report',  function() {
             if(str.length > textLeng ){
                   text.text(str.substring(0,textLeng)+"...");
             } 
-    });
-
-      });
-     });
+        });
+    },
+});
 </script>
 
 

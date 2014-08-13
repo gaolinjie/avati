@@ -379,7 +379,7 @@
                 我的主页
             </a>
         </li>
-        <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/notification"> <i class="icon-message"></i>
                 我关注的问题
             </a>
@@ -392,21 +392,21 @@
         </li>
 
 
-        <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
-            <a href="/later">
+        <li class="nav-item">
+            <a href="/invitations">
                 <i class="icon-latter"></i>
                 邀请我回答的问题
 
             </a>
         </li>
-        <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/follow">
                 <i class="icon-follow"></i>
                 我的草稿
             </a>
         </li>
         <li class="divider"></li>
-        <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
+        <li class="nav-item">
             <a href="/watch">
                 <i class="icon-history"></i>
                 邀请朋友加入
@@ -419,7 +419,7 @@
 
 {% block javascript %}
 <script>
-$(document).ready(function() {
+
     $(".summary-text").each(function(){
         var text = $(this);
         str = text.text();
@@ -428,13 +428,22 @@ $(document).ready(function() {
                   text.text(str.substring(0,textLeng)+"...");
             } 
     });
-});
 
 $('.feed-list').jscroll({
 loadingHtml: '<a href="/notice?p={{notices.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
     contentSelector: '.feeds-inner',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 </script>
 {% endblock %}

@@ -778,7 +778,7 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
           
         });
 
-$(document).ready(function() {
+
     $(".summary-text").each(function(){
         var text = $(this);
         str = text.text();
@@ -787,7 +787,6 @@ $(document).ready(function() {
                   text.text(str.substring(0,textLeng)+"...");
             } 
     });
-});
 
 $(".rank").hover(function () {
     $(".rank").popover('show')
@@ -866,6 +865,16 @@ loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds.page.next}}" id="loa
     contentSelector: '.feeds-inner',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 
 $('.feed-list1').jscroll({
@@ -873,6 +882,16 @@ loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds1.page.next}}" id="lo
     contentSelector: '.feeds-inner1',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 
 $('.feed-list2').jscroll({
@@ -880,6 +899,16 @@ loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds2.page.next}}" id="lo
     contentSelector: '.feeds-inner2',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 
 $('.feed-list7').jscroll({
@@ -887,6 +916,16 @@ loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds7.page.next}}" id="lo
     contentSelector: '.feeds-inner7',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 
 $('.feed-list8').jscroll({
@@ -894,6 +933,16 @@ loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds8.page.next}}" id="lo
     contentSelector: '.feeds-inner8',
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
+    callback: function(newElems) {
+        $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+        });
+    },
 });
 </script>
 {% endblock %}

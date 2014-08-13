@@ -27,5 +27,18 @@ class InviteModel(Query):
         where = "from_user = %s AND to_user = %s AND post_id = %s" % (from_user, to_user, post_id)
         return self.where(where).find()
 
+    def get_user_invites(self, to_user, num = 10, current_page = 1):
+        where = "invite.to_user = %s" % to_user
+        join = "LEFT JOIN user AS author_user ON invite.from_user = author_user.uid \
+                LEFT JOIN post ON invite.post_id = post.id"
+        order = "invite.created DESC, invite.id DESC"
+        field = "invite.*, \
+                author_user.username as author_username, \
+                author_user.avatar as author_avatar, \
+                post.id as post_id, \
+                post.title as post_title, \
+                post.content as post_content"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+
 
 

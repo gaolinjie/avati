@@ -343,7 +343,7 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
           
         });
 
-$(document).ready(function() {
+
     $(".summary-text").each(function(){
         var text = $(this);
         str = text.text();
@@ -352,7 +352,7 @@ $(document).ready(function() {
                   text.text(str.substring(0,textLeng)+"...");
             } 
     });
-});
+
 
 $(".rank").hover(function () {
     $(".rank").popover('show')

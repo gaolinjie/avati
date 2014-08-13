@@ -10,9 +10,9 @@ from email.mime.text import MIMEText
 
 charset = 'utf-8'
 
-send_mail_user = 'avati@gmail.com'
+send_mail_user = 'meirituga@gmail.com'
 send_mail_pswd = 'Glj@2014'
-get_mail_user = 'avati@gmail.com'
+get_mail_user = 'meirituga@gmail.com'
 
 def send(sub, content, reciver = get_mail_user):
     msg = email.mime.text.MIMEText(content,'html',charset)

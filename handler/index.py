@@ -19,6 +19,7 @@ import datetime
 import os
 
 from base import *
+from lib.sendmail import send
 from lib.variables import *
 from lib.variables import gen_random
 from lib.xss import XssCleaner
@@ -928,7 +929,7 @@ class InviteAnswerHandler(BaseHandler):
             if invite:
                 self.invite_model.delete_invite_by_id(invite.id)
             else:
-                self.invite_model.add_new_invite({"from_user": user_info.uid, "to_user": invite_user, "post_id": post_id})   
+                self.invite_model.add_new_invite({"from_user": user_info.uid, "to_user": invite_user, "post_id": post_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})   
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
@@ -941,10 +942,31 @@ class InviteAnswerHandler(BaseHandler):
 class InvitationsHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
+        template_variables["user_info"] = user_info
+        p = int(self.get_argument("p", "1"))
 
         if(user_info):
-            invites = self.invite_model.get_user_invites(user_info.uid)
-            template_variables["invites"] = invites
+            template_variables["feeds"] = self.invite_model.get_user_invites(user_info.uid, current_page = p)
             self.render("invitations.html", **template_variables)
         else:
             self.redirect("/login")
+
+class InviteEmailHandler(BaseHandler):
+    def get(self, post_id, template_variables = {}):
+        user_info = self.current_user
+        email = self.get_argument('email', "null")
+        print email
+
+        if(user_info):
+            # send invite to answer mail to user
+            mail_title = u"邀请回答"
+            mail_content = self.render_string("invite-answer.html")
+            send(mail_title, mail_content, email)
+
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))

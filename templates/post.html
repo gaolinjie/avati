@@ -62,9 +62,9 @@
 
         <div class="invite-main-wrap">
           <div class="invite-email input-group">
-            <input type="text" class="form-control" placeholder="输入 email 邀请朋友回答这个问题">
+            <input id="inviteEmailInput" type="text" class="form-control" placeholder="输入 email 邀请朋友回答这个问题">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button">邀请回答</button>
+              <button id="inviteEmail" class="btn btn-default" type="button" data-post="{{post.id}}">邀请回答</button>
             </span>
           </div>
 
@@ -629,6 +629,20 @@ $(document).on('click', '#delPostModal .btn-success',  function() {
 
  $.getJSON('/delete/post/' + delete_id , function (data) {
   window.location.replace("/");
+  });
+});
+
+$(document).on('click', '#inviteEmail',  function() {
+  var post_id = $(this).attr('data-post');
+  var email = $('#inviteEmailInput');
+
+  $.getJSON('/invite/email/' + post_id+'?email='+email , function (data) {
+    if (data.success != 0) {
+      $('#inviteEmailInput').val('');
+      alert('邀请发送成功!');
+    } else {
+      alert('邀请发送失败!');
+    }
   });
 });
 
