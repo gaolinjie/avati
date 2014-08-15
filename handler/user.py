@@ -261,27 +261,35 @@ class SettingAvatarHandler(BaseHandler):
             return
 
         user_info = self.current_user
-        user_id = user_info["uid"]
-        avatar_name = "%s" % uuid.uuid5(uuid.NAMESPACE_DNS, str(user_id))
+        user_id = user_info.uid
+        origin_avatar = user_info.avatar
+        avatar_name = "%s" % uuid.uuid1()
         avatar_raw = self.request.files["avatar"][0]["body"]
         avatar_buffer = StringIO.StringIO(avatar_raw)
         avatar = Image.open(avatar_buffer)
 
         usr_home = os.path.expanduser('~')
-        avatar.save(usr_home+"/www/avati/static/tmp/avatar/b_%s.png" % avatar_name, "PNG")
+        avatar.save(usr_home+"/www/avati/static/tmp/m_%s.png" % avatar_name, "PNG")
 
-        policy = qiniu.rs.PutPolicy("avati-avatar:b_%s.png" % avatar_name)
+        policy = qiniu.rs.PutPolicy("avati-avatar:m_%s.png" % avatar_name)
         uptoken = policy.token()
-        data=open(usr_home+"/www/avati/static/tmp/avatar/b_%s.png" % avatar_name)
-        ret, err = qiniu.io.put(uptoken, "b_"+avatar_name+".png", data)  
-        os.remove(usr_home+"/www/avati/static/tmp/avatar/b_%s.png" % avatar_name)
+        data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % avatar_name)
+        ret, err = qiniu.io.put(uptoken, "m_"+avatar_name+".png", data)  
+        os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % avatar_name)
 
-        avatar_name = "http://avati-avatar.qiniudn.com/b_"+avatar_name
+        avatar_name = "http://avati-avatar.qiniudn.com/m_"+avatar_name
         result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png-avatar" % avatar_name)
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
         updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
         self.redirect("/setting/avatar")
+
+        if origin_avatar:
+            pattern = re.compile(r'm_.*.png') 
+            match = pattern.search(origin_avatar) 
+            if match: 
+                print match.group()
+                ret, err = qiniu.rs.Client().delete("avati-avatar", match.group())
 
 class SettingCoverHandler(BaseHandler):
     @tornado.web.authenticated
@@ -306,28 +314,36 @@ class SettingCoverHandler(BaseHandler):
 
         user_info = self.current_user
         user_id = user_info["uid"]
+        origin_cover = user_info.cover
 
-        cover_name = "%s" % uuid.uuid5(uuid.NAMESPACE_DNS, str(user_info.uid))
+        cover_name = "%s" % uuid.uuid1()
         cover_raw = self.request.files["cover"][0]["body"]
         cover_buffer = StringIO.StringIO(cover_raw)
         cover = Image.open(cover_buffer)
      
         usr_home = os.path.expanduser('~')
-        cover.save(usr_home+"/www/avati/static/tmp/cover/b_%s.png" % cover_name, "PNG")
+        cover.save(usr_home+"/www/avati/static/tmp/m_%s.png" % cover_name, "PNG")
 
-        policy = qiniu.rs.PutPolicy("avati-cover:b_%s.png" % cover_name)
+        policy = qiniu.rs.PutPolicy("avati-cover:m_%s.png" % cover_name)
         uptoken = policy.token()
-        data=open(usr_home+"/www/avati/static/tmp/cover/b_%s.png" % cover_name)
-        ret, err = qiniu.io.put(uptoken, "b_"+cover_name+".png", data)  
-        os.remove(usr_home+"/www/avati/static/tmp/cover/b_%s.png" % cover_name)
+        data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % cover_name)
+        ret, err = qiniu.io.put(uptoken, "m_"+cover_name+".png", data)  
+        os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % cover_name)
 
-        cover_name = "http://avati-cover.qiniudn.com/b_"+cover_name
+        cover_name = "http://avati-cover.qiniudn.com/m_"+cover_name
         result = self.user_model.set_user_cover_by_uid(user_id, "%s.png-cover" % cover_name)
         template_variables["success_message"] = [u"频道头像更新成功"]
         # update `updated`
         updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
 
         self.redirect("/setting/cover")
+
+        if origin_cover:
+            pattern = re.compile(r'm_.*.png') 
+            match = pattern.search(origin_cover) 
+            if match: 
+                print match.group()
+                ret, err = qiniu.rs.Client().delete("avati-cover", match.group())
 
 class SettingPasswordHandler(BaseHandler):
     @tornado.web.authenticated

@@ -31,6 +31,10 @@ from lib.utils import pretty_date
 from lib.mobile import is_mobile_browser
 from form.post import *
 
+import qiniu.conf
+import qiniu.io
+import qiniu.rs
+
 THRESHOLD = 2
 class IndexHandler(BaseHandler):
     def get(self, template_variables = {}):
@@ -1007,3 +1011,54 @@ class InviteJoinHandler(BaseHandler):
             self.write(lib.jsonp.print_JSON({
                     "success": 0,
                 }))
+
+
+class EditTagHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self,  tag_id, template_variables = {}):
+        user_info = self.get_current_user()
+        tag= self.tag_model.get_tag_by_tag_id(tag_id)
+        template_variables["user_info"] = user_info
+        template_variables["tag"] = tag
+
+        self.render("edit_tag.html", **template_variables)
+
+    @tornado.web.authenticated
+    def post(self, tag_id, template_variables = {}):
+        template_variables = {}
+
+        # validate the fields
+        form = EditTagForm(self)
+
+        if("thumb" in self.request.files):
+            tag= self.tag_model.get_tag_by_tag_id(tag_id)
+            origin_thumb = tag.thumb
+            
+            tag_name = "%s" % uuid.uuid1()
+            thumb_raw = self.request.files["thumb"][0]["body"]
+            thumb_buffer = StringIO.StringIO(thumb_raw)
+            thumb = Image.open(thumb_buffer)
+
+            usr_home = os.path.expanduser('~')
+            thumb.save(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name, "PNG")
+
+            policy = qiniu.rs.PutPolicy("avati-tag:m_%s.png" % tag_name)
+            uptoken = policy.token()
+            data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
+            ret, err = qiniu.io.put(uptoken, "m_"+tag_name+".png", data)  
+ 
+            os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
+
+            thumb_name = "http://avati-tag.qiniudn.com/m_"+tag_name
+            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "thumb": "%s.png-thumb" %  thumb_name})
+
+            if origin_thumb:
+                pattern = re.compile(r'm_.*.png') 
+                match = pattern.search(origin_thumb) 
+                if match: 
+                    ret, err = qiniu.rs.Client().delete("avati-tag", match.group())
+        else:
+            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data})
+                 
+        template_variables["success_message"] = [u"标签已更新"]
+        self.redirect("/t/"+form.name.data)

@@ -22,4 +22,15 @@ class NewForm(Form):
          validators.Required(message = "请填写帖子标签"),
      ])
 
+
+class EditTagForm(Form):
+     name = TextField('Name', [
+         validators.Required(message = "请填写标签名称"),
+         validators.Length(min = 3, message = "标签名称长度过短（3-100个字符）"),
+         validators.Length(max = 100, message = "标签名称长度过长（3-100个字符）"),
+     ])
+
+     intro = TextField('Intro', [
+         validators.Required(message = "请填写标签介绍"),
+     ])
     
