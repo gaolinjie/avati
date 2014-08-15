@@ -17,6 +17,7 @@ import pprint
 import math
 import datetime 
 import os
+import requests
 
 from base import *
 from lib.sendmail import send
@@ -974,13 +975,30 @@ class InviteEmailHandler(BaseHandler):
 class InviteJoinHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
+        template_variables["user_info"] = user_info
         email = self.get_argument('email', "null")
+        print email
 
         if(user_info):
             # send invite to answer mail to user
-            mail_title = u"邀请回答"
-            mail_content = self.render_string("invite-answer.html")
-            send(mail_title, mail_content, email)
+            #mail_title = u"邀请回答"
+            mail_content = self.render_string("invite-answer.html", user_info=user_info)
+            #send(mail_title, mail_content, email)
+            print "send mail"
+
+
+            params = { "api_user": "postmaster@mmmai-invite.sendcloud.org", \
+                "api_key" : "bRjboOZIVFUU9s0q",\
+                "from" : "noreply@mmmai.net", \
+                "to" : email, \
+                "fromname" : "gaolinjie", \
+                "subject" : "邀请加入买买买", \
+                "html": mail_content \
+            }
+
+            url="https://sendcloud.sohu.com/webapi/mail.send.xml"
+            r = requests.post(url, data=params)
+            print r.text
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,

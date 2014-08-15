@@ -615,11 +615,12 @@ $(document).on('click', '.report',  function() {
 });
 
 $(document).on('click', '#inviteEmail',  function() {
-  var email = $('#inviteEmailInput');
+  var email = $('#inviteEmailInput').val();
 
   $.getJSON('/invite/join?email='+email , function (data) {
     if (data.success != 0) {
       $('#inviteEmailInput').val('');
+      $('#inviteJoinModal').modal('hide');
       alert('邀请发送成功!');
     } else {
       alert('邀请发送失败!');

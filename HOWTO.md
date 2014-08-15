@@ -51,6 +51,9 @@ HOWTO deploy on Linode
 	$ pip install http://effbot.org/downloads/Imaging-1.1.7.tar.gz
 	# pip install -U PIL	
 
+###Install requests
+	$ pip install requests
+
 ###Create database and then execute sql file in dbstructure/
 	$ mysql -u root -p
 	mysql> CREATE DATABASE avati;
