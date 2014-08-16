@@ -10,7 +10,7 @@
       <div class="tag-header">
         <div class="tag-avatar">
           <a href="/t/{{tag.name}}">
-                <img src="{{tag.thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="128px" height="128px" alt="" class="tag-avatar-img" ></a>
+                <img src="{{tag.thumb or 'http://avati-static.qiniudn.com/tag.png'}}-thumb" width="128px" height="128px" alt="" class="tag-avatar-img" ></a>
         </div>
         <div class="tag-text">
           <div class="tag-title">
@@ -28,8 +28,12 @@
             目前还没有关于这个标签的介绍
             {%endif%}
           </p>
-
           </div>
+          {%if user_info.permission == 5%}
+          <div class="tag-edit">
+            <a href="/edit/tag/{{tag.id}}">编辑</a>
+          </div>
+          {%endif%}
         </div>
       </div>
 

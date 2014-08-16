@@ -278,7 +278,7 @@ class SettingAvatarHandler(BaseHandler):
         os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % avatar_name)
 
         avatar_name = "http://avati-avatar.qiniudn.com/m_"+avatar_name
-        result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png-avatar" % avatar_name)
+        result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
         updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})
@@ -331,7 +331,7 @@ class SettingCoverHandler(BaseHandler):
         os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % cover_name)
 
         cover_name = "http://avati-cover.qiniudn.com/m_"+cover_name
-        result = self.user_model.set_user_cover_by_uid(user_id, "%s.png-cover" % cover_name)
+        result = self.user_model.set_user_cover_by_uid(user_id, "%s.png" % cover_name)
         template_variables["success_message"] = [u"频道头像更新成功"]
         # update `updated`
         updated = self.user_model.set_user_base_info_by_uid(user_id, {"updated": time.strftime('%Y-%m-%d %H:%M:%S')})

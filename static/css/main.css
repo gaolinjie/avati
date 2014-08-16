@@ -1583,3 +1583,7 @@ padding-left: 10px;
  background-color: #f8f8f8; 
  border-radius: 6px 6px  0 0;	
 }
+
+.tag-title {
+	margin-left: -2px;
+}

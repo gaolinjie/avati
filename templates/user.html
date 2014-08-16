@@ -9,7 +9,7 @@
 
       <div id="gh-banner">
        
-        <div id="c4-header-bg-container" class=" has-custom-banner">
+        <div id="c4-header-bg-container" class=" has-custom-banner"  {%if user_info.cover %}style="background-image: url({{user_info.cover}}-cover)"{%endif%}>
           <div class="hd-banner">
             <div class="hd-banner-image"></div>
           </div>
@@ -47,7 +47,7 @@
           </div>
 
           <a class="channel-header-profile-image-container spf-link" href="/u/{{view_user.username}}">
-            <img class="channel-header-profile-image" src="{{ view_user.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" title="{{view_user.username}}" alt="{{view_user.username}}"></a>
+            <img class="channel-header-profile-image" src="{{ view_user.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" title="{{view_user.username}}" alt="{{view_user.username}}"></a>
 
             <div class="user-text">
               <div class="user-name">
@@ -732,6 +732,7 @@
 {% endblock %} 
 
 {% block javascript %}
+{%if user_info.cover==none%}
 <script src="/static/js/d3.v3.min.js"></script>
 <script src="/static/trianglify-gh-pages/trianglify.js"></script>
  <script type="text/javascript">
@@ -742,6 +743,7 @@ var pattern = t.generate(x.offsetWidth, x.offsetHeight);
 x.setAttribute('style', 'background-image: '+pattern.dataUrl);
 });
 </script>
+{%endif%}
 
   <script type="text/javascript">
   $('#type_tab a').click(function (e) {

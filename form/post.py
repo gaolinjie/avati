@@ -31,6 +31,10 @@ class EditTagForm(Form):
      ])
 
      intro = TextField('Intro', [
-         validators.Required(message = "请填写标签介绍"),
+         validators.Optional(),
+     ])
+
+     category = TextField('Category', [
+         validators.Optional(),
      ])
     

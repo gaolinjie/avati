@@ -21,6 +21,16 @@
                     <textarea type="text" id="tag_intro" name="intro" placeholder="输入标签介绍" class="form-control">{%if tag.intro%}{{tag.intro}}{%endif%}</textarea>
                 </div>
 
+                <div class="form-group">
+                    <!-- Gender -->
+                    <label for="tag_category">标签类别</label>
+                    <select id="tag_category" name="category" class="form-control">
+                        {%for category in categorys%}
+                        <option {% if category.id == tag.category %} selected="selected" {% endif %}>{{category.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+
                 <div class="empty center list avatar-upload-zone ng-scope">
                     <input type="file" id="thumb" name="thumb" class="ng-scope">
                     <img src="{{tag.thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" alt="" class="s-avatar" />

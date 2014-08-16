@@ -159,8 +159,8 @@ CREATE TABLE `tag` (
   `thumb` text,
   `intro` text,
   `tag_type` text,
-  `category` int(11) DEFAULT NULL,
-  `post_num` int(11) DEFAULT NULL,
+  `category` int(11) DEFAULT 1,
+  `post_num` int(11) DEFAULT 0,
   `is_new` int(11) DEFAULT NULL,
   `post_add` int(11) DEFAULT NULL,
   `user_add` int(11) DEFAULT NULL,
@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text,
-  `created` datetime DEFAULT NULL,
+  `tag_num` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

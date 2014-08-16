@@ -14,9 +14,9 @@
                 <div class="form-group save-btn">
                     <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="保存改动">{{ xsrf_form_html() }}</div>
 
-                <div class="empty center list cover-upload-zone ng-scope">
+                <div class="empty center list cover-upload-zone ng-scope"  >
                     <input type="file" id="cover" name="cover" class="ng-scope">
-                    <img src="{{ user_info.cover or 'http://avati-cover.qiniudn.com/b_default.png-cover' }}" alt="" class="s-cover" />
+                    <img  alt="" class="s-cover" id="cover-img" {%if user_info.cover %}style="background-image: url({{user_info.cover}}-cover)"{%endif%}/>
                     <div class="upload-text">
                         <p><i class="upload cloud icon  fa-cloud-upload"></i>点击上方区域选择图片上传！</p>
                         <p>仅支持 4M 以内，大于638*174且小于2560x1600的图片</p>
@@ -75,4 +75,19 @@
         </ul>
     </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+{%if user_info.cover==none%}
+<script src="/static/js/d3.v3.min.js"></script>
+<script src="/static/trianglify-gh-pages/trianglify.js"></script>
+ <script type="text/javascript">
+$(document).ready(function() {
+    var t = new Trianglify();
+    var x= document.getElementById('cover-img');
+var pattern = t.generate(x.offsetWidth, x.offsetHeight);
+x.setAttribute('style', 'background-image: '+pattern.dataUrl);
+});
+</script>
+{%endif%}
 {% endblock %}

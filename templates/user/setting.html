@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <!-- Gender -->
                     <label for="gender">性&nbsp;&nbsp;&nbsp;&nbsp;别</label>
-                    <select id="gender" name="gender" class="form-control" value="{{ user_info.gender or '' }}">
+                    <select id="gender" name="gender" class="form-control" value="{{ user_info.gender}}">
                         <option {% if user_info.gender == '男' %} selected="selected" {% endif %}>男</option>
                         <option {% if user_info.gender == '女' %} selected="selected" {% endif %}>女</option>
                     </select>

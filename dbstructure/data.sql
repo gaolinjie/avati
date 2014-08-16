@@ -30,3 +30,21 @@ INSERT INTO `notice_type` VALUES (13, '在文章中提到了你');
 INSERT INTO `notice_type` VALUES (14, '在评论中提到了你');
 
 INSERT INTO `notice_type` VALUES (15, '关注了你');
+
+
+
+INSERT INTO `category` VALUES (1, '其它', 0);
+INSERT INTO `category` VALUES (2, '彩票、旅行、充值、票务', 0);
+INSERT INTO `category` VALUES (3, '营养保健', 0);
+INSERT INTO `category` VALUES (4, '食品饮料、酒类、生鲜', 0);
+INSERT INTO `category` VALUES (5, '母婴、玩具乐器', 0);
+INSERT INTO `category` VALUES (6, '汽车用品', 0);
+INSERT INTO `category` VALUES (7, '运动户外', 0);
+INSERT INTO `category` VALUES (8, '鞋靴、箱包、钟表、奢侈品', 0);
+INSERT INTO `category` VALUES (9, '个护化妆', 0);
+INSERT INTO `category` VALUES (10, '服饰内衣、珠宝首饰', 0);
+INSERT INTO `category` VALUES (11, '家居、家具、家装、厨具', 0);
+INSERT INTO `category` VALUES (12, '电脑、办公', 0);
+INSERT INTO `category` VALUES (13, '手机、数码、京东通信', 0);
+INSERT INTO `category` VALUES (14, '家用电器', 0);
+INSERT INTO `category` VALUES (15, '图书、音像、数字商品', 0);

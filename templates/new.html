@@ -139,7 +139,26 @@ $(document).ready(function() {
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
         lang: 'zh-CN',
+        onImageUpload: function(files, editor, editable) {
+            sendFile(files[0], editor, editable);
+        },
     });
+
+    function sendFile(file, editor, editable) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "/upload",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    editor.insertImage(editable, url);
+                }
+            });
+        }
 
     $('#pSummernote').summernote({
         height: 200, // set editor height
@@ -159,6 +178,9 @@ $(document).ready(function() {
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
         lang: 'zh-CN',
+        onImageUpload: function(files, editor, editable) {
+            sendFile(files[0], editor, editable);
+        },
     });
 });
 

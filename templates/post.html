@@ -22,7 +22,7 @@
     <div id="post-user-wrapper" class="user-wrapper">
       <div id="post-user-avatar" class="user-avatar">
         <a href="/u/{{post.author_username}}">
-          <img src="{{post.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img"></a>
+          <img src="{{post.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
       </div>
       <div class="user-title">
         <div class="user-name">
@@ -147,7 +147,7 @@
           {% if reply.anon==0 %}
           <div class="user-avatar">
             <a href="/u/{{reply.author_username}}">
-              <img src="{{ reply.author_avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
+              <img src="{{ reply.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
           </div>
           {%endif%}
         </div>
@@ -196,7 +196,7 @@
       </div>
       <div class="user-avatar">
         <a href="/u/{{user_info.username}}">
-          <img src="{{ user_info.avatar or 'http://avati-avatar.qiniudn.com/b_default.png-avatar' }}" width="46px" height="46px" alt="" class="avatar-img" ></a>
+          <img src="{{ user_info.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
       </div>
     </div>
     <div class="comment-area clear">

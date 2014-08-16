@@ -182,6 +182,8 @@ class NewHandler(BaseHandler):
                         "created": time.strftime('%Y-%m-%d %H:%M:%S')
                         })
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
+                    category = self.category_model.get_category_by_id(1)
+                    self.category_model.update_category_by_id(1, {"tag_num":category.tag_num+1})
 
         # create @username notification
         for username in set(find_mentions(form.content.data)):
@@ -284,6 +286,8 @@ class EditHandler(BaseHandler):
                         "created": time.strftime('%Y-%m-%d %H:%M:%S')
                         })
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
+                    category = self.category_model.get_category_by_id(1)
+                    self.category_model.update_category_by_id(1, {"tag_num":category.tag_num+1})
   
 
 class TagHandler(BaseHandler):
@@ -310,6 +314,8 @@ class TagsHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
+            template_variables["categorys"] = self.category_model.get_tag_categorys()
+            template_variables["tags"] = self.tag_model.get_all_tags()
             self.render("tags.html", **template_variables)
         else:
             self.redirect("/signin")
@@ -903,7 +909,7 @@ class GetInviteUsersHandler(BaseHandler):
                 if invite:
                     continue
                 if user.avatar==None:
-                    user.avatar = "http://avati-avatar.qiniudn.com/b_default.png-avatar"
+                    user.avatar = "http://avati-static.qiniudn.com/avatar.png-avatar"
                 if user.sign==None:
                     user.sign=""
                 jobject = {
@@ -1020,6 +1026,7 @@ class EditTagHandler(BaseHandler):
         tag= self.tag_model.get_tag_by_tag_id(tag_id)
         template_variables["user_info"] = user_info
         template_variables["tag"] = tag
+        template_variables["categorys"] = self.category_model.get_tag_categorys()
 
         self.render("edit_tag.html", **template_variables)
 
@@ -1029,9 +1036,9 @@ class EditTagHandler(BaseHandler):
 
         # validate the fields
         form = EditTagForm(self)
-
-        if("thumb" in self.request.files):
-            tag= self.tag_model.get_tag_by_tag_id(tag_id)
+        tag= self.tag_model.get_tag_by_tag_id(tag_id)
+        category = self.category_model.get_category_by_name(form.category.data)
+        if("thumb" in self.request.files):            
             origin_thumb = tag.thumb
             
             tag_name = "%s" % uuid.uuid1()
@@ -1050,7 +1057,7 @@ class EditTagHandler(BaseHandler):
             os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
 
             thumb_name = "http://avati-tag.qiniudn.com/m_"+tag_name
-            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "thumb": "%s.png-thumb" %  thumb_name})
+            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "thumb": "%s.png" %  thumb_name, "category": category.id})
 
             if origin_thumb:
                 pattern = re.compile(r'm_.*.png') 
@@ -1058,7 +1065,39 @@ class EditTagHandler(BaseHandler):
                 if match: 
                     ret, err = qiniu.rs.Client().delete("avati-tag", match.group())
         else:
-            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data})
+            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "category": category.id})
+
+        if tag.category != category.id:
+            old_category =  self.category_model.get_category_by_id(tag.category)
+            self.category_model.update_category_by_id(tag.category, {"tag_num": old_category.tag_num-1})
+            self.category_model.update_category_by_id(category.id, {"tag_num":category.tag_num+1})
                  
         template_variables["success_message"] = [u"标签已更新"]
         self.redirect("/t/"+form.name.data)
+
+
+class UploadHandler(BaseHandler):
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        template_variables = {}
+
+        # validate the fields
+        if("file" in self.request.files):            
+            file_name = "%s" % uuid.uuid1()
+            file_raw = self.request.files["file"][0]["body"]
+            file_buffer = StringIO.StringIO(file_raw)
+            file = Image.open(file_buffer)
+
+            usr_home = os.path.expanduser('~')
+            file.save(usr_home+"/www/avati/static/tmp/m_%s.png" % file_name, "PNG")
+
+            policy = qiniu.rs.PutPolicy("avati-img:m_%s.png" % file_name)
+            uptoken = policy.token()
+            data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % file_name)
+            ret, err = qiniu.io.put(uptoken, "m_"+file_name+".png", data)  
+ 
+            os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % file_name)
+
+            file_name = "http://avati-img.qiniudn.com/m_"+file_name+".png"
+
+            self.write(file_name)
