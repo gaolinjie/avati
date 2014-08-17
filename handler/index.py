@@ -42,13 +42,13 @@ class IndexHandler(BaseHandler):
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
         p = int(self.get_argument("p", "1"))
-        print p
         if(user_info):
             template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
-            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)
-            self.render("index.html", **template_variables)
+            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)          
         else:
-            self.redirect("/signin")
+            template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
+
+        self.render("index.html", **template_variables)
 
 class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
