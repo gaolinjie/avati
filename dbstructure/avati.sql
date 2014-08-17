@@ -158,7 +158,7 @@ CREATE TABLE `tag` (
   `name` text,
   `thumb` text,
   `intro` text,
-  `tag_type` text,
+  `tag_type` int(11) DEFAULT 1,
   `category` int(11) DEFAULT 1,
   `post_num` int(11) DEFAULT 0,
   `is_new` int(11) DEFAULT NULL,
@@ -178,6 +178,16 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text,
   `tag_num` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `tag_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `tag_type`;
+CREATE TABLE `tag_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

@@ -1027,6 +1027,7 @@ class EditTagHandler(BaseHandler):
         template_variables["user_info"] = user_info
         template_variables["tag"] = tag
         template_variables["categorys"] = self.category_model.get_tag_categorys()
+        template_variables["tag_types"] = self.tag_type_model.get_tag_types()
 
         self.render("edit_tag.html", **template_variables)
 
@@ -1038,6 +1039,7 @@ class EditTagHandler(BaseHandler):
         form = EditTagForm(self)
         tag= self.tag_model.get_tag_by_tag_id(tag_id)
         category = self.category_model.get_category_by_name(form.category.data)
+        tag_type = self.tag_type_model.get_tag_type_by_name(form.tag_type.data)
         if("thumb" in self.request.files):            
             origin_thumb = tag.thumb
             
@@ -1057,7 +1059,7 @@ class EditTagHandler(BaseHandler):
             os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
 
             thumb_name = "http://avati-tag.qiniudn.com/m_"+tag_name
-            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "thumb": "%s.png" %  thumb_name, "category": category.id})
+            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "thumb": "%s.png" %  thumb_name, "category": category.id, "tag_type": tag_type.id})
 
             if origin_thumb:
                 pattern = re.compile(r'm_.*.png') 
@@ -1065,7 +1067,7 @@ class EditTagHandler(BaseHandler):
                 if match: 
                     ret, err = qiniu.rs.Client().delete("avati-tag", match.group())
         else:
-            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "category": category.id})
+            self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "category": category.id, "tag_type": tag_type.id})
 
         if tag.category != category.id:
             old_category =  self.category_model.get_category_by_id(tag.category)
@@ -1101,3 +1103,14 @@ class UploadHandler(BaseHandler):
             file_name = "http://avati-img.qiniudn.com/m_"+file_name+".png"
 
             self.write(file_name)
+
+class ListHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        user_info = self.current_user
+        template_variables["user_info"] = user_info
+        if(user_info):
+            template_variables["tag_types"] = self.tag_type_model.get_tag_types()
+            template_variables["tags"] = self.follow_model.get_user_follow_tags(user_info.uid)
+            self.render("list.html", **template_variables)
+        else:
+            self.redirect("/signin")

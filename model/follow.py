@@ -126,3 +126,10 @@ class FollowModel(Query):
     def get_tag_followers_count(self, tag_id):
         where = "follow.obj_id = %s AND follow.obj_type = 't'" % tag_id
         return self.where(where).count()
+
+    def get_user_follow_tags(self, author_id):
+        where = "follow.author_id = %s AND follow.obj_type = 't'" % author_id
+        join = "LEFT JOIN tag ON follow.obj_id = tag.id"
+        order = "tag.tag_type DESC, tag.id DESC"
+        field = "tag.*"
+        return self.where(where).order(order).join(join).field(field).select()

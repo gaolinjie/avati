@@ -90,6 +90,7 @@ class Application(tornado.web.Application):
 
             (r"/edit/tag/(\d+)", handler.index.EditTagHandler),
             (r"/upload", handler.index.UploadHandler),
+            (r"/list", handler.index.ListHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)
@@ -119,6 +120,7 @@ class Application(tornado.web.Application):
         self.report_model = self.loader.use("report.model")
         self.notice_model = self.loader.use("notice.model")
         self.invite_model = self.loader.use("invite.model")
+        self.tag_type_model = self.loader.use("tag_type.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)

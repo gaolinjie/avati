@@ -37,4 +37,8 @@ class EditTagForm(Form):
      category = TextField('Category', [
          validators.Optional(),
      ])
+
+     tag_type = TextField('Tag_type', [
+         validators.Optional(),
+     ])
     

@@ -107,3 +107,7 @@ class BaseHandler(tornado.web.RequestHandler):
     @property
     def invite_model(self):
         return self.application.invite_model
+
+    @property
+    def tag_type_model(self):
+        return self.application.tag_type_model
