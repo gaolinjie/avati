@@ -65,6 +65,7 @@ class SigninHandler(BaseHandler):
         self.render("user/signin.html", **template_variables)
 
     def post(self, template_variables = {}):
+        print "ddddd"
         template_variables = {}
 
         # validate the fields

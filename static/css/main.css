@@ -1633,3 +1633,176 @@ li a.nav-signup {
 #loginModal .btn-signup .btn {
 	width: 100px;
 }
+
+
+.login{
+  position: relative;
+  top: 50%;
+	width: 400px;
+  margin: -150px auto 0 auto;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.legend{
+  position: relative;
+  width: 100%;
+  display: block;
+  background: #FF7052;
+  padding: 15px;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+text-shadow: 0 1px 1px rgba(0,0,0,.4);
+font-size: 15px;
+font-weight: 700;
+padding: 10px;
+}
+
+
+.input{
+  position: relative;
+  width: 90%;
+  margin: 15px auto;
+  
+  
+}
+
+.input span{
+    position: absolute;
+    display: block;
+    color: #d4d4d4;
+    left: 10px;
+    top: 11px;
+    font-size: 20px;
+  }
+
+.input input{
+    width: 100%;
+    padding: 10px 5px 10px 40px;
+    display: block;
+    border: 1px solid #EDEDED;
+    border-radius: 4px;
+    transition: 0.2s ease-out;
+    color: darken(#EDEDED, 30%);
+    
+    
+  }
+
+  .input input:focus{
+      padding: 10px 5px 10px 10px;
+      outline: 0;
+      border-color: #FF7052;
+    }
+
+.submit{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 90%;
+}
+
+.submit:hover, .submit:focus{
+
+  }
+
+.feedback{
+  position: absolute;
+  bottom: -70px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  background: #2ecc71;
+  padding: 10px 0;
+  font-size: 12px;
+  display: none;
+  opacity: 0;
+}
+
+.feedback:before{
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(46, 204, 113, 0);
+    border-bottom-color: #2ecc71;
+    border-width: 10px;
+    margin-left: -10px;
+    
+  }
+
+.action {
+	padding-top: 20px;
+	padding-bottom: 15px;
+}
+
+#loginModal .title .title-label {
+font-size: 16px;
+color: #555;
+text-decoration: none;
+font-weight: 700;
+}
+
+#loginModal .title {
+position: relative;
+width: 90%;
+margin: 15px auto;
+}
+
+#loginModal .title .signup-switch, .sign-flow .view .title .signin-switch {
+margin-top: 2px;
+position: absolute;
+right: 0;
+color: #999;
+text-decoration: none;
+}
+
+ .icon-sign-arrow {
+width: 16px;
+height: 16px;
+background-image: url(/static/img/sprites-1.9.2.png);
+background-repeat: no-repeat;
+display: inline-block;
+vertical-align: middle;
+}
+
+.title .icon-sign {
+margin-left: 5px;
+}
+.title .signup-switch .icon-sign, .title .signin-switch .icon-sign {
+vertical-align: -3px;
+}
+
+.icon-sign-arrow {
+background-position: -173px -166px;
+}
+
+
+
+.modal-dialog-title-close{
+width: 16px;
+height: 16px;
+background-image: url(/static/img/sprites-1.9.2.png);
+background-repeat: no-repeat;
+display: inline-block;
+vertical-align: middle;
+}
+
+.modal-dialog-title-close {
+position: absolute;
+top: 50%;
+_top: 20px;
+right: 3px;
+width: 30px;
+height: 30px;
+margin-top: -15px;
+text-indent: -9999px;
+cursor: pointer;
+background-position: -60px -53px;
+}
