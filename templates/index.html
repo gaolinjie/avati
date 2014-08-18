@@ -565,38 +565,80 @@
 {%if user_info==none%}
 <div id="loginModal" class="modal fade">
     <div class="modal-dialog">
-        <form class="login" action="/signin" method="POST">
-
+        <form class="login signin-form" action="/signin" method="POST">
             <fieldset>
-
                 <legend class="legend">
                     登录或注册
                     <span class="modal-dialog-title-close" data-dismiss="modal"></span>
                 </legend>
-
                 <div class="title">
-                    <a class="js-signup signup-switch with-icon" href="#signup">
+                    <a class="js-signup signup-switch with-icon" href="javascript:;">
                         注册
                         <i class="icon-sign icon-sign-arrow"></i>
                     </a>
                     <span class="js-title-label title-label">登录买买买</span>
                 </div>
+                <div class="input">
+                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
+                    <span>
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
+                </div>
+                <div class="input">
+                    <input type="password" name="password" placeholder="密码" class="password-input" required />
+                    <span>
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                <div class="action">
+                    <button type="submit" class="submit btn btn-success btn-signin">登录</button>
+                </div>
+            </fieldset>
+            {{ xsrf_form_html() }}
+            <div class="feedback">
+                {{ errors|dump_errors }}
+    login successful
+                <br />
+                redirecting...
+            </div>
+        </form>
+
+ <form class="login signup-form" style="display: none;" action="/signup" method="POST">
+            <fieldset>
+                <legend class="legend">
+                    登录或注册
+                    <span class="modal-dialog-title-close" data-dismiss="modal"></span>
+                </legend>
+                <div class="title">
+                    <a class="js-signup signin-switch with-icon" href="javascript:;">
+                        登录
+                        <i class="icon-sign icon-sign-arrow"></i>
+                    </a>
+                    <span class="js-title-label title-label">快速注册</span>
+                </div>
 
                 <div class="input">
-                    <input type="email" name="email" placeholder="邮箱" required />
+                    <input type="text" name="username" placeholder="用户名" class="username-input" required />
+                    <span>
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+
+                <div class="input">
+                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
                     <span>
                         <i class="fa fa-envelope-o"></i>
                     </span>
                 </div>
 
                 <div class="input">
-                    <input type="password" name="password" placeholder="密码" required />
+                    <input type="password" name="password" placeholder="密码" class="password-input" required />
                     <span>
                         <i class="fa fa-lock"></i>
                     </span>
                 </div>
                 <div class="action">
-                    <button type="submit" class="submit btn btn-success">登录</button>
+                    <button type="submit" class="submit btn btn-success btn-sinup">注册</button>
                 </div>
 
             </fieldset>
@@ -706,13 +748,24 @@ $( ".input" ).focusin(function() {
 $( ".input" ).focusout(function() {
   $( this ).find( "span" ).animate({"opacity":"1"}, 300);
 });
-
+/*
 $(".login").submit(function(){
   $(this).find(".submit i").removeAttr('class').addClass("fa fa-check").css({"color":"#fff"});
   $(".submit").css({"background":"#2ecc71", "border-color":"#2ecc71"});
   $(".feedback").show().animate({"opacity":"1", "bottom":"-80px"}, 400);
   $("input").css({"border-color":"#2ecc71"});
   return false;
+});
+*/
+$(document).on('click', '.signup-switch',  function() {
+    $('.signin-form').hide();
+    $('.signup-form').show();
+});
+
+$(document).on('click', '.signin-switch',  function() {
+     $('.signup-form').hide();
+    $('.signin-form').show();
+   
 });
 </script>
 {%endif%}

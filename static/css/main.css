@@ -1755,7 +1755,7 @@ width: 90%;
 margin: 15px auto;
 }
 
-#loginModal .title .signup-switch, .sign-flow .view .title .signin-switch {
+#loginModal .title .signup-switch, #loginModal .title .signin-switch {
 margin-top: 2px;
 position: absolute;
 right: 0;
