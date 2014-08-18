@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
 <link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.11.0/jquery-ui.css">
-<link href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css" rel="stylesheet" type="text/css">{% endblock %} {% block main %}
+<link href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+{% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="new">
         <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
@@ -17,7 +18,6 @@
                 <a href="#post" role="tab" data-toggle="tab">文 章</a>
             </li>
             {% endif %}
-
         </ul>
 
         <div class="tab-content">
@@ -25,22 +25,17 @@
             <div class="tab-pane active" id="question">
                 <form class="mt10" action='/edit/{{post.id}}?t=q' method="POST" >
                     <div class="new-btn">
-                        <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
-                    </div>
+                        <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}</div>
                     <div class="title">
-                        <input type="text" id="qTitle" name="title" class="form-control" placeholder="输入你的问题" value="{{post.title}}">
-                    </div>
+                        <input type="text" id="qTitle" name="title" class="form-control" placeholder="输入你的问题" value="{{post.title}}"></div>
                     <div class="content">
                         <div id="qSummernote" class="description"></div>
                         <input type="hidden" name="content" id="qContentText" value="">
-                        <div id="qContentText2" style="display: none;">
-                            {{post.content}}
-                        </div>
+                        <div id="qContentText2" style="display: none;">{{post.content}}</div>
                     </div>
                     <div class="tag">
                         <input type="hidden" name="tag" id="qSingleField" data-all="{{allTagStr}}" value="{{tagStr}}">
-                        <ul id="qTags" class="">
-                        </ul>
+                        <ul id="qTags" class=""></ul>
                     </div>
                 </form>
             </div>
@@ -48,22 +43,17 @@
             <div class="tab-pane active" id="post">
                 <form class="mt10" action='/edit/{{post.id}}?t=p' method="POST" >
                     <div class="new-btn">
-                        <input type="submit" id="pPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}
-                    </div>
+                        <input type="submit" id="pPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}</div>
                     <div class="title">
-                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的标题" value="{{post.title}}">
-                    </div>
+                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的标题" value="{{post.title}}"></div>
                     <div class="content">
                         <div id="pSummernote" class="description"></div>
                         <input type="hidden" name="content" id="pContentText" value="">
-                        <div id="pContentText2" style="display: none;">
-                            {{post.content}}
-                        </div>
+                        <div id="pContentText2" style="display: none;">{{post.content}}</div>
                     </div>
                     <div class="tag">
                         <input type="hidden" name="tag" id="pSingleField" data-all="{{allTagStr}}" value="{{tagStr}}">
-                        <ul id="pTags" class="">
-                        </ul>
+                        <ul id="pTags" class=""></ul>
                     </div>
                 </form>
             </div>
@@ -119,8 +109,6 @@
 <script src="/static/aehlke-tag-it-1d84585/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
 <script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
-
-
 
 <script>
 $('#type_tab a').click(function(e) {
@@ -211,5 +199,4 @@ $(document).on('click', '#pPostBtn', function() {
     });
 {% endif %}
 </script>
-
 {% endblock %}

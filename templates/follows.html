@@ -5,301 +5,312 @@
 {% endblock %}
 
  {% block main %}
-    <div class="col-xs-12 col-md-9">
+<div class="col-xs-12 col-md-9">
 
-      <div id="gh-banner">
-       
-        <div id="c4-header-bg-container" class=" has-custom-banner">
-          <div class="hd-banner">
-            <div class="hd-banner-image"></div>
-          </div>
-          <div id="header-links">
-            <ul class="about-network-links">
-              <li class="channel-links-item">
-                <a class="sina" href="{{view_user.weibo or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank" ></a>
-              </li>
+  <div id="gh-banner">
 
-              <li class="channel-links-item">
-                <a class="qzone" href="{{view_user.qzone or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.qzone %}的QQ空间{% else %}还未设置{% endif %}" target="_blank"></a>
-              </li>
+    <div id="c4-header-bg-container" class=" has-custom-banner">
+      <div class="hd-banner">
+        <div class="hd-banner-image"></div>
+      </div>
+      <div id="header-links">
+        <ul class="about-network-links">
+          <li class="channel-links-item">
+            <a class="sina" href="{{view_user.weibo or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank" ></a>
+          </li>
 
-              <li class="channel-links-item">
-                <a class="douban" href="{{view_user.douban or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.douban %}的豆瓣主页{% else %}还未设置{% endif %}" target="_blank"></a>
-              </li>
+          <li class="channel-links-item">
+            <a class="qzone" href="{{view_user.qzone or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.qzone %}的QQ空间{% else %}还未设置{% endif %}" target="_blank"></a>
+          </li>
 
-              <li class="channel-links-item">
-                <a class="renren" href="{{view_user.renren or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"></a>
-              </li>
+          <li class="channel-links-item">
+            <a class="douban" href="{{view_user.douban or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.douban %}的豆瓣主页{% else %}还未设置{% endif %}" target="_blank"></a>
+          </li>
 
-            </ul>
+          <li class="channel-links-item">
+            <a class="renren" href="{{view_user.renren or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"></a>
+          </li>
 
-            {% if view_user.website %}
-            <ul class="about-custom-links">
-              <li class="channel-links-item">
-                <a href="{{view_user.website}}" rel="me nofollow" target="_blank" title="{{view_user.website}}" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
-                  <img src="/static/img/website.png" class="about-channel-link-favicon" alt="" width="16" height="16">
-                  <span class="about-channel-link-text">{{view_user.website}}</span>
-                </a>
-              </li>
+        </ul>
+        {% if view_user.website %}
+        <ul class="about-custom-links">
+          <li class="channel-links-item">
+            <a href="{{view_user.website}}" rel="me nofollow" target="_blank" title="{{view_user.website}}" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
+              <img src="/static/img/website.png" class="about-channel-link-favicon" alt="" width="16" height="16">
+              <span class="about-channel-link-text">{{view_user.website}}</span>
+            </a>
+          </li>
 
-            </ul>
-            {% endif %}
-          </div>
-
-          <a class="channel-header-profile-image-container spf-link" href="/u/{{view_user.username}}">
-            <img class="channel-header-profile-image" src="{{ view_user.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" title="{{view_user.username}}" alt="{{view_user.username}}"></a>
-
-            <div class="user-text">
-              <div class="user-name">
-                
-                  {{view_user.username}}
-
-                  <a class="rank" data-container="body" data-toggle="popover" data-placement="right" data-content="声望：{{view_user.reputation}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}。"></a>
-                
-              </div>
-              {%if view_user.sign%}
-              <div class="user-description">
-                {{view_user.sign}}
-              </div>
-              {%endif%}
-            </div>
-
-        </div>
-
+        </ul>
+        {% endif %}
       </div>
 
-      <div class="tag-feed">
+      <a class="channel-header-profile-image-container spf-link" href="/u/{{view_user.username}}">
+        <img class="channel-header-profile-image" src="{{ view_user.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" title="{{view_user.username}}" alt="{{view_user.username}}"></a>
 
-        <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
-          <li {%if active_tab=="question" %}class="active"{%endif%}>
-            <a href="#question" role="tab" data-toggle="tab">关注的问题</a>
-          </li>
-          <li {%if active_tab=="post" %}class="active"{%endif%}>
-            <a href="#post" role="tab" data-toggle="tab">喜欢的文章</a>
-          </li>
-          <li {%if active_tab=="followees" %}class="active"{%endif%}>
-            <a href="#followees" role="tab" data-toggle="tab">关注了</a>
-          </li>
-          <li {%if active_tab=="followers" %}class="active"{%endif%}>
-            <a href="#followers" role="tab" data-toggle="tab">关注者</a>
-          </li>
-        </ul>
-
-        <div class="tab-content">
-          <div class="tab-pane {%if active_tab=="question" %}active{%endif%}" id="question">
-            <div class="feed-list1">
-                <div class="feeds-inner1">
-        {%for feed in feeds1.list%}
-        <div class="feed">
-            <div class="user-wrapper">
-                <div class="user-title">
-                    <div class="time">{{feed.created|pretty_date}}</div>
-                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> 提出了问题 </div>
-                    <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.title}}</a>
-                        </h2>
-                    </div>
-                </div>
-            </div>
+      <div class="user-text">
+        <div class="user-name">
+          {{view_user.username}}
+          <a class="rank" data-container="body" data-toggle="popover" data-placement="right" data-content="声望：{{view_user.reputation}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}。"></a>
 
         </div>
+        {%if view_user.sign%}
+        <div class="user-description">{{view_user.sign}}</div>
+        {%endif%}
+      </div>
 
-        
-        {%endfor%}
+    </div>
+
+  </div>
+
+  <div class="tag-feed">
+
+    <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
+      <li {%if active_tab=="question" %}class="active"{%endif%}>
+        <a href="#question" role="tab" data-toggle="tab">关注的问题</a>
+      </li>
+      <li {%if active_tab=="post" %}class="active"{%endif%}>
+        <a href="#post" role="tab" data-toggle="tab">喜欢的文章</a>
+      </li>
+      <li {%if active_tab=="followees" %}class="active"{%endif%}>
+        <a href="#followees" role="tab" data-toggle="tab">关注了</a>
+      </li>
+      <li {%if active_tab=="followers" %}class="active"{%endif%}>
+        <a href="#followers" role="tab" data-toggle="tab">关注者</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane {%if active_tab=="question" %}active{%endif%}" id="question">
+        <div class="feed-list1">
+          <div class="feeds-inner1">
+            {%for feed in feeds1.list%}
+            <div class="feed">
+              <div class="user-wrapper">
+                <div class="user-title">
+                  <div class="time">{{feed.created|pretty_date}}</div>
+                  <div class="user-meta meta">
+                    <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                    提出了问题
+                  </div>
+                  <div class="feed-title">
+                    <h2>
+                      <a href="/p/{{feed.post_id}}">{{feed.title}}</a>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            {%endfor%}
 
         {% if feeds1.page.next!=feeds1.page.current %}
-<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds1.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
-{%else%}
-<div class="next jscroll-next-parent" >
-<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
-{%endif%}
-    </div>
-    </div>
+            <div class="next jscroll-next-parent" >
+              <a href="/follows/{{view_user.username}}?p={{feeds1.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
+            </div>
+            {%else%}
+            <div class="next jscroll-next-parent" >
+              <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
+            </div>
+            {%endif%}
           </div>
-          
-          <div class="tab-pane {%if active_tab=="post" %}active{%endif%}" id="post">
-            <div class="feed-list2">
-                <div class="feeds-inner2">
-        {%for feed in feeds2.list%}
-        <div class="feed">
-            <div class="user-wrapper">
+        </div>
+      </div>
+
+      <div class="tab-pane {%if active_tab=="post" %}active{%endif%}" id="post">
+        <div class="feed-list2">
+          <div class="feeds-inner2">
+            {%for feed in feeds2.list%}
+            <div class="feed">
+              <div class="user-wrapper">
                 <div class="user-title">
-                    <div class="time">{{feed.created|pretty_date}}</div>
-                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> 提出了问题 </div>
-                    <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.title}}</a>
-                        </h2>
-                    </div>
+                  <div class="time">{{feed.created|pretty_date}}</div>
+                  <div class="user-meta meta">
+                    <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                    提出了问题
+                  </div>
+                  <div class="feed-title">
+                    <h2>
+                      <a href="/p/{{feed.post_id}}">{{feed.title}}</a>
+                    </h2>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-        {%endfor%}
+            {%endfor%}
         {% if feeds2.page.next!=feeds2.page.current %}
-<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
-{%else%}
-<div class="next jscroll-next-parent" >
-<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
-{%endif%}
-</div>
-    </div>
+            <div class="next jscroll-next-parent" >
+              <a href="/follows/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
+            </div>
+            {%else%}
+            <div class="next jscroll-next-parent" >
+              <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
+            </div>
+            {%endif%}
           </div>
+        </div>
+      </div>
 
+      <div class="tab-pane {%if active_tab=="followees" %}active{%endif%}" id="followees">
+        <div class="feed-list3">
+          <div class="feeds-inner3">
+            {%for feed in feeds3.list%}
+            <div class="feed feed-f">
+              <div class="btn-right">
+                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
+              </div>
 
-          <div class="tab-pane {%if active_tab=="followees" %}active{%endif%}" id="followees">
-            <div class="feed-list3">
-                <div class="feeds-inner3">
-        {%for feed in feeds3.list%}
-        <div class="feed feed-f">
-        <div class="btn-right">
-<a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
-</div>
-
-            <div class="user-wrapper-f">
-            <div class="user-avatar-f">
-                    <a href="/u/{{feed.username}}">
-                        <img src="{{feed.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="50px" height="50px" alt="" class="avatar-img-f">
-                    </a>
+              <div class="user-wrapper-f">
+                <div class="user-avatar-f">
+                  <a href="/u/{{feed.username}}">
+                    <img src="{{feed.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="50px" height="50px" alt="" class="avatar-img-f"></a>
                 </div>
                 <div class="user-title-f">
-                <div class="feed-title">
-                        <h2><a href="/u/{{feed.username}}">{{feed.username}}</a></h2>                      
-                    </div>
-                    {% if feed.sign %}
-                    <div class="user-meta-s meta">{{feed.sign}}</div>
-                    {% endif %}
-
-                    <div class="user-meta-f meta">
-<a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">{{feed.followees}} 关注者</a>
-/
-<a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">{{feed.questions}} 提问</a>
-/
-<a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">{{feed.answers}} 回答</a>
-/
-<a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">{{feed.posts}} 文章</a>
-                    </div>
+                  <div class="feed-title">
+                    <h2>
+                      <a href="/u/{{feed.username}}">{{feed.username}}</a>
+                    </h2>
+                  </div>
+                  {% if feed.sign %}
+                  <div class="user-meta-s meta">{{feed.sign}}</div>
+                  {% endif %}
+                  <div class="user-meta-f meta">
+                    <a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">{{feed.followees}} 关注者</a>
+                    /
+                    <a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">{{feed.questions}} 提问</a>
+                    /
+                    <a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">{{feed.answers}} 回答</a>
+                    /
+                    <a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">{{feed.posts}} 文章</a>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-        {%endfor%}
+            {%endfor%}
         {% if feeds3.page.next!=feeds3.page.current %}
-<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds3.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
-{%else%}
-<div class="next jscroll-next-parent" >
-<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
-{%endif%}
-</div>
-    </div>
+            <div class="next jscroll-next-parent" >
+              <a href="/follows/{{view_user.username}}?p={{feeds3.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
+            </div>
+            {%else%}
+            <div class="next jscroll-next-parent" >
+              <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
+            </div>
+            {%endif%}
           </div>
+        </div>
+      </div>
 
+      <div class="tab-pane {%if active_tab=="followers" %}active{%endif%}" id="followers">
+        <div class="feed-list4">
+          <div class="feeds-inner4">
+            {%for feed in feeds4.list%}
+            <div class="feed feed-f">
+              <div class="btn-right">
+                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
+              </div>
 
-          <div class="tab-pane {%if active_tab=="followers" %}active{%endif%}" id="followers">
-            <div class="feed-list4">
-                <div class="feeds-inner4">
-        {%for feed in feeds4.list%}
-        <div class="feed feed-f">
-        <div class="btn-right">
-<a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
-</div>
-
-            <div class="user-wrapper-f">
-            <div class="user-avatar-f">
-                    <a href="/u/{{feed.username}}">
-                        <img src="{{feed.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="50px" height="50px" alt="" class="avatar-img-f">
-                    </a>
+              <div class="user-wrapper-f">
+                <div class="user-avatar-f">
+                  <a href="/u/{{feed.username}}">
+                    <img src="{{feed.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="50px" height="50px" alt="" class="avatar-img-f"></a>
                 </div>
                 <div class="user-title-f">
-                <div class="feed-title">
-                        <h2><a href="/u/{{feed.username}}">{{feed.username}}</a></h2>                      
-                    </div>
-                    {% if feed.sign %}
-                    <div class="user-meta-s meta">{{feed.sign}}</div>
-                    {% endif %}
-
-                    <div class="user-meta-f meta">
-<a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">{{feed.followees}} 关注者</a>
-/
-<a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">{{feed.questions}} 提问</a>
-/
-<a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">{{feed.answers}} 回答</a>
-/
-<a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">{{feed.posts}} 文章</a>
-                    </div>
+                  <div class="feed-title">
+                    <h2>
+                      <a href="/u/{{feed.username}}">{{feed.username}}</a>
+                    </h2>
+                  </div>
+                  {% if feed.sign %}
+                  <div class="user-meta-s meta">{{feed.sign}}</div>
+                  {% endif %}
+                  <div class="user-meta-f meta">
+                    <a target="_blank" href="/people/luwangshan/followers" class="zg-link-gray-normal">{{feed.followees}} 关注者</a>
+                    /
+                    <a target="_blank" href="/people/luwangshan/asks" class="zg-link-gray-normal">{{feed.questions}} 提问</a>
+                    /
+                    <a target="_blank" href="/people/luwangshan/answers" class="zg-link-gray-normal">{{feed.answers}} 回答</a>
+                    /
+                    <a target="_blank" href="/people/luwangshan" class="zg-link-gray-normal">{{feed.posts}} 文章</a>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-        {%endfor%}
+            {%endfor%}
         {% if feeds4.page.next!=feeds4.page.current %}
-<div class="next jscroll-next-parent" ><a href="/follows/{{view_user.username}}?p={{feeds4.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
-{%else%}
-<div class="next jscroll-next-parent" >
-<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
-{%endif%}
-</div>
-    </div>
+            <div class="next jscroll-next-parent" >
+              <a href="/follows/{{view_user.username}}?p={{feeds4.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
+            </div>
+            {%else%}
+            <div class="next jscroll-next-parent" >
+              <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
+            </div>
+            {%endif%}
           </div>
-
         </div>
       </div>
 
     </div>
+  </div>
 
-    <div class=" col-xs-12 col-md-3">
-      {%if view_user.uid==user_info.uid%}
-      <div class="sidenav container-box">
-        <ul class="nav nav-list">
-            <li class="nav-item actived">
-                <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
-                    我的主页
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/setting"> <i class="icon-message"></i>
-                    基本设置
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/setting/avatar">
-                    <i class="icon-fav"></i>
-                    设置头像
-                </a>
-            </li>
+</div>
 
-            <li class="nav-item">
-                <a href="/setting/cover">
-                    <i class="icon-latter"></i>
-                    设置封面
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/setting/password">
-                    <i class="icon-follow"></i>
-                    修改密码
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li class="nav-item">
-                <a href="/social">
-                    <i class="icon-history"></i>
-                    社交网络
-                </a>
-            </li>
-        </ul>
+<div class=" col-xs-12 col-md-3">
+  {%if view_user.uid==user_info.uid%}
+  <div class="sidenav container-box">
+    <ul class="nav nav-list">
+      <li class="nav-item actived">
+        <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
+          我的主页
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/setting"> <i class="icon-message"></i>
+          基本设置
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/setting/avatar">
+          <i class="icon-fav"></i>
+          设置头像
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="/setting/cover">
+          <i class="icon-latter"></i>
+          设置封面
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/setting/password">
+          <i class="icon-follow"></i>
+          修改密码
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li class="nav-item">
+        <a href="/social">
+          <i class="icon-history"></i>
+          社交网络
+        </a>
+      </li>
+    </ul>
+  </div>
+  {%else%}
+  <div class="follow-box box">
+    <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
+    <div class="promote-link meta">
+      <a herf="#">推送问题给更多人</a>
     </div>
-      {%else%}
-      <div class="follow-box box">
-        <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
-        <div class="promote-link meta">
-          <a herf="#">推送问题给更多人</a>
-        </div>
-      </div>
-      {%endif%}
-    </div>
+  </div>
+  {%endif%}
+</div>
 {% endblock %} 
 
 {% block javascript %}
 <script src="/static/js/d3.v3.min.js"></script>
 <script src="/static/trianglify-gh-pages/trianglify.js"></script>
- <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function() {
     var t = new Trianglify();
     var x= document.getElementById('c4-header-bg-container');
@@ -308,7 +319,7 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
 });
 </script>
 
-  <script type="text/javascript">
+<script type="text/javascript">
   $('#type_tab a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')

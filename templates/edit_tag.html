@@ -13,8 +13,7 @@
                     <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="保存改动">{{ xsrf_form_html() }}</div>
                 <div class="form-group">
                     <label class="control-label" for="tag_name">标签名称</label>
-                    <input type="text" id="tag_name" name="name" placeholder="输入标签名称" class="form-control" value="{{tag.name}}">
-                </div>
+                    <input type="text" id="tag_name" name="name" placeholder="输入标签名称" class="form-control" value="{{tag.name}}"></div>
 
                 <div class="form-group">
                     <label class="control-label" for="tag_intro">标签介绍</label>
@@ -43,11 +42,13 @@
                     <input type="file" id="thumb" name="thumb" class="ng-scope">
                     <img src="{{tag.thumb or 'http://avati-static.qiniudn.com/tag.png'}}-thumb" alt="" class="s-avatar" />
                     <div class="upload-text">
-                        <p><i class="upload cloud icon  fa-cloud-upload"></i>点击此区域选择图片上传！</p>
+                        <p> <i class="upload cloud icon  fa-cloud-upload"></i>
+                            点击此区域选择图片上传！
+                        </p>
                         <p>仅支持 1M 以内，大于128*128且小于800*800的头像</p>
                     </div>
-                    <div class="ng-hide">
-                        <i class="loading icon"></i>正在上传！
+                    <div class="ng-hide"> <i class="loading icon"></i>
+                        正在上传！
                         <div file-upload-progress="onUploadProgress" class="ng-scope"></div>
                     </div>
                 </div>
@@ -62,12 +63,14 @@
     <div class="sidenav container-box">
         <ul class="nav nav-list">
             <li class="nav-item">
-                <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
+                <a href="/u/{{user_info.username}}">
+                    <i class="icon-home"></i>
                     我的主页
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/setting"> <i class="icon-message"></i>
+                <a href="/setting">
+                    <i class="icon-message"></i>
                     基本设置
                 </a>
             </li>

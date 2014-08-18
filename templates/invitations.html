@@ -4,86 +4,87 @@
 <div class="col-xs-12 col-md-9">
     <div class="feed-list">
         <div class="feeds-inner">
-        {%for feed in feeds.list%}
-        <div class="feed">
-            <div class="user-wrapper">
-                <div class="user-avatar">
-                    <a href="/u/{{feed.author_username}}">
-                        <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
-                    </a>
-                </div>
-                <div class="user-title">
-                    <div class="time">{{feed.created|pretty_date}}</div>
-                    <div class="user-meta meta"><a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a> 邀请你回答问题</div>
-                    <div class="feed-title">
-                        <h2><a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
-                        </h2>
+            {%for feed in feeds.list%}
+            <div class="feed">
+                <div class="user-wrapper">
+                    <div class="user-avatar">
+                        <a href="/u/{{feed.author_username}}">
+                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+                    </div>
+                    <div class="user-title">
+                        <div class="time">{{feed.created|pretty_date}}</div>
+                        <div class="user-meta meta">
+                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                            邀请你回答问题
+                        </div>
+                        <div class="feed-title">
+                            <h2>
+                                <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+                            </h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="summary">
-                <div class="summary-text">
-                    {{feed.post_content}}
+                <div class="summary">
+                    <div class="summary-text">{{feed.post_content}}</div>
                 </div>
             </div>
-        </div>
-        {%endfor%}
+            {%endfor%}
 
         {% if feeds.page.next!=feeds.page.current %}
-<div class="next jscroll-next-parent" ><a href="/invitations?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a></div>
-{%else%}
-<div class="next jscroll-next-parent" >
-<a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a></div>
-{%endif%}
+            <div class="next jscroll-next-parent" >
+                <a href="/invitations?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
+            </div>
+            {%else%}
+            <div class="next jscroll-next-parent" >
+                <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
+            </div>
+            {%endif%}
+        </div>
     </div>
-    </div>
-
 
 </div>
 
 <div class=" col-xs-12 col-md-3">
-<div class="sidenav container-box">
-    <ul class="nav nav-list">
-        <li class="nav-item">
-            <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
-                我的主页
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/follows/{{user_info.username}}"> <i class="icon-message"></i>
-                我关注的问题
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/notifications">
-                <i class="icon-fav"></i>
-                我的消息
-            </a>
-        </li>
+    <div class="sidenav container-box">
+        <ul class="nav nav-list">
+            <li class="nav-item">
+                <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
+                    我的主页
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/follows/{{user_info.username}}"> <i class="icon-message"></i>
+                    我关注的问题
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/notifications">
+                    <i class="icon-fav"></i>
+                    我的消息
+                </a>
+            </li>
 
-
-        <li class="nav-item actived">
-            <a href="/invitations">
-                <i class="icon-latter"></i>
-                邀请我回答的问题
-
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="/follow">
-                <i class="icon-follow"></i>
-                我的草稿
-            </a>
-        </li>
-        <li class="divider"></li>
-        <li class="nav-item">
-            <a href="/watch">
-                <i class="icon-history"></i>
-                邀请朋友加入
-            </a>
-        </li>
-    </ul>
-</div>
+            <li class="nav-item actived">
+                <a href="/invitations">
+                    <i class="icon-latter"></i>
+                    邀请我回答的问题
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/follow">
+                    <i class="icon-follow"></i>
+                    我的草稿
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-item">
+                <a href="/watch">
+                    <i class="icon-history"></i>
+                    邀请朋友加入
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 {% endblock %}
 

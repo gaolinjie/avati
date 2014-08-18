@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">{% block title %}{% endblock %}
-    <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">{% block stylesheet %}{% endblock %}
+    <link rel="icon" href="../../favicon.ico">
+    {% block title %}{% endblock %}
+    <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    {% block stylesheet %}{% endblock %}
     <link href="/static/css/main.css" rel="stylesheet">
 
     <title>所有标签 - 买买买</title>
@@ -32,7 +34,7 @@
 
 <body data-spy="scroll" data-target="#myScrollspy">
 
-   <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/"></a>
@@ -43,10 +45,10 @@
                         <input name="word" size="30" maxlength="100" type="text" id="search-input" class="form-control" placeholder="搜索一下，你就知道怎么买" />
                         <input type='submit' value='搜索' 
 onclick="this.form.target='_blank';return true;" style="display:none">
-        <input name="tn" type="hidden" value="bds" />
-        <input name="cl" type="hidden" value="3" />
-        <input name="si" type="hidden" value="v2ex.com" />
-        <input name="ct" type="hidden" value="2097152" />
+                        <input name="tn" type="hidden" value="bds" />
+                        <input name="cl" type="hidden" value="3" />
+                        <input name="si" type="hidden" value="v2ex.com" />
+                        <input name="ct" type="hidden" value="2097152" />
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
@@ -54,13 +56,19 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                         <a href="/tags">标签</a>
                     </li>
                     <li class="dropdown">
-                        <a href="/u/{{ user_info.username}}" class="dropdown-toggle  nav-username" data-toggle="dropdown">{{ user_info.username }} <span class="caret"></span></a>
+                        <a href="/u/{{ user_info.username}}" class="dropdown-toggle  nav-username" data-toggle="dropdown">
+                            {{ user_info.username }}
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/u/{{ user_info.username }}">我的主页</a>
+                            <li>
+                                <a href="/u/{{ user_info.username }}">我的主页</a>
                             </li>
-                            <li><a href="/setting">设置</a>
+                            <li>
+                                <a href="/setting">设置</a>
                             </li>
-                            <li><a href="/signout">退出</a>
+                            <li>
+                                <a href="/signout">退出</a>
                             </li>
                         </ul>
                     </li>
@@ -72,51 +80,48 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                     </li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
-        </div>
+            <!--/.nav-collapse --> </div>
     </div>
-
 
     <div class="container" >
 
-     
-            
-            <div class="col-xs-12 col-md-9">
-              {%for category in categorys%}
+        <div class="col-xs-12 col-md-9">
+            {%for category in categorys%}
               {%if category.tag_num>0%}
-              <div class="bs-docs-section">
+            <div class="bs-docs-section">
                 <h2 >{{category.name}}</h2>
                 <div id="{{category.id}}" class="anchor"></div>
                 <ul class="tag-ranking-list">
-                  {%for tag in tags%}
+                    {%for tag in tags%}
                   {%if tag.category==category.id%}
-                  <li><a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
-                  </li>
-                  {%endif%}
+                    <li>
+                        <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
+                    </li>
+                    {%endif%}
                   {%endfor%}
                 </ul>
             </div>
             {%endif%}
             {%endfor%}
-            </div>
+        </div>
 
-
-            <div class="col-xs-12 col-md-3">
-              <div  id="myScrollspy" class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+        <div class="col-xs-12 col-md-3">
+            <div  id="myScrollspy" class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
                 <ul class="nav bs-docs-sidenav" data-spy="affix" data-offset-top="125">
                     {%for category in categorys%}
                     {%if category.tag_num>0%}
-                        <li {%if category==categorys[0]%}class="active"{%endif%}><a href="#{{category.id}}">{{category.name}}</a>
+                    <li {%if category==categorys[0]%}class="active"{%endif%}>
+                        <a href="#{{category.id}}">{{category.name}}</a>
                     </li>
                     {%endif%}
                     {%endfor%}
                 </ul>
-              </div>
             </div>
-      
+        </div>
+
     </div>
     <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.js"></script>
-  <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

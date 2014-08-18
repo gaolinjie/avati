@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">{% block title %}{% endblock %}
-    <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">{% block stylesheet %}{% endblock %}
+    <link rel="icon" href="../../favicon.ico">
+    {% block title %}{% endblock %}
+    <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    {% block stylesheet %}{% endblock %}
     <link href="/static/css/main.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
@@ -41,10 +43,10 @@
                         <input name="word" size="30" maxlength="100" type="text" id="search-input" class="form-control" placeholder="搜索一下，你就知道怎么买" />
                         <input type='submit' value='搜索' 
 onclick="this.form.target='_blank';return true;" style="display:none">
-        <input name="tn" type="hidden" value="bds" />
-        <input name="cl" type="hidden" value="3" />
-        <input name="si" type="hidden" value="v2ex.com" />
-        <input name="ct" type="hidden" value="2097152" />
+                        <input name="tn" type="hidden" value="bds" />
+                        <input name="cl" type="hidden" value="3" />
+                        <input name="si" type="hidden" value="v2ex.com" />
+                        <input name="ct" type="hidden" value="2097152" />
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
@@ -54,15 +56,18 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                     {%if user_info%}
                     <li class="dropdown">
                         <a href="/u/{{ user_info.username}}" class="dropdown-toggle nav-username" data-toggle="dropdown">
-                            {{ user_info.username }} 
+                            {{ user_info.username }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/u/{{ user_info.username }}">我的主页</a>
+                            <li>
+                                <a href="/u/{{ user_info.username }}">我的主页</a>
                             </li>
-                            <li><a href="/setting">设置</a>
+                            <li>
+                                <a href="/setting">设置</a>
                             </li>
-                            <li><a href="/signout">退出</a>
+                            <li>
+                                <a href="/signout">退出</a>
                             </li>
                         </ul>
                     </li>
@@ -74,7 +79,6 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                         <a href="javascript:;">登录</a>
                     </li>
                     {%endif%}
-
                     <li class="">
                         <a class="nav-btn" href="{% if user_info == none %}javascript:;{%else%}/new{%endif%}">
                             <button class="btn btn-default">提问 or 发帖</button>
@@ -82,8 +86,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                     </li>
                 </ul>
             </div>
-            <!--/.nav-collapse -->
-        </div>
+            <!--/.nav-collapse --> </div>
     </div>
 
     <div class="container">{% block main %}{% endblock %}</div>
@@ -95,7 +98,6 @@ onclick="this.form.target='_blank';return true;" style="display:none">
     <script src="/static/js/jquery-2.1.1.min.js"></script>
     <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
     {% block javascript %}{% endblock %}
-
     <script type="text/javascript">
         $(document).ready(function()  {
             $('.J_search').submit(function(e) {
@@ -106,7 +108,6 @@ onclick="this.form.target='_blank';return true;" style="display:none">
             });
         });
     </script>
-
 
 </body>
 
