@@ -157,7 +157,7 @@
             {%for feed in feeds3.list%}
             <div class="feed feed-f">
               <div class="btn-right">
-                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
+                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %} {%if user_info == none%}unlogin{%endif%}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
               </div>
 
               <div class="user-wrapper-f">
@@ -206,7 +206,7 @@
             {%for feed in feeds4.list%}
             <div class="feed feed-f">
               <div class="btn-right">
-                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
+                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %} {%if user_info == none%}unlogin{%endif%}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
               </div>
 
               <div class="user-wrapper-f">
@@ -298,7 +298,7 @@
   </div>
   {%else%}
   <div class="follow-box box">
-    <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
+    <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}">{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
     <div class="promote-link meta">
       <a herf="#">推送问题给更多人</a>
     </div>
@@ -308,6 +308,7 @@
 {% endblock %} 
 
 {% block javascript %}
+{%if user_info==none or user_info.cover==none%}
 <script src="/static/js/d3.v3.min.js"></script>
 <script src="/static/trianglify-gh-pages/trianglify.js"></script>
 <script type="text/javascript">
@@ -318,13 +319,29 @@ var pattern = t.generate(x.offsetWidth, x.offsetHeight);
 x.setAttribute('style', 'background-image: '+pattern.dataUrl);
 });
 </script>
-
+{%endif%}
 <script type="text/javascript">
   $('#type_tab a').click(function (e) {
   e.preventDefault()
   $(this).tab('show')
 });
 
+  $(".summary-text").each(function(){
+        var text = $(this);
+        str = text.text();
+            textLeng = 130;
+            if(str.length > textLeng ){
+                  text.text(str.substring(0,textLeng)+"...");
+            } 
+    });
+
+  $(".rank").hover(function () {
+    $(".rank").popover('show')
+},function(){
+  $(".rank").popover('hide')
+});
+
+{%if user_info != none%}
   $(document).on('click', '#followBtn',  function() {
         var obj_id = $('#followBtn').attr('data-obj');
             var obj_type = $('#followBtn').attr('data-type');
@@ -353,24 +370,6 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
             });
           
         });
-
-
-    $(".summary-text").each(function(){
-        var text = $(this);
-        str = text.text();
-            textLeng = 130;
-            if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
-            } 
-    });
-
-
-$(".rank").hover(function () {
-    $(".rank").popover('show')
-},function(){
-  $(".rank").popover('hide')
-});
-
 
 $(document).on('click', '.thank',  function() {
   var thank_id = $(this).attr('data-id');
@@ -407,7 +406,7 @@ $(document).on('click', '.report',  function() {
     }
   });
 });
-
+{%endif%}
 </script>
 
 <script src="/static/jscroll-master/jquery.jscroll.js"></script>

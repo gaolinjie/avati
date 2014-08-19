@@ -87,8 +87,20 @@ class SigninHandler(BaseHandler):
             do_login(self, user_info["uid"])
             # update `last_login`
             updated = self.user_model.set_user_base_info_by_uid(user_info["uid"], {"last_login": time.strftime('%Y-%m-%d %H:%M:%S')})
-            redirect_path = self.get_argument("next", "/")
+            redirect_path = self.get_argument("r", "/")
             print redirect_path
+            if redirect_path=='user':
+                redirect_path = '/u/'+user_info.username
+            if redirect_path=='follows':
+                redirect_path = '/follows/'+user_info.username
+            if redirect_path=='notifications':
+                redirect_path = '/notifications'
+            if redirect_path=='invitations':
+                redirect_path = '/invitations'
+            if redirect_path=='list':
+                redirect_path = '/list'
+            if redirect_path=='new':
+                redirect_path = '/new'
             self.redirect(redirect_path)
             return
 
@@ -184,27 +196,29 @@ class UserHandler(BaseHandler):
         template_variables["user_info"] = user_info
         p = int(self.get_argument("p", "1"))
 
-        if(user_info):
-            view_user = self.user_model.get_user_by_username(username)
-            template_variables["view_user"] = view_user
-            template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
+        view_user = self.user_model.get_user_by_username(username)
+        template_variables["view_user"] = view_user
+        template_variables["feeds1_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid,  1)
+        template_variables["feeds2_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid,  2)
+        template_variables["feeds7_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid,  7)
+        template_variables["feeds8_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid,  8)
+        template_variables["followees_count"] = self.follow_model.get_user_followees_count(view_user.uid)
+        template_variables["followers_count"] = self.follow_model.get_user_followers_count(view_user.uid)
 
+        if(user_info):
+            template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
             template_variables["feeds"] = self.feed_model.get_user_all_feeds(view_user.uid, user_info.uid, current_page = p)
             template_variables["feeds1"] = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 1, current_page = p)
             template_variables["feeds2"] = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 2, current_page = p)
             template_variables["feeds7"] = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 7, current_page = p)
             template_variables["feeds8"] = self.feed_model.get_user_all_feeds_by_type(view_user.uid, user_info.uid, 8, current_page = p)
-
-            template_variables["feeds1_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid, user_info.uid, 1)
-            template_variables["feeds2_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid, user_info.uid, 2)
-            template_variables["feeds7_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid, user_info.uid, 7)
-            template_variables["feeds8_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid, user_info.uid, 8)
-
-            template_variables["followees_count"] = self.follow_model.get_user_followees_count(view_user.uid)
-            template_variables["followers_count"] = self.follow_model.get_user_followers_count(view_user.uid)
-            self.render("user.html", **template_variables)
         else:
-            self.redirect("/login")
+            template_variables["feeds"] = self.feed_model.get_user_all_feeds2(view_user.uid, current_page = p)
+            template_variables["feeds1"] = self.feed_model.get_user_all_feeds_by_type2(view_user.uid, 1, current_page = p)
+            template_variables["feeds2"] = self.feed_model.get_user_all_feeds_by_type2(view_user.uid, 2, current_page = p)
+            template_variables["feeds7"] = self.feed_model.get_user_all_feeds_by_type2(view_user.uid, 7, current_page = p)
+            template_variables["feeds8"] = self.feed_model.get_user_all_feeds_by_type2(view_user.uid, 8, current_page = p)    
+        self.render("user.html", **template_variables)
 
 class SettingHandler(BaseHandler):
     @tornado.web.authenticated

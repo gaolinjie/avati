@@ -31,6 +31,15 @@ class ReplyModel(Query):
                 report.id as reply_report_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
+    def get_post_all_replys_sort_by_voted2(self, post_id, num = 5, current_page = 1):
+        where = "post_id = %s" % post_id
+        join = "LEFT JOIN user ON reply.author_id = user.uid"
+        order = "reply.up_num DESC, reply.created ASC"
+        field = "reply.*, \
+                user.username as author_username, \
+                user.sign as author_sign, \
+                user.avatar as author_avatar"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_post_all_replys_sort_by_created(self, post_id, user_id, num = 10, current_page = 1):
         where = "post_id = %s" % post_id
@@ -46,6 +55,16 @@ class ReplyModel(Query):
                 vote.up_down as vote_up_down, \
                 thank.id as reply_thank_id, \
                 report.id as reply_report_id"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+
+    def get_post_all_replys_sort_by_created2(self, post_id, num = 10, current_page = 1):
+        where = "post_id = %s" % post_id
+        join = "LEFT JOIN user ON reply.author_id = user.uid"
+        order = "reply.created ASC, reply.id ASC"
+        field = "reply.*, \
+                user.username as author_username, \
+                user.sign as author_sign, \
+                user.avatar as author_avatar"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_reply_by_id(self, reply_id):

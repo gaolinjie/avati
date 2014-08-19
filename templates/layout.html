@@ -76,11 +76,11 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                         <a class="nav-signup" href="javascript:;">注册</a>
                     </li>
                     <li>
-                        <a href="javascript:;">登录</a>
+                        <a class="unlogin" href="javascript:;">登录</a>
                     </li>
                     {%endif%}
                     <li class="">
-                        <a class="nav-btn" href="{% if user_info == none %}javascript:;{%else%}/new{%endif%}">
+                        <a class="nav-btn {%if user_info == none%}unlogin{%endif%}" href="{% if user_info == none %}javascript:;{%else%}/new{%endif%}" {%if user_info == none%}data-link="new"{%endif%}>
                             <button class="btn btn-default">提问 or 发帖</button>
                         </a>
                     </li>
@@ -89,7 +89,102 @@ onclick="this.form.target='_blank';return true;" style="display:none">
             <!--/.nav-collapse --> </div>
     </div>
 
-    <div class="container">{% block main %}{% endblock %}</div>
+    <div class="container">
+        {% block main %}{% endblock %}
+
+        {%if user_info==none%}
+<div id="loginModal" class="modal fade">
+    <div class="modal-dialog">
+        <form class="login signin-form" action="/signin" method="POST">
+            <fieldset>
+                <legend class="legend">
+                    登录或注册
+                    <span class="modal-dialog-title-close" data-dismiss="modal"></span>
+                </legend>
+                <div class="title">
+                    <a class="js-signup signup-switch with-icon" href="javascript:;">
+                        注册
+                        <i class="icon-sign icon-sign-arrow"></i>
+                    </a>
+                    <span class="js-title-label title-label">登录买买买</span>
+                </div>
+                <div class="input">
+                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
+                    <span>
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
+                </div>
+                <div class="input">
+                    <input type="password" name="password" placeholder="密码" class="password-input" required />
+                    <span>
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                <div class="action">
+                    <button type="submit" class="submit btn btn-success btn-signin">登录</button>
+                </div>
+            </fieldset>
+            {{ xsrf_form_html() }}
+            <div class="feedback">
+                {{ errors|dump_errors }}
+    login successful
+                <br />
+                redirecting...
+            </div>
+        </form>
+
+ <form class="login signup-form" style="display: none;" action="/signup" method="POST">
+            <fieldset>
+                <legend class="legend">
+                    登录或注册
+                    <span class="modal-dialog-title-close" data-dismiss="modal"></span>
+                </legend>
+                <div class="title">
+                    <a class="js-signup signin-switch with-icon" href="javascript:;">
+                        登录
+                        <i class="icon-sign icon-sign-arrow"></i>
+                    </a>
+                    <span class="js-title-label title-label">快速注册</span>
+                </div>
+
+                <div class="input">
+                    <input type="text" name="username" placeholder="用户名" class="username-input" required />
+                    <span>
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+
+                <div class="input">
+                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
+                    <span>
+                        <i class="fa fa-envelope-o"></i>
+                    </span>
+                </div>
+
+                <div class="input">
+                    <input type="password" name="password" placeholder="密码" class="password-input" required />
+                    <span>
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                <div class="action">
+                    <button type="submit" class="submit btn btn-success btn-sinup">注册</button>
+                </div>
+
+            </fieldset>
+            {{ xsrf_form_html() }}
+            <div class="feedback">
+                {{ errors|dump_errors }}
+    login successful
+                <br />
+                redirecting...
+            </div>
+
+        </form>
+    </div>
+</div>
+{%endif%}
+    </div>
     <!-- /container -->
 
     <!-- Bootstrap core JavaScript
@@ -107,6 +202,44 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                 window.open('http://baidu.com/search?q=site:mifan.tv/p%20' + query, "_blank");
             });
         });
+
+{%if user_info==none%}
+
+$(document).on('click', '.unlogin',  function() {
+    $('#loginModal').modal('show');
+    var link = $(this).attr('data-link');
+    if (link!=null) {  
+    $(".signin-form").attr("action", "/signin?r="+link);
+    }
+});
+
+$( ".input" ).focusin(function() {
+  $( this ).find( "span" ).animate({"opacity":"0"}, 200);
+});
+
+$( ".input" ).focusout(function() {
+  $( this ).find( "span" ).animate({"opacity":"1"}, 300);
+});
+/*
+$(".login").submit(function(){
+  $(this).find(".submit i").removeAttr('class').addClass("fa fa-check").css({"color":"#fff"});
+  $(".submit").css({"background":"#2ecc71", "border-color":"#2ecc71"});
+  $(".feedback").show().animate({"opacity":"1", "bottom":"-80px"}, 400);
+  $("input").css({"border-color":"#2ecc71"});
+  return false;
+});
+*/
+$(document).on('click', '.signup-switch',  function() {
+    $('.signin-form').hide();
+    $('.signup-form').show();
+});
+
+$(document).on('click', '.signin-switch',  function() {
+     $('.signup-form').hide();
+    $('.signin-form').show();
+   
+});
+{%endif%}
     </script>
 
 </body>

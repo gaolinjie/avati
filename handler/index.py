@@ -58,12 +58,12 @@ class PostHandler(BaseHandler):
         sort = self.get_argument('sort', "voted")
         p = int(self.get_argument("p", "1"))
 
-        if(user_info):
-            post = self.post_model.get_post_by_post_id(post_id)
-            template_variables["post"] = post
-            self.post_model.update_post_by_post_id(post.id, {"view_num": post.view_num+1})
-            template_variables["related_posts"] = self.post_tag_model.get_post_related_posts(post_id)
-            template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
+        post = self.post_model.get_post_by_post_id(post_id)
+        template_variables["post"] = post
+        self.post_model.update_post_by_post_id(post.id, {"view_num": post.view_num+1})
+        template_variables["related_posts"] = self.post_tag_model.get_post_related_posts(post_id)
+        template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
+        if(user_info):            
             if sort== "voted":
                 replys = self.reply_model.get_post_all_replys_sort_by_voted(post_id, user_info.uid, current_page = p)
                 template_variables["sort"] = "voted"
@@ -78,10 +78,20 @@ class PostHandler(BaseHandler):
             for reply in replys["list"]:
                 votesList.append(self.vote_model.get_reply_all_up_votes(reply.id)) 
             template_variables["votesList"] = votesList
-
-            self.render("post.html", **template_variables)
         else:
-            self.redirect("/signin")
+            if sort== "voted":
+                replys = self.reply_model.get_post_all_replys_sort_by_voted2(post_id, current_page = p)
+                template_variables["sort"] = "voted"
+            else:
+                replys = self.reply_model.get_post_all_replys_sort_by_created2(post_id, current_page = p)
+                template_variables["sort"] = "created"
+            template_variables["replys"] = replys
+            votesList = []
+            for reply in replys["list"]:
+                votesList.append(self.vote_model.get_reply_all_up_votes(reply.id)) 
+            template_variables["votesList"] = votesList
+
+        self.render("post.html", **template_variables)
 
 class NewHandler(BaseHandler):
     def get(self, template_variables = {}):
@@ -295,30 +305,32 @@ class TagHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         p = int(self.get_argument("p", "1"))
-        if(user_info):
-            tag = self.tag_model.get_tag_by_tag_name(tag_name)
-            template_variables["tag"] = tag
+        tag = self.tag_model.get_tag_by_tag_name(tag_name)
+        template_variables["tag"] = tag
+        template_variables["follow_num"] = self.follow_model.get_tag_followers_count(tag.id)
+        template_variables["feeds1_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, 1)
+        template_variables["feeds7_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, 7)
+        if(user_info):   
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, tag.id, 't')
             template_variables["feeds"] = self.tag_model.get_tag_all_feeds(tag.id, user_info.uid, current_page = p)
             template_variables["feeds1"] = self.tag_model.get_tag_all_feeds_by_type(tag.id, user_info.uid, 1, current_page = p)
             template_variables["feeds7"] = self.tag_model.get_tag_all_feeds_by_type(tag.id, user_info.uid, 7, current_page = p)
-            template_variables["feeds1_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, user_info.uid, 1)
-            template_variables["feeds7_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, user_info.uid, 7)
-            template_variables["follow_num"] = self.follow_model.get_tag_followers_count(tag.id)
-            self.render("tag.html", **template_variables)
         else:
-            self.redirect("/signin")
+            template_variables["feeds"] = self.tag_model.get_tag_all_feeds2(tag.id, current_page = p)
+            template_variables["feeds1"] = self.tag_model.get_tag_all_feeds_by_type2(tag.id, 1, current_page = p)
+            template_variables["feeds7"] = self.tag_model.get_tag_all_feeds_by_type2(tag.id, 7, current_page = p)
+            
+        self.render("tag.html", **template_variables)
 
 class TagsHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
-        if(user_info):
-            template_variables["categorys"] = self.category_model.get_tag_categorys()
-            template_variables["tags"] = self.tag_model.get_all_tags()
-            self.render("tags.html", **template_variables)
-        else:
-            self.redirect("/signin")
+        
+        template_variables["categorys"] = self.category_model.get_tag_categorys()
+        template_variables["tags"] = self.tag_model.get_all_tags()
+             
+        self.render("tags.html", **template_variables)
 
 
 class ReplyHandler(BaseHandler):
@@ -872,22 +884,20 @@ class FollowsHandler(BaseHandler):
         template_variables["user_info"] = user_info
         p = int(self.get_argument("p", "1"))
         active_tab = self.get_argument('tab', "question")
+        template_variables["active_tab"] = active_tab
+        view_user = self.user_model.get_user_by_username(username)
+        template_variables["view_user"] = view_user
+        template_variables["feeds1"] = self.follow_model.get_user_follow_questions(view_user.uid, current_page = p)
+        template_variables["feeds2"] = self.follow_model.get_user_follow_posts(view_user.uid, current_page = p)
 
-        if(user_info):
-            template_variables["active_tab"] = active_tab
-            view_user = self.user_model.get_user_by_username(username)
-            template_variables["view_user"] = view_user
+        if(user_info):            
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
-
-            template_variables["feeds1"] = self.follow_model.get_user_follow_questions(view_user.uid, current_page = p)
-            template_variables["feeds2"] = self.follow_model.get_user_follow_posts(view_user.uid, current_page = p)
             template_variables["feeds3"] = self.follow_model.get_user_followees(view_user.uid, user_info.uid, current_page = p)
             template_variables["feeds4"] = self.follow_model.get_user_followers(view_user.uid, user_info.uid, current_page = p)
-
-
-            self.render("follows.html", **template_variables)
         else:
-            self.redirect("/login")
+            template_variables["feeds3"] = self.follow_model.get_user_followees2(view_user.uid, current_page = p)
+            template_variables["feeds4"] = self.follow_model.get_user_followers2(view_user.uid, current_page = p)
+        self.render("follows.html", **template_variables)
 
 class GetInviteUsersHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):

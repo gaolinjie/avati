@@ -11,7 +11,6 @@
 
  {% block main %}
 <div class="col-xs-12 col-md-9">
-
   <div class="question">
     <div class="topic-tags">
       {% for tag in tags.list %}
@@ -38,12 +37,12 @@
     <div class="topic-content">{{post.content}}</div>
     <div class="item_action_bar meta">
 
-      <a class="invite" data-id="{{post.id}}" href="javascript:;" >邀请回答</a>
+      <a class="invite {%if user_info == none%}unlogin{%endif%}" data-id="{{post.id}}" href="javascript:;" >邀请回答</a>
       <span class="bullet">•</span>
       {% if post.author_id != user_info.uid %}
-      <a class="thank {% if thank %}thanked{% endif %}" {% if thank == none %}href="javascript:;"{% endif %} data-id="{{post.id}}" data-type="post">{% if thank %}已感谢{% else %}感谢{% endif %}</a>
+      <a class="thank {% if thank %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if thank == none or user_info == none %}href="javascript:;"{% endif %} data-id="{{post.id}}" data-type="post">{% if thank %}已感谢{% else %}感谢{% endif %}</a>
       <span class="bullet">•</span>
-      <a class="report {% if report %}reported{% endif %}" {% if report == none %}href="javascript:;"{% endif %} data-id="{{post.id}}" data-type="post">{% if report %}已举报{% else %}举报{% endif %}</a>
+      <a class="report {% if report %}reported{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if report == none or user_info == none %}href="javascript:;"{% endif %} data-id="{{post.id}}" data-type="post">{% if report %}已举报{% else %}举报{% endif %}</a>
       <span class="bullet">•</span>
       {% endif %}
       <span class="time">{{post.created|pretty_date}}</span>
@@ -56,7 +55,7 @@
       {% endif %}
         {% endif %}
     </div>
-
+{%if user_info != none%}
     <div class="panel-container" style="display:none">
       <div class="question-invite-panel" id="question-invite-panel" data-showsearch="true"> <i class="icon icon-spike"></i>
 
@@ -77,6 +76,7 @@
         </div>
       </div>
     </div>
+{%endif%}
   </div>
 
   <div class="answers-title clearfix">
@@ -102,12 +102,12 @@
         <div class="user-wrapper">
           <div class="zm-votebar">
             {% if reply.author_id != user_info.uid %}
-            <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up">
+            <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" data-id="{{reply.id}}" data-type="up">
               <i class="icon vote-arrow"></i>
               <span class="label">赞同</span>
               <span class="count">{{reply.up_num}}</span>
             </button>
-            <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
+            <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="反对，不会显示你的姓名" data-id="{{reply.id}}" data-type="down">
               <i class="icon vote-arrow"></i>
               <span class="label">反对，不会显示你的姓名</span>
               <span class="count" style="display: none;">{{reply.down_num}}</span>
@@ -152,9 +152,9 @@
         <div class="answer-text">{{reply.content}}</div>
         <div class="answer-meta meta">
           {% if reply.author_id != user_info.uid %}
-          <a class="thank {% if reply.reply_thank_id %}thanked{% endif %}" {% if reply.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+          <a class="thank {% if reply.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if reply.reply_thank_id == none or user_info == none%}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
           <span class="bullet">•</span>
-          <a class="report {% if reply.reply_report_id %}reported{% endif %}" {% if reply.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+          <a class="report {% if reply.reply_report_id %}reported{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if reply.reply_report_id == none or user_info == none%}href="javascript:;"{% endif %} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_report_id %}已举报{% else %}举报{% endif %}</a>
           <span class="bullet">•</span>
           {% endif %}
           <span class="time">{{reply.created|pretty_date}}</span>
@@ -179,7 +179,8 @@
     </div>
   </div>
 
-  <div class="comment-box">
+  <div class="comment-box {%if user_info == none%}unlogin{%endif%}">
+    {%if user_info != none%}
     <div class="user-wrapper">
       <div class="user-title">
         <div class="user-name">
@@ -197,6 +198,9 @@
           <img src="{{ user_info.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
       </div>
     </div>
+    {%else%}
+    <div class="zu-answer-form-title"><strong>我来回答这个问题</strong></div>
+    {%endif%}
     <div class="comment-area clear">
       <div id="rSummernote" class="description"></div>
       <input type="hidden" name="reply" id="rReplyText" value=""></div>
@@ -208,7 +212,7 @@
 
 <div class=" col-xs-12 col-md-3">
   <div class="follow-box box">
-    <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
+    <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}">{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
     <div class="promote-link meta">
       <a href="javascript:;">
         关注者 <strong id="followNum">{{post.follow_num}}</strong>
@@ -337,6 +341,7 @@ $(document).ready(function() {
     });
 });
 
+{%if user_info != none%}
 $(document).on('click', '#rPostBtn',  function() {
             var reply_text = $('#rSummernote').code();
             var post_id = $('#rPostBtn').attr('data-post');
@@ -702,6 +707,7 @@ $(document).on('click', '#editPostBtn',  function() {
               }
             });
   });
+{%endif%}
 </script>
 
 <script>
