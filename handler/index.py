@@ -87,6 +87,8 @@ class PostHandler(BaseHandler):
                 template_variables["sort"] = "created"
             template_variables["replys"] = replys
             template_variables["follow"] = None
+            template_variables["link"] = "p"
+            template_variables["link2"] = post_id
             votesList = []
             for reply in replys["list"]:
                 votesList.append(self.vote_model.get_reply_all_up_votes(reply.id)) 
@@ -320,6 +322,9 @@ class TagHandler(BaseHandler):
             template_variables["feeds"] = self.tag_model.get_tag_all_feeds2(tag.id, current_page = p)
             template_variables["feeds1"] = self.tag_model.get_tag_all_feeds_by_type2(tag.id, 1, current_page = p)
             template_variables["feeds7"] = self.tag_model.get_tag_all_feeds_by_type2(tag.id, 7, current_page = p)
+            template_variables["link"] = "t"
+            template_variables["link2"] = tag_name
+            template_variables["follow"] = None
             
         self.render("tag.html", **template_variables)
 
@@ -898,6 +903,9 @@ class FollowsHandler(BaseHandler):
         else:
             template_variables["feeds3"] = self.follow_model.get_user_followees2(view_user.uid, current_page = p)
             template_variables["feeds4"] = self.follow_model.get_user_followers2(view_user.uid, current_page = p)
+            template_variables["link"] = "follows"
+            template_variables["link2"] = username
+            template_variables["follow"] = None
         self.render("follows.html", **template_variables)
 
 class GetInviteUsersHandler(BaseHandler):

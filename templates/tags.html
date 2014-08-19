@@ -81,7 +81,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                         <a class="nav-signup" href="javascript:;">注册</a>
                     </li>
                     <li>
-                        <a class="unlogin" href="javascript:;">登录</a>
+                        <a class="unlogin" href="javascript:;" {%if user_info==none%}data-link="tags"{%endif%}>登录</a>
                     </li>
                     {%endif%}
                     <li class="">

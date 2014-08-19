@@ -92,7 +92,12 @@ class SigninHandler(BaseHandler):
             if redirect_path=='user':
                 redirect_path = '/u/'+user_info.username
             if redirect_path=='follows':
-                redirect_path = '/follows/'+user_info.username
+                n = self.get_argument("n", "")
+                if n:
+                    redirect_path = '/follows/'+self.get_argument("n", "")
+                else:
+                    redirect_path = '/follows/'+user_info.username
+                
             if redirect_path=='notifications':
                 redirect_path = '/notifications'
             if redirect_path=='invitations':
@@ -101,6 +106,14 @@ class SigninHandler(BaseHandler):
                 redirect_path = '/list'
             if redirect_path=='new':
                 redirect_path = '/new'
+            if redirect_path=='tags':
+                redirect_path = '/tags'
+            if redirect_path=='p':
+                redirect_path = '/p/'+self.get_argument("n", "")
+            if redirect_path=='u':
+                redirect_path = '/u/'+self.get_argument("n", "")
+            if redirect_path=='t':
+                redirect_path = '/t/'+self.get_argument("n", "")
             self.redirect(redirect_path)
             return
 
@@ -218,6 +231,9 @@ class UserHandler(BaseHandler):
             template_variables["feeds2"] = self.feed_model.get_user_all_feeds_by_type2(view_user.uid, 2, current_page = p)
             template_variables["feeds7"] = self.feed_model.get_user_all_feeds_by_type2(view_user.uid, 7, current_page = p)
             template_variables["feeds8"] = self.feed_model.get_user_all_feeds_by_type2(view_user.uid, 8, current_page = p)    
+            template_variables["link"] = "u"
+            template_variables["link2"] = username
+            template_variables["follow"] = None
         self.render("user.html", **template_variables)
 
 class SettingHandler(BaseHandler):

@@ -9,7 +9,7 @@
 
   <div id="gh-banner">
 
-    <div id="c4-header-bg-container" class=" has-custom-banner">
+    <div id="c4-header-bg-container" class=" has-custom-banner"  {%if view_user.cover %}style="background-image: url({{view_user.cover}}-cover)"{%endif%}>
       <div class="hd-banner">
         <div class="hd-banner-image"></div>
       </div>
@@ -157,7 +157,7 @@
             {%for feed in feeds3.list%}
             <div class="feed feed-f">
               <div class="btn-right">
-                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %} {%if user_info == none%}unlogin{%endif%}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
+                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %} {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%}>{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
               </div>
 
               <div class="user-wrapper-f">
@@ -206,7 +206,7 @@
             {%for feed in feeds4.list%}
             <div class="feed feed-f">
               <div class="btn-right">
-                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %} {%if user_info == none%}unlogin{%endif%}">{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
+                <a id="followBtn" data-obj="{{feed.uid}}" data-type="u" type="button" class="btn btn-f {% if feed.author_follow_id %} btn-danger {% else %}btn-success{% endif %} {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%}>{% if feed.author_follow_id %}取消关注{% else %}关注{% endif %}</a>
               </div>
 
               <div class="user-wrapper-f">
@@ -298,7 +298,7 @@
   </div>
   {%else%}
   <div class="follow-box box">
-    <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}">{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
+    <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%}>{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
     <div class="promote-link meta">
       <a herf="#">推送问题给更多人</a>
     </div>
@@ -308,7 +308,7 @@
 {% endblock %} 
 
 {% block javascript %}
-{%if user_info==none or user_info.cover==none%}
+{%if user_info==none or view_user.cover==none%}
 <script src="/static/js/d3.v3.min.js"></script>
 <script src="/static/trianglify-gh-pages/trianglify.js"></script>
 <script type="text/javascript">

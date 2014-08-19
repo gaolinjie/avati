@@ -116,19 +116,16 @@ class FollowModel(Query):
 
     def get_user_followees2(self, view_user, num = 10, current_page = 1):
         where = "follow.author_id = %s AND follow.obj_id != %s AND follow.obj_type = 'u'" % (view_user, view_user)
-        join = "LEFT JOIN user ON follow.obj_id = user.uid\
-                LEFT JOIN follow as author_follow ON (author_follow.obj_id = user.uid AND author_follow.obj_type = 'u')"
+        join = "LEFT JOIN user ON follow.obj_id = user.uid"
         order = "user.reputation DESC, user.thank_num DESC, user.up_num DESC, user.created DESC"
         field = "user.*"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num) 
 
     def get_user_followers2(self, view_user, num = 10, current_page = 1):
         where = "follow.obj_id = %s AND follow.author_id != %s  AND follow.obj_type = 'u'" % (view_user, view_user)
-        join = "LEFT JOIN user ON follow.author_id = user.uid\
-                LEFT JOIN follow as author_follow ON (author_follow.obj_id = user.uid AND author_follow.obj_type = 'u')"
+        join = "LEFT JOIN user ON follow.author_id = user.uid"
         order = "user.reputation DESC, user.thank_num DESC, user.up_num DESC, user.created DESC"
-        field = "user.*,\
-                author_follow.id as author_follow_id"
+        field = "user.*"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_user_followees_count(self, view_user):
