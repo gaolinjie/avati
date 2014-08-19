@@ -86,6 +86,7 @@ class PostHandler(BaseHandler):
                 replys = self.reply_model.get_post_all_replys_sort_by_created2(post_id, current_page = p)
                 template_variables["sort"] = "created"
             template_variables["replys"] = replys
+            template_variables["follow"] = None
             votesList = []
             for reply in replys["list"]:
                 votesList.append(self.vote_model.get_reply_all_up_votes(reply.id)) 

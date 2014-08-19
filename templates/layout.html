@@ -9,6 +9,9 @@
     <link rel="icon" href="../../favicon.ico">
     {% block title %}{% endblock %}
     <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    {%if user_info==none%}
+    <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+    {%endif%}
     {% block stylesheet %}{% endblock %}
     <link href="/static/css/main.css" rel="stylesheet">
 
@@ -238,6 +241,13 @@ $(document).on('click', '.signin-switch',  function() {
      $('.signup-form').hide();
     $('.signin-form').show();
    
+});
+
+$(document).on('click', '.nav-signup',  function() {
+    $('#loginModal').modal('show');
+    $('.signin-form').hide();
+    $('.signup-form').show();
+
 });
 {%endif%}
     </script>

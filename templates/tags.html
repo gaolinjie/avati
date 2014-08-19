@@ -11,6 +11,9 @@
     {% block title %}{% endblock %}
     <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
     {% block stylesheet %}{% endblock %}
+    {%if user_info==none%}
+    <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+    {%endif%}
     <link href="/static/css/main.css" rel="stylesheet">
 
     <title>所有标签 - 买买买</title>
@@ -127,7 +130,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
             </div>
         </div>
 
-        {%if user_info==none%}
+         {%if user_info==none%}
 <div id="loginModal" class="modal fade">
     <div class="modal-dialog">
         <form class="login signin-form" action="/signin" method="POST">
@@ -219,7 +222,6 @@ onclick="this.form.target='_blank';return true;" style="display:none">
     </div>
 </div>
 {%endif%}
-
     </div>
     <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.js"></script>
     <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
@@ -259,6 +261,13 @@ $(document).on('click', '.signin-switch',  function() {
      $('.signup-form').hide();
     $('.signin-form').show();
    
+});
+
+$(document).on('click', '.nav-signup',  function() {
+    $('#loginModal').modal('show');
+    $('.signin-form').hide();
+    $('.signup-form').show();
+
 });
 </script>
 {%endif%}
