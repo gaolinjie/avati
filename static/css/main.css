@@ -272,7 +272,7 @@ margin-top: 10px;
 
 .zm-votebar {
 position: absolute;
-left: -48px;
+left: -50px;
 }
 
 
@@ -1805,4 +1805,17 @@ margin-top: -15px;
 text-indent: -9999px;
 cursor: pointer;
 background-position: -60px -53px;
+}
+
+a.reply-user-link {
+color: #333;
+}
+
+a.reply-user-link:hover {
+text-decoration: underline;
+}
+
+.post-votebar {
+	left: -50px;
+	top: 54px;
 }

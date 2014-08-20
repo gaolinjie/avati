@@ -19,6 +19,25 @@
     </div>
 
     <div id="post-user-wrapper" class="user-wrapper">
+      <div class="zm-votebar post-votebar">
+            {% if post.author_id != user_info.uid %}
+            <button class="up vote-btn {%if post.vote_up_down and post.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="up">
+              <i class="icon vote-arrow"></i>
+              <span class="label">赞同</span>
+              <span class="count">{{post.up_num}}</span>
+            </button>
+            <button class="down vote-btn {%if post.vote_up_down and post.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="反对，不会显示你的姓名" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="down">
+              <i class="icon vote-arrow"></i>
+              <span class="label">反对，不会显示你的姓名</span>
+              <span class="count" style="display: none;">{{post.down_num}}</span>
+            </button>
+            {% else %}
+            <button class="up vote-btn vote-self-btn"  title="赞同">
+              <span class="label">赞同</span>
+              <span class="count">{{post.up_num}}</span>
+            </button>
+            {% endif %}
+          </div>
       <div id="post-user-avatar" class="user-avatar">
         <a href="/u/{{post.author_username}}">
           <img src="{{post.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
@@ -100,6 +119,7 @@
     {% for reply in replys.list %}
       <div id="{{reply.id}}" class="answer-item">
         <div class="user-wrapper">
+          {% if post.post_type=='q'%}
           <div class="zm-votebar">
             {% if reply.author_id != user_info.uid %}
             <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="up">
@@ -119,6 +139,7 @@
             </button>
             {% endif %}
           </div>
+          {%endif%}
           <div class="user-title">
             <div class="user-name">
               {% if reply.anon==0 %}
@@ -212,7 +233,7 @@
 
 <div class=" col-xs-12 col-md-3">
   <div class="follow-box box">
-    <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%}>{%if follow%}取消关注 {% else %} 关注问题{% endif %}</a>
+    <a id="followBtn" data-obj="{{post.id}}" data-type="{{post.post_type}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%}>{%if follow%}取消关注 {% else %} 关注{% if post.post_type=='q'%}问题{%else%}文章{%endif%}{% endif %}</a>
     <div class="promote-link meta">
       <a href="javascript:;">
         关注者 <strong id="followNum">{{post.follow_num}}</strong>

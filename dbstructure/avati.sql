@@ -84,6 +84,8 @@ CREATE TABLE `post` (
   `content` text,
   `post_type` text,
   `thumb` text,
+  `up_num` int(11) DEFAULT 0,
+  `down_num` int(11) DEFAULT 0,
   `reply_num` int(11) DEFAULT 0,
   `view_num` int(11) DEFAULT 0,
   `follow_num` int(11) DEFAULT 0,
