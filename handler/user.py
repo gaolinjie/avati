@@ -329,7 +329,7 @@ class SettingCoverHandler(BaseHandler):
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
         if(not user_info):
-            self.redirect("/login")
+            self.redirect("/?s=signin")
 
         self.render("user/setting_cover.html", **template_variables)
 

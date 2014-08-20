@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,7 +33,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body {%if scrollspy%}data-spy="scroll" data-target="#myScrollspy"{%endif%}>
 
     <!-- Fixed navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -96,7 +97,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
         {% block main %}{% endblock %}
 
         {%if user_info==none%}
-<div id="loginModal" class="modal fade">
+<div id="loginModal" class="modal fade" {%if link%}data-link="{{link}}"{%endif%} {%if link2%}data-link2="{{link2}}"{%endif%}>
     <div class="modal-dialog">
         <form class="login signin-form" action="/signin" method="POST">
             <fieldset>
@@ -193,7 +194,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/static/js/jquery-2.1.1.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.js"></script>
     <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
     {% block javascript %}{% endblock %}
     <script type="text/javascript">
@@ -207,6 +208,23 @@ onclick="this.form.target='_blank';return true;" style="display:none">
         });
 
 {%if user_info==none%}
+
+{%if sign_in_up=="signin"%}
+        $(document).ready(function() {
+            $('#loginModal').modal('show');
+    var link = $('#loginModal').attr('data-link');
+    var link2 = $('#loginModal').attr('data-link2');
+    var action;
+    if (link!=null) {  
+        action="/signin?r="+link;
+        if (link2!=null) {
+
+            action = action + "&n=" + link2;
+        }
+    $(".signin-form").attr("action", action);
+    }
+        });
+{%endif%}
 
 $(document).on('click', '.unlogin',  function() {
     $('#loginModal').modal('show');

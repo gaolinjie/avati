@@ -91,6 +91,7 @@ class Application(tornado.web.Application):
             (r"/edit/tag/(\d+)", handler.index.EditTagHandler),
             (r"/upload", handler.index.UploadHandler),
             (r"/list", handler.index.ListHandler),
+            (r".*", handler.index.PageNotFoundHandler)
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)

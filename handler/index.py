@@ -46,12 +46,21 @@ class IndexHandler(BaseHandler):
             template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
             template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)          
         else:
+            template_variables["sign_in_up"] = self.get_argument("s", "") 
+            link = self.get_argument("link", "")
+            if link!="":
+                template_variables["link"] =  link
+            link2 = self.get_argument("link2", "")
+            if link2!="":
+                template_variables["link2"] = self.get_argument("link2", "")           
             template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
 
         self.render("index.html", **template_variables)
 
 class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
+
+
         user_info = self.current_user
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
@@ -113,7 +122,7 @@ class NewHandler(BaseHandler):
             template_variables["allTagStr"] = allTagStr 
             self.render("new.html", **template_variables)
         else:
-            self.redirect("/signin")
+            self.redirect("/?s=signin&link=new")
 
     @tornado.web.authenticated
     def post(self, template_variables = {}):
@@ -251,7 +260,7 @@ class EditHandler(BaseHandler):
             template_variables["allTagStr"] = allTagStr 
             self.render("edit.html", **template_variables)
         else:
-            self.redirect("/signin")
+            self.redirect("/?s=signin")
 
     @tornado.web.authenticated
     def post(self, post_id, template_variables = {}):
@@ -335,6 +344,7 @@ class TagsHandler(BaseHandler):
         
         template_variables["categorys"] = self.category_model.get_tag_categorys()
         template_variables["tags"] = self.tag_model.get_all_tags()
+        template_variables["scrollspy"] = "scrollspy"
              
         self.render("tags.html", **template_variables)
 
@@ -882,7 +892,7 @@ class NoticeHandler(BaseHandler):
             template_variables["notices"] = self.notice_model.get_user_all_notices(user_info.uid, current_page = p)
             self.render("notice.html", **template_variables)
         else:
-            self.redirect("/signin")
+            self.redirect("/?s=signin&link=notifications")
 
 class FollowsHandler(BaseHandler):
     def get(self, username, template_variables = {}):
@@ -979,7 +989,7 @@ class InvitationsHandler(BaseHandler):
             template_variables["feeds"] = self.invite_model.get_user_invites(user_info.uid, current_page = p)
             self.render("invitations.html", **template_variables)
         else:
-            self.redirect("/login")
+            self.redirect("/?s=signin&link=invitations")
 
 class InviteEmailHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
@@ -1127,9 +1137,16 @@ class ListHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
+        template_variables["scrollspy"] = "scrollspy"
         if(user_info):
             template_variables["tag_types"] = self.tag_type_model.get_tag_types()
             template_variables["tags"] = self.follow_model.get_user_follow_tags(user_info.uid)
             self.render("list.html", **template_variables)
         else:
-            self.redirect("/signin")
+            self.redirect("/?s=signin&link=list")
+
+class PageNotFoundHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        self.render("404.html", **template_variables)
+
+

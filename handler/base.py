@@ -111,3 +111,14 @@ class BaseHandler(tornado.web.RequestHandler):
     @property
     def tag_type_model(self):
         return self.application.tag_type_model
+
+
+    @property
+    def write_error(self, **kwargs):
+        status_code = 404
+        if status_code == 404:
+            self.render('404.html')
+        elif status_code == 500:
+            self.render('404.html')
+        else:
+            super(RequestHandler, self).write_error(status_code, **kwargs)

@@ -1,276 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-    {% block title %}{% endblock %}
-    <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
-    {% block stylesheet %}{% endblock %}
-    {%if user_info==none%}
-    <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
-    {%endif%}
-    <link href="/static/css/main.css" rel="stylesheet">
+{% extends 'layout.html' %}
 
-    <title>所有标签 - 买买买</title>
+{% block title %}
+<title>所有标签 - 买买买</title>
+{% endblock %}
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]>
-    <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
-    <![endif]-->
-    <script src="/static/js/ie-emulation-modes-warning.js"></script>
-    <style type="text/css" adt="123"></style>
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/static/js/ie10-viewport-bug-workaround.js"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body data-spy="scroll" data-target="#myScrollspy">
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/"></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <form method="get" action="http://www.baidu.com/baidu" class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input name="word" size="30" maxlength="100" type="text" id="search-input" class="form-control" placeholder="搜索一下，你就知道怎么买" />
-                        <input type='submit' value='搜索' 
-onclick="this.form.target='_blank';return true;" style="display:none">
-                        <input name="tn" type="hidden" value="bds" />
-                        <input name="cl" type="hidden" value="3" />
-                        <input name="si" type="hidden" value="v2ex.com" />
-                        <input name="ct" type="hidden" value="2097152" />
-                    </div>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/tags">标签</a>
-                    </li>
-                    {%if user_info%}
-                    <li class="dropdown">
-                        <a href="/u/{{ user_info.username}}" class="dropdown-toggle nav-username" data-toggle="dropdown">
-                            {{ user_info.username }}
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a href="/u/{{ user_info.username }}">我的主页</a>
-                            </li>
-                            <li>
-                                <a href="/setting">设置</a>
-                            </li>
-                            <li>
-                                <a href="/signout">退出</a>
-                            </li>
-                        </ul>
-                    </li>
-                    {%else%}
-                    <li>
-                        <a class="nav-signup" href="javascript:;">注册</a>
-                    </li>
-                    <li>
-                        <a class="unlogin" href="javascript:;" {%if user_info==none%}data-link="tags"{%endif%}>登录</a>
-                    </li>
-                    {%endif%}
-                    <li class="">
-                        <a class="nav-btn {%if user_info == none%}unlogin{%endif%}" href="{% if user_info == none %}javascript:;{%else%}/new{%endif%}" {%if user_info == none%}data-link="new"{%endif%}>
-                            <button class="btn btn-default">提问 or 发帖</button>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!--/.nav-collapse --> </div>
-    </div>
-
-    <div class="container" >
-
-        <div class="col-xs-12 col-md-9">
-            {%for category in categorys%}
-              {%if category.tag_num>0%}
-            <div class="bs-docs-section">
-                <h2 >{{category.name}}</h2>
-                <div id="{{category.id}}" class="anchor"></div>
-                <ul class="tag-ranking-list">
-                    {%for tag in tags%}
-                  {%if tag.category==category.id%}
-                    <li>
-                        <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
-                    </li>
-                    {%endif%}
-                  {%endfor%}
-                </ul>
-            </div>
+{% block main %}
+<div class="col-xs-12 col-md-9">
+    {%for category in categorys%}
+    {%if category.tag_num>0%}
+    <div class="bs-docs-section">
+        <h2 >{{category.name}}</h2>
+        <div id="{{category.id}}" class="anchor"></div>
+        <ul class="tag-ranking-list">
+            {%for tag in tags%}
+            {%if tag.category==category.id%}
+            <li>
+                <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
+            </li>
             {%endif%}
             {%endfor%}
-        </div>
+        </ul>
+    </div>
+    {%endif%}
+    {%endfor%}
+</div>
 
-        <div class="col-xs-12 col-md-3">
-            <div  id="myScrollspy" class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
-                <ul class="nav bs-docs-sidenav" data-spy="affix" data-offset-top="125">
-                    {%for category in categorys%}
-                    {%if category.tag_num>0%}
-                    <li {%if category==categorys[0]%}class="active"{%endif%}>
-                        <a href="#{{category.id}}">{{category.name}}</a>
-                    </li>
-                    {%endif%}
-                    {%endfor%}
-                </ul>
-            </div>
-        </div>
-
-         {%if user_info==none%}
-<div id="loginModal" class="modal fade">
-    <div class="modal-dialog">
-        <form class="login signin-form" action="/signin" method="POST">
-            <fieldset>
-                <legend class="legend">
-                    登录或注册
-                    <span class="modal-dialog-title-close" data-dismiss="modal"></span>
-                </legend>
-                <div class="title">
-                    <a class="js-signup signup-switch with-icon" href="javascript:;">
-                        注册
-                        <i class="icon-sign icon-sign-arrow"></i>
-                    </a>
-                    <span class="js-title-label title-label">登录买买买</span>
-                </div>
-                <div class="input">
-                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
-                    <span>
-                        <i class="fa fa-envelope-o"></i>
-                    </span>
-                </div>
-                <div class="input">
-                    <input type="password" name="password" placeholder="密码" class="password-input" required />
-                    <span>
-                        <i class="fa fa-lock"></i>
-                    </span>
-                </div>
-                <div class="action">
-                    <button type="submit" class="submit btn btn-success btn-signin">登录</button>
-                </div>
-            </fieldset>
-            {{ xsrf_form_html() }}
-            <div class="feedback">
-                {{ errors|dump_errors }}
-    login successful
-                <br />
-                redirecting...
-            </div>
-        </form>
-
- <form class="login signup-form" style="display: none;" action="/signup" method="POST">
-            <fieldset>
-                <legend class="legend">
-                    登录或注册
-                    <span class="modal-dialog-title-close" data-dismiss="modal"></span>
-                </legend>
-                <div class="title">
-                    <a class="js-signup signin-switch with-icon" href="javascript:;">
-                        登录
-                        <i class="icon-sign icon-sign-arrow"></i>
-                    </a>
-                    <span class="js-title-label title-label">快速注册</span>
-                </div>
-
-                <div class="input">
-                    <input type="text" name="username" placeholder="用户名" class="username-input" required />
-                    <span>
-                        <i class="fa fa-user"></i>
-                    </span>
-                </div>
-
-                <div class="input">
-                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
-                    <span>
-                        <i class="fa fa-envelope-o"></i>
-                    </span>
-                </div>
-
-                <div class="input">
-                    <input type="password" name="password" placeholder="密码" class="password-input" required />
-                    <span>
-                        <i class="fa fa-lock"></i>
-                    </span>
-                </div>
-                <div class="action">
-                    <button type="submit" class="submit btn btn-success btn-sinup">注册</button>
-                </div>
-
-            </fieldset>
-            {{ xsrf_form_html() }}
-            <div class="feedback">
-                {{ errors|dump_errors }}
-    login successful
-                <br />
-                redirecting...
-            </div>
-
-        </form>
+<div class="col-xs-12 col-md-3">
+    <div  id="myScrollspy" class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix-top">
+        <ul class="nav bs-docs-sidenav" data-spy="affix" data-offset-top="125">
+            {%for category in categorys%}
+            {%if category.tag_num>0%}
+            <li {%if category==categorys[0]%}class="active"{%endif%}>
+                <a href="#{{category.id}}">{{category.name}}</a>
+            </li>
+            {%endif%}
+            {%endfor%}
+        </ul>
     </div>
 </div>
-{%endif%}
-    </div>
-    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.js"></script>
-    <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-
-    {%if user_info==none%}
-<script>
-$(document).on('click', '.unlogin',  function() {
-    $('#loginModal').modal('show');
-    var link = $(this).attr('data-link');
-    if (link!=null) {  
-    $(".signin-form").attr("action", "/signin?r="+link);
-    }
-});
-
-$( ".input" ).focusin(function() {
-  $( this ).find( "span" ).animate({"opacity":"0"}, 200);
-});
-
-$( ".input" ).focusout(function() {
-  $( this ).find( "span" ).animate({"opacity":"1"}, 300);
-});
-/*
-$(".login").submit(function(){
-  $(this).find(".submit i").removeAttr('class').addClass("fa fa-check").css({"color":"#fff"});
-  $(".submit").css({"background":"#2ecc71", "border-color":"#2ecc71"});
-  $(".feedback").show().animate({"opacity":"1", "bottom":"-80px"}, 400);
-  $("input").css({"border-color":"#2ecc71"});
-  return false;
-});
-*/
-$(document).on('click', '.signup-switch',  function() {
-    $('.signin-form').hide();
-    $('.signup-form').show();
-});
-
-$(document).on('click', '.signin-switch',  function() {
-     $('.signup-form').hide();
-    $('.signin-form').show();
-   
-});
-
-$(document).on('click', '.nav-signup',  function() {
-    $('#loginModal').modal('show');
-    $('.signin-form').hide();
-    $('.signup-form').show();
-
-});
-</script>
-{%endif%}
-</body>
-
-</html>
+{% endblock %}
