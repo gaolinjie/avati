@@ -244,6 +244,8 @@ onclick="this.form.target='_blank';return true;" style="display:none">
 {%if sign_in_up=="signin"%}
         $(document).ready(function() {
             $('#loginModal').modal('show');
+            $('.signin-error').hide();
+            $('.signup-error').hide();
     var link = $('#loginModal').attr('data-link');
     var link2 = $('#loginModal').attr('data-link2');
     var action;
@@ -267,6 +269,8 @@ onclick="this.form.target='_blank';return true;" style="display:none">
             $('#loginModal').modal('show');
             $('.signin-form').hide();
     $('.signup-form').show();
+    $('.signin-error').hide();
+            $('.signup-error').hide();
     var link = $('#loginModal').attr('data-link');
     var link2 = $('#loginModal').attr('data-link2');
     var action;

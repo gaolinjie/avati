@@ -566,6 +566,130 @@ class FollowHandler(BaseHandler):
                     "message": "failed",
             }))
 
+class VotePostHandler(BaseHandler):
+    def get(self, post_id, template_variables = {}):
+        user_info = self.current_user
+        vote_type = self.get_argument('vote', "null")
+
+        if(user_info):
+            post = self.post_model.get_post_by_post_id(post_id)
+            vote = self.vote_model.get_vote_by_user_and_post(user_info.uid, post_id)
+            if post.post_type == 'q':
+                feed_type = 13;
+            else:
+                feed_type = 15;
+
+            if vote:
+                if vote_type==vote.up_down:
+                    self.vote_model.delete_vote_by_id(vote.id)
+                    if vote.up_down=='up':
+                        self.post_model.update_post_by_post_id(post.id, {"up_num": post.up_num-1})
+                        feed = self.feed_model.get_feed_user_vote_post_feed(user_info.uid, post.id)
+                        if feed:
+                            self.feed_model.delete_feed_by_id(feed.id)
+
+                        if post.up_num-1 <= THRESHOLD:
+                            if post.post_type == 'q':
+                                feed_type2 = 14;
+                            else:
+                                feed_type2 = 16;
+                            self.feed_model.delete_feed_by_post_and_type(post_id, feed_type2)
+
+                    else:
+                        self.post_model.update_post_by_post_id(post.id, {"down_num": post.down_num-1})
+                else:
+                    if vote.up_down=='up':
+                        self.post_model.update_post_by_post_id(post.id, {"up_num": post.up_num-1, "down_num": post.down_num+1})
+                        feed = self.feed_model.get_feed_user_vote_post_feed(user_info.uid, post.id)
+                        if feed:
+                            self.feed_model.delete_feed_by_id(feed.id)
+
+                        if post.up_num-1 <= THRESHOLD:
+                            if post.post_type == 'q':
+                                feed_type2 = 14;
+                            else:
+                                feed_type2 = 16;
+                            self.feed_model.delete_feed_by_post_and_type(post_id, feed_type2)
+                    else:
+                        self.post_model.update_post_by_post_id(post.id, {"up_num": post.up_num+1, "down_num": post.down_num-1})
+                        # add feed: user 赞同了回答
+                        feed_info = {
+                            "user_id": user_info.uid,           
+                            "post_id": post_id,
+                            "feed_type": feed_type,
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                        }
+                        self.feed_model.add_new_feed(feed_info)
+
+                        if post.up_num+1 > THRESHOLD:
+                            tags = self.post_tag_model.get_post_all_tags(post.id)
+                            if post.post_type == 'q':
+                                feed_type2 = 14;
+                            else:
+                                feed_type2 = 16;
+                            for tag in tags["list"]:
+                                # add feed: tag 下很多人关注了问题
+                                feed_info2 = {
+                                    "tag_id": tag.id,           
+                                    "post_id": post.id,
+                                    "feed_type": feed_type2,
+                                    "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                                }
+                                self.feed_model.add_new_feed(feed_info2)
+                    self.vote_model.update_vote_by_id(vote.id, {"up_down": vote_type, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
+            else:
+                self.vote_model.add_new_vote({"post_id": post_id, "up_down": vote_type, "author_id": user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
+                if vote_type=='up':
+                    self.post_model.update_post_by_post_id(post.id, {"up_num": post.up_num+1})
+
+                    # add feed: user 赞同了回答
+                    feed_info = {
+                        "user_id": user_info.uid,           
+                        "post_id": post_id,
+                        "feed_type": feed_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    self.feed_model.add_new_feed(feed_info)
+
+                    if post.up_num+1 > THRESHOLD:
+                            tags = self.post_tag_model.get_post_all_tags(post.id)
+                            if post.post_type == 'q':
+                                feed_type2 = 14
+                            else:
+                                feed_type2 = 16
+                            for tag in tags["list"]:
+                                # add feed: tag 下很多人关注了问题
+                                feed_info2 = {
+                                    "tag_id": tag.id,           
+                                    "post_id": post.id,
+                                    "feed_type": feed_type2,
+                                    "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                                }
+                                self.feed_model.add_new_feed(feed_info2)
+
+                    if post.post_type == 'q':
+                        notice_type = 16
+                    else:
+                        notice_type = 17
+                    # add notice: 赞同了你的问题
+                    notice_info = {
+                        "author_id": reply.author_id,
+                        "user_id": user_info["uid"],           
+                        "post_id": reply.post_id,
+                        "notice_type": notice_type,
+                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                    }
+                    self.notice_model.add_new_notice(notice_info)
+                else:
+                    self.post_model.update_post_by_post_id(post.id, {"down_num": post.down_num+1})
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+
 class VoteReplyHandler(BaseHandler):
     def get(self, reply_id, template_variables = {}):
         user_info = self.current_user
@@ -585,7 +709,7 @@ class VoteReplyHandler(BaseHandler):
                     self.vote_model.delete_vote_by_id(vote.id)
                     if vote.up_down=='up':
                         self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num-1})
-                        feed = self.feed_model.get_feed_user_vote_feed(user_info.uid, reply.id)
+                        feed = self.feed_model.get_feed_user_vote_reply_feed(user_info.uid, reply.id)
                         if feed:
                             self.feed_model.delete_feed_by_id(feed.id)
 
@@ -601,7 +725,7 @@ class VoteReplyHandler(BaseHandler):
                 else:
                     if vote.up_down=='up':
                         self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num-1, "down_num": reply.down_num+1})
-                        feed = self.feed_model.get_feed_user_vote_feed(user_info.uid, reply.id)
+                        feed = self.feed_model.get_feed_user_vote_reply_feed(user_info.uid, reply.id)
                         if feed:
                             self.feed_model.delete_feed_by_id(feed.id)
 

@@ -14,8 +14,12 @@ class FeedModel(Query):
     def add_new_feed(self, feed_info):
         return self.data(feed_info).add()
 
-    def get_feed_user_vote_feed(self, user_id, reply_id):
+    def get_feed_user_vote_reply_feed(self, user_id, reply_id):
         where = "user_id = %s AND reply_id = %s AND (feed_type = 5 OR feed_type = 11)" % (user_id, reply_id)
+        return self.where(where).find()
+
+    def get_feed_user_vote_post_feed(self, user_id, post_id):
+        where = "user_id = %s AND post_id = %s AND (feed_type = 13 OR feed_type = 15)" % (user_id, post_id)
         return self.where(where).find()
 
     def delete_feed_by_id(self, feed_id):
@@ -32,6 +36,10 @@ class FeedModel(Query):
 
     def delete_feed_by_reply_and_type(self, reply_id, feed_type):
     	where = "feed.reply_id = %s AND feed.feed_type = %s" % (reply_id, feed_type)
+        return self.where(where).delete()
+
+    def delete_feed_by_post_and_type(self, post_id, feed_type):
+        where = "feed.post_id = %s AND feed.feed_type = %s" % (post_id, feed_type)
         return self.where(where).delete()
 
     def delete_feed_by_user_post__and_type(self, user_id, post_id,  feed_type):

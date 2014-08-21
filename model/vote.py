@@ -15,6 +15,10 @@ class VoteModel(Query):
         where = "author_id = %s AND reply_id = %s" % (author_id, reply_id)
         return self.where(where).find()
 
+    def get_vote_by_user_and_post(self, author_id, post_id):
+        where = "author_id = %s AND post_id = %s" % (author_id, post_id)
+        return self.where(where).find()
+
     def delete_vote_by_id(self, vote_id):
         where = "vote.id = %s " % vote_id
         return self.where(where).delete()
