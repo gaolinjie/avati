@@ -129,6 +129,7 @@ CREATE TABLE `feed_type` (
 DROP TABLE IF EXISTS `vote`;
 CREATE TABLE `vote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) DEFAULT NULL,
   `reply_id` int(11) DEFAULT NULL,
   `up_down` text,
   `author_id` int(11) DEFAULT NULL,
@@ -271,6 +272,17 @@ CREATE TABLE `invite` (
   `from_user` int(11) DEFAULT NULL,
   `to_user` int(11) DEFAULT NULL,
   `post_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `icode`
+-- ----------------------------
+DROP TABLE IF EXISTS `icode`;
+CREATE TABLE `icode` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` text,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

@@ -1819,3 +1819,8 @@ text-decoration: underline;
 	left: -50px;
 	top: 54px;
 }
+
+.error-text {
+	padding-top: 10px;
+	padding-bottom: 40px;
+}

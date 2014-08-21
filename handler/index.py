@@ -52,7 +52,17 @@ class IndexHandler(BaseHandler):
                 template_variables["link"] =  link
             link2 = self.get_argument("link2", "")
             if link2!="":
-                template_variables["link2"] = self.get_argument("link2", "")           
+                template_variables["link2"] = link2 
+            invite = self.get_argument("i", "")
+            if invite!="":
+                template_variables["invite"] = invite
+            else:
+                template_variables["invite"] = None
+            error = self.get_argument("e", "")
+            if error!="":
+                template_variables["error"] = error
+            else:
+                template_variables["error"] = None
             template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
 
         self.render("index.html", **template_variables)
@@ -556,7 +566,7 @@ class FollowHandler(BaseHandler):
                     "message": "failed",
             }))
 
-class VoteHandler(BaseHandler):
+class VoteReplyHandler(BaseHandler):
     def get(self, reply_id, template_variables = {}):
         user_info = self.current_user
         vote_type = self.get_argument('vote', "null")

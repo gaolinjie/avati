@@ -129,12 +129,6 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                 </div>
             </fieldset>
             {{ xsrf_form_html() }}
-            <div class="feedback">
-                {{ errors|dump_errors }}
-    login successful
-                <br />
-                redirecting...
-            </div>
         </form>
 
  <form class="login signup-form" style="display: none;" action="/signup" method="POST">
@@ -173,7 +167,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                 </div>
 
                 <div class="input">
-                    <input type="text" name="invite" placeholder="邀请码" class="invite-input" required />
+                    <input type="text" name="invite" placeholder="邀请码" class="invite-input" {%if invite%}value="{{invite}}"{%endif%} autocomplete="off" required />
                     <span>
                         <i class="fa fa-gift"></i>
                     </span>
@@ -184,13 +178,44 @@ onclick="this.form.target='_blank';return true;" style="display:none">
 
             </fieldset>
             {{ xsrf_form_html() }}
-            <div class="feedback">
-                {{ errors|dump_errors }}
-    login successful
-                <br />
-                redirecting...
-            </div>
+        </form>
 
+<form class="login signin-error" style="disply: none">
+            <fieldset>
+                <legend class="legend">
+                    登录或注册
+                    <span class="modal-dialog-title-close" data-dismiss="modal"></span>
+                </legend>
+                <div class="title">
+                    <a class="js-signup signin-switch with-icon" href="javascript:;">
+                        重新登录
+                        <i class="icon-sign icon-sign-arrow"></i>
+                    </a>
+                    <span class="js-title-label title-label">登录错误</span>
+                </div>
+                <div class="input error-text">
+                    你输入邮箱或密码有误，请重试。
+                </div>
+            </fieldset>
+        </form>
+
+<form class="login signup-error" style="disply: none">
+            <fieldset>
+                <legend class="legend">
+                    登录或注册
+                    <span class="modal-dialog-title-close" data-dismiss="modal"></span>
+                </legend>
+                <div class="title">
+                    <a class="js-signup signup-switch with-icon" href="javascript:;">
+                        重新注册
+                        <i class="icon-sign icon-sign-arrow"></i>
+                    </a>
+                    <span class="js-title-label title-label">注册错误</span>
+                </div>
+                <div class="input error-text">
+                    你输入的注册信息有误，请重试。
+                </div>
+            </fieldset>
         </form>
     </div>
 </div>
@@ -215,7 +240,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
         });
 
 {%if user_info==none%}
-
+{%if error==none%}
 {%if sign_in_up=="signin"%}
         $(document).ready(function() {
             $('#loginModal').modal('show');
@@ -233,8 +258,55 @@ onclick="this.form.target='_blank';return true;" style="display:none">
         });
 {%endif%}
 
+{%if sign_in_up=="signup"%}
+        $(document).ready(function() {
+            {%if invite%}
+            var invite = $('.invite-input').val()
+                $('.invite-input').parent().hide();
+            {%endif%}
+            $('#loginModal').modal('show');
+            $('.signin-form').hide();
+    $('.signup-form').show();
+    var link = $('#loginModal').attr('data-link');
+    var link2 = $('#loginModal').attr('data-link2');
+    var action;
+    if (link!=null) {  
+        action="/signup?r="+link;
+        if (link2!=null) {
+
+            action = action + "&n=" + link2;
+        }
+    $(".signin-form").attr("action", action);
+    }
+        });
+{%endif%}
+{%else%}
+{%if sign_in_up=="signin"%}
+        $(document).ready(function() {
+            $('#loginModal').modal('show');
+            $('.signin-form').hide();
+            $('.signup-form').hide();
+            $('.signin-error').show();
+            $('.signup-error').hide();
+        });
+{%endif%}
+
+{%if sign_in_up=="signup"%}
+        $(document).ready(function() {
+            $('#loginModal').modal('show');
+            $('.signin-form').hide();
+            $('.signup-form').hide();
+            $('.signin-error').hide();
+            $('.signup-error').show();
+        });
+{%endif%}
+{%endif%}
+
 $(document).on('click', '.unlogin',  function() {
     $('#loginModal').modal('show');
+    $('.signin-form').show();
+    $('.signin-error').hide();
+    $('.signup-error').hide();
     var link = $(this).attr('data-link');
     var link2 = $(this).attr('data-link2');
     var action;
@@ -266,11 +338,15 @@ $(".login").submit(function(){
 $(document).on('click', '.signup-switch',  function() {
     $('.signin-form').hide();
     $('.signup-form').show();
+    $('.signin-error').hide();
+    $('.signup-error').hide();
 });
 
 $(document).on('click', '.signin-switch',  function() {
      $('.signup-form').hide();
     $('.signin-form').show();
+    $('.signin-error').hide();
+    $('.signup-error').hide();
    
 });
 
@@ -278,6 +354,8 @@ $(document).on('click', '.nav-signup',  function() {
     $('#loginModal').modal('show');
     $('.signin-form').hide();
     $('.signup-form').show();
+    $('.signin-error').hide();
+    $('.signup-error').hide();
 
 });
 {%endif%}

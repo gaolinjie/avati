@@ -62,7 +62,7 @@ class Application(tornado.web.Application):
             (r"/tags", handler.index.TagsHandler),
             (r"/reply/(\d+)", handler.index.ReplyHandler),
             (r"/follow", handler.index.FollowHandler),
-            (r"/vote/(\d+)", handler.index.VoteHandler),
+            (r"/vote/reply/(\d+)", handler.index.VoteReplyHandler),
             (r"/thank/(\d+)", handler.index.ThankHandler),
             (r"/report/(\d+)", handler.index.ReportHandler),
             (r"/delete/reply/(\d+)", handler.index.DeleteReplyHandler),
@@ -91,7 +91,7 @@ class Application(tornado.web.Application):
             (r"/edit/tag/(\d+)", handler.index.EditTagHandler),
             (r"/upload", handler.index.UploadHandler),
             (r"/list", handler.index.ListHandler),
-            (r".*", handler.index.PageNotFoundHandler)
+            #(r".*", handler.index.PageNotFoundHandler)
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)
@@ -122,6 +122,7 @@ class Application(tornado.web.Application):
         self.notice_model = self.loader.use("notice.model")
         self.invite_model = self.loader.use("invite.model")
         self.tag_type_model = self.loader.use("tag_type.model")
+        self.icode_model = self.loader.use("icode.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)

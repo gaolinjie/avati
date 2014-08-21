@@ -142,8 +142,13 @@ class SignupHandler(BaseHandler):
             self.get({"errors": form.errors})
             return
 
-        # validate duplicated
+        # validate invite code
+        icode = self.icode_model.get_invite_code(form.invite.data)
+        if not icode:
+            self.redirect("/?s=signup&e=1")
+            return
 
+        # validate duplicated
         duplicated_email = self.user_model.get_user_by_email(form.email.data)
         duplicated_username = self.user_model.get_user_by_username(form.username.data)
 
@@ -194,6 +199,9 @@ class SignupHandler(BaseHandler):
             self.follow_model.add_new_follow(follow_info)
 
             do_login(self, user_id)
+
+            # delete used invite code
+            self.icode_model.delete_code_by_id(icode.id)
 
             # send register success mail to user
 
