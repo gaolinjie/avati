@@ -144,7 +144,7 @@ class SignupHandler(BaseHandler):
 
         # validate invite code
         icode = self.icode_model.get_invite_code(form.invite.data)
-        if not icode:
+        if not icode or icode.used==1:
             self.redirect("/?s=signup&e=1")
             return
 
@@ -201,7 +201,7 @@ class SignupHandler(BaseHandler):
             do_login(self, user_id)
 
             # delete used invite code
-            self.icode_model.delete_code_by_id(icode.id)
+            self.icode_model.update_code_by_id(icode.id, {"used": 1})
 
             # send register success mail to user
 

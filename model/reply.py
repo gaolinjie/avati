@@ -16,7 +16,7 @@ class ReplyModel(Query):
         return self.data(reply_info).add()
 
     def get_post_all_replys_sort_by_voted(self, post_id, user_id, num = 5, current_page = 1):
-        where = "post_id = %s" % post_id
+        where = "reply.post_id = %s" % post_id
         join = "LEFT JOIN user ON reply.author_id = user.uid \
                 LEFT JOIN vote ON vote.author_id = %s AND reply.id = vote.reply_id \
                 LEFT JOIN thank ON thank.from_user = %s AND thank.to_user = reply.author_id AND thank.obj_id = reply.id AND thank.obj_type = 'reply' \

@@ -21,12 +21,12 @@
     <div id="post-user-wrapper" class="user-wrapper">
       <div class="zm-votebar post-votebar">
             {% if post.author_id != user_info.uid %}
-            <button class="up vote-btn {%if post.vote_up_down and post.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="up">
+            <button class="up vote-btn vote-post {%if post.vote_up_down and post.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="up">
               <i class="icon vote-arrow"></i>
               <span class="label">赞同</span>
               <span class="count">{{post.up_num}}</span>
             </button>
-            <button class="down vote-btn {%if post.vote_up_down and post.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="反对，不会显示你的姓名" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="down">
+            <button class="down vote-btn vote-post {%if post.vote_up_down and post.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="反对，不会显示你的姓名" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="down">
               <i class="icon vote-arrow"></i>
               <span class="label">反对，不会显示你的姓名</span>
               <span class="count" style="display: none;">{{post.down_num}}</span>
@@ -122,12 +122,12 @@
           {% if post.post_type=='q'%}
           <div class="zm-votebar">
             {% if reply.author_id != user_info.uid %}
-            <button class="up vote-btn {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="up">
+            <button class="up vote-btn vote-reply {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="up">
               <i class="icon vote-arrow"></i>
               <span class="label">赞同</span>
               <span class="count">{{reply.up_num}}</span>
             </button>
-            <button class="down vote-btn {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="反对，不会显示你的姓名" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="down">
+            <button class="down vote-btn vote-reply {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="反对，不会显示你的姓名" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="down">
               <i class="icon vote-arrow"></i>
               <span class="label">反对，不会显示你的姓名</span>
               <span class="count" style="display: none;">{{reply.down_num}}</span>
@@ -428,7 +428,40 @@ $(document).on('click', '#followBtn',  function() {
           
         });
 
-$(document).on('click', '.vote-btn',  function() {
+$(document).on('click', '.vote-post',  function() {
+  var vote_id = $(this).attr('data-id');
+  var vote_type = $(this).attr('data-type');
+  var vote_btn = $(this);
+  var vote_up = $(this).parent().find('.up');
+  var vote_down = $(this).parent().find('.down');
+  var vote_num = $(this).find('.count');
+  $.getJSON('/vote/post/' + vote_id + '?vote=' + vote_type, function (data) {
+    if (data.success != 0) {
+      if (vote_btn.hasClass('voted')) {
+        vote_btn.removeClass('voted');
+        if (vote_type=='up') {
+          vote_num.text(parseInt(vote_num.text()) - 1);
+        }
+      }
+      else {
+        vote_btn.addClass('voted');
+        if (vote_type=='up') {
+          vote_num.text(parseInt(vote_num.text()) + 1);
+          if (vote_down.hasClass('voted')) {
+            vote_down.removeClass('voted');
+          }
+        }
+        else {
+          if (vote_up.hasClass('voted')) {
+            vote_up.removeClass('voted');
+          }
+        }
+      } 
+    }
+  });
+});
+
+$(document).on('click', '.vote-reply',  function() {
   var vote_id = $(this).attr('data-id');
   var vote_type = $(this).attr('data-type');
   var vote_btn = $(this);
@@ -503,7 +536,7 @@ $(document).on('click', '.invite-button',  function() {
   var post_id = $(this).attr('data-post');
   var invite_btn = $(this);
   
-  $.getJSON('/invite/answer/' + post_id + '?u=' + user_id, function (data) {
+  $.getJSON('/invite/to/answer/' + post_id + '?u=' + user_id, function (data) {
     if (data.success != 0) {
       if (invite_btn.hasClass("btn-success")) {
         invite_btn.text('取消邀请'); 
@@ -660,7 +693,7 @@ $(document).on('click', '#inviteEmail',  function() {
   var post_id = $(this).attr('data-post');
   var email = $('#inviteEmailInput');
 
-  $.getJSON('/invite/email/' + post_id+'?email='+email , function (data) {
+  $.getJSON('/invite/to/email/' + post_id+'?email='+email , function (data) {
     if (data.success != 0) {
       $('#inviteEmailInput').val('');
       alert('邀请发送成功!');

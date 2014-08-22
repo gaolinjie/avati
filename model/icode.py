@@ -20,4 +20,11 @@ class IcodeModel(Query):
         where = "id = %s " % icode_id
         return self.where(where).delete()
 
+    def update_code_by_id(self, icode_id, icode_info):
+        where = "icode.id = %s" % icode_id
+        return self.where(where).data(icode_info).save()
+
+    def add_new_icode(self, icode_info):
+        return self.data(icode_info).add()
+
 

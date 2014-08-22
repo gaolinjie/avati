@@ -69,20 +69,19 @@ class IndexHandler(BaseHandler):
 
 class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
-
-
         user_info = self.current_user
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
         sort = self.get_argument('sort', "voted")
         p = int(self.get_argument("p", "1"))
 
-        post = self.post_model.get_post_by_post_id(post_id)
-        template_variables["post"] = post
-        self.post_model.update_post_by_post_id(post.id, {"view_num": post.view_num+1})
+        
         template_variables["related_posts"] = self.post_tag_model.get_post_related_posts(post_id)
         template_variables["tags"] = self.post_tag_model.get_post_all_tags(post_id)
-        if(user_info):            
+        if(user_info):  
+            post = self.post_model.get_post_by_post_id2(post_id, user_info.uid)
+            template_variables["post"] = post
+            self.post_model.update_post_by_post_id(post.id, {"view_num": post.view_num+1})          
             if sort== "voted":
                 replys = self.reply_model.get_post_all_replys_sort_by_voted(post_id, user_info.uid, current_page = p)
                 template_variables["sort"] = "voted"
@@ -98,6 +97,9 @@ class PostHandler(BaseHandler):
                 votesList.append(self.vote_model.get_reply_all_up_votes(reply.id)) 
             template_variables["votesList"] = votesList
         else:
+            post = self.post_model.get_post_by_post_id(post_id)
+            template_variables["post"] = post
+            self.post_model.update_post_by_post_id(post.id, {"view_num": post.view_num+1}) 
             if sort== "voted":
                 replys = self.reply_model.get_post_all_replys_sort_by_voted2(post_id, current_page = p)
                 template_variables["sort"] = "voted"
@@ -112,6 +114,23 @@ class PostHandler(BaseHandler):
             for reply in replys["list"]:
                 votesList.append(self.vote_model.get_reply_all_up_votes(reply.id)) 
             template_variables["votesList"] = votesList
+            template_variables["sign_in_up"] = self.get_argument("s", "") 
+            link = self.get_argument("link", "")
+            if link!="":
+                template_variables["link"] =  link
+            link2 = self.get_argument("link2", "")
+            if link2!="":
+                template_variables["link2"] = link2 
+            invite = self.get_argument("i", "")
+            if invite!="":
+                template_variables["invite"] = invite
+            else:
+                template_variables["invite"] = None
+            error = self.get_argument("e", "")
+            if error!="":
+                template_variables["error"] = error
+            else:
+                template_variables["error"] = None
 
         self.render("post.html", **template_variables)
 
@@ -671,11 +690,11 @@ class VotePostHandler(BaseHandler):
                         notice_type = 16
                     else:
                         notice_type = 17
-                    # add notice: 赞同了你的问题
+                    # add notice: 赞了你的问题
                     notice_info = {
-                        "author_id": reply.author_id,
+                        "author_id": post.author_id,
                         "user_id": user_info["uid"],           
-                        "post_id": reply.post_id,
+                        "post_id": post_id,
                         "notice_type": notice_type,
                         "created": time.strftime('%Y-%m-%d %H:%M:%S'),
                     }
@@ -1092,7 +1111,7 @@ class GetInviteUsersHandler(BaseHandler):
                     "success": 0,
                 }))
 
-class InviteAnswerHandler(BaseHandler):
+class InviteToAnswerHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
         user_info = self.current_user
         invite_user = self.get_argument('u', "null")
@@ -1125,7 +1144,7 @@ class InvitationsHandler(BaseHandler):
         else:
             self.redirect("/?s=signin&link=invitations")
 
-class InviteEmailHandler(BaseHandler):
+class InviteToEmailHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
         user_info = self.current_user
         email = self.get_argument('email', "null")
@@ -1145,20 +1164,19 @@ class InviteEmailHandler(BaseHandler):
                     "success": 0,
                 }))
 
-class InviteJoinHandler(BaseHandler):
+class InviteToJoinHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         email = self.get_argument('email', "null")
         print email
+        invite_code = "%s" % uuid.uuid1()
+        self.icode_model.add_new_icode({"code": invite_code, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
 
         if(user_info):
             # send invite to answer mail to user
-            #mail_title = u"邀请回答"
-            mail_content = self.render_string("invite-answer.html", user_info=user_info)
-            #send(mail_title, mail_content, email)
+            mail_content = self.render_string("invite-answer.html", user_info=user_info, invite_code=invite_code)
             print "send mail"
-
 
             params = { "api_user": "postmaster@mmmai-invite.sendcloud.org", \
                 "api_key" : "bRjboOZIVFUU9s0q",\
@@ -1181,6 +1199,24 @@ class InviteJoinHandler(BaseHandler):
                     "success": 0,
                 }))
 
+class InviteHandler(BaseHandler):
+    def get(self, invite_code, template_variables = {}):
+        post_id = self.get_argument("p", "")
+        # validate invite code
+        icode = self.icode_model.get_invite_code(invite_code)
+        if not icode:
+            print "fasdfsad"
+            template_variables["error_text"] = "对不起，邀请链接无效！"
+            self.render("404.html", **template_variables)
+        else:
+            if icode.used==1:
+                template_variables["error_text"] = "对不起，邀请链接已经被使用！"
+                self.render("404.html", **template_variables)
+            else:
+                if post_id=="":
+                    self.redirect("/?s=signup&i="+invite_code)
+                else:
+                    self.redirect("/p/"+post_id+"?s=signup&i="+invite_code)    
 
 class EditTagHandler(BaseHandler):
     @tornado.web.authenticated

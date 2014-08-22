@@ -283,6 +283,7 @@ DROP TABLE IF EXISTS `icode`;
 CREATE TABLE `icode` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` text,
+  `used` int(11) DEFAULT 0,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

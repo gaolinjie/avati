@@ -116,13 +116,16 @@ class BaseHandler(tornado.web.RequestHandler):
     def icode_model(self):
         return self.application.icode_model
 
-
-#@property
-#    def write_error(self, **kwargs):
-#        status_code = 404
-#        if status_code == 404:
- #           self.render('404.html')
-  #      elif status_code == 500:
-   #         self.render('404.html')
-  #      else:
- #           super(RequestHandler, self).write_error(status_code, **kwargs)
+'''
+    @property
+    def write_error(self, **kwargs):
+        status_code = 404
+        if status_code == 404:
+            template_variables["error_text"] = "页面不存在或可能被删除了，"
+            self.render('404.html')
+        elif status_code == 500:
+            template_variables["error_text"] = "页面不存在或可能被删除了，"
+            self.render('404.html')
+        else:
+            super(RequestHandler, self).write_error(status_code, **kwargs)
+'''

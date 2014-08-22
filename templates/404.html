@@ -2,7 +2,7 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-<title>所有标签 - 买买买</title>
+<title>错误提示 - 买买买</title>
 {% endblock %}
 
 {% block stylesheet %}
@@ -40,7 +40,7 @@ margin-left: 35px;
 <div class="row session-edge">
     <div class="col-xs-12 col-md-offset-1 col-md-10 site-error">
         <strong>“卖光了”</strong><br>
-        <span>页面不存在或可能被删除了，<a href="/">回首页</a></span>
+        <span>{{error_text}}<a href="/">回首页</a></span>
     </div>
 </div>
 {% endblock %}

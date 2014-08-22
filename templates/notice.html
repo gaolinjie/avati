@@ -478,7 +478,7 @@
     $(document).on('click', '#inviteEmail',  function() {
   var email = $('#inviteEmailInput').val();
 
-  $.getJSON('/invite/join?email='+email , function (data) {
+  $.getJSON('/invite/to/join?email='+email , function (data) {
     if (data.success != 0) {
       $('#inviteEmailInput').val('');
       $('#inviteJoinModal').modal('hide');

@@ -14,6 +14,16 @@ class PostModel(Query):
     def add_new_post(self, post_info):
         return self.data(post_info).add()
 
+    def get_post_by_post_id2(self, post_id, user_id):
+        where = "post.id = %s" % post_id
+        join = "LEFT JOIN user AS author_user ON post.author_id = author_user.uid\
+                LEFT JOIN vote ON vote.author_id = %s AND post.id = vote.post_id" % user_id
+        field = "post.*, \
+                author_user.username as author_username, \
+                author_user.avatar as author_avatar, \
+                author_user.sign as author_sign, \
+                vote.up_down as vote_up_down"
+        return self.where(where).join(join).field(field).find()
 
     def get_post_by_post_id(self, post_id):
         where = "post.id = %s" % post_id
