@@ -10,12 +10,12 @@
         <div class="feeds-inner">
             {%for feed in feeds.list%}
 
-        {%if feed.feed_type==1%}
+        {%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
             <div class="feed">
                 <div class="user-wrapper">
                     <div class="user-avatar">
                         <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
@@ -36,7 +36,7 @@
                 <div class="answer-meta meta">
                     <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                     <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个{%if feed.post_type=='q'%}回答{%else%}评论{%endif%}</a>
                     {% if user_info.username != feed.author_username %}
                     <span class="bullet">•</span>
                     <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
@@ -47,12 +47,12 @@
             </div>
             {%endif%}
 
-        {%if feed.feed_type==2%}
+        {%if feed.feed_type==2 or feed.feed_type==5 or feed.feed_type==6 or feed.feed_type==8 or feed.feed_type==11 or feed.feed_type==12%}
             <div class="feed">
                 <div class="user-wrapper">
                     <div class="user-avatar">
                         <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
@@ -76,7 +76,7 @@
                 <div class="answer-meta meta">
                     <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                     <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
+                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个{%if feed.post_type=='q'%}回答{%else%}评论{%endif%}</a>
                     {% if user_info.username != feed.author_username %}
                     <span class="bullet">•</span>
                     <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
@@ -86,392 +86,6 @@
                 </div>
             </div>
             {%endif%}
-
-        {%if feed.feed_type==3%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="summary-text">{{feed.post_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.post_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.post_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==4%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/t/{{feed.tag_name}}">
-                            <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="summary-text">{{feed.post_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.post_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.post_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==5%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="user-name">
-                       <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
-                    </div>
-                    <div class="summary-text">{{feed.reply_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.reply_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.reply_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==6%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/t/{{feed.tag_name}}">
-                            <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="user-name">
-                        <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
-                    </div>
-                    <div class="summary-text">{{feed.reply_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.reply_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.reply_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==7%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="summary-text">{{feed.post_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.author_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.post_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==8%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="user-name">
-                        <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
-                    </div>
-                    <div class="summary-text">{{feed.reply_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.author_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.reply_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==9%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="summary-text">{{feed.post_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.post_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.post_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==10%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/t/{{feed.tag_name}}">
-                            <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="summary-text">{{feed.post_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.post_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.post_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==11%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="user-name">
-                        <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
-                    </div>
-                    <div class="summary-text">{{feed.reply_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.reply_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.reply_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
-        {%if feed.feed_type==12%}
-            <div class="feed">
-                <div class="user-wrapper">
-                    <div class="user-avatar">
-                        <a href="/t/{{feed.tag_name}}">
-                            <img src="{{tag_thumb or 'http://avati-static.qiniudn.com/scenery-19.png'}}" width="46px" height="46px" alt="" class="avatar-img"></a>
-                    </div>
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link" href="/t/{{feed.tag_name}}">{{feed.tag_name}}</a>
-                            {{feed.feed_text}}
-                        </div>
-                        <div class="feed-title">
-                            <h2>
-                                <a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary">
-                    <div class="user-name">
-                        <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
-                    </div>
-                    <div class="summary-text">{{feed.reply_content}}</div>
-                </div>
-                <div class="answer-meta meta">
-                    <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
-                    <span class="bullet">•</span>
-                    <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
-                    {% if user_info.username != feed.reply_user_username %}
-                    <span class="bullet">•</span>
-                    <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
-                    <span class="bullet">•</span>
-                    <a class="report {% if feed.reply_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
-                    {% endif %}
-                </div>
-            </div>
-            {%endif%}
-
         {%endfor%}
 
         {% if feeds.page.next!=feeds.page.current %}
@@ -498,7 +112,7 @@
             </li>
             <li class="nav-item">
                 <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info == none%}data-link="follows" {%endif%}> <i class="icon-message"></i>
-                    我关注的问题
+                    我的所有关注
                 </a>
             </li>
             <li class="nav-item">

@@ -1824,3 +1824,8 @@ text-decoration: underline;
 	padding-top: 10px;
 	padding-bottom: 40px;
 }
+
+.notice-feeds .feed {
+	padding-bottom: 15px;
+	margin-bottom: 30px;
+}

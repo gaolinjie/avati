@@ -125,6 +125,7 @@ class Application(tornado.web.Application):
         self.invite_model = self.loader.use("invite.model")
         self.tag_type_model = self.loader.use("tag_type.model")
         self.icode_model = self.loader.use("icode.model")
+        self.avatar_model = self.loader.use("avatar.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)

@@ -40,7 +40,7 @@
           </div>
       <div id="post-user-avatar" class="user-avatar">
         <a href="/u/{{post.author_username}}">
-          <img src="{{post.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+          <img src="{{post.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
       </div>
       <div class="user-title">
         <div class="user-name">
@@ -55,9 +55,10 @@
 
     <div class="topic-content">{{post.content}}</div>
     <div class="item_action_bar meta">
-
+      {%if post.post_type=='q'%}
       <a class="invite {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" href="javascript:;" >邀请回答</a>
       <span class="bullet">•</span>
+      {%endif%}
       {% if post.author_id != user_info.uid %}
       <a class="thank {% if thank %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if thank == none or user_info == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="post">{% if thank %}已感谢{% else %}感谢{% endif %}</a>
       <span class="bullet">•</span>
@@ -166,7 +167,7 @@
           {% if reply.anon==0 %}
           <div class="user-avatar">
             <a href="/u/{{reply.author_username}}">
-              <img src="{{ reply.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
+              <img src="{{ reply.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
           </div>
           {%endif%}
         </div>
@@ -216,7 +217,7 @@
       </div>
       <div class="user-avatar">
         <a href="/u/{{user_info.username}}">
-          <img src="{{ user_info.avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
+          <img src="{{ user_info.avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
       </div>
     </div>
     {%else%}

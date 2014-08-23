@@ -116,6 +116,10 @@ class BaseHandler(tornado.web.RequestHandler):
     def icode_model(self):
         return self.application.icode_model
 
+    @property
+    def avatar_model(self):
+        return self.application.avatar_model
+
 '''
     @property
     def write_error(self, **kwargs):

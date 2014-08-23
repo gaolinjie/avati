@@ -59,3 +59,11 @@ INSERT INTO `tag_type` VALUES (3, '问题类型');
 INSERT INTO `tag_type` VALUES (4, '类目');
 INSERT INTO `tag_type` VALUES (5, '品牌');
 INSERT INTO `tag_type` VALUES (6, '商品');
+
+INSERT INTO `avatar` VALUES (1, 'http://avati-static.qiniudn.com/Fruit-1.png');
+INSERT INTO `avatar` VALUES (2, 'http://avati-static.qiniudn.com/Fruit-2.png');
+INSERT INTO `avatar` VALUES (3, 'http://avati-static.qiniudn.com/Fruit-3.png');
+INSERT INTO `avatar` VALUES (4, 'http://avati-static.qiniudn.com/Fruit-4.png');
+INSERT INTO `avatar` VALUES (5, 'http://avati-static.qiniudn.com/Fruit-5.png');
+INSERT INTO `avatar` VALUES (6, 'http://avati-static.qiniudn.com/Fruit-6.png');
+INSERT INTO `avatar` VALUES (7, 'http://avati-static.qiniudn.com/Fruit-7.png');

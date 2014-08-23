@@ -175,11 +175,13 @@ class SignupHandler(BaseHandler):
         # continue while validate succeed
 
         secure_password = hashlib.sha1(form.password.data).hexdigest()
+        avatar = self.avatar_model.get_rand_avatar()
 
         user_info = {
             "email": form.email.data,
             "password": secure_password,
             "username": form.username.data,
+            "avatar": avatar[0].avatar,
             "intro": "",
             "created": time.strftime('%Y-%m-%d %H:%M:%S')
         }

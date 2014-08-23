@@ -59,6 +59,16 @@ CREATE TABLE `user` (
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `avatar`
+-- ----------------------------
+DROP TABLE IF EXISTS `avatar`;
+CREATE TABLE `avatar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `avatar` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `reply`
 -- ----------------------------
 DROP TABLE IF EXISTS `reply`;

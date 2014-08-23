@@ -9,7 +9,7 @@
                 <div class="user-wrapper">
                     <div class="user-avatar">
                         <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar or 'http://avati-static.qiniudn.com/avatar.png'}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
@@ -54,7 +54,7 @@
             </li>
             <li class="nav-item">
                 <a href="/follows/{{user_info.username}}"> <i class="icon-message"></i>
-                    我关注的问题
+                    我的所有关注
                 </a>
             </li>
             <li class="nav-item">
