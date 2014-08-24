@@ -463,6 +463,7 @@ class ReplyHandler(BaseHandler):
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                     "message": "successed",
+                    "reply_id": reply_id
             }))
         else:
             self.write(lib.jsonp.print_JSON({

@@ -111,33 +111,33 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info == none%}data-link="follows" {%endif%}> <i class="icon-message"></i>
+                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info == none%}data-link="follows" {%endif%}> <i class="icon-follow"></i>
                     我的所有关注
                 </a>
             </li>
             <li class="nav-item">
                 <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/notifications{%endif%}" {% if user_info == none%}data-link="notifications"{%endif%}>
-                    <i class="icon-fav"></i>
+                    <i class="icon-message"></i>
                     我的消息
                 </a>
             </li>
 
             <li class="nav-item">
                 <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/invitations{%endif%}" {% if user_info == none%}data-link="invitations"{%endif%}>
-                    <i class="icon-latter"></i>
+                    <i class="icon-invitation"></i>
                     邀请我回答的问题
                 </a>
             </li>
             <li class="nav-item">
                 <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/list{%endif%}" {% if user_info == none%}data-link="list"{%endif%}>
-                    <i class="icon-follow"></i>
+                    <i class="icon-list"></i>
                     欲望清单
                 </a>
             </li>
             <li class="divider"></li>
             <li class="nav-item">
                 <a {%if user_info == none%}class="unlogin"{%endif%} href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
-                    <i class="icon-history"></i>
+                    <i class="icon-invite"></i>
                     邀请朋友加入
                 </a>
             </li>

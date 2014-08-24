@@ -482,33 +482,47 @@ float:left;
   background-image: url(/static/img/web-icon-large.png);
 }
 
+.icon-follow {
+  background-image: url(/static/img/cart-icon-large.png);
+}
+
 .icon-message {
   background-image: url(/static/img/email-icon-large.png);
 }
 
-.icon-fav {
-  background-image: url(/static/img/folder-icon-large.png);
+.icon-invitation {
+  background-image: url(/static/img/Tea-Cup.png);
 }
 
-.icon-latter {
-  background-image: url(/static/img/note-icon-large.png);
+.icon-list {
+  background-image: url(/static/img/Heart.png);
 }
 
-.icon-follow {
-  background-image: url(/static/img/file-icon-large.png);
+.icon-invite {
+  background-image: url(/static/img/Envelope.png);
 }
 
-.icon-history {
-  background-image: url(/static/img/cart-icon-large.png);
+.icon-setting {
+  background-image: url(/static/img/Spanner.png);
 }
 
-.icon-first {
-  background-image: url(/static/img/iTunes.png);
+.icon-avatar {
+  background-image: url(/static/img/Camera.png);
 }
 
-.icon-second {
-  background-image: url(/static/img/Time-Machine.png);
+.icon-cover {
+  background-image: url(/static/img/Photo.png);
 }
+
+.icon-password {
+  background-image: url(/static/img/Key.png);
+}
+
+.icon-social {
+  background-image: url(/static/img/Wine.png);
+}
+
+
 
 .nav-list [class^="icon-"], .nav-list [class*=" icon-"] {
 width: 25px;
