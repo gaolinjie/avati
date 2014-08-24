@@ -1829,3 +1829,8 @@ text-decoration: underline;
 	padding-bottom: 15px;
 	margin-bottom: 30px;
 }
+
+.answer-text iframe, .summary-text iframe, .topic-content iframe {
+	height: 399px;
+	width: 638px;
+}

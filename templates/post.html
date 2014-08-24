@@ -6,7 +6,7 @@
 
 {% block stylesheet %}
 <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
-<link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
+<link href="/static/summernote-0.5.2-dist/summernote.css" rel="stylesheet">
 {% endblock %}
 
  {% block main %}
@@ -338,11 +338,11 @@ loadingHtml: '<a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" cla
 });
 </script>
 
-<script src="/static/summernote-0.5.1-dist/summernote.min.js"></script>
-<script src="/static/summernote-0.5.1-dist/summernote-zh-CN.js"></script>
+<script src="/static/summernote-0.5.2-dist/summernote.min.js"></script>
+<script src="/static/summernote-0.5.2-dist/summernote-zh-CN.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
+
     $('#rSummernote').summernote({
 
         minHeight: 200, // set minimum height of editor
@@ -360,8 +360,26 @@ $(document).ready(function() {
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
         lang: 'zh-CN',
+        onImageUpload: function(files, editor, editable) {
+            sendFile(files[0], editor, editable);
+        },
     });
-});
+
+    function sendFile(file, editor, editable) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "/upload",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    editor.insertImage(editable, url);
+                }
+            });
+        }
 
 {%if user_info != none%}
 $(document).on('click', '#rPostBtn',  function() {
@@ -728,6 +746,9 @@ $(document).on('click', '.edit',  function() {
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
         lang: 'zh-CN',
+        onImageUpload: function(files, editor, editable) {
+            sendFile(files[0], editor, editable);
+        },
     });
   $('#editSummernote').code(reply_text);
   $('<div class="edit-cancel-btn"><input type="cancel" id="editCancelBtn" data-id="'+edit_id+'" class="btn btn-sm btn-default" value="取消"></div>').insertAfter('#' + edit_id + ' .editor-wrapper #editSummernote');
