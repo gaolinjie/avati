@@ -44,7 +44,8 @@ class IndexHandler(BaseHandler):
         p = int(self.get_argument("p", "1"))
         if(user_info):
             template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
-            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)          
+            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)        
+            template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)  
         else:
             template_variables["sign_in_up"] = self.get_argument("s", "") 
             link = self.get_argument("link", "")
@@ -1044,6 +1045,7 @@ class NoticeHandler(BaseHandler):
         p = int(self.get_argument("p", "1"))
         if(user_info):
             template_variables["notices"] = self.notice_model.get_user_all_notices(user_info.uid, current_page = p)
+            self.notice_model.set_user_notice_as_read(user_info.uid)
             self.render("notice.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=notifications")
@@ -1141,6 +1143,7 @@ class InvitationsHandler(BaseHandler):
 
         if(user_info):
             template_variables["feeds"] = self.invite_model.get_user_invites(user_info.uid, current_page = p)
+            template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)
             self.render("invitations.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=invitations")

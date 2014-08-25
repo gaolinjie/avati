@@ -1850,3 +1850,17 @@ text-decoration: underline;
 	height: 399px;
 	width: 638px;
 }
+
+.message-badge {
+	background-color: #d9534f;
+	position: absolute;
+	top: 11px;
+	left: 110px;
+}
+
+#loginModal .bootstrap-switch-id-gender-switch {
+position: absolute;
+z-index: 999;
+top: 124px;
+right: 30px;
+}

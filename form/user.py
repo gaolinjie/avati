@@ -33,6 +33,10 @@ class SignupForm(Form):
         validators.Required(message = "必须填写邀请码"),
     ])
 
+    gender = TextField('Gender', [
+        validators.Optional(),
+    ])
+
 class SigninForm(Form):
     email = TextField('Email', [
         validators.Required(message = "必须填写Email"),

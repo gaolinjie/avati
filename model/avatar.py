@@ -12,9 +12,10 @@ class AvatarModel(Query):
         super(AvatarModel, self).__init__()
 
 
-    def get_rand_avatar(self):
+    def get_rand_avatar(self, gender):
+        where = "avatar.gender = '%s'" % gender
         order = "RAND()"
         limit = "1"
-        return self.order(order).limit(limit).select()
+        return self.where(where).order(order).limit(limit).select()
 
 

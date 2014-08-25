@@ -33,5 +33,15 @@ class NoticeModel(Query):
                 notice_type.notice_text as notice_text"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
+    def get_user_unread_notice_count(self, author_id):
+        where = "notice.readed = 0 AND notice.author_id = %s" % author_id
+        return self.where(where).count()
+
+    def set_user_notice_as_read(self, author_id):
+        where = "notice.author_id = %s" % author_id
+        return self.data({
+            "readed": 1
+        }).where(where).save()
+
 
 

@@ -489,7 +489,7 @@ $(document).on('click', '.vote-reply',  function() {
   var vote_up = $(this).parent().find('.up');
   var vote_down = $(this).parent().find('.down');
   var vote_num = $(this).find('.count');
-  $.getJSON('/vote/reply' + vote_id + '?vote=' + vote_type, function (data) {
+  $.getJSON('/vote/reply/' + vote_id + '?vote=' + vote_type, function (data) {
     if (data.success != 0) {
       if (vote_btn.hasClass('voted')) {
         vote_btn.removeClass('voted');

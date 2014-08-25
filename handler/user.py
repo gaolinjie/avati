@@ -142,11 +142,12 @@ class SignupHandler(BaseHandler):
             self.get({"errors": form.errors})
             return
 
-        # validate invite code
-        icode = self.icode_model.get_invite_code(form.invite.data)
-        if not icode or icode.used==1:
-            self.redirect("/?s=signup&e=1")
-            return
+        if form.gender.data=="on":
+            form.gender.data="男"
+        else:
+            form.gender.data="女"
+
+
 
         # validate duplicated
         duplicated_email = self.user_model.get_user_by_email(form.email.data)
@@ -175,7 +176,7 @@ class SignupHandler(BaseHandler):
         # continue while validate succeed
 
         secure_password = hashlib.sha1(form.password.data).hexdigest()
-        avatar = self.avatar_model.get_rand_avatar()
+        avatar = self.avatar_model.get_rand_avatar(form.gender.data)
 
         user_info = {
             "email": form.email.data,
@@ -183,6 +184,7 @@ class SignupHandler(BaseHandler):
             "username": form.username.data,
             "avatar": avatar[0].avatar,
             "intro": "",
+            "gender": form.gender.data,
             "created": time.strftime('%Y-%m-%d %H:%M:%S')
         }
 

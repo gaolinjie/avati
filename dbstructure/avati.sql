@@ -65,6 +65,7 @@ DROP TABLE IF EXISTS `avatar`;
 CREATE TABLE `avatar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `avatar` text,
+  `gender` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -258,6 +259,7 @@ CREATE TABLE `notice` (
   `post_id` int(11) DEFAULT NULL,
   `reply_id` int(11) DEFAULT NULL,
   `notice_type` int(11) DEFAULT NULL,
+  `readed` int(11) DEFAULT 0,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
