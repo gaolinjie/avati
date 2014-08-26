@@ -1231,6 +1231,16 @@ class EditTagHandler(BaseHandler):
         template_variables["tag"] = tag
         template_variables["categorys"] = self.category_model.get_tag_categorys()
         template_variables["tag_types"] = self.tag_type_model.get_tag_types()
+        allTags = self.tag_model.get_all_tags()
+        allTagStr = ''
+        i=0
+        for tag in allTags:
+            if i==0:
+                allTagStr = tag.name
+            else:
+                allTagStr = allTagStr + ','+ tag.name
+            i=i+1
+        template_variables["allTagStr"] = allTagStr 
 
         self.render("edit_tag.html", **template_variables)
 
@@ -1276,6 +1286,16 @@ class EditTagHandler(BaseHandler):
             old_category =  self.category_model.get_category_by_id(tag.category)
             self.category_model.update_category_by_id(tag.category, {"tag_num": old_category.tag_num-1})
             self.category_model.update_category_by_id(category.id, {"tag_num":category.tag_num+1})
+
+        # process tags
+        tagStr = form.tag.data
+        if tagStr:
+            print tagStr
+            tagNames = tagStr.split(',')  
+            for tagName in tagNames:  
+                tag = self.tag_model.get_tag_by_tag_name(tagName)
+                if tag:
+                    self.tag_parent_model.add_new_tag_parent({"tag_id": tag_id, "parent_id": tag.id})
                  
         template_variables["success_message"] = [u"标签已更新"]
         self.redirect("/t/"+form.name.data)

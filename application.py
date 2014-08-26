@@ -124,6 +124,7 @@ class Application(tornado.web.Application):
         self.notice_model = self.loader.use("notice.model")
         self.invite_model = self.loader.use("invite.model")
         self.tag_type_model = self.loader.use("tag_type.model")
+        self.tag_parent_model = self.loader.use("tag_parent.model")
         self.icode_model = self.loader.use("icode.model")
         self.avatar_model = self.loader.use("avatar.model")
 

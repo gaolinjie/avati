@@ -193,6 +193,17 @@ CREATE TABLE `tag` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+--  Table structure for `tag_parent`
+-- ----------------------------
+DROP TABLE IF EXISTS `tag_parent`;
+CREATE TABLE `tag_parent` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_id` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 
 
 -- ----------------------------

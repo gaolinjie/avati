@@ -120,6 +120,10 @@ class BaseHandler(tornado.web.RequestHandler):
     def avatar_model(self):
         return self.application.avatar_model
 
+    @property
+    def tag_parent_model(self):
+        return self.application.tag_parent_model
+
 '''
     @property
     def write_error(self, **kwargs):

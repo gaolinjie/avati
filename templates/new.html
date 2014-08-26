@@ -15,9 +15,6 @@
             <li>
                 <a href="#post" role="tab" data-toggle="tab">文 章</a>
             </li>
-            <li>
-                <a href="#coupon" role="tab" data-toggle="tab">优 惠</a>
-            </li>
         </ul>
 
         <div class="tab-content">
@@ -51,52 +48,76 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-pane" id="coupon">Coming soon...</div>
         </div>
     </div>
 </div>
 
 <div class=" col-xs-12 col-md-3">
+    <div class="sidenav container-box">
+        <ul class="nav nav-list">
+            <li class="nav-item">
+                <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
+                    我的主页
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/follows/{{user_info.username}}"> <i class="icon-follow"></i>
+                    我的所有关注
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/notifications">
+                    <i class="icon-message"></i>
+                    我的消息
+                    {%if notice_count%}
+                    <span class="badge message-badge">{{notice_count}}</span>
+                    {%endif%}
+                </a>
+            </li>
 
-    <ul class="nav nav-list">
-        <li class="nav-item">
-            <a href="/"> <i class="icon-home"></i>
-                我的主页
-            </a>
-        </li>
-        <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
-            <a href="/notification"> <i class="icon-message"></i>
-                我的所有关注
-            </a>
-        </li>
-        <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
-            <a href="/favorite">
-                <i class="icon-fav"></i>
-                我的收藏
-            </a>
-        </li>
+            <li class="nav-item">
+                <a href="/invitations">
+                    <i class="icon-invitation"></i>
+                    邀请我回答的问题
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/list">
+                    <i class="icon-list"></i>
+                    欲望清单
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-item">
+                <a href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
+                    <i class="icon-invite"></i>
+                    邀请朋友加入
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
-        <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
-            <a href="/later">
-                <i class="icon-latter"></i>
-                邀请我回答的问题
-            </a>
-        </li>
-        <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
-            <a href="/follow">
-                <i class="icon-follow"></i>
-                我的草稿
-            </a>
-        </li>
-        <li class="divider"></li>
-        <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
-            <a href="/watch">
-                <i class="icon-history"></i>
-                邀请朋友加入
-            </a>
-        </li>
-    </ul>
-
+<div id="inviteJoinModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">邀请朋友加入</h4>
+            </div>
+            <div class="modal-body">
+                <div class="invite-email input-group">
+                    <input id="inviteEmailInput" type="text" class="form-control" placeholder="输入 email 邀请朋友加入买买买">
+                    <span class="input-group-btn">
+                        <button id="inviteEmail" class="btn btn-default" type="button" data-post="">发送邀请</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %} {% block javascript %}
 <script src="/static/jquery-ui-1.11.0/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
@@ -204,6 +225,20 @@ $(document).ready(function() {
         allowSpaces: true, //标签中是否允许空格
         singleFieldNode: $('#pSingleField') //将值保存到mySingleField元素
     });
+});
+
+$(document).on('click', '#inviteEmail',  function() {
+  var email = $('#inviteEmailInput').val();
+
+  $.getJSON('/invite/to/join?email='+email , function (data) {
+    if (data.success != 0) {
+      $('#inviteEmailInput').val('');
+      $('#inviteJoinModal').modal('hide');
+      alert('邀请发送成功!');
+    } else {
+      alert('邀请发送失败!');
+    }
+  });
 });
 </script>
 {% endblock %}

@@ -37,6 +37,7 @@ import qiniu.rs
 qiniu.conf.ACCESS_KEY = "hmHRMwms0cn9OM9PMETYwsXMLG93z3FiBmCtPu7y"
 qiniu.conf.SECRET_KEY = "nCDM7Tuggre39RiqXaDmjo8sZn6MLGmckUaCrOJU"
 
+DEBUG_FLAG = True
 
 def do_login(self, user_id):
     user_info = self.user_model.get_user_by_uid(user_id)
@@ -147,12 +148,12 @@ class SignupHandler(BaseHandler):
         else:
             form.gender.data="女"
 
-        # validate invite code
-        icode = self.icode_model.get_invite_code(form.invite.data)
-        if not icode or icode.used==1:
-            self.redirect("/?s=signup&e=1")
-            return
-
+        if not DEBUG_FLAG:
+            # validate invite code
+            icode = self.icode_model.get_invite_code(form.invite.data)
+            if not icode or icode.used==1:
+                self.redirect("/?s=signup&e=1")
+                return
         # validate duplicated
         duplicated_email = self.user_model.get_user_by_email(form.email.data)
         duplicated_username = self.user_model.get_user_by_username(form.username.data)
@@ -208,8 +209,9 @@ class SignupHandler(BaseHandler):
 
             do_login(self, user_id)
 
-            # delete used invite code
-            self.icode_model.update_code_by_id(icode.id, {"used": 1})
+            if not DEBUG_FLAG:
+                # delete used invite code
+                self.icode_model.update_code_by_id(icode.id, {"used": 1})
 
             # send register success mail to user
 
