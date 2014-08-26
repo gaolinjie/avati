@@ -213,6 +213,7 @@ DROP TABLE IF EXISTS `tag_type`;
 CREATE TABLE `tag_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text,
+  `label` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

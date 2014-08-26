@@ -8,19 +8,30 @@
 <div class="col-xs-12 col-md-9">
     {%for tag_type in tag_types%}
     <div class="bs-docs-section">
-        <h2 >{{tag_type.name}}</h2>
+        <h2 >{{tag_type.label}}</h2>
         <div id="{{tag_type.id}}" class="anchor"></div>
         <ul class="tag-ranking-list">
             {%for tag in tags%}
             {%if tag.tag_type==tag_type.id%}
-            <li>
-                <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
-            </li>
+            <li class="tag-card">
+        <a href="/t/{{tag.name}}" class="tag-link">
+            <img src="{{tag.thumb or 'http://avati-static.qiniudn.com/tag.png-thumb'}}" width="80px" height="80px" class="tag-avatar"></a>
+        <div class="tag-text">
+            <div class="tag-title">
+                <a href="/t/{{tag.name}}"class="tag-title-text">{{tag.name}}</a>
+            </div>
+            <div class="tag-member">200 人关注</div>
+        </div>
+        <div class="tag-num">
+            <span class="tag-num-text">2</span>
+        </div>
+    </li>
             {%endif%}
             {%endfor%}
         </ul>
     </div>
     {%endfor%}
+    
 </div>
 
 <div class="col-xs-12 col-md-3">
@@ -28,7 +39,7 @@
         <ul class="nav bs-docs-sidenav" data-spy="affix" data-offset-top="125">
             {%for tag_type in tag_types%}
             <li {%if tag_type==tag_types[0]%}class="active"{%endif%}>
-                <a href="#{{tag_type.id}}">{{tag_type.name}}</a>
+                <a href="#{{tag_type.id}}">{{tag_type.label}}</a>
             </li>
             {%endfor%}
         </ul>

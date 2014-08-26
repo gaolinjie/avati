@@ -53,12 +53,12 @@ INSERT INTO `category` VALUES (13, '手机、数码、京东通信', 0);
 INSERT INTO `category` VALUES (14, '家用电器', 0);
 INSERT INTO `category` VALUES (15, '图书、音像、数字商品', 0);
 
-INSERT INTO `tag_type` VALUES (1, '默认');
-INSERT INTO `tag_type` VALUES (2, '文章类型');
-INSERT INTO `tag_type` VALUES (3, '问题类型');
-INSERT INTO `tag_type` VALUES (4, '类目');
-INSERT INTO `tag_type` VALUES (5, '品牌');
-INSERT INTO `tag_type` VALUES (6, '商品');
+INSERT INTO `tag_type` VALUES (1, '默认', '其它');
+INSERT INTO `tag_type` VALUES (2, '文章类型', '关注的文章');
+INSERT INTO `tag_type` VALUES (3, '问题类型', '感兴趣的问题');
+INSERT INTO `tag_type` VALUES (4, '类目', '关注的类目');
+INSERT INTO `tag_type` VALUES (5, '品牌', '喜欢的品牌');
+INSERT INTO `tag_type` VALUES (6, '商品', '想买的东西');
 
 INSERT INTO `avatar` VALUES (1, 'http://avati-static.qiniudn.com/FaceQ1408983666114.png', '男');
 INSERT INTO `avatar` VALUES (2, 'http://avati-static.qiniudn.com/FaceQ1408983563144.png', '男');
