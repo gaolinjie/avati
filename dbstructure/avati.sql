@@ -70,6 +70,17 @@ CREATE TABLE `avatar` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `permission`
+-- ----------------------------
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `level` int(11) DEFAULT NULL,
+  `role` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 --  Table structure for `reply`
 -- ----------------------------
 DROP TABLE IF EXISTS `reply`;

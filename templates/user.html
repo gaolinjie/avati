@@ -51,12 +51,15 @@
             <div class="user-text">
                 <div class="user-name">
                     {{view_user.username}}
-                    <a class="rank" data-container="body" data-toggle="popover" data-placement="right" data-content="声望：{{view_user.reputation}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}。"></a>
+                    <a class="rank"></a>
 
                 </div>
                 {%if view_user.sign%}
                 <div class="user-description">{{view_user.sign}}</div>
                 {%endif%}
+                <div class="user-description">
+                声望值：{{view_user.reputation}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}
+                </div>
             </div>
 
         </div>
@@ -473,11 +476,6 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
                   text.text(str.substring(0,textLeng)+"...");
             } 
     });
-  $(".rank").hover(function () {
-    $(".rank").popover('show')
-},function(){
-  $(".rank").popover('hide')
-});
 
 {%if user_info!=none%}
   $(document).on('click', '#followBtn',  function() {

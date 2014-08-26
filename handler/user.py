@@ -147,7 +147,11 @@ class SignupHandler(BaseHandler):
         else:
             form.gender.data="女"
 
-
+        # validate invite code
+        icode = self.icode_model.get_invite_code(form.invite.data)
+        if not icode or icode.used==1:
+            self.redirect("/?s=signup&e=1")
+            return
 
         # validate duplicated
         duplicated_email = self.user_model.get_user_by_email(form.email.data)

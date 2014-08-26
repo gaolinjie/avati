@@ -71,3 +71,14 @@ INSERT INTO `avatar` VALUES (8, 'http://avati-static.qiniudn.com/FaceQ1408982574
 INSERT INTO `avatar` VALUES (9, 'http://avati-static.qiniudn.com/FaceQ1408983677244.png', '女');
 INSERT INTO `avatar` VALUES (10, 'http://avati-static.qiniudn.com/FaceQ1408983773943.png', '女');
 INSERT INTO `avatar` VALUES (11, 'http://avati-static.qiniudn.com/FaceQ1408983816873.png', '女');
+
+
+
+INSERT INTO `permission` VALUES (1, 0, '普通用户');
+INSERT INTO `permission` VALUES (2, 1, '高级用户');
+INSERT INTO `permission` VALUES (3, 2, '超级用户');
+INSERT INTO `permission` VALUES (4, 11, '普通管理员');
+INSERT INTO `permission` VALUES (5, 22, '高级管理员');
+INSERT INTO `permission` VALUES (6, 13, '超级管理员');
+INSERT INTO `permission` VALUES (7, -1, '禁止提问');
+INSERT INTO `permission` VALUES (8, -2, '禁止回答');
