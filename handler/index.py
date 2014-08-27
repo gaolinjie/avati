@@ -352,6 +352,8 @@ class TagHandler(BaseHandler):
         template_variables["follow_num"] = self.follow_model.get_tag_followers_count(tag.id)
         template_variables["feeds1_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, 1)
         template_variables["feeds7_len"] = self.tag_model.get_tag_all_feeds_count_by_type(tag.id, 7)
+        template_variables["parent_tags"] = self.tag_parent_model.get_parent_tags(tag.id)
+        template_variables["child_tags"] = self.tag_parent_model.get_child_tags(tag.id)
         if(user_info):   
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, tag.id, 't')
             template_variables["feeds"] = self.tag_model.get_tag_all_feeds(tag.id, user_info.uid, current_page = p)

@@ -251,6 +251,28 @@
             </a>
         </div>
     </div>
+
+    {%if parent_tags.list%}
+    <div class="status-box  box">
+    <h3>父标签</h3>
+    <div class="topic-tags">
+      {% for tag in parent_tags.list %}
+      <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {%endif%}
+
+  {%if child_tags.list%}
+  <div class="status-box  box">
+    <h3>子标签</h3>
+    <div class="topic-tags">
+      {% for tag in child_tags.list %}
+      <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
+      {% endfor %}
+    </div>
+  </div>
+  {%endif%}
 </div>
 {% endblock %} 
 
