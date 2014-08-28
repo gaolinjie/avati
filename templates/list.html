@@ -13,19 +13,9 @@
         <ul class="tag-ranking-list">
             {%for tag in tags%}
             {%if tag.tag_type==tag_type.id%}
-            <li class="tag-card">
-        <a href="/t/{{tag.name}}" class="tag-link">
-            <img src="{{tag.thumb or 'http://avati-static.qiniudn.com/tag.png-thumb'}}" width="80px" height="80px" class="tag-avatar"></a>
-        <div class="tag-text">
-            <div class="tag-title">
-                <a href="/t/{{tag.name}}"class="tag-title-text">{{tag.name}}</a>
-            </div>
-            <div class="tag-member">200 人关注</div>
-        </div>
-        <div class="tag-num">
-            <span class="tag-num-text">2</span>
-        </div>
-    </li>
+            <li>
+                <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
+            </li>
             {%endif%}
             {%endfor%}
         </ul>

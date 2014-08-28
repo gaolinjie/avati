@@ -100,9 +100,8 @@
   </div>
 
   <div class="answers-title clearfix">
-
     <div id="answers-filter" class="answers-sorter">
-      {% if sort=="voted" %}
+      {% if sort=="voted"%}
       <span class="lbl">按票数排序</span>
       <a class="lbl" href="/p/{{post.id}}?sort=created">按时间排序</a> <i class="zg-icon zg-icon-double-arrow"></i>
       {% else %}
@@ -111,7 +110,7 @@
       <i class="zg-icon zg-icon-double-arrow"></i>
       {% endif %}
     </div>
-    <h3 id="question-answer-num">{{post.reply_num}} 个回答</h3>
+    <h3 id="question-answer-num">{{post.reply_num}} 个{%if post.post_type=='q'%}回答{%else%}评论{%endif%}</h3>
   </div>
 
   <div class="answers-area">
@@ -120,7 +119,7 @@
     {% for reply in replys.list %}
       <div id="{{reply.id}}" class="answer-item">
         <div class="user-wrapper">
-          {% if post.post_type=='q'%}
+
           <div class="zm-votebar">
             {% if reply.author_id != user_info.uid %}
             <button class="up vote-btn vote-reply {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}"  title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="up">
@@ -140,7 +139,7 @@
             </button>
             {% endif %}
           </div>
-          {%endif%}
+
           <div class="user-title">
             <div class="user-name">
               {% if reply.anon==0 %}
@@ -253,7 +252,7 @@
   </div>
   {% endif %}
   <div class="share-box box">
-    <h3>分享问题</h3>
+    <h3>分享{% if post.post_type=='q'%}问题{%else%}文章{%endif%}</h3>
     <div class="share-line">
       <div class="bdsharebuttonbox bdshare-button-style0-16" data-tag="bd_share_toolbar" data-bd-bind="1391875707839">
         <a class="bds_tsina bds_has_name share-img" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
@@ -266,7 +265,7 @@
   </div>
 
   <div class="status-box  box">
-    <h3>问题状态</h3>
+    <h3>{% if post.post_type=='q'%}问题{%else%}文章{%endif%}状态</h3>
     <div class="zg-gray-normal">
       最近活动于
       <span class="time">{{post.updated|pretty_date}}</span>

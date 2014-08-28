@@ -255,22 +255,26 @@
     {%if parent_tags.list%}
     <div class="status-box  box">
     <h3>父标签</h3>
-    <div class="topic-tags">
-      {% for tag in parent_tags.list %}
-      <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
-      {% endfor %}
-    </div>
+    <ul class="tag-ranking-list">
+            {%for tag in parent_tags.list%}
+            <li>
+                <a href="/t/{{tag.tag_name}}" class="tag {%if tag.tag_thumb%}tag-img{%endif%}" {%if tag.tag_thumb%}style="background-image: url({{tag.tag_thumb}}-icon);{%endif%}">{{tag.tag_name}}</a>
+            </li>
+            {%endfor%}
+        </ul>
   </div>
   {%endif%}
 
   {%if child_tags.list%}
   <div class="status-box  box">
     <h3>子标签</h3>
-    <div class="topic-tags">
-      {% for tag in child_tags.list %}
-      <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
-      {% endfor %}
-    </div>
+    <ul class="tag-ranking-list">
+            {%for tag in child_tags.list%}
+            <li>
+                <a href="/t/{{tag.tag_name}}" class="tag {%if tag.tag_thumb%}tag-img{%endif%}" {%if tag.tag_thumb%}style="background-image: url({{tag.tag_thumb}}-icon);{%endif%}">{{tag.tag_name}}</a>
+            </li>
+            {%endfor%}
+        </ul>
   </div>
   {%endif%}
 </div>
