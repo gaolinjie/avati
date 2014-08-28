@@ -735,20 +735,15 @@ vertical-align: middle;
 }
 
 .user-text {
-
-
 text-align: center;
 color: #fff;
+text-shadow: 0 1px 1px rgba(0,0,0,.4);
 }
 
 #gh-banner .user-name {
 	font-size: 60px;
 	font-weight: 300;
-	margin-left: 32px;
 }
-
-
-
 
 @media (min-width: 768px)
 .bs-docs-sidebar {
@@ -846,6 +841,7 @@ overflow: hidden;
 color: #666;
 vertical-align: middle;
 font-size: 13px;
+border-radius: 2px;
 }
 a.tag-img, h4.tag-img {
 padding-left: 32px;
@@ -1300,18 +1296,6 @@ width: 16px;
 display: inline-block;
 background: url('/static/img/16-renren.png')no-repeat;
 position: relative;
-}
-
-
-
-.rank {
-height: 16px;
-width: 16px;
-display: inline-block;
-background: url('http://img.t.sinajs.cn/t5/style/images/global_nav/bg_line.png?id=20140718asdf1100') -100px -24px no-repeat;
-position: relative;
-top: -20px;
-left: -10px;
 }
 
 .btn-right {
@@ -1856,9 +1840,63 @@ text-decoration: underline;
 	left: 110px;
 }
 
+.invite-badge {
+	background-color: #d9534f;
+	position: absolute;
+	top: 11px;
+	left: 165px;
+}
+
 #loginModal .bootstrap-switch-id-gender-switch {
 position: absolute;
 z-index: 999;
 top: 124px;
 right: 30px;
+}
+
+.fr {
+float: right;
+text-align: right;
+margin-top: 9px;
+margin-right: 5px;
+}
+
+.balance_area {
+	-webkit-background-clip: border-box;
+-webkit-background-origin: padding-box;
+-webkit-background-size: auto;
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgba(0, 0, 0, 0);
+background-image: -webkit-linear-gradient(top, rgb(245, 245, 245) 0%, rgb(226, 226, 226) 100%);
+background-origin: padding-box;
+background-size: auto;
+border-bottom-left-radius: 20px;
+border-bottom-right-radius: 20px;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px;
+color: rgb(102, 102, 102);
+cursor: auto;
+display: inline-block;
+font-family: 'Helvetica Neue', 'Luxi Sans', 'DejaVu Sans', Tahoma, 'Hiragino Sans GB', STHeiti;
+font-size: 12px;
+line-height: 16px;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: -5px;
+margin-top: -4px;
+padding-bottom: 3px;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 5px;
+text-align: right;
+text-decoration: none solid rgb(102, 102, 102);
+text-shadow: rgb(255, 255, 255) 0px 1px 0px;
+}
+
+.balance_area:hover {
+background-color: rgba(0, 0, 0, 0);
+background-image: -webkit-linear-gradient(top, rgb(249, 249, 249) 0%, rgb(240, 240, 240) 100%);
+color: rgb(0, 0, 0);
+text-decoration: none solid rgb(0, 0, 0);
 }

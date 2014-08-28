@@ -51,19 +51,15 @@
             <div class="user-text">
                 <div class="user-name">
                     {{view_user.username}}
-                    <a class="rank"></a>
-
                 </div>
                 {%if view_user.sign%}
-                <div class="user-description">{{view_user.sign}}</div>
+                <div class="user-description"><strong>{{view_user.sign}}</strong></div>
                 {%endif%}
                 <div class="user-description">
-                声望值：{{view_user.reputation}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}
+                获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <div class="tag-feed">
@@ -84,7 +80,11 @@
             <li>
                 <a href="#comment" role="tab" data-toggle="tab">评论 {{feeds8_len}}</a>
             </li>
+
+            <div class="fr" id="money"><a href="/balance" class="balance_area" style="">57 <img src="//cdn.v2ex.com/static/img/silver.png" alt="S" align="absmiddle" border="0" style="padding-bottom: 2px;"> 65 <img src="//cdn.v2ex.com/static/img/bronze.png" alt="B" align="absmiddle" border="0"></a></div>
         </ul>
+
+
 
         <div class="tab-content">
             <div class="tab-pane active" id="feed">

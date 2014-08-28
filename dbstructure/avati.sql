@@ -51,6 +51,7 @@ CREATE TABLE `user` (
   `thank_num` int(11) DEFAULT 0,
   `report_num` int(11) DEFAULT 0,
   `reputation` int(11) DEFAULT 0,
+  `coins` int(11) DEFAULT 0,
   `permission` int(11) DEFAULT 0,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
@@ -307,6 +308,7 @@ CREATE TABLE `invite` (
   `from_user` int(11) DEFAULT NULL,
   `to_user` int(11) DEFAULT NULL,
   `post_id` int(11) DEFAULT NULL,
+  `readed` int(11) DEFAULT 0,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

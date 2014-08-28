@@ -129,6 +129,9 @@
                 <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/invitations{%endif%}" {% if user_info == none%}data-link="invitations"{%endif%}>
                     <i class="icon-invitation"></i>
                     邀请我回答的问题
+                    {%if invite_count%}
+                    <span class="badge invite-badge">{{invite_count}}</span>
+                    {%endif%}
                 </a>
             </li>
             <li class="nav-item">

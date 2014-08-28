@@ -46,6 +46,7 @@ class IndexHandler(BaseHandler):
             template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
             template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)        
             template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)  
+            template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
         else:
             template_variables["sign_in_up"] = self.get_argument("s", "") 
             link = self.get_argument("link", "")
@@ -1048,6 +1049,7 @@ class NoticeHandler(BaseHandler):
         if(user_info):
             template_variables["notices"] = self.notice_model.get_user_all_notices(user_info.uid, current_page = p)
             self.notice_model.set_user_notice_as_read(user_info.uid)
+            template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
             self.render("notice.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=notifications")
@@ -1063,6 +1065,7 @@ class FollowsHandler(BaseHandler):
         template_variables["view_user"] = view_user
         template_variables["feeds1"] = self.follow_model.get_user_follow_questions(view_user.uid, current_page = p)
         template_variables["feeds2"] = self.follow_model.get_user_follow_posts(view_user.uid, current_page = p)
+        template_variables["tags"] = self.follow_model.get_user_follow_tags(view_user.uid)
 
         if(user_info):            
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
@@ -1146,6 +1149,7 @@ class InvitationsHandler(BaseHandler):
         if(user_info):
             template_variables["feeds"] = self.invite_model.get_user_invites(user_info.uid, current_page = p)
             template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)
+            self.invite_model.set_user_invite_as_read(user_info.uid)
             self.render("invitations.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=invitations")

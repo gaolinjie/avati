@@ -41,4 +41,14 @@ class InviteModel(Query):
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
 
+    def get_user_unread_invite_count(self, author_id):
+        where = "invite.readed = 0 AND invite.to_user = %s" % author_id
+        return self.where(where).count()
+
+    def set_user_invite_as_read(self, author_id):
+        where = "invite.to_user = %s" % author_id
+        return self.data({
+            "readed": 1
+        }).where(where).save()
+
 

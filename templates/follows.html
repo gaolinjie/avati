@@ -51,7 +51,7 @@
       <div class="user-text">
         <div class="user-name">
           {{view_user.username}}
-          <a class="rank" data-container="body" data-toggle="popover" data-placement="right" data-content="声望：{{view_user.reputation}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}。"></a>
+          <a class="rank" data-container="body" data-toggle="popover" data-placement="right" data-content="声望：{{view_user.coins}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}。"></a>
 
         </div>
         {%if view_user.sign%}
@@ -77,6 +77,9 @@
       </li>
       <li {%if active_tab=="followers" %}class="active"{%endif%}>
         <a href="#followers" role="tab" data-toggle="tab">关注者</a>
+      </li>
+      <li {%if active_tab=="tags" %}class="active"{%endif%}>
+        <a href="#tags" role="tab" data-toggle="tab">关注的标签</a>
       </li>
     </ul>
 
@@ -245,6 +248,20 @@
               <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
             </div>
             {%endif%}
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane {%if active_tab=="tags" %}active{%endif%}" id="tags">
+        <div class="feed-list4">
+          <div class="feeds-inner4">
+           <ul class="tag-ranking-list">
+            {%for tag in tags%}
+            <li>
+                <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
+            </li>
+            {%endfor%}
+        </ul>
           </div>
         </div>
       </div>
