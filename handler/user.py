@@ -238,10 +238,11 @@ class UserHandler(BaseHandler):
         template_variables["feeds8_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid,  8)
         template_variables["followees_count"] = self.follow_model.get_user_followees_count(view_user.uid)
         template_variables["followers_count"] = self.follow_model.get_user_followers_count(view_user.uid)
-        bronze_coins = view_user.income % 100
-        silver_coins =  view_user.income / 100
-        silver_coins = silver_coins % 100
-        gold_coins = silver_coins / 100
+
+        gold_coins = (view_user.income - view_user.expend )/ 10000
+        silver_coins = (view_user.income - view_user.expend )% 10000     
+        bronze_coins = silver_coins  % 100
+        silver_coins = silver_coins / 100
         template_variables["gold_coins"] = gold_coins
         template_variables["silver_coins"] = silver_coins
         template_variables["bronze_coins"] = bronze_coins
