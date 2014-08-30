@@ -124,6 +124,14 @@ class BaseHandler(tornado.web.RequestHandler):
     def tag_parent_model(self):
         return self.application.tag_parent_model
 
+    @property
+    def balance_model(self):
+        return self.application.balance_model
+
+    @property
+    def balance_type_model(self):
+        return self.application.balance_type_model
+
 '''
     @property
     def write_error(self, **kwargs):

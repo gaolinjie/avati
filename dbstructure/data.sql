@@ -82,3 +82,17 @@ INSERT INTO `permission` VALUES (5, 22, '高级管理员');
 INSERT INTO `permission` VALUES (6, 13, '超级管理员');
 INSERT INTO `permission` VALUES (7, -1, '禁止提问');
 INSERT INTO `permission` VALUES (8, -2, '禁止回答');
+
+
+INSERT INTO `balance_type` VALUES (1, '初始资本', '获得初始资本', '2000 铜币');
+INSERT INTO `balance_type` VALUES (2, '创建主题', '创建了', '主题');
+INSERT INTO `balance_type` VALUES (3, '创建回复', '创建了', '回复');
+INSERT INTO `balance_type` VALUES (4, '主题回复收益 ', '收到 ', '的回复');
+INSERT INTO `balance_type` VALUES (5, '赞同别人', '发送对', '的赞同');
+INSERT INTO `balance_type` VALUES (6, '收到赞同', '收到', '的赞同');
+INSERT INTO `balance_type` VALUES (7, '撤销赞同', '撤销对', '的赞同');
+INSERT INTO `balance_type` VALUES (8, '赞同被撤销', '赞同被', '撤销');
+INSERT INTO `balance_type` VALUES (9, '发送谢意', '发送对', '的谢意');
+INSERT INTO `balance_type` VALUES (10, '收到谢意', '收到', '的谢意');
+INSERT INTO `balance_type` VALUES (11, '发送邀请', '发送', '邀请');
+INSERT INTO `balance_type` VALUES (12, '邀请成功', '邀请', '成功');

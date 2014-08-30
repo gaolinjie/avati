@@ -108,7 +108,7 @@ overflow: hidden;
 height: 24px;
 position: absolute;
 right: -9px;
-top: 18px;
+top: 22px;
 margin-top: -13px;
 background: #fff;
 }
@@ -1857,7 +1857,7 @@ right: 30px;
 .fr {
 float: right;
 text-align: right;
-margin-top: 9px;
+margin-top: -33px;
 margin-right: 5px;
 }
 
@@ -1899,4 +1899,12 @@ background-color: rgba(0, 0, 0, 0);
 background-image: -webkit-linear-gradient(top, rgb(249, 249, 249) 0%, rgb(240, 240, 240) 100%);
 color: rgb(0, 0, 0);
 text-decoration: none solid rgb(0, 0, 0);
+}
+
+.balance-time {
+	width: 100px;
+}
+
+.balance-description {
+	width: 320px;
 }

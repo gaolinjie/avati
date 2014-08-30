@@ -1,0 +1,116 @@
+{% extends 'layout.html' %} {% block title %}
+<title>@{{user_info.username}} 的财富 - 买买买</title>
+{% endblock %} {% block main %}
+<div class="col-xs-12 col-md-9">
+
+<table class="table table-striped">
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>类型</th>
+          <th>数额</th>
+          <th>余额</th>
+          <th>描述</th>
+        </tr>
+      </thead>
+      <tbody>
+      {%for balance in balances.list%}
+        <tr>
+          <td class="balance-time">{{balance.created}}</td>
+          <td>{{balance.type_name}}</td>
+          <td>{{balance.amount}}</td>
+          <td>{{balance.balance}}</td>
+          <td class="balance-description">{{balance.balance_text1}} <a href="/u/{{balance.user_name}}">{{balance.user_name}}</a> {{balance.balance_text2}} > <a href="/p/{{balance.post_id}}#{{balance.reply_id}}">{{balance.post_title}}</a></td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+
+</div>
+
+<div class=" col-xs-12 col-md-3">
+    <div class="sidenav container-box">
+        <ul class="nav nav-list">
+            <li class="nav-item">
+                <a href="/u/{{user_info.username}}"> <i class="icon-home"></i>
+                    我的主页
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/follows/{{user_info.username}}"> <i class="icon-follow"></i>
+                    我的所有关注
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/notifications">
+                    <i class="icon-message"></i>
+                    我的消息
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/invitations">
+                    <i class="icon-invitation"></i>
+                    邀请我回答的问题
+                    {%if invite_count%}
+                    <span class="badge invite-badge">{{invite_count}}</span>
+                    {%endif%}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/list">
+                    <i class="icon-list"></i>
+                    欲望清单
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-item">
+                <a href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
+                    <i class="icon-invite"></i>
+                    邀请朋友加入
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="inviteJoinModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">邀请朋友加入</h4>
+            </div>
+            <div class="modal-body">
+                <div class="invite-email input-group">
+                    <input id="inviteEmailInput" type="text" class="form-control" placeholder="输入 email 邀请朋友加入买买买">
+                    <span class="input-group-btn">
+                        <button id="inviteEmail" class="btn btn-default" type="button" data-post="">发送邀请</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $(document).on('click', '#inviteEmail',  function() {
+  var email = $('#inviteEmailInput').val();
+
+  $.getJSON('/invite/to/join?email='+email , function (data) {
+    if (data.success != 0) {
+      $('#inviteEmailInput').val('');
+      $('#inviteJoinModal').modal('hide');
+      alert('邀请发送成功!');
+    } else {
+      alert('邀请发送失败!');
+    }
+  });
+});
+</script>
+{% endblock %}

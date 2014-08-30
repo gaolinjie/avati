@@ -51,13 +51,43 @@ CREATE TABLE `user` (
   `thank_num` int(11) DEFAULT 0,
   `report_num` int(11) DEFAULT 0,
   `reputation` int(11) DEFAULT 0,
-  `coins` int(11) DEFAULT 0,
+  `income` int(11) DEFAULT 2000,
+  `expend` int(11) DEFAULT 0,
   `permission` int(11) DEFAULT 0,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `balance`
+-- ----------------------------
+DROP TABLE IF EXISTS `balance`;
+CREATE TABLE `balance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `author_id` int(11) DEFAULT NULL,
+  `balance_type` int(11) DEFAULT NULL,
+  `amount` int(11) DEFAULT 0,
+  `balance` int(11) DEFAULT 0,
+  `post_id` int(11) DEFAULT NULL,
+  `reply_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `balance_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `balance_type`;
+CREATE TABLE `balance_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type_name` text,
+  `balance_text1` text,
+  `balance_text2` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `avatar`
@@ -321,6 +351,8 @@ CREATE TABLE `icode` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` text,
   `used` int(11) DEFAULT 0,
+  `user_created` int(11) DEFAULT NULL,
+  `user_used` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

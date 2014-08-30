@@ -114,4 +114,19 @@ INSERT INTO `feed_type` VALUES (5, '赞同了回答');
 INSERT INTO `feed_type` VALUES (6, '下很多人赞同了回答');
 INSERT INTO `feed_type` VALUES (8, '评论了文章');
 INSERT INTO `feed_type` VALUES (11, '赞同了评论');
-INSERT INTO `feed_type` VALUES (12, '下很多人赞同了评论');
+INSERT INTO `feed_type` VALUES (12, '下很多人赞同了评论')
+
+
+
+初始资本 2000                    获得初始资本     null           2000 铜币           null
+创建主题  -20                      创建了                 null               主题                   post
+创建回复 -5                         创建了                 null              回复                    post+reply_id
+主题回复收益 +5                        收到                     user             的回复                post+reply_id
+赞同别人 -1                         发送对                user              的赞同                post or post+reply_id
+收到赞同 +1                        收到                    user             的赞同                  post or post +reply_id
+撤销赞同 +1               撤销对                 user            的赞同                   post or post +reply_id
+赞同被撤销 -1            赞同被                      user           撤销           post or post +reply_id
+发送谢意 -10                       发送对                user            的谢意                  post or post+reply_id
+收到谢意 +10                      收到                   user                的谢意              post or post+reply_id
+发送邀请 -10                       发送                   null             邀请                       null
+邀请成功 +100                   邀请                    user            成功                      null

@@ -210,8 +210,11 @@ class SignupHandler(BaseHandler):
             do_login(self, user_id)
 
             if not DEBUG_FLAG:
-                # delete used invite code
-                self.icode_model.update_code_by_id(icode.id, {"used": 1})
+                # set invite code used 
+                self.icode_model.update_code_by_id(icode.id, {"used": 1, "user_used": user_id})
+                user_created_invite = self.user_model.get_user_by_uid(icode.user_created)
+                self.user_model.update_user_info_by_user_id(icode.user_created, {"income": user_created_invite.income+100})
+                self.balance_model.add_new_balance({"author_id":  icode.user_created, "balance_type": 12, "amount": 100, "balance": user_created_invite.income-user_created_invite.expend+100, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
 
             # send register success mail to user
 
@@ -235,6 +238,13 @@ class UserHandler(BaseHandler):
         template_variables["feeds8_len"] = self.feed_model.get_user_all_feeds_count_by_type(view_user.uid,  8)
         template_variables["followees_count"] = self.follow_model.get_user_followees_count(view_user.uid)
         template_variables["followers_count"] = self.follow_model.get_user_followers_count(view_user.uid)
+        bronze_coins = view_user.income % 100
+        silver_coins =  view_user.income / 100
+        silver_coins = silver_coins % 100
+        gold_coins = silver_coins / 100
+        template_variables["gold_coins"] = gold_coins
+        template_variables["silver_coins"] = silver_coins
+        template_variables["bronze_coins"] = bronze_coins
 
         if(user_info):
             template_variables["follow"] = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
