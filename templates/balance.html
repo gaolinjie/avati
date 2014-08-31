@@ -3,6 +3,13 @@
 {% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
 
+<div class="page-header">
+  <h1><small>我的账户余额</small></h1>
+
+  <div class="fr" id="money">
+                <a href="javascript:;" class="balance_area" alt="{{gold_coins}} 金币，{{silver_coins}} 银币，{{bronze_coins}} 铜币">{%if gold_coins!=0%}{{gold_coins}} <img src="/static/img/gold.png" align="absmiddle" border="0" style="padding-bottom: 2px;"> {%endif%}{%if silver_coins!=0%}{{silver_coins}} <img src="/static/img/silver.png" align="absmiddle" border="0" style="padding-bottom: 2px;"> {%endif%}{%if bronze_coins!=0%}{{bronze_coins}}<img src="/static/img/bronze.png" align="absmiddle" border="0">{%endif%}</a></div>
+</div>
+
 <table class="table table-striped">
       <thead>
         <tr>
@@ -18,13 +25,16 @@
         <tr>
           <td class="balance-time">{{balance.created}}</td>
           <td>{{balance.type_name}}</td>
-          <td>{{balance.amount}}</td>
+          <td>{%if balance.amount>0%}+{%endif%}{{balance.amount}}</td>
           <td>{{balance.balance}}</td>
           <td class="balance-description">{{balance.balance_text1}}{%if balance.user_id%} <a href="/u/{{balance.user_name}}">{{balance.user_name}}</a> {%endif%}{{balance.balance_text2}} > <a href="/p/{{balance.post_id}}#{{balance.reply_id}}">{{balance.post_title}}</a></td>
         </tr>
         {%endfor%}
       </tbody>
     </table>
+
+<ul class="pager">{{ balances.page|pagination(request.uri) }}</ul>
+
 
 </div>
 

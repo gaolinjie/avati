@@ -1413,6 +1413,13 @@ class BalanceHandler(BaseHandler):
         template_variables["user_info"] = user_info
         p = int(self.get_argument("p", "1"))
         if(user_info):
+            gold_coins = (user_info.income - user_info.expend )/ 10000
+            silver_coins = (user_info.income - user_info.expend )% 10000     
+            bronze_coins = silver_coins  % 100
+            silver_coins = silver_coins / 100
+            template_variables["gold_coins"] = gold_coins
+            template_variables["silver_coins"] = silver_coins
+            template_variables["bronze_coins"] = bronze_coins
             template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)  
             template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
             template_variables["balances"] = self.balance_model.get_user_balances(user_info.uid, current_page = p)

@@ -1908,3 +1908,7 @@ text-decoration: none solid rgb(0, 0, 0);
 .balance-description {
 	width: 320px;
 }
+
+.page-header {
+margin: -20px 0 20px;
+}
