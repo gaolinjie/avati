@@ -57,6 +57,7 @@ CREATE TABLE `user` (
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
+  `view_follow` datetime DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

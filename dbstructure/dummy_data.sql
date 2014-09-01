@@ -17,8 +17,8 @@ tag 下很多人赞同了回答
 
 user 发布了文章
 user 评论了文章
-user 喜欢了文章
-tag 下很多人喜欢了文章
+user 收藏了文章
+tag 下很多人收藏了文章
 user 赞同了评论
 tag 下很多人赞同了评论
 
@@ -78,7 +78,7 @@ INSERT INTO `notice_type` VALUES (14, '在评论中提到了你');
 
 INSERT INTO `notice_type` VALUES (2, '关注了你的问题');
 INSERT INTO `notice_type` VALUES (3, '感谢了你的问题');
-INSERT INTO `notice_type` VALUES (9, '喜欢了你的文章');
+INSERT INTO `notice_type` VALUES (9, '收藏了你的文章');
 INSERT INTO `notice_type` VALUES (10, '感谢了你的文章');
 INSERT INTO `notice_type` VALUES (16, '赞了你的问题');
 INSERT INTO `notice_type` VALUES (17, '赞了你的文章');
@@ -101,8 +101,8 @@ INSERT INTO `feed_type` VALUES (1, '提出了问题');
 INSERT INTO `feed_type` VALUES (3, '关注了问题');
 INSERT INTO `feed_type` VALUES (4, '下很多人关注了问题');
 INSERT INTO `feed_type` VALUES (7, '发布了文章');
-INSERT INTO `feed_type` VALUES (9, '喜欢了文章');
-INSERT INTO `feed_type` VALUES (10, '下很多人喜欢了文章');
+INSERT INTO `feed_type` VALUES (9, '收藏了文章');
+INSERT INTO `feed_type` VALUES (10, '下很多人收藏了文章');
 INSERT INTO `feed_type` VALUES (13, '赞了问题');
 INSERT INTO `feed_type` VALUES (14, '下很多人赞了问题');
 INSERT INTO `feed_type` VALUES (15, '赞了文章');

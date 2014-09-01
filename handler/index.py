@@ -44,8 +44,8 @@ class IndexHandler(BaseHandler):
         p = int(self.get_argument("p", "1"))
         if(user_info):
             template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
-            template_variables["feeds"] = self.follow_model.get_user_all_follow_feeds(user_info.uid, current_page = p)        
-            template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)  
+            template_variables["feeds"] = self.follow_model.get_user_all_follow_and_all_post_feeds(user_info.uid, current_page = p)        
+            template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)  + self.follow_model.get_user_all_follow_post_feeds_count(user_info.uid, user_info.view_follow, time.strftime('%Y-%m-%d %H:%M:%S'))
             template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
         else:
             template_variables["sign_in_up"] = self.get_argument("s", "") 
@@ -65,6 +65,8 @@ class IndexHandler(BaseHandler):
                 template_variables["error"] = error
             else:
                 template_variables["error"] = None
+            template_variables["notice_count"] = None
+            template_variables["invite_count"] = None
             template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
 
         self.render("index.html", **template_variables)
@@ -1109,7 +1111,13 @@ class NoticeHandler(BaseHandler):
         template_variables["gen_random"] = gen_random
         p = int(self.get_argument("p", "1"))
         if(user_info):
+            template_variables["active_tab"] = "me"
             template_variables["notices"] = self.notice_model.get_user_all_notices(user_info.uid, current_page = p)
+            template_variables["feeds"] = self.follow_model.get_user_all_follow_post_feeds(user_info.uid, current_page = p)
+            if user_info.view_follow:
+                template_variables["post_count"] = self.follow_model.get_user_all_follow_post_feeds_count(user_info.uid, user_info.view_follow, time.strftime('%Y-%m-%d %H:%M:%S'))
+            else:
+                template_variables["post_count"] = None
             self.notice_model.set_user_notice_as_read(user_info.uid)
             template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
             self.render("notice.html", **template_variables)
@@ -1430,6 +1438,20 @@ class BalanceHandler(BaseHandler):
 class PageNotFoundHandler(BaseHandler):
     def get(self, template_variables = {}):
         self.render("404.html", **template_variables)
+
+class UpdateUserViewFollowHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        user_info = self.current_user
+        
+        if(user_info):
+            self.user_model.update_user_info_by_user_id(user_info.uid, {"view_follow": time.strftime('%Y-%m-%d %H:%M:%S')})
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
 
 
 

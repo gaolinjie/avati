@@ -196,6 +196,7 @@ class FeedModel(Query):
 
 
     def get_default_feeds(self, num = 10, current_page = 1):
+        where = "feed.feed_type = 1 OR feed.feed_type = 4 OR  feed.feed_type = 6 OR feed.feed_type = 7 OR feed.feed_type = 10 OR feed.feed_type = 12 OR feed.feed_type = 14 OR feed.feed_type = 16" 
         join = "LEFT JOIN user AS author_user ON feed.user_id = author_user.uid \
                 LEFT JOIN tag ON feed.tag_id = tag.id \
                 LEFT JOIN post ON feed.post_id = post.id \
@@ -222,7 +223,7 @@ class FeedModel(Query):
                 feed_type.feed_text as feed_text, \
                 reply_user.username as reply_user_username, \
                 reply_user.sign as reply_user_sign"
-        return self.order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
 
 

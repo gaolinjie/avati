@@ -94,6 +94,7 @@ class Application(tornado.web.Application):
             (r"/upload", handler.index.UploadHandler),
             (r"/list", handler.index.ListHandler),
             (r"/balance", handler.index.BalanceHandler),
+            (r"/update/user/view/follow", handler.index.UpdateUserViewFollowHandler),  
             #(r".*", handler.index.PageNotFoundHandler)
         ]
 

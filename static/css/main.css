@@ -1847,6 +1847,13 @@ text-decoration: underline;
 	left: 165px;
 }
 
+.notice-badge {
+	background-color: #d9534f;
+	position: absolute;
+top: 11px;
+left: 85px;
+}
+
 #loginModal .bootstrap-switch-id-gender-switch {
 position: absolute;
 z-index: 999;
@@ -1911,4 +1918,8 @@ text-decoration: none solid rgb(0, 0, 0);
 
 .page-header {
 margin: -20px 0 20px;
+}
+
+td a {
+	color: #777;
 }
