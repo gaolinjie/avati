@@ -69,7 +69,7 @@ class IndexHandler(BaseHandler):
             template_variables["invite_count"] = None
             template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
 
-        self.render("index.html", **template_variables)
+        self.render("mail/invite-answer.html", **template_variables)
 
 class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
@@ -1227,14 +1227,30 @@ class InvitationsHandler(BaseHandler):
 class InviteToEmailHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
         user_info = self.current_user
+        post = self.post_model.get_post_by_post_id(post_id)
+        template_variables["user_info"] = user_info
         email = self.get_argument('email', "null")
         print email
+        invite_code = "%s" % uuid.uuid1()
+        self.icode_model.add_new_icode({"code": invite_code, "user_created":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
 
         if(user_info):
             # send invite to answer mail to user
-            mail_title = u"邀请回答"
-            mail_content = self.render_string("invite-answer.html")
-            send(mail_title, mail_content, email)
+            mail_content = self.render_string("mail/invite-answer.html", user_info=user_info, invite_code=invite_code, post=post)
+            print "send mail"
+
+            params = { "api_user": "postmaster@mmmai-invite.sendcloud.org", \
+                "api_key" : "bRjboOZIVFUU9s0q",\
+                "from" : "noreply@mmmai.net", \
+                "to" : email, \
+                "fromname" : "gaolinjie", \
+                "subject" : user_info.username+"邀请您回答问题："+post.title+"--买买买", \
+                "html": mail_content \
+            }
+
+            url="https://sendcloud.sohu.com/webapi/mail.send.xml"
+            r = requests.post(url, data=params)
+            print r.text
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
