@@ -1255,7 +1255,7 @@ class InviteToJoinHandler(BaseHandler):
 
         if(user_info):
             # send invite to answer mail to user
-            mail_content = self.render_string("invite-answer.html", user_info=user_info, invite_code=invite_code)
+            mail_content = self.render_string("mail/invite-join.html", user_info=user_info, invite_code=invite_code)
             print "send mail"
 
             params = { "api_user": "postmaster@mmmai-invite.sendcloud.org", \
