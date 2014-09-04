@@ -217,10 +217,22 @@ class SignupHandler(BaseHandler):
                 self.balance_model.add_new_balance({"author_id":  icode.user_created, "balance_type": 12, "amount": 100, "balance": user_created_invite.income-user_created_invite.expend+100, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
 
             # send register success mail to user
+            mail_content = self.render_string("mail/register-success.html", user_info=user_info)
+            print "send mail"
 
-            #mail_title = u"mifan.tv 注册成功通知"
-            #mail_content = self.render_string("user/register_mail.html")
-            #send(mail_title, mail_content, form.email.data)
+            params = { "api_user": "postmaster@mmmai-invite.sendcloud.org", \
+                "api_key" : "bRjboOZIVFUU9s0q",\
+                "from" : "noreply@mmmai.net", \
+                "to" : email, \
+                "fromname" : "买买买", \
+                "subject" : "邀请加入买买买", \
+                "html": mail_content \
+            }
+
+            url="https://sendcloud.sohu.com/webapi/mail.send.xml"
+            r = requests.post(url, data=params)
+            print r.text
+
 
         self.redirect(self.get_argument("next", "/"))
 

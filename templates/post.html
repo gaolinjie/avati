@@ -721,12 +721,12 @@ $(document).on('click', '#delPostModal .btn-success',  function() {
 
 $(document).on('click', '#inviteEmail',  function() {
   var post_id = $(this).attr('data-post');
-  var email = $('#inviteEmailInput');
+  var email = $('#inviteEmailInput').val();
 
   $.getJSON('/invite/to/email/' + post_id+'?email='+email , function (data) {
     if (data.success != 0) {
       $('#inviteEmailInput').val('');
-      alert('邀请发送成功!');
+      $('.panel-container').hide();
     } else {
       alert('邀请发送失败!');
     }

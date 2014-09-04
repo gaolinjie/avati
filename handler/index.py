@@ -69,7 +69,7 @@ class IndexHandler(BaseHandler):
             template_variables["invite_count"] = None
             template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
 
-        self.render("mail/invite-answer.html", **template_variables)
+        self.render("index.html", **template_variables)
 
 class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
@@ -1243,7 +1243,7 @@ class InviteToEmailHandler(BaseHandler):
                 "api_key" : "bRjboOZIVFUU9s0q",\
                 "from" : "noreply@mmmai.net", \
                 "to" : email, \
-                "fromname" : "gaolinjie", \
+                "fromname" : "买买买", \
                 "subject" : user_info.username+"邀请您回答问题："+post.title+"--买买买", \
                 "html": mail_content \
             }
@@ -1278,7 +1278,7 @@ class InviteToJoinHandler(BaseHandler):
                 "api_key" : "bRjboOZIVFUU9s0q",\
                 "from" : "noreply@mmmai.net", \
                 "to" : email, \
-                "fromname" : "gaolinjie", \
+                "fromname" : "买买买", \
                 "subject" : "邀请加入买买买", \
                 "html": mail_content \
             }
