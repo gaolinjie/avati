@@ -757,6 +757,7 @@ class VoteReplyHandler(BaseHandler):
             reply = self.reply_model.get_reply_by_id(reply_id)
             vote = self.vote_model.get_vote_by_user_and_reply(user_info.uid, reply_id)
             post = self.post_model.get_post_by_post_id(reply.post_id)
+            reply_author = self.user_model.get_user_by_uid(reply.author_id)
             if post.post_type == 'q':
                 feed_type = 5;
             else:
@@ -778,16 +779,17 @@ class VoteReplyHandler(BaseHandler):
                                 feed_type2 = 12;
                             self.feed_model.delete_feed_by_reply_and_type(reply_id, feed_type2)
 
-                        self.user_model.update_user_info_by_user_id(user_info.uid, {"income": user_info.income+1})
-                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 7, "amount": 1, "balance": user_info.income-user_info.expend+1, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
-                        post_author = self.user_model.get_user_by_uid(post.author_id)
-                        self.user_model.update_user_info_by_user_id(post_author.uid, {"income": post_author.expend+1})
-                        self.balance_model.add_new_balance({"author_id":  post_author.uid, "balance_type": 8, "amount": -1, "balance": post_author.income-post_author.expend-5, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
+                        self.user_model.update_user_info_by_user_id(user_info.uid, {"expend": user_info.expend-1})
+                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 7, "amount": 1, "balance": user_info.income-user_info.expend, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
+                        self.user_model.update_user_info_by_user_id(reply_author.uid, {"up_num": reply_author.up_num-1, "income": reply_author.income-1})
+                        self.balance_model.add_new_balance({"author_id":  reply_author.uid, "balance_type": 8, "amount": -1, "balance": reply_author.income-reply_author.expend, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
                     else:
                         self.reply_model.update_reply_by_id(reply.id, {"down_num": reply.down_num-1})
+                        self.user_model.update_user_info_by_user_id(reply_author.uid, {"down_num": reply_author.down_num-1})
                 else:
                     if vote.up_down=='up':
                         self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num-1, "down_num": reply.down_num+1})
+                        self.user_model.update_user_info_by_user_id(reply_author.uid, {"up_num": reply_author.up_num-1, "down_num": reply_author.down_num+1})
                         feed = self.feed_model.get_feed_user_vote_reply_feed(user_info.uid, reply.id)
                         if feed:
                             self.feed_model.delete_feed_by_id(feed.id)
@@ -799,13 +801,13 @@ class VoteReplyHandler(BaseHandler):
                                 feed_type2 = 12;
                             self.feed_model.delete_feed_by_reply_and_type(reply_id, feed_type2)
 
-                        self.user_model.update_user_info_by_user_id(user_info.uid, {"income": user_info.income+1})
-                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 7, "amount": 1, "balance": user_info.income-user_info.expend+1, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
-                        post_author = self.user_model.get_user_by_uid(post.author_id)
-                        self.user_model.update_user_info_by_user_id(post_author.uid, {"income": post_author.expend+1})
-                        self.balance_model.add_new_balance({"author_id":  post_author.uid, "balance_type": 8, "amount": -1, "balance": post_author.income-post_author.expend-5, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
+                        self.user_model.update_user_info_by_user_id(user_info.uid, {"expend": user_info.expend-1})
+                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 7, "amount": 1, "balance": user_info.income-user_info.expend, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
+                        self.user_model.update_user_info_by_user_id(reply_author.uid, {"income": reply_author.income-1})
+                        self.balance_model.add_new_balance({"author_id":  reply_author.uid, "balance_type": 8, "amount": -1, "balance": reply_author.income-reply_author.expend, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
                     else:
                         self.reply_model.update_reply_by_id(reply.id, {"up_num": reply.up_num+1, "down_num": reply.down_num-1})
+                        
                         # add feed: user 赞同了回答
                         feed_info = {
                             "user_id": user_info.uid,           
@@ -833,11 +835,10 @@ class VoteReplyHandler(BaseHandler):
                                 }
                                 self.feed_model.add_new_feed(feed_info2)
 
-                        self.user_model.update_user_info_by_user_id(user_info.uid, {"income": user_info.expend+1})
-                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 5, "amount": -1, "balance": user_info.income-user_info.expend-1, "post_id": post_id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
-                        post_author = self.user_model.get_user_by_uid(post.author_id)
-                        self.user_model.update_user_info_by_user_id(post_author.uid, {"income": post_author.income+1})
-                        self.balance_model.add_new_balance({"author_id":  post_author.uid, "balance_type": 6, "amount": 1, "balance": post_author.income-post_author.expend+1, "post_id": post_id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
+                        self.user_model.update_user_info_by_user_id(user_info.uid, {"expend": user_info.expend+1})
+                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 5, "amount": -1, "balance": user_info.income-user_info.expend, "post_id": post_id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
+                        self.user_model.update_user_info_by_user_id(reply_author.uid, {"income": reply_author.income+1, "up_num": reply_author.up_num+1, "down_num": reply_author.down_num-1})
+                        self.balance_model.add_new_balance({"author_id":  reply_author.uid, "balance_type": 6, "amount": 1, "balance": reply_author.income-reply_author.expend, "post_id": post_id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
                     self.vote_model.update_vote_by_id(vote.id, {"up_down": vote_type, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
             else:
                 self.vote_model.add_new_vote({"reply_id": reply_id, "up_down": vote_type, "author_id": user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
@@ -886,13 +887,13 @@ class VoteReplyHandler(BaseHandler):
                     }
                     self.notice_model.add_new_notice(notice_info)
 
-                    self.user_model.update_user_info_by_user_id(user_info.uid, {"income": user_info.expend+1})
-                    self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 5, "amount": -1, "balance": user_info.income-user_info.expend-1, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
-                    post_author = self.user_model.get_user_by_uid(post.author_id)
-                    self.user_model.update_user_info_by_user_id(post_author.uid, {"income": post_author.income+1})
-                    self.balance_model.add_new_balance({"author_id":  post_author.uid, "balance_type": 6, "amount": 1, "balance": post_author.income-post_author.expend+1, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
+                    self.user_model.update_user_info_by_user_id(user_info.uid, {"expend": user_info.expend+1})
+                    self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 5, "amount": -1, "balance": user_info.income-user_info.expend, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
+                    self.user_model.update_user_info_by_user_id(reply_author.uid, {"income": reply_author.income+1, "up_num": reply_author.up_num+1})
+                    self.balance_model.add_new_balance({"author_id":  reply_author.uid, "balance_type": 6, "amount": 1, "balance": reply_author.income-reply_author.expend, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
                 else:
                     self.reply_model.update_reply_by_id(reply.id, {"down_num": reply.down_num+1})
+                    self.user_model.update_user_info_by_user_id(reply_author.uid, {"down_num": reply_author.down_num+1})
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                 }))
