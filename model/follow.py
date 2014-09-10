@@ -55,10 +55,12 @@ class FollowModel(Query):
                 post.post_type as post_type, \
                 post.thumb as post_thumb, \
                 post.reply_num as post_reply_num, \
+                post.up_num as post_up_num, \
                 post.created as post_created, \
                 post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
+                reply.up_num as reply_up_num, \
                 feed_type.feed_text as feed_text, \
                 reply_user.username as reply_user_username, \
                 reply_user.sign as reply_user_sign, \
@@ -96,10 +98,12 @@ class FollowModel(Query):
                 post.post_type as post_type, \
                 post.thumb as post_thumb, \
                 post.reply_num as post_reply_num, \
+                post.up_num as post_up_num, \
                 post.created as post_created, \
                 post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
+                reply.up_num as reply_up_num, \
                 feed_type.feed_text as feed_text, \
                 reply_user.username as reply_user_username, \
                 reply_user.sign as reply_user_sign, \
@@ -139,10 +143,12 @@ class FollowModel(Query):
                 post.post_type as post_type, \
                 post.thumb as post_thumb, \
                 post.reply_num as post_reply_num, \
+                post.up_num as post_up_num, \
                 post.created as post_created, \
                 post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
+                reply.up_num as reply_up_num, \
                 feed_type.feed_text as feed_text, \
                 reply_user.username as reply_user_username, \
                 reply_user.sign as reply_user_sign, \
@@ -187,10 +193,12 @@ class FollowModel(Query):
                 post.post_type as post_type, \
                 post.thumb as post_thumb, \
                 post.reply_num as post_reply_num, \
+                post.up_num as post_up_num, \
                 post.created as post_created, \
                 post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
+                reply.up_num as reply_up_num, \
                 feed_type.feed_text as feed_text, \
                 reply_user.username as reply_user_username, \
                 reply_user.sign as reply_user_sign, \
