@@ -137,7 +137,7 @@ class Filters():
         # render content included gist
         #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
         # render sinaimg pictures
-        content = re.sub(r'src="(http:\/\/avati-img.qiniudn.com\/m_[\w\-]+.png)"', r'src="\1-index"', content)
+        content = re.sub(r'src="(http://avati-img.qiniudn.com/\S+\.(png|gif|jpg|jpeg))"', r'src="\1-index"', content)
         return content
 
     def desktop_content_process(self, content):
