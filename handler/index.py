@@ -1080,7 +1080,6 @@ class DeletePostHandler(BaseHandler):
         user_info = self.current_user
 
         if(user_info):
-            self.post_model.delete_post_by_post_id(post_id)
             self.feed_model.delete_feed_by_post_id(post_id)
             self.post_tag_model.delete_post_tag_by_post_id(post_id)
             self.follow_model.delete_follow_by_post_id(post_id)
@@ -1094,6 +1093,8 @@ class DeletePostHandler(BaseHandler):
             else:
                 # update user_info
                 self.user_model.update_user_info_by_user_id(user_info.uid, {"posts": user_info.posts-1})
+
+            self.post_model.delete_post_by_post_id(post_id)
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,

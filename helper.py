@@ -25,6 +25,7 @@ class Filters():
         self.jinja2.filters["pretty_date"] = self.pretty_date
         self.jinja2.filters["desktop_content_process"] = self.desktop_content_process
         self.jinja2.filters["mobile_content_process"] = self.mobile_content_process
+        self.jinja2.filters["index_content_process"] = self.index_content_process
         self.jinja2.filters["reply_process"] = self.reply_process
         self.jinja2.filters["markdown"] = self.markdown
         return self.jinja2
@@ -131,6 +132,13 @@ class Filters():
         if day_diff < 365:
             return str(day_diff / 30) + " 月前"
         return str(day_diff / 365) + " 天前"
+
+    def index_content_process(self, content):
+        # render content included gist
+        #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
+        # render sinaimg pictures
+        content = re.sub(r'src="(http:\/\/avati-img.qiniudn.com\/m_[\w\-]+.png)"', r'src="\1-index"', content)
+        return content
 
     def desktop_content_process(self, content):
         # render content included gist

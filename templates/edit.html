@@ -182,6 +182,7 @@ $(document).on('click', '#pPostBtn', function() {
     var sampleTags =  str.split(",");
 
     $("#qTags").tagit({
+        placeholderText: '添加合适的标签',
         availableTags: sampleTags,
         singleField: true,
         allowSpaces: true, //标签中是否允许空格
@@ -192,6 +193,7 @@ $(document).on('click', '#pPostBtn', function() {
     var sampleTags =  str.split(",");
 
     $("#pTags").tagit({
+        placeholderText: '添加合适的标签',
         availableTags: sampleTags,
         singleField: true,
         allowSpaces: true, //标签中是否允许空格
