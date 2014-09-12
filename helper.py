@@ -138,6 +138,7 @@ class Filters():
         #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
         # render sinaimg pictures
         content = re.sub(r'src="(http://avati-img.qiniudn.com/\S+\.(png|gif|jpg|jpeg))"', r'src="\1-index"', content)
+        content = re.sub(r'<iframe(.*)src="//player.youku.com/embed/(\w+)"(.*)></iframe>', r'<a class="mmm-link video-link" href="javascript:;" data-video="\2"></a>', content)
         return content
 
     def desktop_content_process(self, content):

@@ -1923,3 +1923,20 @@ margin: -20px 0 20px;
 td a {
 	color: #777;
 }
+
+.topic-content img {
+max-width: 638px;
+}
+
+.mmm-link {
+width: 80px;
+height: 20px;
+display: inline-block;
+vertical-align: bottom;
+margin: 0 5px 2px 5px;
+background-repeat: no-repeat;
+}
+
+.video-link {
+background-image: url(/static/img/button_video.png);
+}

@@ -13,7 +13,7 @@
         {%if feed.id!=pre_feed%}
         {% set pre_feed=feed.id%}
         {%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
-            <div class="feed">
+            <div class="feed" id='{{feed.id}}'>
                 <div class="user-wrapper">
                 <div class="zm-votebar post-votebar">
             <button class="up vote-btn vote-self-btn"  title="{{feed.post_up_num}} 人赞同">

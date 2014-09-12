@@ -118,6 +118,22 @@ $('#type_tab a').click(function(e) {
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+    function sendFile(file, editor, editable) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "/upload",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    editor.insertImage(editable, url);
+                }
+            });
+        }
+        
     {% if post.post_type == 'q' %}
     $('#qSummernote').summernote({
         height: 200, // set editor height
@@ -137,6 +153,9 @@ $(document).ready(function() {
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
         lang: 'zh-CN',
+        onImageUpload: function(files, editor, editable) {
+            sendFile(files[0], editor, editable);
+        },
     });
     var qContent = $('#qContentText2').html();
     $('#qSummernote').code(qContent);
@@ -159,6 +178,9 @@ $(document).ready(function() {
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
         lang: 'zh-CN',
+        onImageUpload: function(files, editor, editable) {
+            sendFile(files[0], editor, editable);
+        },
     });
     var pContent = $('#pContentText2').html();
     $('#pSummernote').code(pContent);

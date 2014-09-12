@@ -170,7 +170,7 @@ class NewHandler(BaseHandler):
         if not form.validate():
             self.get({"errors": form.errors})
             return
-
+            
         post_info = {
             "author_id": self.current_user["uid"],           
             "title": form.title.data,
