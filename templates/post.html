@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <div class="topic-content">{{post.content}}</div>
+    <div class="topic-content">{{post.content|desktop_content_process}}</div>
     <div class="item_action_bar meta">
       {%if post.post_type=='q'%}
       <a class="invite {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" href="javascript:;" >邀请回答</a>
@@ -170,7 +170,7 @@
           </div>
           {%endif%}
         </div>
-        <div class="answer-text">{{reply.content}}</div>
+        <div class="answer-text">{{reply.content|desktop_content_process}}</div>
         <div class="answer-meta meta">
           {% if reply.author_id != user_info.uid %}
           <a class="thank {% if reply.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if reply.reply_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>

@@ -300,11 +300,16 @@ loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-
 
 $(".summary-text").each(function(){
         var text = $(this);
-        str = text.text();
-            textLeng = 130;
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
     });
+
+$(document).on('click', '.video-link',  function() {
+    var video_id = $(this).attr('data-video');
+    $(this).parent().html('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
+})
 </script>
 {% endblock %}

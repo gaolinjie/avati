@@ -139,13 +139,15 @@ class Filters():
         # render sinaimg pictures
         content = re.sub(r'src="(http://avati-img.qiniudn.com/\S+\.(png|gif|jpg|jpeg))"', r'src="\1-index"', content)
         content = re.sub(r'<iframe(.*)src="//player.youku.com/embed/(\w+)"(.*)></iframe>', r'<a class="mmm-link video-link" href="javascript:;" data-video="\2"></a>', content)
+        content = re.sub(r'([a-zA-z]+://[^\s]*.taobao.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link taobao-link" href="\1" target="_blank"></a>', content)
+        content = re.sub(r'([a-zA-z]+://[^\s]*.tmall.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link tmall-link" href="\1" target="_blank"></a>', content)
+        content = re.sub(r'([a-zA-z]+://[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link web-link" href="\1" target="_blank"></a>', content)
         return content
 
     def desktop_content_process(self, content):
-        # render content included gist
-        #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
-        # render sinaimg pictures
-        content = re.sub(r'src="(http:\/\/mrtgimg.qiniudn.com\/.\w+)"', r'src="\1-desktop"', content)
+        content = re.sub(r'([a-zA-z]+://[^\s]*.taobao.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link taobao-link" href="\1" target="_blank"></a>', content)
+        content = re.sub(r'([a-zA-z]+://[^\s]*.tmall.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link tmall-link" href="\1" target="_blank"></a>', content)
+        content = re.sub(r'([a-zA-z]+://[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link web-link" href="\1" target="_blank"></a>', content)
         return content
 
     def mobile_content_process(self, content):

@@ -1940,3 +1940,15 @@ background-repeat: no-repeat;
 .video-link {
 background-image: url(/static/img/button_video.png);
 }
+
+.taobao-link {
+background-image: url(/static/img/button_taobao.png);
+}
+
+.tmall-link {
+background-image: url(/static/img/button_tmall.png);
+}
+
+.web-link {
+background-image: url(/static/img/button_web.png);
+}

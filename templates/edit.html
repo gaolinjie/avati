@@ -65,43 +65,49 @@
 <div class=" col-xs-12 col-md-3">
 
     <ul class="nav nav-list">
-        <li class="nav-item">
-            <a href="/"> <i class="icon-home"></i>
-                我的主页
-            </a>
-        </li>
-        <li class="nav-item {% if active_nav == " notification " %} actived {% endif %}">
-            <a href="/notification"> <i class="icon-message"></i>
-                我的所有关注
-            </a>
-        </li>
-        <li class="nav-item {% if active_nav == " favorite " %} actived {% endif %}">
-            <a href="/favorite">
-                <i class="icon-fav"></i>
-                我的收藏
-            </a>
-        </li>
+            <li class="nav-item">
+                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/u/{{user_info.username}}{%endif%}" {% if user_info == none%}data-link="user"{%endif%}> <i class="icon-home"></i>
+                    我的主页
+                </a>
+            </li>
+            <li class="nav-item">
+                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info == none%}data-link="follows" {%endif%}> <i class="icon-follow"></i>
+                    我的所有关注
+                </a>
+            </li>
+            <li class="nav-item">
+                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/notifications{%endif%}" {% if user_info == none%}data-link="notifications"{%endif%}>
+                    <i class="icon-message"></i>
+                    我的消息
+                    {%if notice_count%}
+                    <span class="badge message-badge">{{notice_count}}</span>
+                    {%endif%}
+                </a>
+            </li>
 
-        <li class="nav-item {% if active_nav == " later " %} actived {% endif %}">
-            <a href="/later">
-                <i class="icon-latter"></i>
-                邀请我回答的问题
-            </a>
-        </li>
-        <li class="nav-item {% if active_nav == " follow " %} actived {% endif %}">
-            <a href="/follow">
-                <i class="icon-follow"></i>
-                我的草稿
-            </a>
-        </li>
-        <li class="divider"></li>
-        <li class="nav-item {% if active_nav == " watch " %} actived {% endif %}">
-            <a href="/watch">
-                <i class="icon-history"></i>
-                邀请朋友加入
-            </a>
-        </li>
-    </ul>
+            <li class="nav-item">
+                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/invitations{%endif%}" {% if user_info == none%}data-link="invitations"{%endif%}>
+                    <i class="icon-invitation"></i>
+                    邀请我回答的问题
+                    {%if invite_count%}
+                    <span class="badge invite-badge">{{invite_count}}</span>
+                    {%endif%}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/list{%endif%}" {% if user_info == none%}data-link="list"{%endif%}>
+                    <i class="icon-list"></i>
+                    欲望清单
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-item">
+                <a {%if user_info == none%}class="unlogin"{%endif%} href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
+                    <i class="icon-invite"></i>
+                    邀请朋友加入
+                </a>
+            </li>
+        </ul>
 
 </div>
 {% endblock %} {% block javascript %}
@@ -148,7 +154,7 @@ $(document).ready(function() {
             ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
             //['height', ['height']],
             //['table', ['table']],
-            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            ['insert', ['picture', 'video']], // no insert buttons
             //['insert', ['link']],
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
@@ -173,7 +179,7 @@ $(document).ready(function() {
             ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
             //['height', ['height']],
             //['table', ['table']],
-            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            ['insert', ['picture', 'video']], // no insert buttons
             //['insert', ['link']],
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
