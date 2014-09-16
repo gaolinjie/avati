@@ -3849,22 +3849,8 @@
       };
 
       var tplLinkDialog = function () {
-        var body = '<div class="form-group">' +
-                     '<label>' + lang.link.textToDisplay + '</label>' +
-                     '<input class="note-link-text form-control span12" type="text" />' +
-                   '</div>' +
-                   '<div class="form-group">' +
-                     '<label>' + lang.link.url + '</label>' +
-                     '<input class="note-link-url form-control span12" type="text" />' +
-                   '</div>' +
-                   (!options.disableLinkTarget ?
-                     '<div class="checkbox">' +
-                       '<label>' + '<input type="checkbox" checked> ' +
-                         lang.link.openInNewWindow +
-                       '</label>' +
-                     '</div>' : ''
-                   );
-        var footer = '<button href="#" class="btn btn-primary note-link-btn disabled" disabled>' + lang.link.insert + '</button>';
+        var body = '<p>插入链接只需将链接直接粘贴到编辑框中并在末尾添加一个空格即可。</p>';
+        var footer = '<button href="#" class="btn btn-default">知道了</button>';
         return tplDialog('note-link-dialog', lang.link.insert, body, footer);
       };
 

@@ -344,11 +344,11 @@ x.setAttribute('style', 'background-image: '+pattern.dataUrl);
 });
 
   $(".summary-text").each(function(){
-        var text = $(this);
-        str = text.text();
-            textLeng = 130;
+         var text = $(this);
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
     });
 
@@ -442,5 +442,10 @@ loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds2.page.next}}" id="lo
     nextSelector: 'a.jscroll-next:last',
     autoTrigger: false,
 });
+
+$(document).on('click', '.video-link',  function() {
+    var video_id = $(this).attr('data-video');
+    $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
+})
 </script>
 {% endblock %}

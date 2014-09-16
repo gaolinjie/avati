@@ -130,3 +130,13 @@ INSERT INTO `feed_type` VALUES (12, '下很多人赞同了评论')
 收到谢意 +10                      收到                   user                的谢意              post or post+reply_id
 发送邀请 -10                       发送                   null             邀请                       null
 邀请成功 +100                   邀请                    user            成功                      null
+
+
+
+<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/XNzc2ODE0MzIw" frameborder="0"></iframe>
+
+content = form.content.data
+        matchObj = re.search( r'//player.youku.com/embed/(?P<id>(\w+)?)', content, re.M|re.I)
+        if matchObj:
+            print "search --> matchObj.group() : ", matchObj.group("id")
+        return

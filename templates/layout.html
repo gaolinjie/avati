@@ -223,6 +223,23 @@ onclick="this.form.target='_blank';return true;" style="display:none">
         </form>
     </div>
 </div>
+{%else%}
+<div id="comingsoonModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">敬请期待</h4>
+      </div>
+      <div class="modal-body">
+        <p>这个功能还在开发中，很快就能与你见面啦！^-^</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">知道了</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {%endif%}
     </div>
     <!-- /container -->
@@ -243,6 +260,10 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                 window.open('http://baidu.com/search?q=site:mifan.tv/p%20' + query, "_blank");
             });
         });
+
+        $(document).on('click', '.comingsoon',  function() {
+    $('#comingsoonModal').modal('show');
+});
 
 {%if user_info==none%}
 {%if error==none%}

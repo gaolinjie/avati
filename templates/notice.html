@@ -154,7 +154,7 @@
                     <div class="user-name">
                         <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
                     </div>
-                    <div class="summary-text">{{feed.reply_content}}</div>
+                    <div class="summary-text">{{feed.reply_content|index_content_process}}</div>
                 </div>
                 <div class="answer-meta meta">
                     <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
@@ -217,7 +217,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/list">
+                <a href="javascript:;" class="comingsoon">
                     <i class="icon-list"></i>
                     欲望清单
                 </a>
@@ -260,11 +260,11 @@
 <script src="/static/jscroll-master/jquery.jscroll.js"></script>
 <script>
     $(".summary-text").each(function(){
-        var text = $(this);
-        str = text.text();
-            textLeng = 130;
+         var text = $(this);
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
     });
 
@@ -300,10 +300,10 @@ loadingHtml: '<a href="/notifications?p={{notices.page.next}}" id="load-more" cl
     callback: function(newElems) {
         $(".summary-text").each(function(){
         var text = $(this);
-        str = text.text();
-            textLeng = 130;
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
         });
     },
@@ -317,13 +317,18 @@ loadingHtml: '<a href="/notifications?p={{notices.page.next}}" id="load-more" cl
     callback: function(newElems) {
         $(".summary-text").each(function(){
         var text = $(this);
-        str = text.text();
-            textLeng = 130;
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
         });
     },
 });
+
+$(document).on('click', '.video-link',  function() {
+    var video_id = $(this).attr('data-video');
+    $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
+})
 </script>
 {% endblock %}

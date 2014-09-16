@@ -151,14 +151,14 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/list{%endif%}" {% if user_info == none%}data-link="list"{%endif%}>
+                <a {% if user_info == none%}class="unlogin"{%else%}class="comingsoon"{%endif%} href="javascript:;" {% if user_info == none%}data-link="list"{%endif%}>
                     <i class="icon-list"></i>
                     欲望清单
                 </a>
             </li>
             <li class="divider"></li>
             <li class="nav-item">
-                <a {%if user_info == none%}class="unlogin"{%endif%} href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
+                <a {%if user_info == none%}class="unlogin"{%else%}class="comingsoon"{%endif%} href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
                     <i class="icon-invite"></i>
                     邀请朋友加入
                 </a>
@@ -288,11 +288,11 @@ loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-
     autoTrigger: false,
     callback: function(newElems) {
         $(".summary-text").each(function(){
-        var text = $(this);
-        str = text.text();
-            textLeng = 130;
+         var text = $(this);
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
         });
     },

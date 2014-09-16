@@ -74,7 +74,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/list">
+                <a href="javascript:;" class="comingsoon">
                     <i class="icon-list"></i>
                     欲望清单
                 </a>
@@ -117,10 +117,10 @@
 <script>
     $(".summary-text").each(function(){
         var text = $(this);
-        str = text.text();
-            textLeng = 130;
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
     });
 
@@ -148,14 +148,19 @@ loadingHtml: '<a href="/invitations?p={{feeds.page.next}}" id="load-more" class=
     autoTrigger: false,
     callback: function(newElems) {
         $(".summary-text").each(function(){
-        var text = $(this);
-        str = text.text();
-            textLeng = 130;
+         var text = $(this);
+        str = text.html();
+            textLeng = 1300;
             if(str.length > textLeng ){
-                  text.text(str.substring(0,textLeng)+"...");
+                  text.html(str.substring(0,textLeng)+"...");
             } 
         });
     },
 });
+
+$(document).on('click', '.video-link',  function() {
+    var video_id = $(this).attr('data-video');
+    $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
+})
 </script>
 {% endblock %}
