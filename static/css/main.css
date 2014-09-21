@@ -426,10 +426,6 @@ font-weight: 400;
 	padding-top: 0;
 }
 
-.status-box {
-	border-bottom:  0;
-}
-
 .feed .user-avatar {
 	position: absolute;
 	left: -54px;
@@ -1951,4 +1947,168 @@ background-image: url(/static/img/button_tmall.png);
 
 .web-link {
 background-image: url(/static/img/button_web.png);
+}
+
+.ad-box .ad-link{
+background: #fff;
+    padding: 5px;
+    display: block;
+    border: 1px solid #EEE; border-radius: 5px;
+}
+
+.bottom-box {
+	border-bottom: 0;
+}
+
+
+
+
+/*
+ * Artist (diddy/kanye)
+ */
+.AjaxTippedUser {
+  float: left;
+  width: 300px;
+  font-size: 10px;
+}
+.AjaxTippedUser .description { margin-bottom: 5px; }
+.AjaxTippedUser .info {
+  float: left; 
+  padding-left: 10px;
+  border-left: 1px solid #ccc;
+  width: 217px;
+}
+.AjaxTippedUser .hrFull { margin-top: 10px; height: 1px; margin-bottom: 10px; }
+.AjaxTippedUser h1 { color: #333; font-size: 15px; line-height: 20px; margin-bottom: 3px; margin-top: 0px;}
+.AjaxTippedUser .albumCount {
+  float: left;
+  clear: both;
+  width: 100%;
+  color: #666;
+  line-height: 13px;
+  margin-bottom: 6px;
+}
+.AjaxTippedUser .border-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,.2);
+}
+.AjaxTippedUser .avatar {
+  float: left;
+  height: 60px;
+  width: 60px;
+  margin-right: 10px;
+  position: relative;
+}
+.AjaxTippedUser .avatar img {
+
+}
+.AjaxTippedUser .albums {
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 18px;
+}
+.AjaxTippedUser .albums .album { 
+  float: left;
+  height: 18px;
+  width: 18px;
+  margin-right: 5px;
+  position: relative;
+}
+.AjaxTippedUser .albums .album img { float: left; }
+.AjaxTippedUser .albums .more {
+  float: left;
+  cursor: pointer;
+  width: 56px;
+  line-height: 1.35;
+}
+
+
+
+.AjaxTippedYouku {
+  float: left;
+  width: 300px;
+  font-size: 10px;
+}
+.AjaxTippedYouku .description { margin-bottom: 5px; }
+.AjaxTippedYouku .info {
+  float: left; 
+  padding-left: 10px;
+  border-left: 1px solid #ccc;
+  width: 183px;
+  height: 60px;
+}
+.AjaxTippedYouku .hrFull { margin-top: 10px; height: 1px; margin-bottom: 10px; }
+.AjaxTippedYouku h1 { color: #333; font-size: 15px; line-height: 20px; margin-bottom: 3px; margin-top: 0px;}
+.AjaxTippedYouku .albumCount {
+  float: left;
+  clear: both;
+  width: 100%;
+  color: #666;
+  line-height: 13px;
+  margin-bottom: 6px;
+}
+.AjaxTippedYouku .border-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,.2);
+}
+.AjaxTippedYouku .avatar {
+  float: left;
+  height: 60px;
+  margin-right: 10px;
+  position: relative;
+}
+.AjaxTippedYouku .albums {
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 18px;
+}
+.AjaxTippedYouku .albums .album { 
+  float: left;
+  height: 18px;
+  width: 18px;
+  margin-right: 5px;
+  position: relative;
+}
+.AjaxTippedYouku .albums .album img { float: left; }
+.AjaxTippedYouku .albums .more {
+  float: left;
+  cursor: pointer;
+
+  width: 56px;
+  line-height: 1.35;
+}
+
+.AjaxTippedYouku .play-icon {
+background-image: url(http://cdn3.sbnation.com/images/verge/compass-sprites/video-hero-seff4cba2ae.vea1b814.png);
+background-position: 0px -210px;
+background-repeat: no-repeat;
+content: '';
+width: 38px;
+height: 38px;
+margin-top: -19px;
+margin-left: -19px;
+position: absolute;
+left: 50%;
+top: 50%;
+opacity: 1;
+}
+
+.AjaxTippedYouku .play-icon:hover{
+	opacity: 0.8;
 }

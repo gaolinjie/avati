@@ -95,6 +95,8 @@ class Application(tornado.web.Application):
             (r"/list", handler.index.ListHandler),
             (r"/balance", handler.index.BalanceHandler),
             (r"/update/user/view/follow", handler.index.UpdateUserViewFollowHandler),  
+            (r"/get/youku/(.*)", handler.index.GetYoukuHandler),
+            (r"/get/user/(.*)", handler.index.GetUserHandler),
             #(r".*", handler.index.PageNotFoundHandler)
         ]
 
@@ -131,6 +133,7 @@ class Application(tornado.web.Application):
         self.avatar_model = self.loader.use("avatar.model")
         self.balance_model = self.loader.use("balance.model")
         self.balance_type_model = self.loader.use("balance_type.model")
+        self.ads_model = self.loader.use("ads.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)

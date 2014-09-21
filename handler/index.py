@@ -42,6 +42,7 @@ class IndexHandler(BaseHandler):
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
         p = int(self.get_argument("p", "1"))
+        template_variables["ad"] = self.ads_model.get_rand_ad()[0]
         if(user_info):
             template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
             template_variables["feeds"] = self.follow_model.get_user_all_follow_and_all_post_feeds(user_info.uid, current_page = p)        
@@ -1470,6 +1471,26 @@ class UpdateUserViewFollowHandler(BaseHandler):
                     "success": 0,
                 }))
 
+class GetYoukuHandler(BaseHandler):
+    def get(self, youku_id, template_variables = {}):
+
+        json_link = "http://v.youku.com/player/getPlayList/VideoIDS/"+youku_id
+        video_json = json.load(urllib2.urlopen(json_link))
+        video_logo = video_json[u'data'][0][u'logo']
+        video_title = video_json[u'data'][0][u'title']
+        youku_tip = self.render_string("tooltip/youku-tip.html", video_id=youku_id, video_logo=video_logo, video_title=video_title)
+        self.write(youku_tip)
 
 
+class GetUserHandler(BaseHandler):
+    def get(self, username, template_variables = {}):
+        user_info = self.current_user
+        view_user = self.user_model.get_user_by_username(username)
+        follow_users = self.follow_model.get_user_followers2(view_user.uid)
+        if(user_info):
+            follow = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
+        else:
+            follow = None
+        user_tip = self.render_string("tooltip/user-tip.html", user_info=user_info, follow=follow, view_user=view_user, follow_users=follow_users)
 
+        self.write(user_tip)

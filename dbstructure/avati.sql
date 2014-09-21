@@ -357,3 +357,16 @@ CREATE TABLE `icode` (
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `ads`
+-- ----------------------------
+DROP TABLE IF EXISTS `ads`;
+CREATE TABLE `ads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ad_type` int(11) DEFAULT NULL,
+  `show` int(11) DEFAULT NULL,
+  `img` text,
+  `link` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

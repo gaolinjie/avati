@@ -96,3 +96,7 @@ INSERT INTO `balance_type` VALUES (9, '发送谢意', '发送对', '的谢意');
 INSERT INTO `balance_type` VALUES (10, '收到谢意', '收到', '的谢意');
 INSERT INTO `balance_type` VALUES (11, '发送邀请', '发送', '邀请');
 INSERT INTO `balance_type` VALUES (12, '邀请成功', '邀请', '成功');
+
+INSERT INTO `ads` VALUES (1, 1, 1, 'http://ubmcmm.baidustatic.com/media/v1/0f000aJOW1ndC6vvtXV6Ss.jpg', '/');
+INSERT INTO `ads` VALUES (2, 1, 1, 'http://ubmcmm.baidustatic.com/media/v1/0f000Qb4PMQdgYzivvYf0f.gif', '/');
+INSERT INTO `ads` VALUES (3, 1, 1, 'http://ubmcmm.baidustatic.com/media/v1/0f00025NICUoQqsULGbqps.gif', '/');

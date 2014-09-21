@@ -3,6 +3,7 @@
 {% endblock %} 
 {% block stylesheet %}
 <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/tipped-3.2.0.1/css/tipped/tipped.css"/>
 {% endblock %} 
 {% block main %}
 <div class="col-xs-12 col-md-9">
@@ -21,14 +22,14 @@
               <span class="count">{{feed.post_up_num}}</span>
             </button>
           </div>
-                    <div class="user-avatar">
+                    <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}">
                         <a href="/u/{{feed.author_username}}">
                             <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
                         <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                            <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                             {{feed.feed_text}}
                         </div>
                         <div class="feed-title">
@@ -65,14 +66,14 @@
             </button>
 
           </div>
-                    <div class="user-avatar">
+                    <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}">
                         <a href="/u/{{feed.author_username}}">
                             <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
                         <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                            <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                             {{feed.feed_text}}
                         </div>
                         <div class="feed-title">
@@ -84,7 +85,7 @@
                 </div>
                 <div class="summary">
                     <div class="user-name">
-                        <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
+                        <a class="reply-user-link tipped_ajax_user" data-tipped="/get/user/{{feed.reply_user_username}}" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
                     </div>
                     <div class="summary-text">{{feed.reply_content|index_content_process}}</div>
                 </div>
@@ -174,7 +175,16 @@
             {% endfor %}
         </div>
         {% endif %}
+
+        {%if ad%}
+        <div class="ad-box box bottom-box">
+        <a class="ad-link" href="{{ad.link}}">
+        <img src="{{ad.img}}" border="0" width="221">
+        </a>
+        </div>
+        {%endif%}
     </div>
+
 </div>
 
 <div id="inviteJoinModal" class="modal fade">
@@ -310,6 +320,50 @@ $(".summary-text").each(function(){
 $(document).on('click', '.video-link',  function() {
     var video_id = $(this).attr('data-video');
     $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
-})
+});
+
+$('.video-link').hover( function () {
+    var X = $(this).position().top-103; 
+    var Y = $(this).position().left+83; 
+    var video_id = $(this).attr("data-video");
+    var video_link = $(this);
+    
+    $.getJSON('/get/youku/' + video_id , function (data) {
+    if (data.success != 0) {
+        var pop = '<div class="popover fade right in" role="tooltip" id="popover594219" style="top: '+X+'px; left: '+Y+'px; display: block;"><div class="arrow"></div><div class="popover-content"> <div class="video-spec-pic"><a href="javascript:;" title="" target="_blank"><img src="'+data.thumb+'" alt="'+data.title+'"/><i class="play-icon"></i></a></div><div class="video-spec-info"> <h4 class="video-spec-title"><a  href="" class="video-spec-title-link" target="_blank" title="'+data.title+'" >'+data.title+'</a></h4></div></div></div>';
+        $(pop).insertAfter(video_link);
+    }
+  });
+
+      
+    }, function () {
+        //$('.popover').hide();   
+});
+</script>
+<script type="text/javascript" src="/static/tipped-3.2.0.1/js/spinners/spinners.min.js"></script>
+<script type="text/javascript" src="/static/tipped-3.2.0.1/js/tipped/tipped.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function($) {
+    // loop over each element and create a tooltip using the data-attribute
+    $('.tipped_ajax_user').each(function() {
+      Tipped.create(this, { 
+            spinner: true,
+            ajax: true,
+            skin: 'white',
+            hook: 'topleft'
+         });
+
+      $('.tipped_ajax_youku').each(function() {
+      Tipped.create(this, { 
+            spinner: true,
+            ajax: true,
+            skin: 'white',
+            hook: 'topleft'
+         });
+    });
+    });
+
+  });
 </script>
 {% endblock %}

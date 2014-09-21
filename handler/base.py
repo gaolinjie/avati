@@ -129,6 +129,10 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.application.balance_model
 
     @property
+    def ads_model(self):
+        return self.application.ads_model
+
+    @property
     def balance_type_model(self):
         return self.application.balance_type_model
 
