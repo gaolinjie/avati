@@ -222,7 +222,7 @@ class SignupHandler(BaseHandler):
 
             params = { "api_user": "postmaster@mmmai-invite.sendcloud.org", \
                 "api_key" : "bRjboOZIVFUU9s0q",\
-                "from" : "noreply@mmmai.net", \
+                "from" : "noreply@mmmai.com", \
                 "to" : email, \
                 "fromname" : "买买买", \
                 "subject" : "邀请加入买买买", \
