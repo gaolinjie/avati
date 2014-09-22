@@ -223,9 +223,9 @@ class SignupHandler(BaseHandler):
             params = { "api_user": "postmaster@mmmai-invite.sendcloud.org", \
                 "api_key" : "bRjboOZIVFUU9s0q",\
                 "from" : "noreply@mmmai.com", \
-                "to" : email, \
+                "to" : form.email.data, \
                 "fromname" : "买买买", \
-                "subject" : "邀请加入买买买", \
+                "subject" : "欢迎加入买买买", \
                 "html": mail_content \
             }
 
