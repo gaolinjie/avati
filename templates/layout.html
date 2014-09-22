@@ -335,6 +335,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
 $(document).on('click', '.unlogin',  function() {
     $('#loginModal').modal('show');
     $('.signin-form').show();
+    $('.signup-form').hide();
     $('.signin-error').hide();
     $('.signup-error').hide();
     var link = $(this).attr('data-link');
