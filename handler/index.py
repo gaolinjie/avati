@@ -430,17 +430,17 @@ class ReplyHandler(BaseHandler):
             self.feed_model.add_new_feed(feed_info)
 
             # add notice: user 回答了问题
-            notice_info = {
-                "author_id": post.author_id,
-                "user_id": self.current_user["uid"],          
-                "post_id": post.id,
-                "reply_id": reply_id,
-                "notice_type": notice_type,
-                "created": time.strftime('%Y-%m-%d %H:%M:%S'),
-            }
-            self.notice_model.add_new_notice(notice_info)
-
-
+            if user_info.uid != post.author_id:
+                notice_info = {
+                    "author_id": post.author_id,
+                    "user_id": self.current_user["uid"],          
+                    "post_id": post.id,
+                    "reply_id": reply_id,
+                    "notice_type": notice_type,
+                    "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                }
+                self.notice_model.add_new_notice(notice_info)
+            
             # create @username notification
             for username in set(find_mentions(reply_content)):
                 mentioned_user = self.user_model.get_user_by_username(username)
@@ -535,13 +535,14 @@ class FollowHandler(BaseHandler):
 
                 if obj_type=='u':
                     # add notice: user 关注了你
-                    notice_info = {
-                        "author_id": obj_id,
-                        "user_id": user_info["uid"],           
-                        "notice_type": 15,
-                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
-                    }
-                    self.notice_model.add_new_notice(notice_info)
+                    if obj_id != user_info["uid"]:
+                        notice_info = {
+                            "author_id": obj_id,
+                            "user_id": user_info["uid"],           
+                            "notice_type": 15,
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                        }
+                        self.notice_model.add_new_notice(notice_info)
 
                     # update user_info
                     user = self.user_model.get_user_by_uid(obj_id)
@@ -568,14 +569,15 @@ class FollowHandler(BaseHandler):
                     self.post_model.update_post_by_post_id(post.id, {"follow_num": post.follow_num+1})
 
                     # add notice: user 关注了问题
-                    notice_info = {
-                        "author_id": post.author_id,
-                        "user_id": user_info["uid"],           
-                        "post_id": obj_id,
-                        "notice_type": notice_type,
-                        "created": time.strftime('%Y-%m-%d %H:%M:%S'),
-                    }
-                    self.notice_model.add_new_notice(notice_info)
+                    if post.author_id != user_info["uid"]:
+                        notice_info = {
+                            "author_id": post.author_id,
+                            "user_id": user_info["uid"],           
+                            "post_id": obj_id,
+                            "notice_type": notice_type,
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S'),
+                        }
+                        self.notice_model.add_new_notice(notice_info)
 
                     follows = self.follow_model.get_post_all_follows(obj_id)
                     if len(follows) > THRESHOLD:
