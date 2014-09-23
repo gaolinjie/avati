@@ -215,6 +215,7 @@ class FeedModel(Query):
                 post.content as post_content, \
                 post.post_type as post_type, \
                 post.thumb as post_thumb, \
+                post.up_num as post_up_num, \
                 post.reply_num as post_reply_num, \
                 post.created as post_created, \
                 post_user.username as post_user_username, \

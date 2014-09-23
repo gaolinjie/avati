@@ -18,6 +18,7 @@ import pprint
 import math
 import datetime 
 import os
+import requests
 
 from base import *
 from lib.variables import *
@@ -63,10 +64,9 @@ def do_logout(self):
 class SigninHandler(BaseHandler):
     def get(self, template_variables = {}):
         do_logout(self)
-        self.render("user/signin.html", **template_variables)
+        self.redirect("/?s=signin&e=1")
 
     def post(self, template_variables = {}):
-        print "ddddd"
         template_variables = {}
 
         # validate the fields
@@ -130,7 +130,7 @@ class SignoutHandler(BaseHandler):
 class SignupHandler(BaseHandler):
     def get(self, template_variables = {}):
         do_logout(self)
-        self.render("user/signup.html", **template_variables)
+        self.redirect("/?s=signup&e=1")
 
     def post(self, template_variables = {}):
         template_variables = {}
@@ -232,7 +232,6 @@ class SignupHandler(BaseHandler):
             url="https://sendcloud.sohu.com/webapi/mail.send.xml"
             r = requests.post(url, data=params)
             print r.text
-
 
         self.redirect(self.get_argument("next", "/"))
 
