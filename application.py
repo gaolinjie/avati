@@ -97,6 +97,7 @@ class Application(tornado.web.Application):
             (r"/update/user/view/follow", handler.index.UpdateUserViewFollowHandler),  
             (r"/get/youku/(.*)", handler.index.GetYoukuHandler),
             (r"/get/user/(.*)", handler.index.GetUserHandler),
+            (r"/get/tag/(.*)", handler.index.GetTagHandler),
             #(r".*", handler.index.PageNotFoundHandler)
         ]
 

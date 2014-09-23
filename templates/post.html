@@ -14,7 +14,7 @@
   <div class="question">
     <div class="topic-tags">
       {% for tag in tags.list %}
-      <a href="/t/{{tag.tag_name}}" class="label label-topic">{{tag.tag_name}}</a>
+      <a href="/t/{{tag.tag_name}}" class="label label-topic tipped_ajax_tag" data-tipped="/get/tag/{{tag.tag_name}}">{{tag.tag_name}}</a>
       {% endfor %}
     </div>
 
@@ -38,13 +38,13 @@
             </button>
             {% endif %}
           </div>
-      <div id="post-user-avatar" class="user-avatar">
+      <div id="post-user-avatar" class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{post.author_username}}">
         <a href="/u/{{post.author_username}}">
           <img src="{{post.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
       </div>
       <div class="user-title">
         <div class="user-name">
-          <a href="/u/{{post.author_username}}">{{post.author_username}}</a>
+          <a class="tipped_ajax_user" data-tipped="/get/user/{{post.author_username}}" href="/u/{{post.author_username}}">{{post.author_username}}</a>
           {%if post.author_sign%}，{{post.author_sign}}{%endif%}
         </div>
         <div class="topic-title">
@@ -143,7 +143,7 @@
           <div class="user-title">
             <div class="user-name">
               {% if reply.anon==0 %}
-              <a href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
+              <a class="tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}" href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
               {%if reply.author_sign%}，{{reply.author_sign}}{%endif%}
             {%else%}
             匿名用户
@@ -153,7 +153,7 @@
             <div class="answer-user-meta meta">
               {% if votes.list %}
             {% for vote in votes.list %}
-              <a href="/u/{{vote.author_username}}">{{vote.author_username}}</a>
+              <a href="/u/{{vote.author_username}}" class="tipped_ajax_user" data-tipped="/get/user/{{vote.author_username}}">{{vote.author_username}}</a>
               {%if vote!=votes.list[votes.list|length-1] %}、{%endif%}
             {% endfor %}
             等人赞同
@@ -164,7 +164,7 @@
             {% set i=i+1 %}
           </div>
           {% if reply.anon==0 %}
-          <div class="user-avatar">
+          <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}">
             <a href="/u/{{reply.author_username}}">
               <img src="{{ reply.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
           </div>
@@ -205,7 +205,7 @@
     <div class="user-wrapper">
       <div class="user-title">
         <div class="user-name">
-          <a href="/u/{{user_info.username}}">{{user_info.username}}</a>
+          <a href="/u/{{user_info.username}}" class="tipped_ajax_user" data-tipped="/get/user/{{user_info.username}}">{{user_info.username}}</a>
           {%if user_info.sign%}，{{user_info.sign}}{%endif%}
         </div>
         <div class="user-meta meta">
@@ -214,7 +214,7 @@
           <a class='anon' href="javascript:;">匿名</a>
         </div>
       </div>
-      <div class="user-avatar">
+      <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{user_info.username}}">
         <a href="/u/{{user_info.username}}">
           <img src="{{ user_info.avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img" ></a>
       </div>

@@ -1,7 +1,6 @@
 <div class="AjaxTippedUser">
-{%if view_user%}
     <div class="avatar">
-        <a href="/u/{{view_user.username}}"><img src="{{view_user.avatar}}" width="60" height="60">
+        <a href="/t/{{view_tag.name}}"><img src="{{view_tag.thumb or 'http://avati-static.qiniudn.com/tag.png'}}-thumb" width="60" height="60">
         <div class="border-overlay">
             <!-- [] -->
         </div>
@@ -9,10 +8,10 @@
     </div>
     <div class="info">
         <h1 class="has_font">
-            <a href="/u/{{view_user.username}}">{{view_user.username}}</a>
+            <a href="/t/{{view_tag.name}}">{{view_tag.name}}</a>
         </h1>
         <span class="albumCount">
-            获得：{{view_user.followers}} 关注，{{view_user.up_num}} 赞同，{{view_user.thank_num}} 感谢
+            获得： 关注， 赞同， 感谢
         </span>
         <div class="albums">
         	{%for follow_user in follow_users.list%}
@@ -24,21 +23,18 @@
                 </a>
             </div>
             {%endfor%}
-            {%if view_user != user_info%}
-            <a data-obj="{{view_user.uid}}" data-type="u" type="button" class="more btn {%if follow %}btn-danger {% else %} btn-success {% endif %} btn-xs tip-follow-user {%if user_info == none%}unlogin{%endif%}">
+
+            <a data-obj="{{view_tag.id}}" data-type="t" type="button" class="more btn {%if follow %}btn-danger {% else %} btn-success {% endif %} btn-xs tip-follow-tag {%if user_info == none%}unlogin{%endif%}">
             	{%if follow%}取消关注 {% else %} 关注{% endif %}
             </a>
-            {%endif%}
+
         </div>
     </div>
-    {%else%}
-    该用户不存在
-    {%endif%}
 </div>
-{%if user_info!=none and view_user!=none%}
+{%if user_info!=none%}
 <script type="text/javascript">
 
-  $(document).on('click', '.tip-follow-user',  function() {
+  $(document).on('click', '.tip-follow-tag',  function() {
         var obj_id = $(this).attr('data-obj');
             var obj_type = $(this).attr('data-type');
             var follow_btn = $(this);

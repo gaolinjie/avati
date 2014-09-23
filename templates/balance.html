@@ -27,7 +27,7 @@
           <td>{{balance.type_name}}</td>
           <td>{%if balance.amount>0%}+{%endif%}{{balance.amount}}</td>
           <td>{{balance.balance}}</td>
-          <td class="balance-description">{{balance.balance_text1}}{%if balance.user_id%} <a href="/u/{{balance.user_name}}">{{balance.user_name}}</a> {%endif%}{{balance.balance_text2}} > <a href="/p/{{balance.post_id}}{%if balance.reply_id%}#{{balance.reply_id}}{%endif%}">{{balance.post_title}}</a></td>
+          <td class="balance-description">{{balance.balance_text1}}{%if balance.user_id%} <a href="/u/{{balance.user_name}}" class=" tipped_ajax_user" data-tipped="/get/user/{{balance.user_name}}">{{balance.user_name}}</a> {%endif%}{{balance.balance_text2}} > <a href="/p/{{balance.post_id}}{%if balance.reply_id%}#{{balance.reply_id}}{%endif%}">{{balance.post_title}}</a></td>
         </tr>
         {%endfor%}
       </tbody>

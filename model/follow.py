@@ -270,6 +270,13 @@ class FollowModel(Query):
         field = "user.*"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
+    def get_tag_followers(self, view_tag, num = 6, current_page = 1):
+        where = "follow.obj_id = %s  AND follow.obj_type = 't'" % view_tag
+        join = "LEFT JOIN user ON follow.author_id = user.uid"
+        order = "user.reputation DESC, user.thank_num DESC, user.up_num DESC, user.created DESC"
+        field = "user.*"
+        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+
     def get_user_followees_count(self, view_user):
         where = "follow.author_id = %s AND follow.obj_id != %s AND follow.obj_type = 'u'" % (view_user, view_user)
         return self.where(where).count()

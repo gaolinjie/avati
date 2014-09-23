@@ -1488,11 +1488,26 @@ class GetUserHandler(BaseHandler):
     def get(self, username, template_variables = {}):
         user_info = self.current_user
         view_user = self.user_model.get_user_by_username(username)
+        if(view_user==None):
+            user_tip = self.render_string("tooltip/user-tip.html", user_info=user_info,  view_user=view_user)
+            self.write(user_tip)
+            return
         follow_users = self.follow_model.get_user_followers2(view_user.uid)
         if(user_info):
             follow = self.follow_model.get_follow(user_info.uid, view_user.uid, 'u')
         else:
             follow = None
         user_tip = self.render_string("tooltip/user-tip.html", user_info=user_info, follow=follow, view_user=view_user, follow_users=follow_users)
-
         self.write(user_tip)
+
+class GetTagHandler(BaseHandler):
+    def get(self, tagname, template_variables = {}):
+        user_info = self.current_user
+        view_tag = self.tag_model.get_tag_by_tag_name(tagname)
+        follow_users = self.follow_model.get_tag_followers(view_tag.id)
+        if(user_info):
+            follow = self.follow_model.get_follow(user_info.uid, view_tag.id, 't')
+        else:
+            follow = None
+        tag_tip = self.render_string("tooltip/tag-tip.html", user_info=user_info, follow=follow, view_tag=view_tag, follow_users=follow_users)
+        self.write(tag_tip)

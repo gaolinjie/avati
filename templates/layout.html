@@ -16,6 +16,7 @@
     {% block stylesheet %}{% endblock %}
     <link href="/static/css/main.css" rel="stylesheet">
     <link href="/static/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/tipped-3.2.0.1/css/tipped/tipped.css"/>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
@@ -392,6 +393,41 @@ $(document).on('click', '.nav-signup',  function() {
 $("#gender-switch").bootstrapSwitch();
 {%endif%}
     </script>
+    <script type="text/javascript" src="/static/tipped-3.2.0.1/js/spinners/spinners.min.js"></script>
+<script type="text/javascript" src="/static/tipped-3.2.0.1/js/tipped/tipped.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function($) {
+    // loop over each element and create a tooltip using the data-attribute
+    $('.tipped_ajax_user').each(function() {
+      Tipped.create(this, { 
+            spinner: true,
+            ajax: true,
+            skin: 'white',
+            hook: 'topleft'
+         });
+      });
+
+      $('.tipped_ajax_youku').each(function() {
+      Tipped.create(this, { 
+            spinner: true,
+            ajax: true,
+            skin: 'white',
+            hook: 'topleft'
+         });
+    });
+
+    $('.tipped_ajax_tag').each(function() {
+      Tipped.create(this, { 
+            spinner: true,
+            ajax: true,
+            skin: 'white',
+            hook: 'topleft'
+         });
+    });
+
+});
+</script>
 
 </body>
 </html>

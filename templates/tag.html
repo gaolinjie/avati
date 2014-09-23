@@ -61,7 +61,7 @@
                                 <div class="user-title">
                                     <div class="time">{{feed.created|pretty_date}}</div>
                                     <div class="user-meta meta">
-                                        <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                                        <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                                         {{feed.feed_text}}
                                     </div>
                                     <div class="feed-title">
@@ -94,7 +94,7 @@
                                 <div class="user-title">
                                     <div class="time">{{feed.created|pretty_date}}</div>
                                     <div class="user-meta meta">
-                                        <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                                        <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                                         {{feed.feed_text}}
                                     </div>
                                     <div class="feed-title">
@@ -106,7 +106,7 @@
                             </div>
                             <div class="summary">
                                 <div class="user-name">
-                                    <a class="reply-user-link" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
+                                    <a class="reply-user-link tipped_ajax_user" data-tipped="/get/user/{{feed.reply_user_username}}" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
                                 </div>
                                 <div class="summary-text">{{feed.reply_content|index_content_process}}</div>
                             </div>
@@ -147,7 +147,7 @@
                                 <div class="user-title">
                                     <div class="time">{{feed.created|pretty_date}}</div>
                                     <div class="user-meta meta">
-                                        <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                                        <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                                         {{feed.feed_text}}
                                     </div>
                                     <div class="feed-title">
@@ -197,7 +197,7 @@
                                 <div class="user-title">
                                     <div class="time">{{feed.created|pretty_date}}</div>
                                     <div class="user-meta meta">
-                                        <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                                        <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                                         {{feed.feed_text}}
                                     </div>
                                     <div class="feed-title">

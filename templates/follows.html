@@ -93,7 +93,7 @@
                 <div class="user-title">
                   <div class="time">{{feed.created|pretty_date}}</div>
                   <div class="user-meta meta">
-                    <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                    <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                     提出了问题
                   </div>
                   <div class="feed-title">
@@ -129,7 +129,7 @@
                 <div class="user-title">
                   <div class="time">{{feed.created|pretty_date}}</div>
                   <div class="user-meta meta">
-                    <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                    <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                     提出了问题
                   </div>
                   <div class="feed-title">
@@ -164,14 +164,14 @@
               </div>
 
               <div class="user-wrapper-f">
-                <div class="user-avatar-f">
+                <div class="user-avatar-f tipped_ajax_user" data-tipped="/get/user/{{feed.username}}">
                   <a href="/u/{{feed.username}}">
                     <img src="{{feed.avatar}}-avatar" width="50px" height="50px" alt="" class="avatar-img-f"></a>
                 </div>
                 <div class="user-title-f">
                   <div class="feed-title">
                     <h2>
-                      <a href="/u/{{feed.username}}">{{feed.username}}</a>
+                      <a class="tipped_ajax_user" data-tipped="/get/user/{{feed.username}}" href="/u/{{feed.username}}">{{feed.username}}</a>
                     </h2>
                   </div>
                   {% if feed.sign %}
@@ -213,14 +213,14 @@
               </div>
 
               <div class="user-wrapper-f">
-                <div class="user-avatar-f">
+                <div class="user-avatar-f tipped_ajax_user" data-tipped="/get/user/{{feed.username}}">
                   <a href="/u/{{feed.username}}">
                     <img src="{{feed.avatar}}-avatar" width="50px" height="50px" alt="" class="avatar-img-f"></a>
                 </div>
                 <div class="user-title-f">
                   <div class="feed-title">
                     <h2>
-                      <a href="/u/{{feed.username}}">{{feed.username}}</a>
+                      <a class="tipped_ajax_user" data-tipped="/get/user/{{feed.username}}" href="/u/{{feed.username}}">{{feed.username}}</a>
                     </h2>
                   </div>
                   {% if feed.sign %}

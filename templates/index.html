@@ -3,7 +3,6 @@
 {% endblock %} 
 {% block stylesheet %}
 <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="/static/tipped-3.2.0.1/css/tipped/tipped.css"/>
 {% endblock %} 
 {% block main %}
 <div class="col-xs-12 col-md-9">
@@ -339,31 +338,5 @@ $('.video-link').hover( function () {
     }, function () {
         //$('.popover').hide();   
 });
-</script>
-<script type="text/javascript" src="/static/tipped-3.2.0.1/js/spinners/spinners.min.js"></script>
-<script type="text/javascript" src="/static/tipped-3.2.0.1/js/tipped/tipped.js"></script>
-
-<script type="text/javascript">
-  $(document).ready(function($) {
-    // loop over each element and create a tooltip using the data-attribute
-    $('.tipped_ajax_user').each(function() {
-      Tipped.create(this, { 
-            spinner: true,
-            ajax: true,
-            skin: 'white',
-            hook: 'topleft'
-         });
-
-      $('.tipped_ajax_youku').each(function() {
-      Tipped.create(this, { 
-            spinner: true,
-            ajax: true,
-            skin: 'white',
-            hook: 'topleft'
-         });
-    });
-    });
-
-  });
 </script>
 {% endblock %}

@@ -142,12 +142,16 @@ class Filters():
         content = re.sub(r'([a-zA-z]+://[^\s]*.taobao.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link taobao-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*.tmall.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link tmall-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link web-link" href="\1" target="_blank"></a>', content)
+        # render @ mention links
+        content = re.sub(ur'@(?!_)(?!.*?_$)(?!\d+)([a-zA-Z0-9_\u4e00-\u9fa5]+)(\s|)', r'<a href="/u/\1"  class="tipped_ajax_user" data-tipped="/get/user/\1">@\1</a> ', content)
         return content
 
     def desktop_content_process(self, content):
         content = re.sub(r'([a-zA-z]+://[^\s]*.taobao.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link taobao-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*.tmall.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link tmall-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link web-link" href="\1" target="_blank"></a>', content)
+        # render @ mention links
+        content = re.sub(ur'@(?!_)(?!.*?_$)(?!\d+)([a-zA-Z0-9_\u4e00-\u9fa5]+)(\s|)', r'<a href="/u/\1"  class="tipped_ajax_user" data-tipped="/get/user/\1">@\1</a> ', content)
         return content
 
     def mobile_content_process(self, content):
