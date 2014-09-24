@@ -215,25 +215,39 @@ class NewHandler(BaseHandler):
         # process tags
         tagStr = form.tag.data
         if tagStr:
-            print tagStr
             tagNames = tagStr.split(',')  
             for tagName in tagNames:  
                 tag = self.tag_model.get_tag_by_tag_name(tagName)
                 if tag:
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag.id})
-                    self.tag_model.update_tag_by_tag_id(tag.id, {"post_num": tag.post_num+1})
+                    if(post_type == 'q'):
+                        self.tag_model.update_tag_by_tag_id(tag.id, {"question_num": tag.question_num+1})
+                    else:
+                        self.tag_model.update_tag_by_tag_id(tag.id, {"post_num": tag.post_num+1})
                 else:
-                    tag_id = self.tag_model.add_new_tag({
-                        "name": tagName, 
-                        "post_num": 1, 
-                        "is_new": 1, 
-                        "post_add": post_id, 
-                        "user_add":  self.current_user["uid"], 
-                        "created": time.strftime('%Y-%m-%d %H:%M:%S')
-                        })
+                    if(post_type == 'q'):
+                        tag_info = {
+                            "name": tagName, 
+                            "question_num": 1, 
+                            "is_new": 1, 
+                            "post_add": post_id, 
+                            "user_add":  self.current_user["uid"], 
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                        }
+                    else:
+                        tag_info = {
+                            "name": tagName, 
+                            "post_num": 1, 
+                            "is_new": 1, 
+                            "post_add": post_id, 
+                            "user_add":  self.current_user["uid"], 
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                        }                  
+                    tag_id = self.tag_model.add_new_tag(tag_info)
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
                     category = self.category_model.get_category_by_id(1)
                     self.category_model.update_category_by_id(1, {"tag_num":category.tag_num+1})
+
 
         # create @username notification
         for username in set(find_mentions(form.content.data)):
@@ -322,7 +336,10 @@ class EditHandler(BaseHandler):
 
         tags = self.post_tag_model.get_post_all_tags(post_id)
         for tag in tags["list"]:
-                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"post_num": tag.tag_post_num-1})
+            if(post_type == 'q'):
+                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"question_num": tag.question_num-1})
+            else:
+                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"post_num": tag.post_num-1})
         self.post_tag_model.delete_post_tag_by_post_id(post_id)
         # process tags
         tagStr = form.tag.data
@@ -332,16 +349,30 @@ class EditHandler(BaseHandler):
                 tag = self.tag_model.get_tag_by_tag_name(tagName)
                 if tag:
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag.id})
-                    self.tag_model.update_tag_by_tag_id(tag.id, {"post_num": tag.post_num+1})
+                    if(post_type == 'q'):
+                        self.tag_model.update_tag_by_tag_id(tag.id, {"question_num": tag.question_num+1})
+                    else:
+                        self.tag_model.update_tag_by_tag_id(tag.id, {"post_num": tag.post_num+1})
                 else:
-                    tag_id = self.tag_model.add_new_tag({
-                        "name": tagName, 
-                        "post_num": 1, 
-                        "is_new": 1, 
-                        "post_add": post_id, 
-                        "user_add":  self.current_user["uid"], 
-                        "created": time.strftime('%Y-%m-%d %H:%M:%S')
-                        })
+                    if(post_type == 'q'):
+                        tag_info = {
+                            "name": tagName, 
+                            "question_num": 1, 
+                            "is_new": 1, 
+                            "post_add": post_id, 
+                            "user_add":  self.current_user["uid"], 
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                        }
+                    else:
+                        tag_info = {
+                            "name": tagName, 
+                            "post_num": 1, 
+                            "is_new": 1, 
+                            "post_add": post_id, 
+                            "user_add":  self.current_user["uid"], 
+                            "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                        }                  
+                    tag_id = self.tag_model.add_new_tag(tag_info)
                     self.post_tag_model.add_new_post_tag({"post_id": post_id, "tag_id": tag_id})
                     category = self.category_model.get_category_by_id(1)
                     self.category_model.update_category_by_id(1, {"tag_num":category.tag_num+1})
@@ -524,6 +555,9 @@ class FollowHandler(BaseHandler):
                     user = self.user_model.get_user_by_uid(obj_id)
                     self.user_model.update_user_info_by_user_id(obj_id, {"followers": user.followers-1})
                     self.user_model.update_user_info_by_user_id(user_info.uid, {"followees": user_info.followees-1})
+                if obj_type=='t':
+                    tag = self.tag_model.get_tag_by_tag_id(obj_id)
+                    self.tag_model.update_tag_by_tag_id(tag.id, {"follow_num": tag.follow_num-1})
             else:
                 follow_info = {
                     "author_id": user_info["uid"],
@@ -532,6 +566,10 @@ class FollowHandler(BaseHandler):
                     "created": time.strftime('%Y-%m-%d %H:%M:%S')
                 }
                 self.follow_model.add_new_follow(follow_info)
+
+                if obj_type=='t':
+                    tag = self.tag_model.get_tag_by_tag_id(obj_id)
+                    self.tag_model.update_tag_by_tag_id(tag.id, {"follow_num": tag.follow_num+1})
 
                 if obj_type=='u':
                     # add notice: user 关注了你

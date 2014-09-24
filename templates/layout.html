@@ -397,6 +397,11 @@ $("#gender-switch").bootstrapSwitch();
 <script type="text/javascript" src="/static/tipped-3.2.0.1/js/tipped/tipped.js"></script>
 
 <script type="text/javascript">
+$(document).on('click', '.video-link',  function() {
+    var video_id = $(this).attr('data-video');
+    $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
+});
+
   $(document).ready(function($) {
     // loop over each element and create a tooltip using the data-attribute
     $('.tipped_ajax_user').each(function() {

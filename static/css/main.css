@@ -1997,7 +1997,7 @@ background: #fff;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(100,100,100,.2);
 }
 .AjaxTippedUser .avatar {
   float: left;
@@ -2064,7 +2064,7 @@ background: #fff;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(100,100,100,.2);
 }
 .AjaxTippedYouku .avatar {
   float: left;

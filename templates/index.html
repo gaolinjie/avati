@@ -315,28 +315,5 @@ $(".summary-text").each(function(){
                   text.html(str.substring(0,textLeng)+"...");
             } 
     });
-
-$(document).on('click', '.video-link',  function() {
-    var video_id = $(this).attr('data-video');
-    $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
-});
-
-$('.video-link').hover( function () {
-    var X = $(this).position().top-103; 
-    var Y = $(this).position().left+83; 
-    var video_id = $(this).attr("data-video");
-    var video_link = $(this);
-    
-    $.getJSON('/get/youku/' + video_id , function (data) {
-    if (data.success != 0) {
-        var pop = '<div class="popover fade right in" role="tooltip" id="popover594219" style="top: '+X+'px; left: '+Y+'px; display: block;"><div class="arrow"></div><div class="popover-content"> <div class="video-spec-pic"><a href="javascript:;" title="" target="_blank"><img src="'+data.thumb+'" alt="'+data.title+'"/><i class="play-icon"></i></a></div><div class="video-spec-info"> <h4 class="video-spec-title"><a  href="" class="video-spec-title-link" target="_blank" title="'+data.title+'" >'+data.title+'</a></h4></div></div></div>';
-        $(pop).insertAfter(video_link);
-    }
-  });
-
-      
-    }, function () {
-        //$('.popover').hide();   
-});
 </script>
 {% endblock %}

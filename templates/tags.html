@@ -16,7 +16,7 @@
             {%for tag in tags%}
             {%if tag.category==category.id%}
             <li>
-                <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
+                <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%} tipped_ajax_tag" data-tipped="/get/tag/{{tag.name}}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
             </li>
             {%endif%}
             {%endfor%}
