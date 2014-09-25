@@ -62,7 +62,7 @@
       {% if post.author_id != user_info.uid %}
       <a class="thank {% if thank %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if thank == none or user_info == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="post">{% if thank %}已感谢{% else %}感谢{% endif %}</a>
       <span class="bullet">•</span>
-      <a class="report {% if report %}reported{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if report == none or user_info == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="post">{% if report %}已举报{% else %}举报{% endif %}</a>
+      <a id="rp{{post.id}}" class="report {% if report %}reported{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if report == none or user_info == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{post.id}}" data-type="post" data-toggle="modal" data-target="#reportPostModal">{% if report %}已举报{% else %}举报{% endif %}</a>
       <span class="bullet">•</span>
       {% endif %}
       <span class="time">{{post.created|pretty_date}}</span>
@@ -175,7 +175,7 @@
           {% if reply.author_id != user_info.uid %}
           <a class="thank {% if reply.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if reply.reply_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
           <span class="bullet">•</span>
-          <a class="report {% if reply.reply_report_id %}reported{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if reply.reply_report_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="reply">{% if reply.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+          <a id="rr{{reply.id}}" class="report {% if reply.reply_report_id %}reported{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if reply.reply_report_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{reply.id}}" data-type="reply" data-toggle="modal" data-target="#reportReplyModal">{% if reply.reply_report_id %}已举报{% else %}举报{% endif %}</a>
           <span class="bullet">•</span>
           {% endif %}
           <span class="time">{{reply.created|pretty_date}}</span>
@@ -323,6 +323,102 @@
     </div>
   </div>
 </div>
+
+<div id="reportReplyModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">你确定要举报这个{% if post.post_type=='q' %}答案{% else %}评论{% endif %}吗？</h4>
+      </div>
+      <div class="modal-body">
+      <div class="header">如果该{% if post.post_type=='q' %}答案{% else %}评论{% endif %}符合下列情况，请举报：</div>
+        <ul class="options clearfix">
+    <li class="">
+        <label>
+            广告等垃圾信息
+        </label>
+    </li>
+    <li class="">
+        <label>
+            不友善内容，违反法律法规，不宜公开讨论的政治内容
+        </label>
+    </li>
+    <li class="">
+        <label>
+            问题已失效或过期
+        </label>
+        <div class="description visible-if-checked">
+            提问语境不再成立，失去时效，或其他客观条件变化导致问题不再需要更多讨论
+        </div>
+    </li>
+    <li class="">
+        <label>
+            其他（可自行填写）
+        </label>
+    </li>
+</ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success" data-id="0">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="reportPostModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">
+          你确定要举报这个{% if post.post_type=='q' %}问题{% else %}文章{% endif %}吗？
+        </h4>
+      </div>
+     <div class="modal-body">
+      <div class="header">如果该{% if post.post_type=='q' %}问题{% else %}文章{% endif %}符合下列情况，请举报：</div>
+        <ul class="options clearfix">
+    <li class="">
+        <label>
+            广告等垃圾信息
+        </label>
+    </li>
+    <li class="">
+        <label>
+            不友善内容，违反法律法规，不宜公开讨论的政治内容
+        </label>
+    </li>
+    <li class="">
+        <label>
+            问题已失效或过期
+        </label>
+        <div class="description visible-if-checked">
+            提问语境不再成立，失去时效，或其他客观条件变化导致问题不再需要更多讨论
+        </div>
+    </li>
+    <li class="">
+        <label>
+            其他（可自行填写）
+        </label>
+    </li>
+</ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success" data-id="0">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {% endblock %}
 
 
@@ -663,18 +759,55 @@ $(document).on('click', '.report',  function() {
   var report_type = $(this).attr('data-type');
   var report_text = $(this);
 
+   if (report_type=='reply') {
+  $('#reportReplyModal .btn-success').attr('data-id', report_id);
+ }
+ else {
+  $('#reportPostModal .btn-success').attr('data-id', report_id);
+ }
+  return;
+
   if (report_text.text()=='已举报') {
     return;
   }
   
+  
+});
+
+$(document).on('click', '#reportReplyModal .btn-success',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = 'reply';
+  var report_text = $('#rr'+report_id);
+
   $.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
     if (data.success != 0) {
       report_text.text('已举报'); 
       report_text.removeAttr("href");
+      report_text.removeAttr("data-toggle");
+      report_text.removeAttr("data-target");
       report_text.addClass("reported");
+      $('#reportReplyModal').modal('hide');
     }
   });
 });
+
+$(document).on('click', '#reportPostModal .btn-success',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = 'post';
+  var report_text = $('#rp'+report_id);
+
+$.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
+    if (data.success != 0) {
+      report_text.text('已举报'); 
+      report_text.removeAttr("href");
+      report_text.removeAttr("data-toggle");
+      report_text.removeAttr("data-target");
+      report_text.addClass("reported");
+      $('#reportPostModal').modal('hide');
+    }
+  });
+});
+
 
 
 $(document).on('click', '.anon',  function() {

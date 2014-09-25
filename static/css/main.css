@@ -1219,6 +1219,54 @@ background-color: #eee;
  border-radius: 6px 6px  0 0;	
 }
 
+#reportReplyModal .modal-dialog {
+	margin-top: 300px;
+	width: 400px;
+}
+
+#reportReplyModal .modal-dialog .modal-header h4 {
+	font-weight: 100;
+}
+
+#reportReplyModal .modal-dialog .modal-header{
+ background-color: #f8f8f8; 
+ border-radius: 6px 6px  0 0;	
+}
+
+#reportReplyModal ul {
+	margin-left: -20px;
+}
+
+#reportReplyModal .modal-body .header {
+font-size: 15px;
+line-height: 2;
+margin-bottom: 10px;
+}
+
+#reportPostModal .modal-dialog {
+	margin-top: 300px;
+	width: 400px;
+}
+
+#reportPostModal .modal-dialog .modal-header h4 {
+	font-weight: 100;
+}
+
+#reportPostModal .modal-dialog .modal-header{
+ background-color: #f8f8f8; 
+ border-radius: 6px 6px  0 0;	
+}
+
+#reportPostModal ul {
+	margin-left: -20px;
+}
+
+#reportPostModal .modal-body .header {
+font-size: 15px;
+line-height: 2;
+margin-bottom: 10px;
+}
+
 a:focus {
 outline: 0;
 text-decoration: none;
