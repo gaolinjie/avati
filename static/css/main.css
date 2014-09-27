@@ -270,10 +270,6 @@ margin-top: 10px;
 	margin-bottom: 20px;
 }
 
-.topic-content{
-	float: left;
-}
-
 .zm-votebar {
 position: absolute;
 left: -50px;
@@ -1193,32 +1189,16 @@ text-decoration: none;
 background-color: #eee;
 }
 
-
-
-#delReplyModal .modal-dialog {
+#delModal .modal-dialog {
 	margin-top: 100px;
 	width: 400px;
 }
 
-#delReplyModal .modal-dialog .modal-header h4 {
+#delModal .modal-dialog .modal-header h4 {
 	font-weight: 100;
 }
 
-#delReplyModal .modal-dialog .modal-header{
- background-color: #f8f8f8; 
- border-radius: 6px 6px  0 0;	
-}
-
-#delPostModal .modal-dialog {
-	margin-top: 100px;
-	width: 400px;
-}
-
-#delPostModal .modal-dialog .modal-header h4 {
-	font-weight: 100;
-}
-
-#delPostModal .modal-dialog .modal-header{
+#delModal .modal-dialog .modal-header{
  background-color: #f8f8f8; 
  border-radius: 6px 6px  0 0;	
 }

@@ -71,7 +71,7 @@
       <a class="edit" href="/edit/{{post.id}}" data-id="{{post.id}}" data-type="post">修改</a>
       {% if replys.list|length ==0 %}
       <span class="bullet">•</span>
-      <a class="delete" href="javascript:;" data-id="{{post.id}}" data-type="post" data-toggle="modal" data-target="#delPostModal">删除</a>
+      <a class="delete" href="javascript:;" data-id="{{post.id}}" data-type="p{{post.post_type}}" data-toggle="modal" data-target="#delModal">删除</a>
       {% endif %}
         {% endif %}
     </div>
@@ -183,7 +183,7 @@
           <span class="bullet">•</span>
           <a class="edit" href="javascript:;" data-id="{{reply.id}}" data-type="reply">修改</a>
           <span class="bullet">•</span>
-          <a class="delete" href="javascript:;" data-id="{{reply.id}}" data-type="reply" data-toggle="modal" data-target="#delReplyModal">删除</a>
+          <a class="delete" href="javascript:;" data-id="{{reply.id}}" data-type="r{{post.post_type}}" data-toggle="modal" data-target="#delModal">删除</a>
           {% endif %}
         </div>
       </div>
@@ -278,28 +278,7 @@
 
 </div>
 
-<div id="delReplyModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">你确定要删除自己的答案吗？</h4>
-      </div>
-      <div class="modal-body">
-        <p>如果选择确认，你的答案将会被永久删除。</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-success" data-id="0">确认</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="delPostModal" class="modal fade">
+<div id="delModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -308,17 +287,17 @@
           <span class="sr-only">Close</span>
         </button>
         <h4 class="modal-title">
-          你确定要删除自己的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}吗？
+          你确定要删除自己的问题吗？
         </h4>
       </div>
       <div class="modal-body">
         <p>
-          如果选择确认，你的{% if post.post_type=='q' %}问题{% else %}文章{% endif %}将会被永久删除。
+          如果选择确认，你的问题将会被永久删除。
         </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-success" data-id="0">确认</button>
+        <button type="button" class="btn btn-success" data-id="" data-type="">确认</button>
       </div>
     </div>
   </div>
@@ -672,32 +651,47 @@ $(document).on('click', '.anon',  function() {
 $(document).on('click', '.delete',  function() {
   var delete_id = $(this).attr('data-id');
   var delete_type = $(this).attr('data-type');
+  $('#delModal .btn-success').attr('data-id', delete_id);
+  $('#delModal .btn-success').attr('data-type', delete_type);
  
- if (delete_type=='reply') {
-  $('#delReplyModal .btn-success').attr('data-id', delete_id);
- }
- else {
-  $('#delPostModal .btn-success').attr('data-id', delete_id);
- }
+ var text1 = '';
+  var text2 = '';
+  if (report_type=='pq') {
+    text1 = '你确定要删除自己的问题吗？';
+    text2 = '如果选择确认，你的问题将会被永久删除。'
+  } else if (report_type=='pp') {
+    text1 = '你确定要删除自己的文章吗？';
+    text2 = '如果选择确认，你的文章将会被永久删除。'
+  } else if (report_type=='rq') {
+    text1 = '你确定要删除自己的答案吗？';
+    text2 = '如果选择确认，你的答案将会被永久删除。'
+  } else if (report_type=='rp') {
+    text1 = '你确定要删除自己的评论吗？';
+    text2 = '如果选择确认，你的评论将会被永久删除。'
+  }
+  $('#delModal .modal-title').text(text1);
+  $('#delModal .modal-body p').text(text2);  
 });
 
-$(document).on('click', '#delReplyModal .btn-success',  function() {
+$(document).on('click', '#delModal .btn-success',  function() {
   var delete_id = $(this).attr('data-id');
+  var delete_type = $(this).attr('data-type');
 
- $.getJSON('/delete/reply/' + delete_id , function (data) {
+if (delete_type=='pq' || delete_type=='pp') {
+  $.getJSON('/delete/post/' + delete_id , function (data) {
     if (data.success != 0) {
-      $('#'+delete_id).hide();
-      $('#delReplyModal').modal('hide');
+      window.location.replace("/");
     }
   });
-});
-
-$(document).on('click', '#delPostModal .btn-success',  function() {
-  var delete_id = $(this).attr('data-id');
-
- $.getJSON('/delete/post/' + delete_id , function (data) {
-  window.location.replace("/");
+} else {
+  $.getJSON('/delete/reply/' + delete_id , function (data) {
+    if (data.success != 0) {
+      $('#'+delete_id).hide();
+      $('#delModal').modal('hide');
+    }
   });
+}
+ 
 });
 
 $(document).on('click', '#inviteEmail',  function() {
