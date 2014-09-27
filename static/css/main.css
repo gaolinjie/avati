@@ -261,13 +261,17 @@ margin-top: 10px;
 }
 .answer-text {
 	float: left;
-	margin: 20px 0;
+	margin: 10px 0 0 0;
 }
 
 .answer-meta  {
 	float: left;
 	clear: both;
 	margin-bottom: 20px;
+}
+
+.topic-content{
+	float: left;
 }
 
 .zm-votebar {

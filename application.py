@@ -135,6 +135,9 @@ class Application(tornado.web.Application):
         self.balance_model = self.loader.use("balance.model")
         self.balance_type_model = self.loader.use("balance_type.model")
         self.ads_model = self.loader.use("ads.model")
+        self.comment_model = self.loader.use("comment.model")
+        self.vote_comment_model = self.loader.use("vote_comment.model")
+        self.report_comment_model = self.loader.use("report_comment.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)
