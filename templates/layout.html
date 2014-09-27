@@ -243,6 +243,54 @@ onclick="this.form.target='_blank';return true;" style="display:none">
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 {%endif%}
+
+<div id="reportModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">
+          你确定要举报这个问题吗？
+        </h4>
+      </div>
+     <div class="modal-body">
+      <div class="header">如果该问题符合下列情况，请举报：</div>
+        <ul class="options clearfix">
+    <li class="">
+        <label>
+            广告等垃圾信息
+        </label>
+    </li>
+    <li class="">
+        <label>
+            不友善内容，违反法律法规，不宜公开讨论的政治内容
+        </label>
+    </li>
+    <li class="">
+        <label>
+            问题已失效或过期
+        </label>
+        <div class="description visible-if-checked">
+            提问语境不再成立，失去时效，或其他客观条件变化导致问题不再需要更多讨论
+        </div>
+    </li>
+    <li class="">
+        <label>
+            其他（可自行填写）
+        </label>
+    </li>
+</ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-success" data-id="" data-type="">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
     <!-- /container -->
 
@@ -446,6 +494,58 @@ $(function () {
     animationOutSpeed: 200, // Animation out speed (ms)
     scrollText: '回顶部', // Text for element
     activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+  });
+});
+
+$(document).on('click', '.report',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = $(this).attr('data-type');
+  var report_text = $(this);
+
+  $('#reportModal .btn-success').attr('data-id', report_id);
+  $('#reportModal .btn-success').attr('data-type', report_type);
+
+  var text1 = '';
+  var text2 = '';
+  if (report_type=='pq') {
+    text1 = '你确定要举报这个问题吗？';
+    text2 = '如果该问题符合下列情况，请举报：'
+  } else if (report_type=='pp') {
+    text1 = '你确定要举报这篇文章吗？';
+    text2 = '如果该文章符合下列情况，请举报：'
+  } else if (report_type=='rq') {
+    text1 = '你确定要举报这个答案吗？';
+    text2 = '如果该答案符合下列情况，请举报：'
+  } else if (report_type=='rp') {
+    text1 = '你确定要举报这个评论吗？';
+    text2 = '如果该评论符合下列情况，请举报：'
+  }
+  $('#reportModal .modal-title').text(text1);
+  $('#reportModal .header').text(text2);  
+});
+
+$(document).on('click', '#reportModal .btn-success',  function() {
+  var report_id = $(this).attr('data-id');
+  var report_type = $(this).attr('data-type');
+  var report_text = $('#'+report_type+report_id);
+
+  var obj_type  = '';
+  if (report_type=='pq' || report_type=='pp') {
+    obj_type='post';
+  } else {
+    obj_type='reply';
+  }
+
+$.getJSON('/report/' + report_id + '?type=' + obj_type, function (data) {
+    if (data.success != 0) {
+      report_text.text('已举报'); 
+      report_text.removeAttr("href");
+      report_text.removeAttr("data-toggle");
+      report_text.removeAttr("data-target");
+      report_text.addClass("reported");
+      report_text.addClass("report");
+      $('#reportModal').modal('hide');
+    }
   });
 });
 </script>

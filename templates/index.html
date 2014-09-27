@@ -49,7 +49,7 @@
                     <span class="bullet">•</span>
                     <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                     <span class="bullet">•</span>
-                    <a class="report {% if feed.post_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                    <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
                     {% endif %}
                 </div>
             </div>
@@ -58,7 +58,7 @@
         {%if feed.feed_type==2 or feed.feed_type==5 or feed.feed_type==6 or feed.feed_type==8 or feed.feed_type==11 or feed.feed_type==12%}
             <div class="feed">
                 <div class="user-wrapper">
-                <div class="zm-votebar">
+                <div class="zm-votebar post-votebar">
             <button class="up vote-btn vote-self-btn"  title="{{feed.reply_up_num}} 人赞同">
               <span class="label">赞同</span>
               <span class="count">{{feed.reply_up_num}}</span>
@@ -96,7 +96,7 @@
                     <span class="bullet">•</span>
                     <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                     <span class="bullet">•</span>
-                    <a class="report {% if feed.reply_report_id %}reported{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+
                     {% endif %}
                 </div>
             </div>
@@ -252,24 +252,6 @@ $(document).on('click', '.thank',  function() {
       thank_text.text('已感谢'); 
       thank_text.removeAttr("href");
       thank_text.addClass("thanked");
-    }
-  });
-});
-
-$(document).on('click', '.report',  function() {
-  var report_id = $(this).attr('data-id');
-  var report_type = $(this).attr('data-type');
-  var report_text = $(this);
-
-  if (report_text.text()=='已举报') {
-    return;
-  }
-  
-  $.getJSON('/report/' + report_id + '?type=' + report_type, function (data) {
-    if (data.success != 0) {
-      report_text.text('已举报'); 
-      report_text.removeAttr("href");
-      report_text.addClass("reported");
     }
   });
 });

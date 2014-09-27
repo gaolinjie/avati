@@ -1048,8 +1048,8 @@ height: 167px;
 #rPostBtn {
 position: absolute;
 right: 65px;
-margin-top: 5px;
-padding: 3px 10px;
+margin-top: 6px;
+padding: 5px 10px;
 }
 
 .note-editor .note-editable {
@@ -1223,49 +1223,25 @@ background-color: #eee;
  border-radius: 6px 6px  0 0;	
 }
 
-#reportReplyModal .modal-dialog {
+#reportModal .modal-dialog {
 	margin-top: 100px;
 	width: 400px;
 }
 
-#reportReplyModal .modal-dialog .modal-header h4 {
+#reportModal .modal-dialog .modal-header h4 {
 	font-weight: 100;
 }
 
-#reportReplyModal .modal-dialog .modal-header{
+#reportModal .modal-dialog .modal-header{
  background-color: #f8f8f8; 
  border-radius: 6px 6px  0 0;	
 }
 
-#reportReplyModal ul {
+#reportModal ul {
 	margin-left: -20px;
 }
 
-#reportReplyModal .modal-body .header {
-font-size: 15px;
-line-height: 2;
-margin-bottom: 10px;
-}
-
-#reportPostModal .modal-dialog {
-	margin-top: 100px;
-	width: 400px;
-}
-
-#reportPostModal .modal-dialog .modal-header h4 {
-	font-weight: 100;
-}
-
-#reportPostModal .modal-dialog .modal-header{
- background-color: #f8f8f8; 
- border-radius: 6px 6px  0 0;	
-}
-
-#reportPostModal ul {
-	margin-left: -20px;
-}
-
-#reportPostModal .modal-body .header {
+#reportModal .modal-body .header {
 font-size: 15px;
 line-height: 2;
 margin-bottom: 10px;
