@@ -139,6 +139,23 @@ class PostHandler(BaseHandler):
 
         self.render("post.html", **template_variables)
 
+
+class GetTagsHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        user_info = self.current_user
+        template_variables["user_info"] = user_info
+        allTags = self.tag_model.get_all_tags()
+        jarray = []
+        for tag in allTags:
+            jobject = {
+                "name": tag.name,
+            }
+            jarray.append(jobject)
+        print lib.jsonp.print_JSON({"tags": jarray})
+
+        self.write(lib.jsonp.print_JSON({"tags": jarray}))
+        
+
 class NewHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user

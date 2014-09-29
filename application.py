@@ -98,6 +98,7 @@ class Application(tornado.web.Application):
             (r"/get/youku/(.*)", handler.index.GetYoukuHandler),
             (r"/get/user/(.*)", handler.index.GetUserHandler),
             (r"/get/tag/(.*)", handler.index.GetTagHandler),
+            (r"/get/tags", handler.index.GetTagsHandler),
             #(r".*", handler.index.PageNotFoundHandler)
         ]
 

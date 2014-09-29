@@ -2,9 +2,9 @@
 <title>提问 or 发帖 - 买买买</title>
 {% endblock %} {% block stylesheet %}
 <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
-<link href="/static/summernote-0.5.1-dist/summernote.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.11.0/jquery-ui.css">
-<link href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+<link href="/static/summernote-0.5.2-dist/summernote.css" rel="stylesheet">
+<link rel="stylesheet" href="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/css/tokenfield-typeahead.min.css">
+<link rel="stylesheet" href="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/css/bootstrap-tokenfield.min.css">
 {% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="new">
@@ -28,8 +28,7 @@
                         <div id="qSummernote" class="description"></div>
                         <input type="hidden" name="content" id="qContentText" value=""></div>
                     <div class="tag">
-                        <input type="hidden" name="tag" id="qSingleField" data-all="{{allTagStr}}" value="">
-                        <ul id="qTags" class=""></ul>
+                        <input type="text"  class="tokenfield" class="form-control" id="tokenfield-typeahead" value="" placeholder="添加合适的标签，让更多的人发现" data-all="{{allTagStr}}" />
                     </div>
                 </form>
             </div>
@@ -43,8 +42,7 @@
                         <div id="pSummernote" class="description"></div>
                         <input type="hidden" name="content" id="pContentText" value=""></div>
                     <div class="tag">
-                        <input type="hidden" name="tag" id="pSingleField" value="">
-                        <ul id="pTags" class=""></ul>
+                        <input type="text" class="tokenfield" id="pSingleField" name="tag" value="" />
                     </div>
                 </form>
             </div>
@@ -120,11 +118,10 @@
     </div>
 </div>
 {% endblock %} {% block javascript %}
-<script src="/static/jquery-ui-1.11.0/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="/static/aehlke-tag-it-1d84585/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/summernote-0.5.2-dist/summernote.min.js"></script>
 <script src="/static/summernote-0.5.2-dist/summernote-zh-CN.js"></script>
-
+<script src="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/bootstrap-tokenfield.min.js"></script>
+<script type="text/javascript" src="/static/sliptree-bootstrap-tokenfield-ec7bf65/docs-assets/js/typeahead.bundle.min.js" charset="UTF-8"></script> 
 <script>
 $('#type_tab a').click(function(e) {
     e.preventDefault()
@@ -208,27 +205,6 @@ $(document).on('click', '#pPostBtn', function() {
 </script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    var str = $('#qSingleField').attr('data-all');
-    var sampleTags =  str.split(",");
-
-    $("#qTags").tagit({
-        placeholderText: '添加合适的标签',
-        availableTags: sampleTags,
-        singleField: true,
-        allowSpaces: true, //标签中是否允许空格
-        singleFieldNode: $('#qSingleField') //将值保存到mySingleField元素
-    });
-
-    $("#pTags").tagit({
-        placeholderText: '添加合适的标签',
-        availableTags: sampleTags,
-        singleField: true,
-        allowSpaces: true, //标签中是否允许空格
-        singleFieldNode: $('#pSingleField') //将值保存到mySingleField元素
-    });
-});
-
 $(document).on('click', '#inviteEmail',  function() {
   var email = $('#inviteEmailInput').val();
 
@@ -242,5 +218,52 @@ $(document).on('click', '#inviteEmail',  function() {
     }
   });
 });
+
+
+var engine = new Bloodhound({
+        remote: {
+            url: '/get/tags',
+            filter: function (response) {
+                var tagged_tag = $('#tokenfield-typeahead').tokenfield('getTokens');
+                return $.map(response.tags, function (tag) {
+                    var exists = false;
+                    for (i=0; i < tagged_tag.length; i++) {
+                        if (tag.name == tagged_tag[i].value) {
+                            var exists = true;
+                        }
+                    }
+                    if (!exists) {
+                        return {
+                            value: tag.name,
+                        };
+                    }
+                });
+            }
+        },
+        datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+    });
+
+    engine.initialize();
+
+    $('#tokenfield-typeahead').tokenfield(
+        {
+  typeahead: [null, { name: 'tags',
+  displayKey: 'value',
+  source: engine.ttAdapter() }]
+})
+    .on('tokenfield:createtoken', function (e) {
+        var existingTokens = $(this).tokenfield('getTokens');
+        if (existingTokens.length) {
+            $.each(existingTokens, function(index, token) {
+                if (token.value === e.attrs.value) {
+                    e.preventDefault();
+                }
+            });
+        }
+    });
+
 </script>
 {% endblock %}
