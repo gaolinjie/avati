@@ -19,32 +19,32 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="question">
-                <form class="mt10" action='/new?t=q' method="POST" >
+                <div class="mt10">
                     <div class="new-btn">
-                        <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}</div>
+                        <input type="submit" id="qPostBtn" class="btn btn-sm btn-success btn-send" data-type="question" value="立即发布">{{ xsrf_form_html() }}</div>
                     <div class="title">
                         <input type="text" id="qTitle" name="title" class="form-control" placeholder="输入你的问题"></div>
                     <div class="content">
                         <div id="qSummernote" class="description"></div>
                         <input type="hidden" name="content" id="qContentText" value=""></div>
                     <div class="tag">
-                        <input type="text"  class="tokenfield" class="form-control" id="tokenfield-typeahead" value="" placeholder="添加合适的标签，让更多的人发现" data-all="{{allTagStr}}" />
+                        <input type="text"  class="tokenfield form-control" id="qTokenfield" value="" placeholder="添加合适的标签，让更多的人发现" />
                     </div>
-                </form>
+                </div>
             </div>
             <div class="tab-pane" id="post">
-                <form class="mt10" action='/new?t=p' method="POST" >
+                <div class="mt10">
                     <div class="new-btn">
-                        <input type="submit" id="pPostBtn" class="btn btn-sm btn-success" value="立即发布">{{ xsrf_form_html() }}</div>
+                        <input type="submit" id="pPostBtn" class="btn btn-sm btn-success btn-send" data-type="post" value="立即发布">{{ xsrf_form_html() }}</div>
                     <div class="title">
                         <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的问题"></div>
                     <div class="content">
                         <div id="pSummernote" class="description"></div>
                         <input type="hidden" name="content" id="pContentText" value=""></div>
                     <div class="tag">
-                        <input type="text" class="tokenfield" id="pSingleField" name="tag" value="" />
+                        <input type="text"  class="tokenfield form-control" id="pTokenfield" value="" placeholder="添加合适的标签，让更多的人发现" />
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
 {% endblock %} {% block javascript %}
 <script src="/static/summernote-0.5.2-dist/summernote.min.js"></script>
 <script src="/static/summernote-0.5.2-dist/summernote-zh-CN.js"></script>
-<script src="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/bootstrap-tokenfield.min.js"></script>
+<script src="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/bootstrap-tokenfield.js"></script>
 <script type="text/javascript" src="/static/sliptree-bootstrap-tokenfield-ec7bf65/docs-assets/js/typeahead.bundle.min.js" charset="UTF-8"></script> 
 <script>
 $('#type_tab a').click(function(e) {
@@ -219,51 +219,64 @@ $(document).on('click', '#inviteEmail',  function() {
   });
 });
 
-
-var engine = new Bloodhound({
-        remote: {
-            url: '/get/tags',
-            filter: function (response) {
-                var tagged_tag = $('#tokenfield-typeahead').tokenfield('getTokens');
-                return $.map(response.tags, function (tag) {
-                    var exists = false;
-                    for (i=0; i < tagged_tag.length; i++) {
-                        if (tag.name == tagged_tag[i].value) {
-                            var exists = true;
-                        }
-                    }
-                    if (!exists) {
-                        return {
-                            value: tag.name,
-                        };
-                    }
-                });
-            }
-        },
-        datumTokenizer: function (d) {
-            return Bloodhound.tokenizers.whitespace(d.value);
-        },
-        queryTokenizer: Bloodhound.tokenizers.whitespace
+$(document).ready(function()  {
+    var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substrRegex;
+ 
+    // an array that will be populated with substring matches
+    matches = [];
+ 
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+ 
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        // the typeahead jQuery plugin expects suggestions to a
+        // JavaScript object, refer to typeahead docs for more info
+        matches.push({ value: str });
+      }
     });
+ 
+    cb(matches);
+  };
+};
+ 
+var states=[] ;
+$.getJSON('/get/tags', function (data) {
+  $.each( data, function( key, val ) {
+    states.push( val );
+  });
+  });
 
-    engine.initialize();
-
-    $('#tokenfield-typeahead').tokenfield(
-        {
-  typeahead: [null, { name: 'tags',
+$('.tokenfield').tokenfield({
+  typeahead: [null, { name: 'states',
   displayKey: 'value',
-  source: engine.ttAdapter() }]
-})
-    .on('tokenfield:createtoken', function (e) {
-        var existingTokens = $(this).tokenfield('getTokens');
-        if (existingTokens.length) {
-            $.each(existingTokens, function(index, token) {
-                if (token.value === e.attrs.value) {
-                    e.preventDefault();
-                }
-            });
-        }
+  source: substringMatcher(states) }]
+});
+
+$('.tokenfield').on('tokenfield:createtoken', function (event) {
+    var existingTokens = $(this).tokenfield('getTokens');
+    $.each(existingTokens, function(index, token) {
+        if (token.value === event.attrs.value)
+            event.preventDefault();
     });
+});
+});
+
+$(document).on('click', '.btn-send',  function() {
+    var type = $(this).attr('data-type');
+    if (type=='question') {
+
+    } else {
+        
+    }
+});
+
+
+
 
 </script>
 {% endblock %}

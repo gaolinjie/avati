@@ -139,38 +139,25 @@ class PostHandler(BaseHandler):
 
         self.render("post.html", **template_variables)
 
-
 class GetTagsHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         allTags = self.tag_model.get_all_tags()
-        jarray = []
+        allTagJson = []
         for tag in allTags:
-            jobject = {
-                "name": tag.name,
-            }
-            jarray.append(jobject)
-        print lib.jsonp.print_JSON({"tags": jarray})
+            allTagJson.append(tag.name)
 
-        self.write(lib.jsonp.print_JSON({"tags": jarray}))
+        self.write(json.dumps(allTagJson))
         
+            
+
 
 class NewHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
-            allTags = self.tag_model.get_all_tags()
-            allTagStr = ''
-            i=0
-            for tag in allTags:
-                if i==0:
-                    allTagStr = tag.name
-                else:
-                    allTagStr = allTagStr + ','+ tag.name
-                i=i+1
-            template_variables["allTagStr"] = allTagStr 
             self.render("new.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=new")

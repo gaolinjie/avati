@@ -140,3 +140,65 @@ content = form.content.data
         if matchObj:
             print "search --> matchObj.group() : ", matchObj.group("id")
         return
+
+
+var engine = new Bloodhound({
+        remote: {
+            url: '/get/tags',
+            filter: function (response) {
+                var tagged_tag = $('#tokenfield-typeahead').tokenfield('getTokens');
+                return $.map(response.tags, function (tag) {
+                    var exists = false;
+                    for (i=0; i < tagged_tag.length; i++) {
+                        if (tag.name == tagged_tag[i].value) {
+                            var exists = true;
+                        }
+                    }
+                    if (!exists) {
+                        return {
+                            value: tag.name,
+                        };
+                    }
+                });
+            }
+        },
+        datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+    });
+
+    engine.initialize();
+
+    $('#tokenfield-typeahead').tokenfield(
+        {
+  typeahead: [null, { name: 'tags',
+  displayKey: 'value',
+  source: engine.ttAdapter() }]
+})
+    .on('tokenfield:createtoken', function (e) {
+        var existingTokens = $(this).tokenfield('getTokens');
+        if (existingTokens.length) {
+            $.each(existingTokens, function(index, token) {
+                if (token.value === e.attrs.value) {
+                    e.preventDefault();
+                }
+            });
+        }
+    });
+
+    
+class GetTagsHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        user_info = self.current_user
+        template_variables["user_info"] = user_info
+        allTags = self.tag_model.get_all_tags()
+        jarray = []
+        for tag in allTags:
+            jobject = {
+                "name": tag.name,
+            }
+            jarray.append(jobject)
+        print lib.jsonp.print_JSON({"tags": jarray})
+
+        self.write(lib.jsonp.print_JSON({"tags": jarray}))
