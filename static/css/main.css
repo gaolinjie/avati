@@ -348,9 +348,8 @@ background-position: -21px -229px;
 }
 
 .zm-votebar .down .vote-arrow {
-border-bottom-width: 0;
 border-top-color: #698ebf;
-margin-top: 10px;
+margin-top: 7px;
 }
 
 .zm-votebar .up:hover, .zm-votebar .down:hover, .zm-votebar .up.pressed, .zm-votebar .down.pressed {
@@ -883,7 +882,7 @@ background-color: #f8f8f8;
 	padding: 0 !important;
 }
 
-.new-btn input{
+.new-btn a{
 	position: absolute;
 top: 5px;
 right: 60px;
@@ -1062,7 +1061,7 @@ background: #698ebf;
 color: #fff;
 }
 
-.vote-btn.voted .vote-arrow {
+.vote-btn.voted.up .vote-arrow {
 border-bottom-color: #fff;
 }
 
@@ -2133,4 +2132,36 @@ width: 36px;
 text-align: center;
 border-radius: 2px;
 line-height: 1.25;
+}
+
+.modal-dialog {
+	margin-top: 300px;
+	width: 400px;
+}
+
+#alertModal .modal-dialog .modal-header h4 {
+	font-weight: 100;
+}
+
+#alertModal .modal-dialog .modal-header{
+ background-color: #f8f8f8; 
+ border-radius: 6px 6px  0 0;	
+}
+
+#alertModal ul {
+	margin-left: -20px;
+}
+
+#alertModal .modal-body .header {
+font-size: 15px;
+line-height: 2;
+margin-bottom: 10px;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+ outline: none;
+}
+
+.vote-btn:focus {
+ outline: none;	
 }

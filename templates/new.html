@@ -3,8 +3,8 @@
 {% endblock %} {% block stylesheet %}
 <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
 <link href="/static/summernote-0.5.2-dist/summernote.css" rel="stylesheet">
-<link rel="stylesheet" href="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/css/tokenfield-typeahead.min.css">
-<link rel="stylesheet" href="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/css/bootstrap-tokenfield.min.css">
+<link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.11.0/jquery-ui.css">
+<link href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css" rel="stylesheet" type="text/css">
 {% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="new">
@@ -19,32 +19,34 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="question">
-                <div class="mt10">
+                <form class="mt10" action='/new?t=q' method="POST" id="qForm">
                     <div class="new-btn">
-                        <input type="submit" id="qPostBtn" class="btn btn-sm btn-success btn-send" data-type="question" value="立即发布">{{ xsrf_form_html() }}</div>
+                        <a id="qPostBtn" class="btn btn-sm btn-success">立即发布{{ xsrf_form_html() }}</a></div>
                     <div class="title">
                         <input type="text" id="qTitle" name="title" class="form-control" placeholder="输入你的问题"></div>
                     <div class="content">
                         <div id="qSummernote" class="description"></div>
-                        <input type="hidden" name="content" id="qContentText" value=""></div>
+                        <input type="hidden" name="content" id="qContent" value=""></div>
                     <div class="tag">
-                        <input type="text"  class="tokenfield form-control" id="qTokenfield" value="" placeholder="添加合适的标签，让更多的人发现" />
+                        <input type="hidden" name="tag" id="qSingleField" value="">
+                        <ul id="qTags" class=""></ul>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="tab-pane" id="post">
-                <div class="mt10">
+                <form class="mt10" action='/new?t=p' method="POST" id="pForm">
                     <div class="new-btn">
-                        <input type="submit" id="pPostBtn" class="btn btn-sm btn-success btn-send" data-type="post" value="立即发布">{{ xsrf_form_html() }}</div>
+                        <a id="pPostBtn" class="btn btn-sm btn-success" >立即发布{{ xsrf_form_html() }}</a></div>
                     <div class="title">
-                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的问题"></div>
+                        <input type="text" id="pTitle" name="title" class="form-control" placeholder="输入你的标题"></div>
                     <div class="content">
                         <div id="pSummernote" class="description"></div>
-                        <input type="hidden" name="content" id="pContentText" value=""></div>
+                        <input type="hidden" name="content" id="pContent" value=""></div>
                     <div class="tag">
-                        <input type="text"  class="tokenfield form-control" id="pTokenfield" value="" placeholder="添加合适的标签，让更多的人发现" />
+                        <input type="hidden" name="tag" id="pSingleField" value="">
+                        <ul id="pTags" class=""></ul>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -117,19 +119,74 @@
         </div>
     </div>
 </div>
+
+<div id="alertModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">
+          发帖格式可能不符合规范
+        </h4>
+      </div>
+     <div class="modal-body">
+      <div class="header">如果符合下列情况，请修改：</div>
+        <ul class="options clearfix">
+        <li class="">
+        <label>
+            标题不能为空
+        </label>
+    </li>
+    <li class="">
+        <label>
+            问题标题必须以问号结尾
+        </label>
+    </li>
+    <li class="">
+        <label>
+            标签不能为空
+        </label>
+    </li>
+</ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">知道了</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %} {% block javascript %}
 <script src="/static/summernote-0.5.2-dist/summernote.min.js"></script>
 <script src="/static/summernote-0.5.2-dist/summernote-zh-CN.js"></script>
-<script src="/static/sliptree-bootstrap-tokenfield-ec7bf65/dist/bootstrap-tokenfield.js"></script>
-<script type="text/javascript" src="/static/sliptree-bootstrap-tokenfield-ec7bf65/docs-assets/js/typeahead.bundle.min.js" charset="UTF-8"></script> 
-<script>
+<script src="/static/jquery-ui-1.11.0/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/aehlke-tag-it-1d84585/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
 $('#type_tab a').click(function(e) {
     e.preventDefault()
     $(this).tab('show')
 })
-</script>
-<script type="text/javascript">
+
 $(document).ready(function() {
+    function sendFile(file, editor, editable) {
+            data = new FormData();
+            data.append("file", file);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "/upload",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(url) {
+                    editor.insertImage(editable, url);
+                }
+            });
+        }
+
     $('#qSummernote').summernote({
         height: 200, // set editor height
         minHeight: 200, // set minimum height of editor
@@ -153,22 +210,6 @@ $(document).ready(function() {
         },
     });
 
-    function sendFile(file, editor, editable) {
-            data = new FormData();
-            data.append("file", file);
-            $.ajax({
-                data: data,
-                type: "POST",
-                url: "/upload",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(url) {
-                    editor.insertImage(editable, url);
-                }
-            });
-        }
-
     $('#pSummernote').summernote({
         height: 200, // set editor height
         minHeight: 200, // set minimum height of editor
@@ -191,20 +232,53 @@ $(document).ready(function() {
             sendFile(files[0], editor, editable);
         },
     });
+
+    var sampleTags=[] ;
+$.getJSON('/get/tags', function (data) {
+  $.each( data, function( key, val ) {
+    sampleTags.push( val );
+  });
+  });
+
+    $("#qTags").tagit({
+        placeholderText: '添加标签，让更多的人发现',
+        availableTags: sampleTags,
+        singleField: true,
+        allowSpaces: true, //标签中是否允许空格
+        singleFieldNode: $('#qSingleField') //将值保存到mySingleField元素
+    });
+
+    $("#pTags").tagit({
+        placeholderText: '添加标签，让更多的人发现',
+        availableTags: sampleTags,
+        singleField: true,
+        allowSpaces: true, //标签中是否允许空格
+        singleFieldNode: $('#pSingleField') //将值保存到mySingleField元素
+    });
 });
 
 $(document).on('click', '#qPostBtn', function() {
-    $('#qContentText').val($('#qSummernote').code());
-    //alert($('#mySingleField').val());
+    var title = $('#qTitle').val();
+    var tag = $('#qSingleField').val();
+    if (!title.trim() || (title.indexOf("?") < 0 && title.indexOf("？") < 0 )|| !tag.trim()) {
+        $('#alertModal').modal('show');
+        return;
+    }
+    $('#qContent').val($('#qSummernote').code());
+    $('#qForm').submit();
 });
 
 $(document).on('click', '#pPostBtn', function() {
-    $('#pContentText').val($('#pSummernote').code());
-    //alert($('#mySingleField').val());
+    var title = $('#pTitle').val();
+    var tag = $('#pSingleField').val();
+    if (!title.trim() || !tag.trim()) {
+        $('#alertModal').modal('show');
+        return;
+    }
+    $('#pContent').val($('#pSummernote').code());
+    $('#pForm').submit();
 });
-</script>
 
-<script type="text/javascript">
 $(document).on('click', '#inviteEmail',  function() {
   var email = $('#inviteEmailInput').val();
 
@@ -218,65 +292,5 @@ $(document).on('click', '#inviteEmail',  function() {
     }
   });
 });
-
-$(document).ready(function()  {
-    var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substrRegex;
- 
-    // an array that will be populated with substring matches
-    matches = [];
- 
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
- 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        // the typeahead jQuery plugin expects suggestions to a
-        // JavaScript object, refer to typeahead docs for more info
-        matches.push({ value: str });
-      }
-    });
- 
-    cb(matches);
-  };
-};
- 
-var states=[] ;
-$.getJSON('/get/tags', function (data) {
-  $.each( data, function( key, val ) {
-    states.push( val );
-  });
-  });
-
-$('.tokenfield').tokenfield({
-  typeahead: [null, { name: 'states',
-  displayKey: 'value',
-  source: substringMatcher(states) }]
-});
-
-$('.tokenfield').on('tokenfield:createtoken', function (event) {
-    var existingTokens = $(this).tokenfield('getTokens');
-    $.each(existingTokens, function(index, token) {
-        if (token.value === event.attrs.value)
-            event.preventDefault();
-    });
-});
-});
-
-$(document).on('click', '.btn-send',  function() {
-    var type = $(this).attr('data-type');
-    if (type=='question') {
-
-    } else {
-        
-    }
-});
-
-
-
-
 </script>
 {% endblock %}

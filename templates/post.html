@@ -362,6 +362,9 @@ loadingHtml: '<a href="/p/{{post.id}}?p={{replys.page.next}}" id="load-more" cla
 {%if user_info != none%}
 $(document).on('click', '#rPostBtn',  function() {
             var reply_text = $('#rSummernote').code();
+            if (reply_text=='<p><br></p>') {
+              return;
+            }
             var post_id = $('#rPostBtn').attr('data-post');
             var reply_list =  $('.answers-area');
             
@@ -443,26 +446,32 @@ $(document).on('click', '.vote-post',  function() {
   var vote_btn = $(this);
   var vote_up = $(this).parent().find('.up');
   var vote_down = $(this).parent().find('.down');
-  var vote_num = $(this).find('.count');
+  var vote_up_num = $(this).parent().find('.up').find('.count');
+  var vote_down_num = $(this).parent().find('.down').find('.count');
   $.getJSON('/vote/post/' + vote_id + '?vote=' + vote_type, function (data) {
     if (data.success != 0) {
       if (vote_btn.hasClass('voted')) {
         vote_btn.removeClass('voted');
         if (vote_type=='up') {
-          vote_num.text(parseInt(vote_num.text()) - 1);
+          vote_up_num.text(parseInt(vote_up_num.text()) - 1);
+        } else {
+          vote_down_num.text(parseInt(vote_down_num.text()) - 1);
         }
       }
       else {
         vote_btn.addClass('voted');
         if (vote_type=='up') {
-          vote_num.text(parseInt(vote_num.text()) + 1);
+          vote_up_num.text(parseInt(vote_up_num.text()) + 1);
           if (vote_down.hasClass('voted')) {
             vote_down.removeClass('voted');
+            vote_down_num.text(parseInt(vote_down_num.text()) - 1);
           }
         }
         else {
-          if (vote_up.hasClass('voted')) {
+          vote_down_num.text(parseInt(vote_down_num.text()) + 1);
+          if (vote_up.hasClass('voted')) {          
             vote_up.removeClass('voted');
+            vote_up_num.text(parseInt(vote_up_num.text()) - 1);
           }
         }
       } 
@@ -476,26 +485,32 @@ $(document).on('click', '.vote-reply',  function() {
   var vote_btn = $(this);
   var vote_up = $(this).parent().find('.up');
   var vote_down = $(this).parent().find('.down');
-  var vote_num = $(this).find('.count');
+  var vote_up_num = $(this).parent().find('.up').find('.count');
+  var vote_down_num = $(this).parent().find('.down').find('.count');
   $.getJSON('/vote/reply/' + vote_id + '?vote=' + vote_type, function (data) {
     if (data.success != 0) {
       if (vote_btn.hasClass('voted')) {
         vote_btn.removeClass('voted');
         if (vote_type=='up') {
-          vote_num.text(parseInt(vote_num.text()) - 1);
+          vote_up_num.text(parseInt(vote_up_num.text()) - 1);
+        } else {
+          vote_down_num.text(parseInt(vote_down_num.text()) - 1);
         }
       }
       else {
         vote_btn.addClass('voted');
         if (vote_type=='up') {
-          vote_num.text(parseInt(vote_num.text()) + 1);
+          vote_up_num.text(parseInt(vote_up_num.text()) + 1);
           if (vote_down.hasClass('voted')) {
             vote_down.removeClass('voted');
+            vote_down_num.text(parseInt(vote_down_num.text()) - 1);
           }
         }
         else {
+          vote_down_num.text(parseInt(vote_down_num.text()) + 1);
           if (vote_up.hasClass('voted')) {
             vote_up.removeClass('voted');
+            vote_up_num.text(parseInt(vote_up_num.text()) - 1);
           }
         }
       } 

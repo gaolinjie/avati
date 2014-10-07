@@ -144,6 +144,7 @@ class GetTagsHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         allTags = self.tag_model.get_all_tags()
+        print allTags
         allTagJson = []
         for tag in allTags:
             allTagJson.append(tag.name)
@@ -172,9 +173,9 @@ class NewHandler(BaseHandler):
         # validate the fields
         form = NewForm(self)
 
-        if not form.validate():
-            self.get({"errors": form.errors})
-            return
+        #if not form.validate():
+           # self.get({"errors": form.errors})
+            #return
             
         post_info = {
             "author_id": self.current_user["uid"],           
@@ -218,8 +219,9 @@ class NewHandler(BaseHandler):
 
         # process tags
         tagStr = form.tag.data
+        print tagStr
         if tagStr:
-            tagNames = tagStr.split(',')  
+            tagNames = tagStr.split(',') 
             for tagName in tagNames:  
                 tag = self.tag_model.get_tag_by_tag_name(tagName)
                 if tag:
@@ -300,17 +302,6 @@ class EditHandler(BaseHandler):
                     tagStr = tagStr + ','+tag.tag_name
                 i=i+1
             template_variables["tagStr"] = tagStr 
-
-            allTags = self.tag_model.get_all_tags()
-            allTagStr = ''
-            i=0
-            for tag in allTags:
-                if i==0:
-                    allTagStr = tag.name
-                else:
-                    allTagStr = allTagStr + ','+ tag.name
-                i=i+1
-            template_variables["allTagStr"] = allTagStr 
             self.render("edit.html", **template_variables)
         else:
             self.redirect("/?s=signin")
@@ -324,15 +315,14 @@ class EditHandler(BaseHandler):
         # validate the fields
         form = NewForm(self)
 
-        if not form.validate():
-            self.get({"errors": form.errors})
-            return
+        #if not form.validate():
+            #self.get({"errors": form.errors})
+            #return
 
         post_info = {          
             "title": form.title.data,
             "content": form.content.data,
             "updated": time.strftime('%Y-%m-%d %H:%M:%S'),
-
         }
 
         self.post_model.update_post_by_post_id(post_id, post_info)
@@ -341,12 +331,13 @@ class EditHandler(BaseHandler):
         tags = self.post_tag_model.get_post_all_tags(post_id)
         for tag in tags["list"]:
             if(post_type == 'q'):
-                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"question_num": tag.question_num-1})
+                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"question_num": tag.tag_question_num-1})
             else:
-                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"post_num": tag.post_num-1})
+                self.tag_model.update_tag_by_tag_id(tag.tag_id, {"post_num": tag.tag_post_num-1})
         self.post_tag_model.delete_post_tag_by_post_id(post_id)
         # process tags
         tagStr = form.tag.data
+        print tagStr
         if tagStr:
             tagNames = tagStr.split(',')  
             for tagName in tagNames:  
@@ -880,9 +871,9 @@ class VoteReplyHandler(BaseHandler):
                                 self.feed_model.add_new_feed(feed_info2)
 
                         self.user_model.update_user_info_by_user_id(user_info.uid, {"expend": user_info.expend+1})
-                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 5, "amount": -1, "balance": user_info.income-user_info.expend, "post_id": post_id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
+                        self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 5, "amount": -1, "balance": user_info.income-user_info.expend, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
                         self.user_model.update_user_info_by_user_id(reply_author.uid, {"income": reply_author.income+1, "up_num": reply_author.up_num+1, "down_num": reply_author.down_num-1})
-                        self.balance_model.add_new_balance({"author_id":  reply_author.uid, "balance_type": 6, "amount": 1, "balance": reply_author.income-reply_author.expend, "post_id": post_id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
+                        self.balance_model.add_new_balance({"author_id":  reply_author.uid, "balance_type": 6, "amount": 1, "balance": reply_author.income-reply_author.expend, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
                     self.vote_model.update_vote_by_id(vote.id, {"up_down": vote_type, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
             else:
                 self.vote_model.add_new_vote({"reply_id": reply_id, "up_down": vote_type, "author_id": user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')})
