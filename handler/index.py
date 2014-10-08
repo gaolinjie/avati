@@ -69,6 +69,9 @@ class IndexHandler(BaseHandler):
             template_variables["notice_count"] = None
             template_variables["invite_count"] = None
             template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
+            feeds = self.feed_model.get_default_feeds(current_page = p)
+            for fee in feeds["list"]:
+                print fee.author_username
 
         self.render("index.html", **template_variables)
 

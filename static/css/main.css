@@ -1681,6 +1681,7 @@ padding: 10px;
 
 .input input{
     width: 100%;
+    height: auto;
     padding: 10px 5px 10px 40px;
     display: block;
     border: 1px solid #EDEDED;
@@ -1694,7 +1695,6 @@ padding: 10px;
   .input input:focus{
       padding: 10px 5px 10px 10px;
       outline: 0;
-      border-color: #FF7052;
     }
 
 .submit{
@@ -1860,7 +1860,7 @@ left: 85px;
 #loginModal .bootstrap-switch-id-gender-switch {
 position: absolute;
 z-index: 999;
-top: 124px;
+top: 123px;
 right: 30px;
 }
 
@@ -2164,4 +2164,8 @@ margin-bottom: 10px;
 
 .vote-btn:focus {
  outline: none;	
+}
+
+.form-control-feedback {
+top: 5px;
 }

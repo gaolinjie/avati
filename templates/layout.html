@@ -10,6 +10,7 @@
     <link rel="icon" href="/static/img/favicon.ico">
     {% block title %}{% endblock %}
     <link rel="stylesheet" href="/static/bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
     {%if user_info==none%}
     <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
     {%endif%}
@@ -115,14 +116,14 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                     </a>
                     <span class="js-title-label title-label">登录买买买</span>
                 </div>
-                <div class="input">
-                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
+                <div class="form-group input">
+                    <input type="email" name="email" placeholder="邮箱" class="form-control email-input"  />
                     <span>
                         <i class="fa fa-envelope-o"></i>
                     </span>
                 </div>
-                <div class="input">
-                    <input type="password" name="password" placeholder="密码" class="password-input" required />
+                <div class="form-group input">
+                    <input type="password" name="password" placeholder="密码" class="form-control password-input"  />
                     <span>
                         <i class="fa fa-lock"></i>
                     </span>
@@ -148,8 +149,8 @@ onclick="this.form.target='_blank';return true;" style="display:none">
                     <span class="js-title-label title-label">快速注册</span>
                 </div>
 
-                <div class="input">
-                    <input type="text" name="username" placeholder="用户名（3-16个中英文或数字）" class="username-input" required />
+                <div class="form-group input">
+                    <input type="text" name="username" placeholder="用户名" class="form-control username-input" />
                     <span>
                         <i class="fa fa-user"></i>
                     </span>
@@ -157,22 +158,22 @@ onclick="this.form.target='_blank';return true;" style="display:none">
 
                 <input type="checkbox" name="gender" id="gender-switch" data-on-text="男" data-off-text="女" data-on-color="success" data-off-color="danger" checked>
 
-                <div class="input">
-                    <input type="email" name="email" placeholder="邮箱" class="email-input" required />
+                <div class="form-group input">
+                    <input type="email" name="email" placeholder="邮箱" class="form-control email-input" />
                     <span>
                         <i class="fa fa-envelope-o"></i>
                     </span>
                 </div>
 
-                <div class="input">
-                    <input type="password" name="password" placeholder="密码（必须包含字母和数字，且不小于 6 位）" class="password-input" required />
+                <div class="form-group input">
+                    <input type="password" name="password" placeholder="密码" class="form-control password-input"/>
                     <span>
                         <i class="fa fa-lock"></i>
                     </span>
                 </div>
 
-                <div class="input">
-                    <input type="text" name="invite" placeholder="邀请码" class="invite-input" {%if invite%}value="{{invite}}"{%endif%} autocomplete="off" required />
+                <div class="form-group input">
+                    <input type="text" name="invite" placeholder="邀请码" class="form-control invite-input" {%if invite%}value="{{invite}}"{%endif%} autocomplete="off" />
                     <span>
                         <i class="fa fa-gift"></i>
                     </span>
@@ -300,6 +301,7 @@ onclick="this.form.target='_blank';return true;" style="display:none">
     <script src="/static/js/jquery-2.1.1.min.js"></script>
     <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
     <script src="/static/bootstrap-switch-master/dist/js/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
     {% block javascript %}{% endblock %}
     <script type="text/javascript">
         $(document).ready(function()  {
@@ -316,6 +318,110 @@ onclick="this.form.target='_blank';return true;" style="display:none">
 });
 
 {%if user_info==none%}
+$(document).ready(function() {
+    $(".username-input").focus(function(){
+  $(".bootstrap-switch-id-gender-switch").hide();
+});
+
+    $(".username-input").focusout(function(){
+  $(".bootstrap-switch-id-gender-switch").show();
+});
+
+    $('.signin-form').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: '邮箱不能为空'
+                    },
+                    emailAddress: {
+                        message: '输入的不是邮箱地址'
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 64,
+                        message: '密码长度在 6 - 64 个字符之间'
+                    }
+                }
+            },
+        }
+    });
+
+    $('.signup-form').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            username: {
+                message: '用户名格式错误',
+                validators: {
+                    notEmpty: {
+                        message: '用户名不能为空'
+                    },
+                    stringLength: {
+                        min: 3,
+                        max: 16,
+                        message: '用户名长度在 3 - 16 个字符之间'
+                    },
+                    regexp: {
+                        regexp: /^(?!_)(?!.*?_$)(?!\d+)[a-zA-Z0-9_\u4e00-\u9fa5]+$/,
+                        message: "用户名可由中英文，数字，'_' 构成，但 '_' 不可在首尾，也不能全为数字"
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: '邮箱不能为空'
+                    },
+                    emailAddress: {
+                        message: '输入的不是邮箱地址'
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: '密码不能为空'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 64,
+                        message: '密码长度在 6 - 64 个字符之间'
+                    }
+                }
+            },
+            invite: {
+                message: '邀请码错误',
+                validators: {
+                    notEmpty: {
+                        message: '邀请码不能为空'
+                    },
+                    uuid: {
+                        message: '邀请码格式不正确'
+                    },
+                }
+            },
+        }
+    });
+});
+
 {%if error==none%}
 {%if sign_in_up=="signin"%}
         $(document).ready(function() {
