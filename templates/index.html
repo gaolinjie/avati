@@ -1,29 +1,30 @@
-{% extends 'layout.html' %} {% block title %}
+{% extends 'layout.html' %} 
+
+{% block title %}
 <title>首页 - 买买买</title>
 {% endblock %} 
+
 {% block stylesheet %}
 <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
 {% endblock %} 
+
 {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="feed-list">
         <div class="feeds-inner">
-        {% set pre_feed=-1%}
-            {%for feed in feeds.list%}
-        {%if feed.id!=pre_feed%}
-        {% set pre_feed=feed.id%}
-        {%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
+            {% set pre_feed=-1%} {%for feed in feeds.list%} {%if feed.id!=pre_feed%} {% set pre_feed=feed.id%} {%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
             <div class="feed" id='{{feed.id}}'>
                 <div class="user-wrapper">
-                <div class="zm-votebar post-votebar">
-            <button class="up vote-btn vote-self-btn"  title="{{feed.post_up_num}} 人赞同">
-              <span class="label">赞同</span>
-              <span class="count">{{feed.post_up_num}}</span>
-            </button>
-          </div>
+                    <div class="zm-votebar post-votebar">
+                        <button class="up vote-btn vote-self-btn" title="{{feed.post_up_num}} 人赞同">
+                            <span class="label">赞同</span>
+                            <span class="count">{{feed.post_up_num}}</span>
+                        </button>
+                    </div>
                     <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}">
                         <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
+                        </a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
@@ -33,7 +34,9 @@
                         </div>
                         <div class="feed-title">
                             <h2>
+
                                 <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
+
                             </h2>
                         </div>
                     </div>
@@ -47,27 +50,27 @@
                     <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个{%if feed.post_type=='q'%}回答{%else%}评论{%endif%}</a>
                     {% if user_info.username != feed.author_username %}
                     <span class="bullet">•</span>
-                    <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                    <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.post_thank_id==none %}href="javascript:;" {% endif %} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                     <span class="bullet">•</span>
-                    <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                    <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.post_report_id==none %}href="javascript:;" {% endif %} data-id="{{feed.post_id}}"
+                    data-type="p{{feed.post_type}}" {% if feed.post_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
                     {% endif %}
                 </div>
             </div>
-            {%endif%}
-
-        {%if feed.feed_type==2 or feed.feed_type==5 or feed.feed_type==6 or feed.feed_type==8 or feed.feed_type==11 or feed.feed_type==12%}
+            {%endif%} {%if feed.feed_type==2 or feed.feed_type==5 or feed.feed_type==6 or feed.feed_type==8 or feed.feed_type==11 or feed.feed_type==12%}
             <div class="feed">
                 <div class="user-wrapper">
-                <div class="zm-votebar post-votebar">
-            <button class="up vote-btn vote-self-btn"  title="{{feed.reply_up_num}} 人赞同">
-              <span class="label">赞同</span>
-              <span class="count">{{feed.reply_up_num}}</span>
-            </button>
+                    <div class="zm-votebar post-votebar">
+                        <button class="up vote-btn vote-self-btn" title="{{feed.reply_up_num}} 人赞同">
+                            <span class="label">赞同</span>
+                            <span class="count">{{feed.reply_up_num}}</span>
+                        </button>
 
-          </div>
+                    </div>
                     <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}">
                         <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
+                        </a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
@@ -77,7 +80,9 @@
                         </div>
                         <div class="feed-title">
                             <h2>
+
                                 <a href="/p/{{feed.post_id}}#{{feed.reply_id}}">{{feed.post_title}}</a>
+
                             </h2>
                         </div>
                     </div>
@@ -94,22 +99,19 @@
                     <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个{%if feed.post_type=='q'%}回答{%else%}评论{%endif%}</a>
                     {% if user_info.username != feed.author_username %}
                     <span class="bullet">•</span>
-                    <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_thank_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                    <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.reply_thank_id==none %}href="javascript:;" {% endif %} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                     <span class="bullet">•</span>
-                    <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} data-id="{{feed.reply_id}}" data-type="r{{feed.post_type}}" {% if feed.reply_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+                    <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.reply_report_id==none %}href="javascript:;" {% endif %} data-id="{{feed.reply_id}}"
+                    data-type="r{{feed.post_type}}" {% if feed.reply_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
                     {% endif %}
                 </div>
             </div>
-            {%endif%}
-            {%endif%}
-        {%endfor%}
-
-        {% if feeds.page.next!=feeds.page.current %}
-            <div class="next jscroll-next-parent" >
+            {%endif%} {%endif%} {%endfor%} {% if feeds.page.next!=feeds.page.current %}
+            <div class="next jscroll-next-parent">
                 <a href="/?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
             </div>
             {%else%}
-            <div class="next jscroll-next-parent" >
+            <div class="next jscroll-next-parent">
                 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
             </div>
             {%endif%}
@@ -122,19 +124,19 @@
     <div class="sidenav container-box">
         <ul class="nav nav-list">
             <li class="nav-item">
-                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/u/{{user_info.username}}{%endif%}" {% if user_info == none%}data-link="user"{%endif%}> <i class="icon-home"></i>
-                    我的主页
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/u/{{user_info.username}}{%endif%}" {% if user_info==none%}data-link="user" {%endif%}> <i class="icon-home"></i>
+                我的主页
                 </a>
             </li>
             <li class="nav-item">
-                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info == none%}data-link="follows" {%endif%}> <i class="icon-follow"></i>
-                    我的所有关注
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info==none%}data-link="follows" {%endif%}> <i class="icon-follow"></i>
+                我的所有关注
                 </a>
             </li>
             <li class="nav-item">
-                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/notifications{%endif%}" {% if user_info == none%}data-link="notifications"{%endif%}>
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/notifications{%endif%}" {% if user_info==none%}data-link="notifications" {%endif%}>
                     <i class="icon-message"></i>
-                    我的消息
+                    我的消息 
                     {%if notice_count%}
                     <span class="badge message-badge">{{notice_count}}</span>
                     {%endif%}
@@ -142,23 +144,23 @@
             </li>
 
             <li class="nav-item">
-                <a {% if user_info == none%}class="unlogin"{%endif%} href="{% if user_info == none%}javascript:;{%else%}/invitations{%endif%}" {% if user_info == none%}data-link="invitations"{%endif%}>
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/invitations{%endif%}" {% if user_info==none%}data-link="invitations" {%endif%}>
                     <i class="icon-invitation"></i>
-                    邀请我回答的问题
+                    邀请我回答的问题 
                     {%if invite_count%}
                     <span class="badge invite-badge">{{invite_count}}</span>
                     {%endif%}
                 </a>
             </li>
             <li class="nav-item">
-                <a {% if user_info == none%}class="unlogin"{%else%}class="comingsoon"{%endif%} href="javascript:;" {% if user_info == none%}data-link="list"{%endif%}>
+                <a {% if user_info==none%}class="unlogin" {%else%}class="comingsoon" {%endif%} href="javascript:;" {% if user_info==none%}data-link="list" {%endif%}>
                     <i class="icon-list"></i>
                     欲望清单
                 </a>
             </li>
             <li class="divider"></li>
             <li class="nav-item">
-                <a {%if user_info == none%}class="unlogin"{%else%}class="comingsoon"{%endif%} href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
+                <a {%if user_info==none%}class="unlogin" {%endif%} href="javascript:;" id="inviteJoin" {% if user_info !=none%}data-toggle="modal" data-target="#inviteJoinModal" {%endif%}>
                     <i class="icon-invite"></i>
                     邀请朋友加入
                 </a>
@@ -173,17 +175,15 @@
             </p>
             {% endfor %}
         </div>
-        {% endif %}
-
+        {% endif %} 
         {%if ad%}
         <div class="ad-box box bottom-box">
-        <a class="ad-link" href="{{ad.link}}">
-        <img src="{{ad.img}}" border="0" width="221">
-        </a>
+            <a class="ad-link" href="{{ad.link}}">
+                <img src="{{ad.img}}" border="0" width="221">
+            </a>
         </div>
         {%endif%}
     </div>
-
 </div>
 
 <div id="inviteJoinModal" class="modal fade">
@@ -200,102 +200,104 @@
                 <div class="invite-email input-group">
                     <input id="inviteEmailInput" type="text" class="form-control" placeholder="输入 email 邀请朋友加入买买买">
                     <span class="input-group-btn">
+
                         <button id="inviteEmail" class="btn btn-default" type="button" data-post="">发送邀请</button>
+
                     </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %} 
 
-{% block javascript %}
+{% block javascript %} 
 {%if user_info!=none%}
-<script>
-$(document).on('click', '.feed-post-follow-btn',  function() {
-        var obj_id = $(this).attr('data-obj');
-            var obj_type = $(this).attr('data-type');
-            var follow_btn = $(this);
-
-            $.ajax({
-              type: "POST",
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              url: "/follow",
-              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
-              success: function (msg) {
-                if (follow_btn.text()=='关注问题') {
-                follow_btn.text('取消关注');
-                }
-                else {
-                follow_btn.text('关注问题');
-                }
-              },
-              error: function (msg) {
-                alert("error");
-              }
-            });
-          
-        });
-
-$(document).on('click', '.thank',  function() {
-  var thank_id = $(this).attr('data-id');
-  var thank_type = $(this).attr('data-type');
-  var thank_text = $(this);
-
-  if (thank_text.text()=='已感谢') {
-    return;
-  }
-  
-  $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function (data) {
-    if (data.success != 0) {
-      thank_text.text('已感谢'); 
-      thank_text.removeAttr("href");
-      thank_text.addClass("thanked");
-    }
-  });
-});
-
-$(document).on('click', '#inviteEmail',  function() {
-  var email = $('#inviteEmailInput').val();
-
-  $.getJSON('/invite/to/join?email='+email , function (data) {
-    if (data.success != 0) {
-      $('#inviteEmailInput').val('');
-      $('#inviteJoinModal').modal('hide');
-    } else {
-      alert('邀请发送失败!');
-    }
-  });
-});
-</script>
-{%endif%}
 <script src="/static/jscroll-master/jquery.jscroll.js"></script>
 <script>
-$('.feed-list').jscroll({
-loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner',
-    nextSelector: 'a.jscroll-next:last',
-    autoTrigger: false,
-    callback: function(newElems) {
-        $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
-        });
-    },
-});
+    $(document).on('click', '.feed-post-follow-btn', function() {
+        var obj_id = $(this).attr('data-obj');
+        var obj_type = $(this).attr('data-type');
+        var follow_btn = $(this);
 
-$(".summary-text").each(function(){
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "/follow",
+            data: JSON.stringify({
+                obj_id: obj_id,
+                obj_type: obj_type
+            }),
+            success: function(msg) {
+                if (follow_btn.text() == '关注问题') {
+                    follow_btn.text('取消关注');
+                } else {
+                    follow_btn.text('关注问题');
+                }
+            },
+            error: function(msg) {
+                alert("error");
+            }
+        });
+    });
+
+    $(document).on('click', '.thank', function() {
+        var thank_id = $(this).attr('data-id');
+        var thank_type = $(this).attr('data-type');
+        var thank_text = $(this);
+
+        if (thank_text.text() == '已感谢') {
+            return;
+        }
+
+        $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function(data) {
+            if (data.success != 0) {
+                thank_text.text('已感谢');
+                thank_text.removeAttr("href");
+                thank_text.addClass("thanked");
+            }
+        });
+    });
+
+    $(document).on('click', '#inviteEmail', function() {
+        var email = $('#inviteEmailInput').val();
+
+        $.getJSON('/invite/to/join?email=' + email, function(data) {
+            if (data.success != 0) {
+                $('#inviteEmailInput').val('');
+                $('#inviteJoinModal').modal('hide');
+            } else {
+                alert('邀请发送失败!');
+            }
+        });
+    });
+
+    $('.feed-list').jscroll({
+        loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+        contentSelector: '.feeds-inner',
+        nextSelector: 'a.jscroll-next:last',
+        autoTrigger: false,
+        callback: function(newElems) {
+            $(".summary-text").each(function() {
+                var text = $(this);
+                str = text.html();
+                textLeng = 1300;
+                if (str.length > textLeng) {
+                    text.html(str.substring(0, textLeng) + "...");
+                }
+            });
+        },
+    });
+
+    $(".summary-text").each(function() {
         var text = $(this);
         str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
+        textLeng = 1300;
+        if (str.length > textLeng) {
+            text.html(str.substring(0, textLeng) + "...");
+        }
     });
 </script>
+{%endif%}
 {% endblock %}

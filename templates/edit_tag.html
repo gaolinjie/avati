@@ -1,8 +1,10 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} 
+
 {% block stylesheet %}
 <link rel="stylesheet" type="text/css" href="/static/jquery-ui-1.11.0/jquery-ui.css">
-<link href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css" rel="stylesheet" type="text/css">
-{% endblock %}
+<link rel="stylesheet" type="text/css" href="/static/aehlke-tag-it-1d84585/css/jquery.tagit.css">
+{% endblock %} 
+
 {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="setting-password-card">
@@ -16,7 +18,8 @@
                     <input type="submit" id="qPostBtn" class="btn btn-sm btn-success" value="保存改动">{{ xsrf_form_html() }}</div>
                 <div class="form-group">
                     <label class="control-label" for="tag_name">标签名称</label>
-                    <input type="text" id="tag_name" name="name" placeholder="输入标签名称" class="form-control" value="{{tag.name}}"></div>
+                    <input type="text" id="tag_name" name="name" placeholder="输入标签名称" class="form-control" value="{{tag.name}}">
+                </div>
 
                 <div class="form-group">
                     <label class="control-label" for="tag_intro">标签介绍</label>
@@ -27,7 +30,7 @@
                     <label for="tag_category">标签类别</label>
                     <select id="tag_category" name="category" class="form-control">
                         {%for category in categorys%}
-                        <option {% if category.id == tag.category %} selected="selected" {% endif %}>{{category.name}}</option>
+                        <option {% if category.id==t ag.category %} selected="selected" {% endif %}>{{category.name}}</option>
                         {%endfor%}
                     </select>
                 </div>
@@ -36,7 +39,7 @@
                     <label for="tag_type">标签类型</label>
                     <select id="tag_type" name="tag_type" class="form-control">
                         {%for tag_type in tag_types%}
-                        <option {% if tag_type.id == tag.tag_type %} selected="selected" {% endif %}>{{tag_type.name}}</option>
+                        <option {% if tag_type.id==t ag.tag_type %} selected="selected" {% endif %}>{{tag_type.name}}</option>
                         {%endfor%}
                     </select>
                 </div>
@@ -110,23 +113,23 @@
         </ul>
     </div>
 </div>
-{% endblock %}
+{% endblock %} 
 
 {% block javascript %}
 <script src="/static/jquery-ui-1.11.0/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/aehlke-tag-it-1d84585/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-    var str = $('#qSingleField').attr('data-all');
-    var sampleTags =  str.split(",");
+    $(document).ready(function() {
+        var str = $('#qSingleField').attr('data-all');
+        var sampleTags = str.split(",");
 
-    $("#qTags").tagit({
-        placeholderText: '添加合适的标签',
-        availableTags: sampleTags,
-        singleField: true,
-        allowSpaces: true, //标签中是否允许空格
-        singleFieldNode: $('#qSingleField') //将值保存到mySingleField元素
+        $("#qTags").tagit({
+            placeholderText: '添加合适的标签',
+            availableTags: sampleTags,
+            singleField: true,
+            allowSpaces: true, //标签中是否允许空格
+            singleFieldNode: $('#qSingleField') //将值保存到mySingleField元素
+        });
     });
-});
 </script>
 {% endblock %}

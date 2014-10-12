@@ -1,22 +1,21 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html' %} 
 
 {% block title %}
 <title>{{view_user.username}} - 买买买</title>
-{% endblock %}
+{% endblock %} 
 
- {% block main %}
+{% block main %}
 <div class="col-xs-12 col-md-9">
 
     <div id="gh-banner">
-
-        <div id="c4-header-bg-container" class=" has-custom-banner"  {%if view_user.cover %}style="background-image: url({{view_user.cover}}-cover)"{%endif%}>
+        <div id="c4-header-bg-container" class=" has-custom-banner" {%if view_user.cover %}style="background-image: url({{view_user.cover}}-cover)" {%endif%}>
             <div class="hd-banner">
                 <div class="hd-banner-image"></div>
             </div>
             <div id="header-links">
                 <ul class="about-network-links">
                     <li class="channel-links-item">
-                        <a class="sina" href="{{view_user.weibo or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank" ></a>
+                        <a class="sina" href="{{view_user.weibo or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank"></a>
                     </li>
 
                     <li class="channel-links-item">
@@ -46,17 +45,20 @@
             </div>
 
             <a class="channel-header-profile-image-container spf-link" href="/u/{{view_user.username}}">
-                <img class="channel-header-profile-image" src="{{ view_user.avatar }}-avatar" title="{{view_user.username}}" alt="{{view_user.username}}"></a>
+                <img class="channel-header-profile-image" src="{{ view_user.avatar }}-avatar" title="{{view_user.username}}" alt="{{view_user.username}}">
+            </a>
 
             <div class="user-text">
                 <div class="user-name">
                     {{view_user.username}}
                 </div>
-                {%if view_user.sign%}
-                <div class="user-description"><strong>{{view_user.sign}}</strong></div>
-                {%endif%}
+                {% if view_user.sign %}
                 <div class="user-description">
-                获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}
+                    <strong>{{view_user.sign}}</strong>
+                </div>
+                {% endif %}
+                <div class="user-description">
+                    获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}
                 </div>
             </div>
         </div>
@@ -83,15 +85,15 @@
         </ul>
 
         <div class="fr" id="money">
-                <a href="{%if user_info.uid==view_user.uid%}/balance{%else%}javascript:;{%endif%}" class="balance_area" alt="{{gold_coins}} 金币，{{silver_coins}} 银币，{{bronze_coins}} 铜币">{%if gold_coins!=0%}{{gold_coins}} <img src="/static/img/gold.png" align="absmiddle" border="0" style="padding-bottom: 2px;"> {%endif%}{%if silver_coins!=0%}{{silver_coins}} <img src="/static/img/silver.png" align="absmiddle" border="0" style="padding-bottom: 2px;"> {%endif%}{%if bronze_coins!=0%}{{bronze_coins}}<img src="/static/img/bronze.png" align="absmiddle" border="0">{%endif%}</a></div>
+            <a href="{%if user_info.uid==view_user.uid%}/balance{%else%}javascript:;{%endif%}" class="balance_area" alt="{{gold_coins}} 金币，{{silver_coins}} 银币，{{bronze_coins}} 铜币">{%if gold_coins!=0%}{{gold_coins}} <img src="/static/img/gold.png" align="absmiddle" border="0" style="padding-bottom: 2px;"> {%endif%}{%if silver_coins!=0%}{{silver_coins}} <img src="/static/img/silver.png" align="absmiddle" border="0" style="padding-bottom: 2px;"> {%endif%}{%if bronze_coins!=0%}{{bronze_coins}}<img src="/static/img/bronze.png" align="absmiddle" border="0">{%endif%}</a>
+        </div>
 
         <div class="tab-content">
             <div class="tab-pane active" id="feed">
                 <div class="feed-list">
                     <div class="feeds-inner">
-                        {%for feed in feeds.list%}
-
-        {%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
+                        {% for feed in feeds.list %} 
+                        {% if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16 %}
                         <div class="feed">
                             <div class="user-wrapper">
                                 <div class="user-title">
@@ -111,20 +113,21 @@
                                 <div class="summary-text">{{feed.post_content|index_content_process}}</div>
                             </div>
                             <div class="answer-meta meta">
-                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                                 <span class="bullet">•</span>
                                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个{%if feed.post_type=='q'%}回答{%else%}评论{%endif%}</a>
                                 {% if user_info.username != feed.author_username %}
                                 <span class="bullet">•</span>
-                                <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.post_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                                <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.post_thank_id==none or user_info==none%}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"
+                                {%endif%} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                                 <span class="bullet">•</span>
-                                <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                                <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.post_report_id==none %}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}"
+                                data-link2="{{link2}}" {%endif%} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
                                 {% endif %}
                             </div>
                         </div>
-                        {%endif%}
-
-        {%if feed.feed_type==2 or feed.feed_type==5 or feed.feed_type==6 or feed.feed_type==8 or feed.feed_type==11 or feed.feed_type==12%}
+                        {% endif %} 
+                        {% if feed.feed_type==2 or feed.feed_type==5 or feed.feed_type==6 or feed.feed_type==8 or feed.feed_type==11 or feed.feed_type==12 %}
                         <div class="feed">
                             <div class="user-wrapper">
                                 <div class="user-title">
@@ -147,38 +150,38 @@
                                 <div class="summary-text">{{feed.reply_content|index_content_process}}</div>
                             </div>
                             <div class="answer-meta meta">
-                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                                 <span class="bullet">•</span>
                                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个{%if feed.post_type=='q'%}回答{%else%}评论{%endif%}</a>
                                 {% if user_info.username != feed.author_username %}
                                 <span class="bullet">•</span>
-                                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.reply_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.reply_thank_id==none or user_info==none%}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"
+                                {%endif%} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                                 <span class="bullet">•</span>
-                                <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.reply_id}}" data-type="r{{feed.post_type}}" {% if feed.reply_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+                                <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.reply_report_id==none %}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}"
+                                data-link2="{{link2}}" {%endif%} data-id="{{feed.reply_id}}" data-type="r{{feed.post_type}}" {% if feed.reply_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
                                 {% endif %}
                             </div>
                         </div>
-                        {%endif%}
-        {%endfor%}
-
-        {% if feeds.page.next!=feeds.page.current %}
-                        <div class="next jscroll-next-parent" >
+                        {% endif %} 
+                        {% endfor %} 
+                        {% if feeds.page.next!=feeds.page.current %}
+                        <div class="next jscroll-next-parent">
                             <a href="/u/{{view_user.username}}?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
                         </div>
-                        {%else%}
-                        <div class="next jscroll-next-parent" >
+                        {% else %}
+                        <div class="next jscroll-next-parent">
                             <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
                         </div>
-                        {%endif%}
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="question">
                 <div class="feed-list1">
                     <div class="feeds-inner1">
-                        {%for feed in feeds1.list%}
-
-        {%if feed.feed_type==1%}
+                        {% for feed in feeds1.list %} 
+                        {% if feed.feed_type==1 %}
                         <div class="feed">
                             <div class="user-wrapper">
                                 <div class="user-title">
@@ -198,38 +201,38 @@
                                 <div class="summary-text">{{feed.post_content|index_content_process}}</div>
                             </div>
                             <div class="answer-meta meta">
-                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                                 <span class="bullet">•</span>
                                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                                 {% if user_info.username != feed.author_username %}
                                 <span class="bullet">•</span>
-                                <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.post_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                                <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.post_thank_id==none or user_info==none%}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"
+                                {%endif%} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                                 <span class="bullet">•</span>
-                                <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                                <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.post_report_id==none %}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}"
+                                data-link2="{{link2}}" {%endif%} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
                                 {% endif %}
                             </div>
                         </div>
-                        {%endif%}
-        
-        {%endfor%}
-
-        {% if feeds1.page.next!=feeds1.page.current %}
-                        <div class="next jscroll-next-parent" >
+                        {% endif %} 
+                        {% endfor %} 
+                        {% if feeds1.page.next!=feeds1.page.current %}
+                        <div class="next jscroll-next-parent">
                             <a href="/u/{{view_user.username}}?p={{feeds1.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
                         </div>
-                        {%else%}
-                        <div class="next jscroll-next-parent" >
+                        {% else %}
+                        <div class="next jscroll-next-parent">
                             <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
                         </div>
-                        {%endif%}
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="answer">
                 <div class="feed-list2">
                     <div class="feeds-inner2">
-                        {%for feed in feeds2.list%}
-        {%if feed.feed_type==2%}
+                        {% for feed in feeds2.list %} 
+                        {% if feed.feed_type==2 %}
                         <div class="feed">
                             <div class="user-wrapper">
                                 <div class="user-title">
@@ -252,37 +255,38 @@
                                 <div class="summary-text">{{feed.reply_content|index_content_process}}</div>
                             </div>
                             <div class="answer-meta meta">
-                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                                 <span class="bullet">•</span>
                                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                                 {% if user_info.username != feed.author_username %}
                                 <span class="bullet">•</span>
-                                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.reply_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.reply_thank_id==none or user_info==none%}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"
+                                {%endif%} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                                 <span class="bullet">•</span>
-                                <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.reply_id}}" data-type="r{{feed.post_type}}" {% if feed.reply_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+                                <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.reply_report_id==none %}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}"
+                                data-link2="{{link2}}" {%endif%} data-id="{{feed.reply_id}}" data-type="r{{feed.post_type}}" {% if feed.reply_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
                                 {% endif %}
                             </div>
                         </div>
-                        {%endif%}
-        {%endfor%}
-
-        {% if feeds2.page.next!=feeds2.page.current %}
-                        <div class="next jscroll-next-parent" >
+                        {% endif %} 
+                        {% endfor %} 
+                        {% if feeds2.page.next!=feeds2.page.current %}
+                        <div class="next jscroll-next-parent">
                             <a href="/u/{{view_user.username}}?p={{feeds2.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
                         </div>
-                        {%else%}
-                        <div class="next jscroll-next-parent" >
+                        {% else %}
+                        <div class="next jscroll-next-parent">
                             <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
                         </div>
-                        {%endif%}
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="post">
                 <div class="feed-list7">
                     <div class="feeds-inner7">
-                        {%for feed in feeds7.list%}
-        {%if feed.feed_type==7%}
+                        {% for feed in feeds7.list %} 
+                        {% if feed.feed_type==7 %}
                         <div class="feed">
                             <div class="user-wrapper">
                                 <div class="user-title">
@@ -302,42 +306,44 @@
                                 <div class="summary-text">{{feed.post_content|index_content_process}}</div>
                             </div>
                             <div class="answer-meta meta">
-                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                                 <span class="bullet">•</span>
                                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                                 {% if user_info.username != feed.author_username %}
                                 <span class="bullet">•</span>
-                                <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.post_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                                <a class="thank {% if feed.post_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.post_thank_id==none or user_info==none%}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"
+                                {%endif%} data-id="{{feed.post_id}}" data-type="post">{% if feed.post_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                                 <span class="bullet">•</span>
-                                <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.post_report_id == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
+                                <a id="p{{feed.post_type}}{{feed.post_id}}" class="{% if feed.post_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.post_report_id==none %}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}"
+                                data-link2="{{link2}}" {%endif%} data-id="{{feed.post_id}}" data-type="p{{feed.post_type}}" {% if feed.post_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.post_report_id %}已举报{% else %}举报{% endif %}</a>
                                 {% endif %}
                             </div>
                         </div>
-                        {%endif%}
-        {%endfor%}
-        {% if feeds7.page.next!=feeds7.page.current %}
-                        <div class="next jscroll-next-parent" >
+                        {% endif %} 
+                        {% endfor %} 
+                        {% if feeds7.page.next!=feeds7.page.current %}
+                        <div class="next jscroll-next-parent">
                             <a href="/u/{{view_user.username}}?p={{feeds7.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
                         </div>
-                        {%else%}
-                        <div class="next jscroll-next-parent" >
+                        {% else %}
+                        <div class="next jscroll-next-parent">
                             <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
                         </div>
-                        {%endif%}
+                        {% endif %}
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="comment">
                 <div class="feed-list8">
                     <div class="feeds-inner8">
-                        {%for feed in feeds8.list%}
-        {%if feed.feed_type==8%}
+                        {% for feed in feeds8.list %} 
+                        {% if feed.feed_type==8 %}
                         <div class="feed">
                             <div class="user-wrapper">
                                 <div class="user-title">
                                     <div class="time">{{feed.created|pretty_date}}</div>
                                     <div class="user-meta meta">
-                                        <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}"  href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                                        <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                                         {{feed.feed_text}}
                                     </div>
                                     <div class="feed-title">
@@ -354,39 +360,39 @@
                                 <div class="summary-text">{{feed.reply_content|index_content_process}}</div>
                             </div>
                             <div class="answer-meta meta">
-                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                                <a class="feed-post-follow-btn {%if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
                                 <span class="bullet">•</span>
                                 <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个回答</a>
                                 {% if user_info.username != feed.author_username %}
                                 <span class="bullet">•</span>
-                                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.reply_thank_id == none or user_info == none%}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
+                                <a class="thank {% if feed.reply_thank_id %}thanked{% endif %} {%if user_info == none%}unlogin{%endif%}" {% if feed.reply_thank_id==none or user_info==none%}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"
+                                {%endif%} data-id="{{feed.reply_id}}" data-type="reply">{% if feed.reply_thank_id %}已感谢{% else %}感谢{% endif %}</a>
                                 <span class="bullet">•</span>
-                                <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info == none or feed.reply_report_id == none %}href="javascript:;"{% endif %} {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%} data-id="{{feed.reply_id}}" data-type="r{{feed.post_type}}" {% if feed.reply_report_id == none%}data-toggle="modal" data-target="#reportModal"{%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
+                                <a id="r{{feed.post_type}}{{feed.reply_id}}" class="{% if feed.reply_report_id %}reported{%else%}report{% endif %} {% if user_info == none%}unlogin{%endif%}" {% if user_info==none or feed.reply_report_id==none %}href="javascript:;" {% endif %} {%if user_info==none%}data-link="{{link}}"
+                                data-link2="{{link2}}" {%endif%} data-id="{{feed.reply_id}}" data-type="r{{feed.post_type}}" {% if feed.reply_report_id==none%}data-toggle="modal" data-target="#reportModal" {%endif%}>{% if feed.reply_report_id %}已举报{% else %}举报{% endif %}</a>
                                 {% endif %}
                             </div>
                         </div>
-                        {%endif%}
-        {%endfor%}
-
-        {% if feeds8.page.next!=feeds8.page.current %}
-                        <div class="next jscroll-next-parent" >
+                        {% endif %} 
+                        {% endfor %} 
+                        {% if feeds8.page.next!=feeds8.page.current %}
+                        <div class="next jscroll-next-parent">
                             <a href="/u/{{view_user.username}}?p={{feeds8.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
                         </div>
-                        {%else%}
-                        <div class="next jscroll-next-parent" >
+                        {% else %}
+                        <div class="next jscroll-next-parent">
                             <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
                         </div>
-                        {%endif%}
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 <div class=" col-xs-12 col-md-3">
-    {%if view_user.uid==user_info.uid%}
+    {% if view_user.uid==user_info.uid %}
     <div class="sidenav container-box">
         <ul class="nav nav-list">
             <li class="nav-item actived">
@@ -427,221 +433,227 @@
             </li>
         </ul>
     </div>
-    {%else%}
+    {% else %}
     <div class="zm-profile-side-following zg-clear">
         <a class="item" href="/follows/{{view_user.username}}?tab=followees">
             <span class="zg-gray-normal">关注了</span>
-            <br> <strong>{{followees_count}}</strong>
+            <br>
+            <strong>{{followees_count}}</strong>
             <label>人</label>
         </a>
         <a class="item" href="/follows/{{view_user.username}}?tab=followers">
             <span class="zg-gray-normal">关注者</span>
-            <br> <strong>{{followers_count}}</strong>
+            <br>
+            <strong>{{followers_count}}</strong>
             <label>人</label>
         </a>
         <div class="clear"></div>
     </div>
     <div class="follow-box box">
-        <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"{%endif%}>{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
+        <a id="followBtn" data-obj="{{view_user.uid}}" data-type="{{'u'}}" type="button" class="btn {%if follow %}btn-danger {% else %} btn-success {% endif %}btn-follow {%if user_info == none%}unlogin{%endif%}" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}"
+        {%endif%}>{%if follow%}取消关注 {% else %} 关注 TA{% endif %}</a>
     </div>
-    {%endif%}
+    {% endif %}
 </div>
 {% endblock %} 
 
-{% block javascript %}
+{% block javascript %} 
 {%if user_info==none or view_user.cover==none%}
 <script src="/static/js/d3.v3.min.js"></script>
 <script src="/static/trianglify-gh-pages/trianglify.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-    var t = new Trianglify();
-    var x= document.getElementById('c4-header-bg-container');
-var pattern = t.generate(x.offsetWidth, x.offsetHeight);
-x.setAttribute('style', 'background-image: '+pattern.dataUrl);
-});
+    $(document).ready(function() {
+        var t = new Trianglify();
+        var x = document.getElementById('c4-header-bg-container');
+        var pattern = t.generate(x.offsetWidth, x.offsetHeight);
+        x.setAttribute('style', 'background-image: ' + pattern.dataUrl);
+    });
 </script>
 {%endif%}
+
+<script src="/static/jscroll-master/jquery.jscroll.js"></script>
 <script type="text/javascript">
-  $('#type_tab a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-});
+    $(document).ready(function() {
+        $('#type_tab a').click(function(e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
 
-  $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
+        $(".summary-text").each(function() {
+            var text = $(this);
+            str = text.html();
             textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
-    });
+            if (str.length > textLeng) {
+                text.html(str.substring(0, textLeng) + "...");
+            }
+        });
 
-{%if user_info!=none%}
-  $(document).on('click', '#followBtn',  function() {
-        var obj_id = $('#followBtn').attr('data-obj');
+        {% if user_info != none %}
+        $(document).on('click', '#followBtn', function() {
+            var obj_id = $('#followBtn').attr('data-obj');
             var obj_type = $('#followBtn').attr('data-type');
 
             $.ajax({
-              type: "POST",
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              url: "/follow",
-              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
-              success: function (msg) {
-                if ($('#followBtn').hasClass('btn-success')) {
-                $('#followBtn').removeClass('btn-success');
-                $('#followBtn').addClass('btn-danger');
-                $('#followBtn').text('取消关注');
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: "/follow",
+                data: JSON.stringify({
+                    obj_id: obj_id,
+                    obj_type: obj_type
+                }),
+                success: function(msg) {
+                    if ($('#followBtn').hasClass('btn-success')) {
+                        $('#followBtn').removeClass('btn-success');
+                        $('#followBtn').addClass('btn-danger');
+                        $('#followBtn').text('取消关注');
+                    } else {
+                        $('#followBtn').removeClass('btn-danger');
+                        $('#followBtn').addClass('btn-success');
+                        $('#followBtn').text('关注 TA');
+                    }
+                },
+                error: function(msg) {
+                    alert("error");
                 }
-                else {
-                  $('#followBtn').removeClass('btn-danger');
-                $('#followBtn').addClass('btn-success');
-                $('#followBtn').text('关注 TA');
-                }
-              },
-              error: function (msg) {
-                alert("error");
-              }
             });
-          
         });
 
-$(document).on('click', '.feed-post-follow-btn',  function() {
-        var obj_id = $(this).attr('data-obj');
+        $(document).on('click', '.feed-post-follow-btn', function() {
+            var obj_id = $(this).attr('data-obj');
             var obj_type = $(this).attr('data-type');
             var follow_btn = $(this);
 
             $.ajax({
-              type: "POST",
-              contentType: "application/json; charset=utf-8",
-              dataType: "json",
-              url: "/follow",
-              data: JSON.stringify({obj_id: obj_id, obj_type: obj_type}), 
-              success: function (msg) {
-                if (follow_btn.text()=='关注问题') {
-                follow_btn.text('取消关注');
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: "/follow",
+                data: JSON.stringify({
+                    obj_id: obj_id,
+                    obj_type: obj_type
+                }),
+                success: function(msg) {
+                    if (follow_btn.text() == '关注问题') {
+                        follow_btn.text('取消关注');
+                    } else {
+                        follow_btn.text('关注问题');
+                    }
+                },
+                error: function(msg) {
+                    alert("error");
                 }
-                else {
-                follow_btn.text('关注问题');
-                }
-              },
-              error: function (msg) {
-                alert("error");
-              }
             });
-          
         });
 
-$(document).on('click', '.thank',  function() {
-  var thank_id = $(this).attr('data-id');
-  var thank_type = $(this).attr('data-type');
-  var thank_text = $(this);
+        $(document).on('click', '.thank', function() {
+            var thank_id = $(this).attr('data-id');
+            var thank_type = $(this).attr('data-type');
+            var thank_text = $(this);
 
-  if (thank_text.text()=='已感谢') {
-    return;
-  }
-  
-  $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function (data) {
-    if (data.success != 0) {
-      thank_text.text('已感谢'); 
-      thank_text.removeAttr("href");
-      thank_text.addClass("thanked");
-    }
-  });
-});
-{%endif%}
-</script>
+            if (thank_text.text() == '已感谢') {
+                return;
+            }
 
-<script src="/static/jscroll-master/jquery.jscroll.js"></script>
-<script>
-$('.feed-list').jscroll({
-loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner',
-    nextSelector: 'a.jscroll-next:last',
-    autoTrigger: false,
-    callback: function(newElems) {
-        $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
+            $.getJSON('/thank/' + thank_id + '?type=' + thank_type, function(data) {
+                if (data.success != 0) {
+                    thank_text.text('已感谢');
+                    thank_text.removeAttr("href");
+                    thank_text.addClass("thanked");
+                }
+            });
+        }); 
+        {% endif %}
+
+        $('.feed-list').jscroll({
+            loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+            contentSelector: '.feeds-inner',
+            nextSelector: 'a.jscroll-next:last',
+            autoTrigger: false,
+            callback: function(newElems) {
+                $(".summary-text").each(function() {
+                    var text = $(this);
+                    str = text.html();
+                    textLeng = 1300;
+                    if (str.length > textLeng) {
+                        text.html(str.substring(0, textLeng) + "...");
+                    }
+                });
+            },
         });
-    },
-});
 
-$('.feed-list1').jscroll({
-loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds1.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner1',
-    nextSelector: 'a.jscroll-next:last',
-    autoTrigger: false,
-    callback: function(newElems) {
-        $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
+        $('.feed-list1').jscroll({
+            loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds1.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+            contentSelector: '.feeds-inner1',
+            nextSelector: 'a.jscroll-next:last',
+            autoTrigger: false,
+            callback: function(newElems) {
+                $(".summary-text").each(function() {
+                    var text = $(this);
+                    str = text.html();
+                    textLeng = 1300;
+                    if (str.length > textLeng) {
+                        text.html(str.substring(0, textLeng) + "...");
+                    }
+                });
+            },
         });
-    },
-});
 
-$('.feed-list2').jscroll({
-loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds2.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner2',
-    nextSelector: 'a.jscroll-next:last',
-    autoTrigger: false,
-    callback: function(newElems) {
-        $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
+        $('.feed-list2').jscroll({
+            loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds2.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+            contentSelector: '.feeds-inner2',
+            nextSelector: 'a.jscroll-next:last',
+            autoTrigger: false,
+            callback: function(newElems) {
+                $(".summary-text").each(function() {
+                    var text = $(this);
+                    str = text.html();
+                    textLeng = 1300;
+                    if (str.length > textLeng) {
+                        text.html(str.substring(0, textLeng) + "...");
+                    }
+                });
+            },
         });
-    },
-});
 
-$('.feed-list7').jscroll({
-loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds7.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner7',
-    nextSelector: 'a.jscroll-next:last',
-    autoTrigger: false,
-    callback: function(newElems) {
-        $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
+        $('.feed-list7').jscroll({
+            loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds7.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+            contentSelector: '.feeds-inner7',
+            nextSelector: 'a.jscroll-next:last',
+            autoTrigger: false,
+            callback: function(newElems) {
+                $(".summary-text").each(function() {
+                    var text = $(this);
+                    str = text.html();
+                    textLeng = 1300;
+                    if (str.length > textLeng) {
+                        text.html(str.substring(0, textLeng) + "...");
+                    }
+                });
+            },
         });
-    },
-});
 
-$('.feed-list8').jscroll({
-loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds8.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner8',
-    nextSelector: 'a.jscroll-next:last',
-    autoTrigger: false,
-    callback: function(newElems) {
-        $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
+        $('.feed-list8').jscroll({
+            loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds8.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+            contentSelector: '.feeds-inner8',
+            nextSelector: 'a.jscroll-next:last',
+            autoTrigger: false,
+            callback: function(newElems) {
+                $(".summary-text").each(function() {
+                    var text = $(this);
+                    str = text.html();
+                    textLeng = 1300;
+                    if (str.length > textLeng) {
+                        text.html(str.substring(0, textLeng) + "...");
+                    }
+                });
+            },
         });
-    },
-});
 
-$(document).on('click', '.video-link',  function() {
-    var video_id = $(this).attr('data-video');
-    $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
-})
+        $(document).on('click', '.video-link', function() {
+            var video_id = $(this).attr('data-video');
+            $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/' + video_id + '" frameborder="0"></iframe>');
+        });
+    });
 </script>
 {% endblock %}

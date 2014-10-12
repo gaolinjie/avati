@@ -9,7 +9,8 @@
                 <div class="user-wrapper">
                     <div class="user-avatar">
                         <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img"></a>
+                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
+                        </a>
                     </div>
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
@@ -28,14 +29,12 @@
                     <div class="summary-text">{{feed.post_content|index_content_process}}</div>
                 </div>
             </div>
-            {%endfor%}
-
-        {% if feeds.page.next!=feeds.page.current %}
-            <div class="next jscroll-next-parent" >
+            {%endfor%} {% if feeds.page.next!=feeds.page.current %}
+            <div class="next jscroll-next-parent">
                 <a href="/invitations?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
             </div>
             {%else%}
-            <div class="next jscroll-next-parent" >
+            <div class="next jscroll-next-parent">
                 <a href="javascript:;" id="load-more" class="load-more-btn infscr-loading" style="display: block;">没有更多了</a>
             </div>
             {%endif%}
@@ -60,8 +59,7 @@
             <li class="nav-item">
                 <a href="/notifications">
                     <i class="icon-message"></i>
-                    我的消息
-                    {%if notice_count%}
+                    我的消息 {%if notice_count%}
                     <span class="badge message-badge">{{notice_count}}</span>
                     {%endif%}
                 </a>
@@ -81,7 +79,7 @@
             </li>
             <li class="divider"></li>
             <li class="nav-item">
-                <a href="javascript:;" id="inviteJoin" {% if user_info != none%}data-toggle="modal" data-target="#inviteJoinModal"{%endif%}>
+                <a href="javascript:;" id="inviteJoin" {% if user_info !=none%}data-toggle="modal" data-target="#inviteJoinModal" {%endif%}>
                     <i class="icon-invite"></i>
                     邀请朋友加入
                 </a>
@@ -111,56 +109,54 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block javascript %}
-<script>
-    $(".summary-text").each(function(){
-        var text = $(this);
-        str = text.html();
-            textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
-    });
-
-    $(document).on('click', '#inviteEmail',  function() {
-  var email = $('#inviteEmailInput').val();
-
-  $.getJSON('/invite/to/join?email='+email , function (data) {
-    if (data.success != 0) {
-      $('#inviteEmailInput').val('');
-      $('#inviteJoinModal').modal('hide');
-      alert('邀请发送成功!');
-    } else {
-      alert('邀请发送失败!');
-    }
-  });
-});
-</script>
-
+{% endblock %} {% block javascript %}
 <script src="/static/jscroll-master/jquery.jscroll.js"></script>
-<script>
-$('.feed-list').jscroll({
-loadingHtml: '<a href="/invitations?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
-    contentSelector: '.feeds-inner',
-    nextSelector: 'a.jscroll-next:last',
-    autoTrigger: false,
-    callback: function(newElems) {
-        $(".summary-text").each(function(){
-         var text = $(this);
-        str = text.html();
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".summary-text").each(function() {
+            var text = $(this);
+            str = text.html();
             textLeng = 1300;
-            if(str.length > textLeng ){
-                  text.html(str.substring(0,textLeng)+"...");
-            } 
+            if (str.length > textLeng) {
+                text.html(str.substring(0, textLeng) + "...");
+            }
         });
-    },
-});
 
-$(document).on('click', '.video-link',  function() {
-    var video_id = $(this).attr('data-video');
-    $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/'+video_id+'" frameborder="0"></iframe>');
-})
+        $(document).on('click', '#inviteEmail', function() {
+            var email = $('#inviteEmailInput').val();
+
+            $.getJSON('/invite/to/join?email=' + email, function(data) {
+                if (data.success != 0) {
+                    $('#inviteEmailInput').val('');
+                    $('#inviteJoinModal').modal('hide');
+                    alert('邀请发送成功!');
+                } else {
+                    alert('邀请发送失败!');
+                }
+            });
+        });
+
+        $('.feed-list').jscroll({
+            loadingHtml: '<a href="/invitations?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
+            contentSelector: '.feeds-inner',
+            nextSelector: 'a.jscroll-next:last',
+            autoTrigger: false,
+            callback: function(newElems) {
+                $(".summary-text").each(function() {
+                    var text = $(this);
+                    str = text.html();
+                    textLeng = 1300;
+                    if (str.length > textLeng) {
+                        text.html(str.substring(0, textLeng) + "...");
+                    }
+                });
+            },
+        });
+
+        $(document).on('click', '.video-link', function() {
+            var video_id = $(this).attr('data-video');
+            $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="//player.youku.com/embed/' + video_id + '" frameborder="0"></iframe>');
+        });
+    });
 </script>
 {% endblock %}
