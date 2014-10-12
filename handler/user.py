@@ -35,8 +35,8 @@ import qiniu.conf
 import qiniu.io
 import qiniu.rs
 
-qiniu.conf.ACCESS_KEY = "hmHRMwms0cn9OM9PMETYwsXMLG93z3FiBmCtPu7y"
-qiniu.conf.SECRET_KEY = "nCDM7Tuggre39RiqXaDmjo8sZn6MLGmckUaCrOJU"
+qiniu.conf.ACCESS_KEY = "DaQzr1UhFQD6im_kJJjZ8tQUKQW7ykiHo4ZWfC25"
+qiniu.conf.SECRET_KEY = "Ge61JJtUSC5myXVrntdVOqAZ5L7WpXR_Taa9C8vb"
 
 DEBUG_FLAG = True
 
@@ -342,13 +342,13 @@ class SettingAvatarHandler(BaseHandler):
         usr_home = os.path.expanduser('~')
         avatar.save(usr_home+"/www/avati/static/tmp/m_%s.png" % avatar_name, "PNG")
 
-        policy = qiniu.rs.PutPolicy("avati-avatar:m_%s.png" % avatar_name)
+        policy = qiniu.rs.PutPolicy("mmm-cdn:m_%s.png" % avatar_name)
         uptoken = policy.token()
         data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % avatar_name)
         ret, err = qiniu.io.put(uptoken, "m_"+avatar_name+".png", data)  
         os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % avatar_name)
 
-        avatar_name = "http://avati-avatar.qiniudn.com/m_"+avatar_name
+        avatar_name = "http://mmm-cdn.qiniudn.com/m_"+avatar_name
         result = self.user_model.set_user_avatar_by_uid(user_id, "%s.png" % avatar_name)
         template_variables["success_message"] = [u"用户头像更新成功"]
         # update `updated`
@@ -360,7 +360,7 @@ class SettingAvatarHandler(BaseHandler):
             match = pattern.search(origin_avatar) 
             if match: 
                 print match.group()
-                ret, err = qiniu.rs.Client().delete("avati-avatar", match.group())
+                ret, err = qiniu.rs.Client().delete("mmm-cdn", match.group())
 
 class SettingCoverHandler(BaseHandler):
     @tornado.web.authenticated
@@ -395,13 +395,13 @@ class SettingCoverHandler(BaseHandler):
         usr_home = os.path.expanduser('~')
         cover.save(usr_home+"/www/avati/static/tmp/m_%s.png" % cover_name, "PNG")
 
-        policy = qiniu.rs.PutPolicy("avati-cover:m_%s.png" % cover_name)
+        policy = qiniu.rs.PutPolicy("mmm-cdn:m_%s.png" % cover_name)
         uptoken = policy.token()
         data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % cover_name)
         ret, err = qiniu.io.put(uptoken, "m_"+cover_name+".png", data)  
         os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % cover_name)
 
-        cover_name = "http://avati-cover.qiniudn.com/m_"+cover_name
+        cover_name = "http://mmm-cdn.qiniudn.com/m_"+cover_name
         result = self.user_model.set_user_cover_by_uid(user_id, "%s.png" % cover_name)
         template_variables["success_message"] = [u"频道头像更新成功"]
         # update `updated`
@@ -414,7 +414,7 @@ class SettingCoverHandler(BaseHandler):
             match = pattern.search(origin_cover) 
             if match: 
                 print match.group()
-                ret, err = qiniu.rs.Client().delete("avati-cover", match.group())
+                ret, err = qiniu.rs.Client().delete("mmm-cdn", match.group())
 
 class SettingPasswordHandler(BaseHandler):
     @tornado.web.authenticated

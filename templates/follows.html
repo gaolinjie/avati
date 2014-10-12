@@ -2,9 +2,7 @@
 <title>@{{view_user.username}} 的关注 - 买买买</title>
 {% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
-
     <div id="gh-banner">
-
         <div id="c4-header-bg-container" class=" has-custom-banner" {%if view_user.cover %}style="background-image: url({{view_user.cover}}-cover)" {%endif%}>
             <div class="hd-banner">
                 <div class="hd-banner-image"></div>
@@ -26,7 +24,6 @@
                     <li class="channel-links-item">
                         <a class="renren" href="{{view_user.renren or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"></a>
                     </li>
-
                 </ul>
                 {% if view_user.website %}
                 <ul class="about-custom-links">
@@ -49,19 +46,15 @@
                 <div class="user-name">
                     {{view_user.username}}
                     <a class="rank" data-container="body" data-toggle="popover" data-placement="right" data-content="声望：{{view_user.coins}}，获得 赞同 {{view_user.up_num}}，感谢 {{view_user.thank_num}}。"></a>
-
                 </div>
                 {%if view_user.sign%}
                 <div class="user-description">{{view_user.sign}}</div>
                 {%endif%}
             </div>
-
         </div>
-
     </div>
 
     <div class="tag-feed">
-
         <ul id="type_tab" class="nav nav-tabs" role="tablist" id="myTab">
             <li {%if active_tab=="question" %}class="active" {%endif%}>
                 <a href="#question" role="tab" data-toggle="tab">关注的问题</a>
@@ -81,7 +74,7 @@
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane {%if active_tab==" question " %}active{%endif%}" id="question">
+            <div class="tab-pane {%if active_tab=="question" %}active{%endif%}" id="question">
                 <div class="feed-list1">
                     <div class="feeds-inner1">
                         {%for feed in feeds1.list%}
@@ -100,7 +93,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         {%endfor%} {% if feeds1.page.next!=feeds1.page.current %}
                         <div class="next jscroll-next-parent">
@@ -115,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane {%if active_tab==" post " %}active{%endif%}" id="post">
+            <div class="tab-pane {%if active_tab=="post" %}active{%endif%}" id="post">
                 <div class="feed-list2">
                     <div class="feeds-inner2">
                         {%for feed in feeds2.list%}
@@ -261,10 +253,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
 </div>
 
 <div class=" col-xs-12 col-md-3">
@@ -287,7 +277,6 @@
                     设置头像
                 </a>
             </li>
-
             <li class="nav-item">
                 <a href="/setting/cover">
                     <i class="icon-cover"></i>
@@ -319,7 +308,10 @@
     </div>
     {%endif%}
 </div>
-{% endblock %} {% block javascript %} {%if user_info==none or view_user.cover==none%}
+{% endblock %} 
+
+{% block javascript %} 
+{%if user_info==none or view_user.cover==none%}
 <script src="/static/js/d3.v3.min.js"></script>
 <script src="/static/trianglify-gh-pages/trianglify.js"></script>
 <script type="text/javascript">
@@ -355,9 +347,7 @@
             $(".rank").popover('hide')
         });
 
-        { %
-            if user_info != none %
-        }
+        {% if user_info != none %}
         $(document).on('click', '#followBtn', function() {
             var obj_id = $('#followBtn').attr('data-obj');
             var obj_type = $('#followBtn').attr('data-type');
@@ -386,7 +376,6 @@
                     alert("error");
                 }
             });
-
         });
 
         $(document).on('click', '.thank', function() {
@@ -423,8 +412,8 @@
                     report_text.addClass("reported");
                 }
             });
-        }); { % endif %
-        }
+        }); 
+        {% endif %}
 
         $('.feed-list1').jscroll({
             loadingHtml: '<a href="/u/{{view_user.user_name}}?p={{feeds1.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',

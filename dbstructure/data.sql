@@ -60,17 +60,25 @@ INSERT INTO `tag_type` VALUES (4, '类目', '关注的类目');
 INSERT INTO `tag_type` VALUES (5, '品牌', '喜欢的品牌');
 INSERT INTO `tag_type` VALUES (6, '商品', '想买的东西');
 
-INSERT INTO `avatar` VALUES (1, 'http://avati-static.qiniudn.com/FaceQ1408983666114.png', '男');
-INSERT INTO `avatar` VALUES (2, 'http://avati-static.qiniudn.com/FaceQ1408983563144.png', '男');
-INSERT INTO `avatar` VALUES (3, 'http://avati-static.qiniudn.com/FaceQ1408983399359.png', '男');
-INSERT INTO `avatar` VALUES (4, 'http://avati-static.qiniudn.com/FaceQ1408983341595.png', '男');
-INSERT INTO `avatar` VALUES (5, 'http://avati-static.qiniudn.com/FaceQ1408983255604.png', '男');
-INSERT INTO `avatar` VALUES (6, 'http://avati-static.qiniudn.com/FaceQ1408982866716.png', '男');
-INSERT INTO `avatar` VALUES (7, 'http://avati-static.qiniudn.com/FaceQ1408983167526.png', '男');
-INSERT INTO `avatar` VALUES (8, 'http://avati-static.qiniudn.com/FaceQ1408982574965.png', '男');
-INSERT INTO `avatar` VALUES (9, 'http://avati-static.qiniudn.com/FaceQ1408983677244.png', '女');
-INSERT INTO `avatar` VALUES (10, 'http://avati-static.qiniudn.com/FaceQ1408983773943.png', '女');
-INSERT INTO `avatar` VALUES (11, 'http://avati-static.qiniudn.com/FaceQ1408983816873.png', '女');
+INSERT INTO `avatar` VALUES (1, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1co4egzj30wt0wtq5b.jpg', '男');
+INSERT INTO `avatar` VALUES (2, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cozuyhj30wt0wtgny.jpg', '男');
+INSERT INTO `avatar` VALUES (3, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cpp9e8j30wt0wtdhz.jpg', '男');
+INSERT INTO `avatar` VALUES (4, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cqqws2j30wt0wt40r.jpg', '男');
+INSERT INTO `avatar` VALUES (5, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1crpp62j30wt0wtdi2.jpg', '男');
+INSERT INTO `avatar` VALUES (6, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cs8hxcj30wt0wtjto.jpg', '男');
+INSERT INTO `avatar` VALUES (7, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1ctddfnj30wt0wtwgl.jpg', '男');
+INSERT INTO `avatar` VALUES (8, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cu8cm4j30wt0wtabq.jpg', '男');
+INSERT INTO `avatar` VALUES (9, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cvbmakj30wt0wtjtx.jpg', '男');
+
+INSERT INTO `avatar` VALUES (10, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1co4egzj30wt0wtq5b.jpg', '女');
+INSERT INTO `avatar` VALUES (11, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cozuyhj30wt0wtgny.jpg', '女');
+INSERT INTO `avatar` VALUES (12, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cpp9e8j30wt0wtdhz.jpg', '女');
+INSERT INTO `avatar` VALUES (13, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cqqws2j30wt0wt40r.jpg', '女');
+INSERT INTO `avatar` VALUES (14, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1crpp62j30wt0wtdi2.jpg', '女');
+INSERT INTO `avatar` VALUES (15, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cs8hxcj30wt0wtjto.jpg', '女');
+INSERT INTO `avatar` VALUES (16, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1ctddfnj30wt0wtwgl.jpg', '女');
+INSERT INTO `avatar` VALUES (17, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cu8cm4j30wt0wtabq.jpg', '女');
+INSERT INTO `avatar` VALUES (18, 'http://mmm-static.qiniudn.com/005z2Z7Jtw1ejp1cvbmakj30wt0wtjtx.jpg', '女');
 
 
 
@@ -97,7 +105,6 @@ INSERT INTO `balance_type` VALUES (10, '收到谢意', '收到', '的谢意');
 INSERT INTO `balance_type` VALUES (11, '发送邀请', '发送', '邀请');
 INSERT INTO `balance_type` VALUES (12, '邀请成功', '邀请', '成功');
 
-INSERT INTO `ads` VALUES (1, 1, 1, 'http://mmmai-tag.qiniudn.com/0f00025NICUoQqsULGbqps.gif', '/');
-INSERT INTO `ads` VALUES (2, 1, 1, 'http://mmmai-tag.qiniudn.com/0f000Qb4PMQdgYzivvYf0f.gif', '/');
-INSERT INTO `ads` VALUES (3, 1, 1, 'http://mmmai-tag.qiniudn.com/0f000aJOW1ndC6vvtXV6Ss.jpg', '/');
-INSERT INTO `ads` VALUES (4, 1, 1, 'http://mmmai-tag.qiniudn.com/a7f701fcf1843f4f0e818f857caab1ff890122beb225-NCKCLi_fw658.jpg', '/');
+INSERT INTO `ads` VALUES (1, 1, 1, 'http://mmm-cdn.qiniudn.com/0f00025NICUoQqsULGbqps.gif', '/');
+INSERT INTO `ads` VALUES (2, 1, 1, 'http://mmm-cdn.qiniudn.com/0f000Qb4PMQdgYzivvYf0f.gif', '/');
+INSERT INTO `ads` VALUES (3, 1, 1, 'http://mmm-cdn.qiniudn.com/0f000aJOW1ndC6vvtXV6Ss.jpg', '/');

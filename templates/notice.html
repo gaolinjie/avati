@@ -12,7 +12,7 @@
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane {%if active_tab==" me " %}active{%endif%}" id="me">
+        <div class="tab-pane {%if active_tab=="me" %}active{%endif%}" id="me">
             <div class="feed-list notice-feeds">
                 <div class="feeds-inner">
                     {%for notice in notices.list%} 
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <div class="tab-pane {%if active_tab==" post " %}active{%endif%}" id="post">
+        <div class="tab-pane {%if active_tab=="post" %}active{%endif%}" id="post">
             <div class="feed-list2">
                 <div class="feeds-inner2">
                     {%for feed in feeds.list%} 
@@ -182,7 +182,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class=" col-xs-12 col-md-3">
