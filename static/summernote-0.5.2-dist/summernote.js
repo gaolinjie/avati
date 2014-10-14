@@ -2529,9 +2529,7 @@
             $videoBtn = $videoDialog.find('.note-video-btn');
 
         $videoDialog.one('shown.bs.modal', function () {
-          $videoUrl.val(videoInfo.text).keyup(function () {
-            toggleBtn($videoBtn, $videoUrl.val());
-          }).trigger('keyup').trigger('focus');
+          
 
           $videoBtn.click(function (event) {
             event.preventDefault();
@@ -2539,6 +2537,18 @@
             deferred.resolve($videoUrl.val());
             $videoDialog.modal('hide');
           });
+
+          $videoUrl.on('keyup paste', function (event) {
+            var url;
+            
+            if (event.type === 'paste') {
+              url = event.originalEvent.clipboardData.getData('text');
+            } else {
+              url = $videoUrl.val();
+            }
+            
+            toggleBtn($videoBtn, url);
+          }).val('').trigger('focus');
         }).one('hidden.bs.modal', function () {
           $videoUrl.off('keyup');
           $videoBtn.off('click');
