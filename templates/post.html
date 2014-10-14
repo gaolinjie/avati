@@ -378,7 +378,7 @@
                 }),
                 success: function(msg) {
                     if (msg.success != 0) {
-                        var reply_string = '<div id="' + msg.reply_id + '" class="answer-item"><div class="user-wrapper"><div class="zm-votebar"><button class="up vote-btn vote-self-btn" title="赞同"> <span class="label">赞同</span><span class="count">0</span></button></div><div class="user-title"><div class="user-name"><a href="/u/{{user_info.username}}">{{user_info.username}}</a>{%if user_info.sign%}，{{user_info.sign}}{%endif%}</div><div class="answer-user-meta meta">还没有人赞同</div></div><div class="user-avatar"><a href="/u/{{user_info.username}}"><img src="{{ user_info.avatar }}" width="46px" height="46px" alt="" class="avatar-img"></a></div></div><div class="answer-text">' + reply_text + '</div><div class="answer-meta meta"><span class="time">刚刚</span><span class="bullet">&nbsp;•&nbsp;</span><a class="edit" href="javascript:;" data-id="' + msg.reply_id + '" data-type="reply">修改</a><span class="bullet">&nbsp;•&nbsp;</span><a class="delete" href="javascript:;" data-id="' + msg.reply_id + '" data-type="reply" data-toggle="modal" data-target="#delReplyModal">删除</a></div></div>';
+                        var reply_string = '<div id="' + msg.reply_id + '" class="answer-item"><div class="user-wrapper"><div class="zm-votebar"><button class="up vote-btn vote-self-btn" title="赞同"> <span class="label">赞同</span><span class="count">0</span></button></div><div class="user-title"><div class="user-name"><a href="/u/{{user_info.username}}">{{user_info.username}}</a>{%if user_info.sign%}，{{user_info.sign}}{%endif%}</div><div class="answer-user-meta meta">还没有人赞同</div></div><div class="user-avatar"><a href="/u/{{user_info.username}}"><img src="{{ user_info.avatar }}" width="46px" height="46px" alt="" class="avatar-img"></a></div></div><div class="answer-text">' + reply_text + '</div><div class="answer-meta meta"><span class="time">刚刚</span><span class="bullet">&nbsp;•&nbsp;</span><a class="edit" href="javascript:;" data-id="' + msg.reply_id + '" data-type="reply">修改</a><span class="bullet">&nbsp;•&nbsp;</span><a class="delete" href="javascript:;" data-id="' + msg.reply_id + '" data-type="reply" data-toggle="modal" data-target="#delModal">删除</a></div></div>';
                         $('#rSummernote').code('');
                         $(reply_string).insertBefore('.jscroll-next-parent:last');
                     } else {
@@ -774,7 +774,7 @@
         window._bd_share_config = {
             "common": {
                 "bdSnsKey": {},
-                "bdText": "{{post.title}}-@avati",
+                "bdText": "{{post.title}}-@买买喵",
                 "bdMini": "2",
                 "bdPic": "",
                 "bdStyle": "0",
