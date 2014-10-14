@@ -7,7 +7,7 @@
             {%for feed in feeds.list%}
             <div class="feed">
                 <div class="user-wrapper">
-                    <div class="user-avatar">
+                    <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}">
                         <a href="/u/{{feed.author_username}}">
                             <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
                         </a>
@@ -15,7 +15,7 @@
                     <div class="user-title">
                         <div class="time">{{feed.created|pretty_date}}</div>
                         <div class="user-meta meta">
-                            <a class="user-link" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                            <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                             邀请你回答问题
                         </div>
                         <div class="feed-title">
