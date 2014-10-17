@@ -73,11 +73,10 @@ class SigninHandler(BaseHandler):
 
         form = SigninForm(self)
 
-        if not form.validate():
-            self.get({"errors": form.errors})
+        user_info = self.user_model.get_user_by_email(form.email.data)
+        if user_info == None:
+            self.redirect("/?s=signin&e=1")
             return
-
-        # continue while validate succeed
         
         secure_password = hashlib.sha1(form.password.data).hexdigest()
         secure_password_md5 = hashlib.md5(form.password.data).hexdigest()
@@ -89,7 +88,7 @@ class SigninHandler(BaseHandler):
             # update `last_login`
             updated = self.user_model.set_user_base_info_by_uid(user_info["uid"], {"last_login": time.strftime('%Y-%m-%d %H:%M:%S')})
             redirect_path = self.get_argument("r", "/")
-            print redirect_path
+
             if redirect_path=='user':
                 redirect_path = '/u/'+user_info.username
             if redirect_path=='follows':
@@ -117,9 +116,9 @@ class SigninHandler(BaseHandler):
                 redirect_path = '/t/'+self.get_argument("n", "")
             self.redirect(redirect_path)
             return
-
-        template_variables["errors"] = {"invalid_email_or_password": [u"邮箱或者密码不正确"]}
-        self.get(template_variables)
+        else:
+            self.redirect("/?s=signin&e=2")
+            return
 
 class SignoutHandler(BaseHandler):
     def get(self):
@@ -152,23 +151,20 @@ class SignupHandler(BaseHandler):
             # validate invite code
             icode = self.icode_model.get_invite_code(form.invite.data)
             if not icode or icode.used==1:
-                self.redirect("/?s=signup&e=1")
+                self.redirect("/?s=signup&e=2")
                 return
         # validate duplicated
         duplicated_email = self.user_model.get_user_by_email(form.email.data)
         duplicated_username = self.user_model.get_user_by_username(form.username.data)
 
         if(duplicated_email or duplicated_username):
-            template_variables["errors"] = {}
-
             if(duplicated_email):
-                template_variables["errors"]["duplicated_email"] = [u"所填邮箱已经被注册过"]
+                self.redirect("/?s=signup&e=3")
+                return
 
             if(duplicated_username):
-                template_variables["errors"]["duplicated_username"] = [u"所填用户名已经被注册过"]
-
-            self.get(template_variables)
-            return
+                self.redirect("/?s=signup&e=4")
+                return
 
         # validate reserved
 

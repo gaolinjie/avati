@@ -202,7 +202,7 @@
                         {{ xsrf_form_html() }}
                     </form>
 
-                    <form class="login signin-error" style="disply: none">
+                    <form class="login signin-error" data-error="{{error}}" style="disply: none">
                         <fieldset>
                             <legend class="legend">
                                 登录或注册
@@ -216,7 +216,7 @@
                         <i class="icon-sign icon-sign-arrow"></i>
 
                     </a>
-                                <span class="js-title-label title-label">登录错误</span>
+                                <span class="js-title-label title-label">登录失败</span>
                             </div>
                             <div class="input error-text">
                                 你输入邮箱或密码有误，请重试。
@@ -224,7 +224,7 @@
                         </fieldset>
                     </form>
 
-                    <form class="login signup-error" style="disply: none">
+                    <form class="login signup-error" data-error={{error}} style="disply: none">
                         <fieldset>
                             <legend class="legend">
                                 登录或注册
@@ -238,7 +238,7 @@
                         <i class="icon-sign icon-sign-arrow"></i>
 
                     </a>
-                                <span class="js-title-label title-label">注册错误</span>
+                                <span class="js-title-label title-label">注册失败</span>
                             </div>
                             <div class="input error-text">
                                 你输入的注册信息有误，请重试。
@@ -497,8 +497,16 @@
                     $('#loginModal').modal('show');
                     $('.signin-form').hide();
                     $('.signup-form').hide();
-                    $('.signin-error').show();
                     $('.signup-error').hide();
+                    var error = $('.signin-error').attr("data-error");
+                    var error_text = ""
+                    if (error=="1") {
+                        error_text = "该邮箱注册的用户不存在，请检查重试。";
+                    } else if (error=="2") {
+                        error_text = "输入的用户密码有误，请检查重试。";
+                    }
+                    $('.signin-error .error-text').text(error_text);
+                    $('.signin-error').show();
                     {% endif %}
             
                     {% if sign_in_up == "signup" %}
@@ -506,6 +514,18 @@
                     $('.signin-form').hide();
                     $('.signup-form').hide();
                     $('.signin-error').hide();
+                    var error = $('.signup-error').attr("data-error");
+                    var error_text = ""
+                    if (error=="2") {
+                        error_text = "你输入的邀请码有误，请输入正确的邀请码重试。";
+                    } else if (error=="3") {
+                        error_text = "所填邮箱已经被注册过，请更改邮箱重试。";
+                    } else if (error=="4") {
+                        error_text = "所填用户名已经被注册过，请更改用户名重试。";
+                    } else {
+                        error_text = "你输入的注册信息有误，请重试。";
+                    }
+                    $('.signup-error .error-text').text(error_text);
                     $('.signup-error').show();
                     {% endif %}
                     {% endif %}
