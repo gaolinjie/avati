@@ -73,7 +73,10 @@ class IndexHandler(BaseHandler):
             for fee in feeds["list"]:
                 print fee.author_username
 
-        self.render("index.html", **template_variables)
+        if is_mobile_browser(self):
+            self.render("mobile/index.html", **template_variables)
+        else:
+            self.render("index.html", **template_variables)
 
 class PostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):
