@@ -55,45 +55,50 @@
                             <input name="ct" type="hidden" value="2097152" />
                         </div>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="/tags">标签</a>
-                        </li>
-                        {%if user_info%}
-                        <li class="dropdown">
-                            <a href="/u/{{ user_info.username}}" class="dropdown-toggle nav-username" data-toggle="dropdown">
+                    <ul class="nav nav-list">
+            <li class="nav-item">
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/u/{{user_info.username}}{%endif%}" {% if user_info==none%}data-link="user" {%endif%}> <i class="icon-home"></i>
+                我的主页
+                </a>
+            </li>
+            <li class="nav-item">
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info==none%}data-link="follows" {%endif%}> <i class="icon-follow"></i>
+                我的所有关注
+                </a>
+            </li>
+            <li class="nav-item">
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/notifications{%endif%}" {% if user_info==none%}data-link="notifications" {%endif%}>
+                    <i class="icon-message"></i>
+                    我的消息 
+                    {%if notice_count%}
+                    <span class="badge message-badge">{{notice_count}}</span>
+                    {%endif%}
+                </a>
+            </li>
 
-                            {{ user_info.username }}
-
-                            <span class="caret"></span>
-
-                        </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="/u/{{ user_info.username }}">我的主页</a>
-                                </li>
-                                <li>
-                                    <a href="/setting">设置</a>
-                                </li>
-                                <li>
-                                    <a href="/signout">退出</a>
-                                </li>
-                            </ul>
-                        </li>
-                        {%else%}
-                        <li>
-                            <a class="nav-signup" href="javascript:;">注册</a>
-                        </li>
-                        <li>
-                            <a class="unlogin" href="javascript:;" {%if user_info==none%}{%if link2%}data-link="{{link}}" data-link2="{{link2}}" {%endif%}{%endif%}>登录</a>
-                        </li>
-                        {%endif%}
-                        <li class="">
-                            <a class="nav-btn {%if user_info == none%}unlogin{%endif%}" href="{% if user_info == none %}javascript:;{%else%}/new{%endif%}" {%if user_info==none%}data-link="new" {%endif%}>
-                                <button class="btn btn-default">提问 or 发帖</button>
-                            </a>
-                        </li>
-                    </ul>
+            <li class="nav-item">
+                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/invitations{%endif%}" {% if user_info==none%}data-link="invitations" {%endif%}>
+                    <i class="icon-invitation"></i>
+                    邀请我回答的问题 
+                    {%if invite_count%}
+                    <span class="badge invite-badge">{{invite_count}}</span>
+                    {%endif%}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a {% if user_info==none%}class="unlogin" {%else%}class="comingsoon" {%endif%} href="javascript:;" {% if user_info==none%}data-link="list" {%endif%}>
+                    <i class="icon-list"></i>
+                    欲望清单
+                </a>
+            </li>
+            <li class="divider"></li>
+            <li class="nav-item">
+                <a {%if user_info==none%}class="unlogin" {%endif%} href="javascript:;" id="inviteJoin" {% if user_info !=none%}data-toggle="modal" data-target="#inviteJoinModal" {%endif%}>
+                    <i class="icon-invite"></i>
+                    邀请朋友加入
+                </a>
+            </li>
+        </ul>
                 </div>
                 <!--/.nav-collapse -->
             </div>

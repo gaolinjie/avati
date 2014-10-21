@@ -126,50 +126,7 @@
 
 <div class=" col-xs-12 col-md-3">
     <div class="sidenav container-box">
-        <ul class="nav nav-list">
-            <li class="nav-item">
-                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/u/{{user_info.username}}{%endif%}" {% if user_info==none%}data-link="user" {%endif%}> <i class="icon-home"></i>
-                我的主页
-                </a>
-            </li>
-            <li class="nav-item">
-                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/follows/{{user_info.username}}{%endif%}" {% if user_info==none%}data-link="follows" {%endif%}> <i class="icon-follow"></i>
-                我的所有关注
-                </a>
-            </li>
-            <li class="nav-item">
-                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/notifications{%endif%}" {% if user_info==none%}data-link="notifications" {%endif%}>
-                    <i class="icon-message"></i>
-                    我的消息 
-                    {%if notice_count%}
-                    <span class="badge message-badge">{{notice_count}}</span>
-                    {%endif%}
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a {% if user_info==none%}class="unlogin" {%endif%} href="{% if user_info == none%}javascript:;{%else%}/invitations{%endif%}" {% if user_info==none%}data-link="invitations" {%endif%}>
-                    <i class="icon-invitation"></i>
-                    邀请我回答的问题 
-                    {%if invite_count%}
-                    <span class="badge invite-badge">{{invite_count}}</span>
-                    {%endif%}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a {% if user_info==none%}class="unlogin" {%else%}class="comingsoon" {%endif%} href="javascript:;" {% if user_info==none%}data-link="list" {%endif%}>
-                    <i class="icon-list"></i>
-                    欲望清单
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li class="nav-item">
-                <a {%if user_info==none%}class="unlogin" {%endif%} href="javascript:;" id="inviteJoin" {% if user_info !=none%}data-toggle="modal" data-target="#inviteJoinModal" {%endif%}>
-                    <i class="icon-invite"></i>
-                    邀请朋友加入
-                </a>
-            </li>
-        </ul>
+        
         {% if 0 and related_posts.list %}
         <div class="related-box box">
             <h3>热门问题</h3>

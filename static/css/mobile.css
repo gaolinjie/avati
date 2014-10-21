@@ -356,6 +356,7 @@ a {
     float: left;
     border-bottom: 1px solid #EEE;
     margin-bottom: 20px;
+    width: 100%;
 }
 .feed .answer-meta a {
     color: #999;
@@ -942,7 +943,6 @@ i.icon {
 }
 #delModal .modal-dialog {
     margin-top: 100px;
-    width: 400px;
 }
 #delModal .modal-dialog .modal-header h4 {
     font-weight: 100;
@@ -953,7 +953,6 @@ i.icon {
 }
 #reportModal .modal-dialog {
     margin-top: 100px;
-    width: 400px;
 }
 #reportModal .modal-dialog .modal-header h4 {
     font-weight: 100;
@@ -1256,7 +1255,6 @@ a.link-disabled {
 }
 #inviteJoinModal .modal-dialog {
     margin-top: 300px;
-    width: 400px;
 }
 #inviteJoinModal .modal-dialog .modal-header h4 {
     font-weight: 100;
@@ -1278,9 +1276,10 @@ a.link-disabled {
 li a.nav-signup {
     padding: 15px 0;
 }
-#loginModal .modal-dialog {
+.modal-dialog {
     margin-top: 300px;
-    width: 400px;
+    padding-right: 20px;
+    width: 100%;
 }
 #loginModal .modal-dialog .modal-header h4 {
     font-weight: 100;
@@ -1303,7 +1302,6 @@ li a.nav-signup {
 .login {
     position: relative;
     top: 50%;
-    width: 400px;
     margin: -150px auto 0 auto;
     background: #fff;
     border-radius: 4px;
@@ -1756,10 +1754,6 @@ td a {
     border-radius: 2px;
     line-height: 1.25;
 }
-.modal-dialog {
-    margin-top: 300px;
-    width: 400px;
-}
 #alertModal .modal-dialog .modal-header h4 {
     font-weight: 100;
 }
@@ -1783,4 +1777,10 @@ td a {
 }
 .form-control-feedback {
     top: 5px;
+}
+.navbar-form {
+    padding: 10px 15px 5px;
+}
+.navbar-nav {
+margin: 0px; 
 }
