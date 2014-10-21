@@ -156,6 +156,7 @@ a {
 }
 .user-title {
     float: left;
+    width: 100%;
 }
 .user-avatar {
     float: right;
