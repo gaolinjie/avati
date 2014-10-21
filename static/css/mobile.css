@@ -1745,8 +1745,8 @@ td a {
 }
 #scrollUp {
     position: fixed;
-    right: 40px;
-    bottom: 40px;
+    right: 20px;
+    bottom: 10px;
     padding: 10px;
     border: 1px solid #DDD;
     background: #FFF;
