@@ -13,9 +13,6 @@
         <link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />{% block stylesheet %}{% endblock %}
         <link href="/static/css/mobile.css" rel="stylesheet">
         <link href="/static/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/static/tipped-3.2.0.1/css/tipped/tipped.css" />
-
-
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]>
     <script src="../../assets/js/ie8-responsive-file-warning.js"></script>
@@ -36,12 +33,18 @@
     <body {%if scrollspy%}data-spy="scroll" data-target="#myScrollspy" {%endif%}>
 
         <!-- Fixed navbar -->
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/"></a>
-                </div>
-                <div class="navbar-collapse collapse">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"></a>
+          </div>
+                <div id="navbar" class="navbar-collapse collapse">
                     <form method="get" action="http://www.baidu.com/baidu" class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input name="word" size="30" maxlength="100" type="text" id="search-input" class="form-control" placeholder="搜索一下，你就知道怎么买" />
@@ -94,7 +97,7 @@
                 </div>
                 <!--/.nav-collapse -->
             </div>
-        </div>
+        </nav>
 
         <div class="container">
             {% block main %}{% endblock %} {%if user_info==none%}
@@ -331,8 +334,6 @@
         <script src="/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
         <script src="/static/bootstrap-switch-master/dist/js/bootstrap-switch.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
-        <script src="/static/tipped-3.2.0.1/js/spinners/spinners.min.js"></script>
-        <script src="/static/tipped-3.2.0.1/js/tipped/tipped.js"></script>
         <script src="/static/scrollup-master/dist/jquery.scrollUp.min.js"></script>
 
         {% block javascript %}{% endblock %}
