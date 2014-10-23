@@ -45,11 +45,6 @@
             </button>
             <a class="navbar-brand" href="/"></a>
           </div>
-
-
-          
-
-
         </nav>
 
         <div class="container shifter-page">
@@ -342,7 +337,9 @@
 
         <script type="text/javascript">
             $(document).ready(function() {
-                $.shifter();
+                $.shifter({
+    maxWidth: Infinity
+});
 
                     $('.J_search').submit(function(e) {
                         var _node = $(this);
