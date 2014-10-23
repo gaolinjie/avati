@@ -1,5 +1,5 @@
 body {
-    padding-top: 70px;
+    padding-top: 50px;
     line-height: 1.5;
 }
 body, input, textarea {
@@ -426,7 +426,6 @@ a {
     display: inline-block;
 }
 .nav.nav-list {
-    border: 1px solid #EEE;
     border-radius: 5px;
 }
 @media screen and (min-width: 959px) {
@@ -1783,4 +1782,13 @@ td a {
 }
 .navbar-nav {
 margin: 0px; 
+}
+.navbar {
+margin-bottom: 0px;
+}
+.container.shifter-page{
+padding-top: 20px;
+}
+.shifter-navigation .nav {
+    margin-top: 60px;
 }
