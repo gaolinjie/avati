@@ -1792,3 +1792,10 @@ padding-top: 20px;
 .shifter-navigation .nav {
     margin-top: 60px;
 }
+.container {
+ padding-right: 0; 
+ padding-left: 0;
+}
+.shifter-page {
+    padding: 20px 15px;
+}
