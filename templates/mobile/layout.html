@@ -336,8 +336,11 @@
         </ul>
 
         <div class="slide-bottom">
-        <a class="slide-btn slide-btn-login">登录 or 注册</a>
-        <a class="slide-btn slide-btn-post">提问 or 发帖</a>
+        {%if user_info%}
+        {%else%}
+        <a class="slide-btn slide-btn-login unlogin" href="javascript:;" {%if user_info==none%}{%if link2%}data-link="{{link}}" data-link2="{{link2}}" {%endif%}{%endif%}>登录 or 注册</a>
+        {%endif%} 
+        <a class="slide-btn slide-btn-post {%if user_info == none%}unlogin{%endif%}" href="{% if user_info == none %}javascript:;{%else%}/new{%endif%}" {%if user_info==none%}data-link="new" {%endif%}>提问 or 发帖</a>
         </div>
     </nav>
 

@@ -1827,4 +1827,24 @@ color: #fff;
 cursor: default;
 }
 
+.slide-btn-post:focus, .slide-btn-post:active, .slide-btn-post.active {
+color: #fff;
+background-color: #58d68d;
+border-color: #58d68d;
+}
+.slide-btn-post:active, .slide-btn-post.active {
+background: #27ad60;
+border-color: #27ad60;
+}
+.slide-btn-login:focus, .slide-btn-login:active, .slide-btn-login.active, {
+color: #fff;
+background-color: #ec7063;
+border-color: #ec7063;
+}
+.slide-btn-login:active, .slide-btn-login.active {
+background: #c44133;
+border-color: #c44133;
+}
+
+
 
