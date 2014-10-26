@@ -168,7 +168,10 @@ class NewHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         if(user_info):
-            self.render("new.html", **template_variables)
+            if is_mobile_browser(self):
+                self.render("mobile/new.html", **template_variables)
+            else:
+                self.render("new.html", **template_variables)           
         else:
             self.redirect("/?s=signin&link=new")
 
@@ -311,7 +314,10 @@ class EditHandler(BaseHandler):
                     tagStr = tagStr + ','+tag.tag_name
                 i=i+1
             template_variables["tagStr"] = tagStr 
-            self.render("edit.html", **template_variables)
+            if is_mobile_browser(self):
+                self.render("mobile/edit.html", **template_variables)
+            else:
+                self.render("edit.html", **template_variables)
         else:
             self.redirect("/?s=signin")
 

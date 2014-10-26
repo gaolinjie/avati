@@ -707,8 +707,8 @@ a.tag:hover, h4.tag:hover {
 }
 .new-btn a {
     position: absolute;
-    top: 5px;
-    right: 60px;
+top: 23px;
+right: 15px;
 }
 .ui-state-default, .ui-widget-content .ui-state-default {
     font-weight: normal;
