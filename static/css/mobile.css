@@ -211,6 +211,9 @@ a {
     float: left;
     margin: 10px 0 0 0;
 }
+.answer-text img {
+    max-width: 100%;
+}
 .answer-meta {
     float: left;
     clear: both;
@@ -1559,7 +1562,7 @@ td a {
     color: #777;
 }
 .topic-content img {
-    max-width: 638px;
+    max-width: 100%;
 }
 .mmm-link {
     width: 80px;
