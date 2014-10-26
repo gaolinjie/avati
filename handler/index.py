@@ -426,8 +426,11 @@ class TagsHandler(BaseHandler):
         template_variables["categorys"] = self.category_model.get_tag_categorys()
         template_variables["tags"] = self.tag_model.get_all_tags()
         template_variables["scrollspy"] = "scrollspy"
-             
-        self.render("tags.html", **template_variables)
+
+        if is_mobile_browser(self):
+            self.render("mobile/tags.html", **template_variables)
+        else:
+            self.render("tags.html", **template_variables)
 
 
 class ReplyHandler(BaseHandler):
@@ -1175,7 +1178,10 @@ class NoticeHandler(BaseHandler):
                 template_variables["post_count"] = None
             self.notice_model.set_user_notice_as_read(user_info.uid)
             template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
-            self.render("notice.html", **template_variables)
+            if is_mobile_browser(self):
+                self.render("mobile/notice.html", **template_variables)
+            else:
+                self.render("notice.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=notifications")
 
@@ -1281,7 +1287,10 @@ class InvitationsHandler(BaseHandler):
             template_variables["feeds"] = self.invite_model.get_user_invites(user_info.uid, current_page = p)
             template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)
             self.invite_model.set_user_invite_as_read(user_info.uid)
-            self.render("invitations.html", **template_variables)
+            if is_mobile_browser(self):
+                self.render("mobile/invitations.html", **template_variables)
+            else:
+                self.render("invitations.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=invitations")
 
@@ -1509,7 +1518,10 @@ class BalanceHandler(BaseHandler):
             template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)  
             template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
             template_variables["balances"] = self.balance_model.get_user_balances(user_info.uid, current_page = p)
-            self.render("balance.html", **template_variables)
+            if is_mobile_browser(self):
+                self.render("mobile/balance.html", **template_variables)
+            else:
+                self.render("balance.html", **template_variables)
         else:
             self.redirect("/?s=signin&link=list")
 

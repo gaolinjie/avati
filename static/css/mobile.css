@@ -392,6 +392,9 @@ a {
 .icon-invitation {
     background-image: url(/static/img/Tea-Cup.png);
 }
+.icon-tag {
+    background-image: url(/static/img/tag-icon.png);
+}
 .icon-list {
     background-image: url(/static/img/Heart.png);
 }
@@ -500,7 +503,7 @@ a {
 }
 #c4-header-bg-container {
     position: relative;
-    height: 175px;
+    height: 135px;
     border-bottom: 1px solid #e2e2e2;
     background-color: #333;
     background-position: center center;
@@ -584,7 +587,7 @@ a {
     text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
 }
 #gh-banner .user-name {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 300;
 }
 .bs-docs-sidebar {
@@ -1864,9 +1867,7 @@ border-color: #c44133;
 .tag-feed .nav>li>a {
 padding: 10px 8px;
 }
-.setting-card {
-    padding-bottom: 340px;
-}
-.setting-password-card {
-padding-bottom: 320px;
+
+.shifter .shifter-page {
+    min-height: 600px !important;
 }
