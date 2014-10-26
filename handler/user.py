@@ -270,7 +270,10 @@ class UserHandler(BaseHandler):
             template_variables["link"] = "u"
             template_variables["link2"] = username
             template_variables["follow"] = None
-        self.render("user.html", **template_variables)
+        if is_mobile_browser(self):
+            self.render("mobile/user.html", **template_variables)
+        else:
+            self.render("user.html", **template_variables)
 
 class SettingHandler(BaseHandler):
     @tornado.web.authenticated
@@ -278,7 +281,13 @@ class SettingHandler(BaseHandler):
         user_info = self.get_current_user()
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
-        self.render("user/setting.html", **template_variables)
+        if user_info:
+            if is_mobile_browser(self):
+                self.render("mobile/user/setting.html", **template_variables)
+            else:
+                self.render("user/setting.html", **template_variables)
+        else:
+            self.render("404.html", **template_variables)
 
     @tornado.web.authenticated
     def post(self, template_variables = {}):
@@ -315,7 +324,13 @@ class SettingAvatarHandler(BaseHandler):
         user_info = self.get_current_user()
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
-        self.render("user/setting_avatar.html", **template_variables)
+        if user_info:
+            if is_mobile_browser(self):
+                self.render("mobile/user/setting_avatar.html", **template_variables)
+            else:
+                self.render("user/setting_avatar.html", **template_variables)
+        else:
+            self.render("404.html", **template_variables)
 
     @tornado.web.authenticated
     def post(self, template_variables = {}):
@@ -366,8 +381,13 @@ class SettingCoverHandler(BaseHandler):
         template_variables["gen_random"] = gen_random
         if(not user_info):
             self.redirect("/?s=signin")
-
-        self.render("user/setting_cover.html", **template_variables)
+        if user_info:
+            if is_mobile_browser(self):
+                self.render("mobile/user/setting_cover.html", **template_variables)
+            else:
+                self.render("user/setting_cover.html", **template_variables)
+        else:
+            self.render("404.html", **template_variables)
 
     @tornado.web.authenticated
     def post(self, template_variables = {}):
@@ -417,7 +437,10 @@ class SettingPasswordHandler(BaseHandler):
     def get(self, template_variables = {}):
         user_info = self.get_current_user()
         template_variables["user_info"] = user_info
-        self.render("user/setting_password.html", **template_variables)
+        if is_mobile_browser(self):
+            self.render("mobile/user/setting_password.html", **template_variables)
+        else:
+            self.render("user/setting_password.html", **template_variables)
 
     @tornado.web.authenticated
     def post(self, template_variables = {}):
@@ -509,7 +532,13 @@ class SocialHandler(BaseHandler):
         template_variables["user_info"] = user_info
         template_variables["gen_random"] = gen_random
         if user_info:
-            self.render("user/social.html", **template_variables)
+            if is_mobile_browser(self):
+                self.render("mobile/user/social.html", **template_variables)
+            else:
+                self.render("user/social.html", **template_variables)
+        else:
+            self.render("404.html", **template_variables)
+
 
     @tornado.web.authenticated
     def post(self, template_variables = {}):

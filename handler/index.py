@@ -413,7 +413,10 @@ class TagHandler(BaseHandler):
             template_variables["link2"] = tag_name
             template_variables["follow"] = None
             
-        self.render("tag.html", **template_variables)
+        if is_mobile_browser(self):
+            self.render("mobile/tag.html", **template_variables)
+        else:
+            self.render("tag.html", **template_variables)
 
 class TagsHandler(BaseHandler):
     def get(self, template_variables = {}):
@@ -1199,7 +1202,13 @@ class FollowsHandler(BaseHandler):
             template_variables["link"] = "follows"
             template_variables["link2"] = username
             template_variables["follow"] = None
-        self.render("follows.html", **template_variables)
+        if user_info and user_info==view_user:
+            if is_mobile_browser(self):
+                self.render("mobile/follows.html", **template_variables)
+            else:
+                self.render("follows.html", **template_variables)
+        else:
+            self.render("404.html", **template_variables)
 
 class GetInviteUsersHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):

@@ -483,7 +483,6 @@ a {
 }
 .tag-text {
     float: left;
-    width: 489px;
 }
 .tag-title h2 {
     margin-top: 0;
@@ -494,6 +493,7 @@ a {
     padding-bottom: 30px;
     border-bottom: 1px solid #ddd;
     margin-bottom: 30px;
+    width: 100%;
 }
 .tab-pane {
     padding-top: 30px;
@@ -532,15 +532,15 @@ a {
 .channel-header-profile-image-container {
     top: 0;
     left: 15px;
-    height: 100px;
-    width: 100px;
+    height: 48px;
+    width: 48px;
     position: absolute;
     background-color: rgba(0, 0, 0, .2);
     display: inline-block;
 }
 .channel-header-profile-image {
-    width: 100px;
-    height: 100px;
+    width: 48px;
+    height: 48px;
     background-color: #e9ecee;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .4);
 }
@@ -726,8 +726,8 @@ right: 15px;
 }
 .save-btn input {
     position: absolute;
-    top: 0;
-    right: 60px;
+    top: 20px;
+right: 32px;
 }
 .form-group label, legend {
     color: #666;
@@ -805,6 +805,7 @@ right: 15px;
 .upload-text {
     vertical-align: middle;
     margin-top: 30px;
+    font-size: 12px;
 }
 i.icon {
     font-size: 1em;
@@ -826,7 +827,7 @@ i.icon {
     box-sizing: border-box;
 }
 .s-cover {
-    width: 614px;
+    width: 100%;
     height: 167px;
 }
 .reply-btn {
@@ -1857,8 +1858,15 @@ border-color: #ec7063;
 background: #c44133;
 border-color: #c44133;
 }
-.form-control {
+.shifter-navigation .form-control {
     border-radius: 0;
 }
-
-
+.tag-feed .nav>li>a {
+padding: 10px 8px;
+}
+.setting-card {
+    padding-bottom: 340px;
+}
+.setting-password-card {
+padding-bottom: 320px;
+}
