@@ -135,6 +135,9 @@ a {
 a:hover {
     text-decoration: none;
 }
+.user-name-wrapper {
+    float: left;
+}
 .user-name {
     font-size: 1em;
     font-weight: bold;
@@ -156,6 +159,8 @@ a {
 }
 .user-title {
     float: left;
+}
+.user-title-wrapper {
     width: 100%;
 }
 .user-avatar {
@@ -164,6 +169,7 @@ a {
 .comment-box {
     margin-bottom: 60px;
     float: left;
+    width: 100%;
 }
 @media screen and (min-width: 959px) {
     .user-wrapper {
@@ -188,16 +194,18 @@ a {
 }
 .comment-area {
     float: left;
-    width: 638px;
+    width: 100%;
     margin-top: 10px;
 }
 .answers-area {
     float: left;
+    width: 100%;
 }
 .answer-item {
     float: left;
     border-bottom: 1px solid #EEE;
     margin-bottom: 20px;
+    width: 100%;
 }
 .answer-text {
     float: left;
@@ -286,11 +294,13 @@ a {
     border-top-color: #fff;
 }
 .btn-follow {
-    width: 232px;
+    width: 100%;
 }
 .box {
     padding: 20px 0;
     border-bottom: 1px solid #EEE;
+    float: left;
+    width: 100%;
 }
 .promote-link {
     margin-top: 10px;
@@ -310,6 +320,7 @@ a {
 .box button {
     font-family: inherit;
     font-weight: 700;
+    float: left;
 }
 .share-button {
     float: left;
@@ -824,7 +835,7 @@ i.icon {
 }
 #rPostBtn {
     position: absolute;
-    right: 65px;
+    right: 21px;
     margin-top: 6px;
     padding: 5px 10px;
 }
@@ -902,11 +913,12 @@ i.icon {
     height: 308px !important;
 }
 #post-user-avatar {
-    position: absolute;
-    left: -54px;
+    float: right;
 }
 .topic-title h2 {
     margin-top: 0px;
+    font-size: 18px;
+font-weight: 700;
 }
 #post-user-wrapper {
     margin-top: 18px;
@@ -1845,6 +1857,8 @@ border-color: #ec7063;
 background: #c44133;
 border-color: #c44133;
 }
-
+.form-control {
+    border-radius: 0;
+}
 
 

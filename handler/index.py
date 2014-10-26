@@ -143,7 +143,10 @@ class PostHandler(BaseHandler):
             else:
                 template_variables["error"] = None
 
-        self.render("post.html", **template_variables)
+        if is_mobile_browser(self):
+            self.render("mobile/post.html", **template_variables)
+        else:
+            self.render("post.html", **template_variables)
 
 class GetTagsHandler(BaseHandler):
     def get(self, template_variables = {}):
