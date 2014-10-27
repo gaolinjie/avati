@@ -135,12 +135,10 @@ a {
 a:hover {
     text-decoration: none;
 }
-.user-name-wrapper {
-    float: left;
-}
 .user-name {
     font-size: 1em;
     font-weight: bold;
+    line-height: 1.2;
 }
 .user-name a {
     font-weight: bold;
@@ -165,7 +163,8 @@ a {
     width: 100%;
 }
 .user-avatar {
-    float: right;
+    float: left;
+    margin-right: 10px;
 }
 .comment-box {
     margin-bottom: 60px;
@@ -222,8 +221,7 @@ a {
     margin-bottom: 20px;
 }
 .zm-votebar {
-    position: absolute;
-    left: -50px;
+    float: right;
 }
 .zm-votebar .up, .zm-votebar .down {
     display: block;
@@ -922,16 +920,13 @@ i.icon {
 #bdshare_weixin_qrcode_dialog {
     height: 308px !important;
 }
-#post-user-avatar {
-    float: right;
-}
 .topic-title h2 {
     margin-top: 0px;
     font-size: 18px;
 font-weight: 700;
 }
 #post-user-wrapper {
-    margin-top: 18px;
+    margin-top: 10px;
 }
 .zm-votebar .vote-self-btn {
     height: 24px;
@@ -1468,10 +1463,7 @@ a.reply-user-link {
 a.reply-user-link:hover {
     text-decoration: underline;
 }
-.post-votebar {
-    left: -50px;
-    top: 54px;
-}
+
 .error-text {
     padding-top: 10px;
     padding-bottom: 40px;
@@ -1882,4 +1874,7 @@ padding: 10px 8px;
 }
 .username-wrapper {
     float: left;
+}
+.comment-box .user-avatar {
+    float: right;
 }

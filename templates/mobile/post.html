@@ -19,7 +19,25 @@
         </div>
 
         <div id="post-user-wrapper" class="user-wrapper">
-            <div class="zm-votebar post-votebar">
+            
+            
+            <div class="user-title user-title-wrapper">
+            <div id="post-user-avatar" class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{post.author_username}}">
+                <a href="/u/{{post.author_username}}">
+                    <img src="{{post.author_avatar}}-avatar" width="32px" height="32px" alt="" class="avatar-img">
+                </a>
+            </div>
+            <div class="username-wrapper">
+                <div class="user-name user-name-wrapper ">
+                    <a class="tipped_ajax_user" data-tipped="/get/user/{{post.author_username}}" href="/u/{{post.author_username}}">{{post.author_username}}</a>
+                    {%if post.author_sign%}，{{post.author_sign}}{%endif%}
+                </div>
+                <div class="answer-user-meta meta">
+                还没有人赞同
+                        </div>
+                </div>
+
+                <div class="zm-votebar post-votebar">
                 {% if post.author_id != user_info.uid %}
                 <button class="up vote-btn vote-post {%if post.vote_up_down and post.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}" title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-id="{{post.id}}"
                 data-type="up">
@@ -40,17 +58,7 @@
                 </button>
                 {% endif %}
             </div>
-            
-            <div class="user-title user-title-wrapper">
-                <div class="user-name user-name-wrapper ">
-                    <a class="tipped_ajax_user" data-tipped="/get/user/{{post.author_username}}" href="/u/{{post.author_username}}">{{post.author_username}}</a>
-                    {%if post.author_sign%}，{{post.author_sign}}{%endif%}
-                </div>
-                <div id="post-user-avatar" class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{post.author_username}}">
-                <a href="/u/{{post.author_username}}">
-                    <img src="{{post.author_avatar}}-avatar" width="32px" height="32px" alt="" class="avatar-img">
-                </a>
-            </div>
+                
                 
             </div>
             <div class="topic-title">
@@ -122,7 +130,31 @@
             {% set i=0 %} {% for reply in replys.list %}
             <div id="{{reply.id}}" class="answer-item">
                 <div class="user-wrapper">
-                    <div class="zm-votebar">
+                    
+
+                    <div class="user-title">
+                    {% if reply.anon==0 %}
+                    <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}">
+                        <a href="/u/{{reply.author_username}}">
+                            <img src="{{ reply.author_avatar}}-avatar" width="32px" height="32px" alt="" class="avatar-img">
+                        </a>
+                    </div>
+                    {%endif%}
+                    <div class="username-wrapper">
+                        <div class="user-name">
+                            {% if reply.anon==0 %}
+                            <a class="tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}" href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
+                            {%if reply.author_sign%}，{{reply.author_sign}}{%endif%} {%else%} 匿名用户 {%endif%}
+                        </div>
+                        {% set votes=votesList[i] %}
+                        <div class="answer-user-meta meta">
+                            {% if votes.list %} {% for vote in votes.list %}
+                            <a href="/u/{{vote.author_username}}" class="tipped_ajax_user" data-tipped="/get/user/{{vote.author_username}}">{{vote.author_username}}</a>
+                            {%if vote!=votes.list[votes.list|length-1] %}、{%endif%} {% endfor %} 等人赞同 {%else%} 还没有人赞同 {%endif%}
+                        </div>
+                        {% set i=i+1 %}
+                        </div>
+                        <div class="zm-votebar">
                         {% if reply.author_id != user_info.uid %}
                         <button class="up vote-btn vote-reply {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}" title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-id="{{reply.id}}"
                         data-type="up">
@@ -143,29 +175,7 @@
                         </button>
                         {% endif %}
                     </div>
-
-                    <div class="user-title">
-                    <div class="username-wrapper">
-                        <div class="user-name">
-                            {% if reply.anon==0 %}
-                            <a class="tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}" href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
-                            {%if reply.author_sign%}，{{reply.author_sign}}{%endif%} {%else%} 匿名用户 {%endif%}
-                        </div>
-                        {% set votes=votesList[i] %}
-                        <div class="answer-user-meta meta">
-                            {% if votes.list %} {% for vote in votes.list %}
-                            <a href="/u/{{vote.author_username}}" class="tipped_ajax_user" data-tipped="/get/user/{{vote.author_username}}">{{vote.author_username}}</a>
-                            {%if vote!=votes.list[votes.list|length-1] %}、{%endif%} {% endfor %} 等人赞同 {%else%} 还没有人赞同 {%endif%}
-                        </div>
-                        {% set i=i+1 %}
-                        </div>
-                        {% if reply.anon==0 %}
-                    <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}">
-                        <a href="/u/{{reply.author_username}}">
-                            <img src="{{ reply.author_avatar}}-avatar" width="32px" height="32px" alt="" class="avatar-img">
-                        </a>
-                    </div>
-                    {%endif%}
+                        
                     </div>                  
                 </div>
                 <div class="answer-text">{{reply.content|desktop_content_process}}</div>
