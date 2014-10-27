@@ -159,6 +159,7 @@ a {
 }
 .user-title {
     float: left;
+    width: 100%;
 }
 .user-title-wrapper {
     width: 100%;
@@ -359,6 +360,7 @@ a {
 }
 .summary {
     float: left;
+    width: 100%;
     margin: 5px 0;
 }
 .feed .time {
@@ -1478,10 +1480,7 @@ a.reply-user-link:hover {
     padding-bottom: 15px;
     margin-bottom: 30px;
 }
-.answer-text iframe, .summary-text iframe, .topic-content iframe {
-    height: 399px;
-    width: 638px;
-}
+
 .message-badge {
     background-color: #d9534f;
     position: absolute;
