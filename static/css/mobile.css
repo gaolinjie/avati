@@ -1880,3 +1880,6 @@ padding: 10px 8px;
 .topic-content embed, .topic-content iframe, .answer-text embed, .answer-text iframe  {
     width: 100% !important;
 }
+.username-wrapper {
+    float: left;
+}

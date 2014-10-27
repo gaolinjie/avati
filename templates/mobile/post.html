@@ -145,6 +145,7 @@
                     </div>
 
                     <div class="user-title">
+                    <div class="username-wrapper">
                         <div class="user-name">
                             {% if reply.anon==0 %}
                             <a class="tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}" href="/u/{{reply.author_username}}">{{reply.author_username}}</a>
@@ -157,14 +158,15 @@
                             {%if vote!=votes.list[votes.list|length-1] %}、{%endif%} {% endfor %} 等人赞同 {%else%} 还没有人赞同 {%endif%}
                         </div>
                         {% set i=i+1 %}
-                    </div>
-                    {% if reply.anon==0 %}
+                        </div>
+                        {% if reply.anon==0 %}
                     <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{reply.author_username}}">
                         <a href="/u/{{reply.author_username}}">
                             <img src="{{ reply.author_avatar}}-avatar" width="32px" height="32px" alt="" class="avatar-img">
                         </a>
                     </div>
                     {%endif%}
+                    </div>                  
                 </div>
                 <div class="answer-text">{{reply.content|desktop_content_process}}</div>
                 <div class="answer-meta meta">
@@ -202,6 +204,7 @@
         <div class="user-wrapper">
             
             <div class="user-title">
+            <div class="username-wrapper">
                 <div class="user-name">
                     <a href="/u/{{user_info.username}}" class="tipped_ajax_user" data-tipped="/get/user/{{user_info.username}}">{{user_info.username}}</a>
                     {% if user_info.sign %}，{{user_info.sign}}{% endif %}
@@ -211,13 +214,13 @@
                     <span class="bullet">•</span>
                     <a class='anon' href="javascript:;">匿名</a>
                 </div>
-            </div>
-            <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{user_info.username}}">
+                </div>
+                <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{user_info.username}}">
                 <a href="/u/{{user_info.username}}">
                     <img src="{{ user_info.avatar}}-avatar" width="32px" height="32px" alt="" class="avatar-img">
                 </a>
             </div>
-            
+            </div>            
         </div>
         {%else%}
         <div class="zu-answer-form-title">
