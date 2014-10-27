@@ -545,9 +545,8 @@
                     $(document).on('click', '.video-link', function() {
                         $('.t_Tooltip').hide();
                         var video_id = $(this).attr('data-video');
-                        $(this).replaceWith('<object height="" width="100%"><param name="movie" value="http://static.youku.com/v1.0.0436/v/swf/player_yk.swf"></param><param name="flashvars" value="VideoIDS='+video_id+'&isAutoPlay=true"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://static.youku.com/v1.0.0436/v/swf/player_yk.swf?VideoIDS='+video_id+'&isAutoPlay=true" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" height="" width="100%" flashvars="VideoIDS='+video_id+'&isAutoPlay=true"></embed></object>');
-                        $('iframe').height(document.body.clientWidth/1.7);
-                        $('object').height(document.body.clientWidth/1.7);
+                        $(this).replaceWith('<iframe width="100%" height="" src="http://player.youku.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
+                        $('iframe').height(document.body.clientWidth/1.6);
                     });
             
                     $('.tipped_ajax_user').each(function() {
