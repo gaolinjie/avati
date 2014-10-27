@@ -209,6 +209,7 @@ a {
 }
 .answer-text {
     float: left;
+    width: 100%;
     margin: 10px 0 0 0;
 }
 .answer-text img {
@@ -1561,6 +1562,9 @@ a.reply-user-link:hover {
 td a {
     color: #777;
 }
+.topic-content {
+    width: 100%;
+}
 .topic-content img {
     max-width: 100%;
 }
@@ -1873,4 +1877,7 @@ padding: 10px 8px;
 
 .shifter .shifter-page {
     min-height: 600px !important;
+}
+.topic-content embed, .topic-content iframe, .answer-text embed, .answer-text iframe  {
+    width: 100% !important;
 }

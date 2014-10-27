@@ -545,7 +545,8 @@
                     $(document).on('click', '.video-link', function() {
                         $('.t_Tooltip').hide();
                         var video_id = $(this).attr('data-video');
-                        $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="http://player.youku.com/player.php/sid/' + video_id + '/v.swf?VideoIDS=' +  video_id + '&embedid=&isAutoPlay=true&isShowRelatedVideo=false&embedid" frameborder="0"></iframe>');
+                        $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" src="http://player.youku.com/player.php/sid/' + video_id + '/v.swf?VideoIDS=' +  video_id + '&embedid=&isAutoPlay=true&isShowRelatedVideo=false&embedid" frameborder="0"></iframe>');
+                        $('iframe').height(document.body.clientWidth/1.7);
                     });
             
                     $('.tipped_ajax_user').each(function() {
