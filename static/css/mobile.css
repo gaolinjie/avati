@@ -1878,3 +1878,98 @@ padding: 10px 8px;
 .comment-box .user-avatar {
     float: right;
 }
+.m-votebar {
+    float: right;
+    -webkit-background-clip: border-box;
+-webkit-background-origin: padding-box;
+-webkit-background-size: auto;
+-webkit-font-smoothing: subpixel-antialiased;
+-webkit-tap-highlight-color: rgba(225, 225, 225, 0.498039);
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgb(239, 246, 250);
+background-image: none;
+background-origin: padding-box;
+background-size: auto;
+border-bottom-color: rgb(105, 142, 191);
+border-bottom-left-radius: 3px;
+border-bottom-right-radius: 3px;
+border-bottom-style: none;
+border-bottom-width: 0px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(105, 142, 191);
+border-left-style: none;
+border-left-width: 0px;
+border-right-color: rgb(105, 142, 191);
+border-right-style: none;
+border-right-width: 0px;
+border-top-color: rgb(105, 142, 191);
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+border-top-style: none;
+border-top-width: 0px;
+padding-bottom: 5px;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 5px;
+}
+.m-votenum {
+color: rgb(105, 142, 191);
+cursor: pointer;
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 14px;
+font-weight: 500;
+height: 22px;
+line-height: 22px;
+overflow-x: hidden;
+overflow-y: hidden;
+text-align: center;
+text-decoration: none;
+vertical-align: middle;
+width: 15.796875px;
+word-wrap: break-word;
+}
+
+.m-votebar span{
+    -webkit-font-smoothing: subpixel-antialiased;
+color: rgb(105, 142, 191);
+cursor: pointer;
+display: inline;
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 14px;
+font-weight: 500;
+height: auto;
+line-height: 22px;
+text-align: center;
+width: auto;
+word-wrap: break-word;
+}
+
+.m-votebar i{
+    -webkit-background-size: 308px 250px;
+-webkit-font-smoothing: subpixel-antialiased;
+background-image: url(/static/img/sprites-1.9.2.png);
+background-position: 0px -169px;
+background-repeat: no-repeat;
+background-size: 308px 250px;
+color: rgb(105, 142, 191);
+cursor: pointer;
+display: inline-block;
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 14px;
+font-style: italic;
+font-weight: 500;
+height: 7px;
+line-height: 22px;
+margin-left: 3px;
+right: 5px;
+text-align: center;
+top: 8px;
+vertical-align: 1px;
+width: 5px;
+word-wrap: break-word;
+}
