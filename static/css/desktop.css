@@ -1557,7 +1557,7 @@ td a {
     height: 20px;
     display: inline-block;
     vertical-align: bottom;
-    margin: 0 5px 2px 5px;
+    margin: 0 5px 2px 0px;
     background-repeat: no-repeat;
 }
 .video-link {

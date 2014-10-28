@@ -497,13 +497,13 @@ a {
 }
 .tag-header {
     float: left;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     width: 100%;
 }
 .tab-pane {
-    padding-top: 30px;
+    padding-top: 20px;
 }
 #c4-header-bg-container {
     position: relative;
@@ -1564,7 +1564,7 @@ td a {
     height: 20px;
     display: inline-block;
     vertical-align: bottom;
-    margin: 0 5px 2px 5px;
+    margin: 0 5px 2px 0px;
     background-repeat: no-repeat;
 }
 .video-link {
@@ -1973,4 +1973,7 @@ top: 8px;
 vertical-align: 1px;
 width: 5px;
 word-wrap: break-word;
+}
+.summary .user-name {
+    margin-bottom: 5px;
 }
