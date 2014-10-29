@@ -1811,6 +1811,7 @@ padding-top: 20px;
 
 .slide-bottom {
     padding: 15px;
+    margin-top: 10px;
     float: left;
 }
 .slide-bottom a  {
@@ -1987,5 +1988,6 @@ p {
 margin: 0 0 5px;
 }
 .shifter-active .shifter-navigation {
-overflow: auto;
+    overflow-x:hidden;
+overflow-y: auto;
 }
