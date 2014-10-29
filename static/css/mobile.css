@@ -165,6 +165,7 @@ a {
 .user-avatar {
     float: left;
     margin-right: 10px;
+    margin-top: -1px;
 }
 .comment-box {
     margin-bottom: 60px;
@@ -1810,7 +1811,6 @@ padding-top: 20px;
 
 .slide-bottom {
     padding: 15px;
-    margin-top: 10px;
     float: left;
 }
 .slide-bottom a  {
@@ -1982,4 +1982,10 @@ color: #fff;
 }
 .note-toolbar {
     height: 41px;
+}
+p {
+margin: 0 0 5px;
+}
+.shifter-active .shifter-navigation {
+overflow: auto;
 }
