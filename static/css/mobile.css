@@ -1979,4 +1979,13 @@ word-wrap: break-word;
 .summary .user-name {
     margin-bottom: 5px;
 }
+.m-votebar.voted {
+background: #698ebf;
+}
+.m-votebar.voted .m-votenum span{
+color: #fff;
+}
+.m-votebar.voted i {
+    background-position: -194px -232px;
+}
 
