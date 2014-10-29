@@ -843,11 +843,12 @@ i.icon {
     float: right;
     margin-top: 10px;
 }
-#rPostBtn {
+#rPostBtn, #editPostBtn {
     position: absolute;
     right: 21px;
     margin-top: 6px;
     padding: 5px 10px;
+    z-index: 999;
 }
 .note-editor .note-editable {
     min-height: 100px;
@@ -991,12 +992,10 @@ a:focus {
     outline: 0;
     text-decoration: none;
 }
-.editor-wrapper .note-editor {
-    width: 638px;
-}
 .editor-wrapper {
     float: left;
     margin: 20px 0;
+    width: 100%
 }
 .edit-cancel-btn {
     float: right;
@@ -1006,20 +1005,13 @@ a:focus {
     float: right;
     margin-top: 0px;
 }
-#editPostBtn {
-    position: absolute;
-    right: 65px;
-    margin-top: 5px;
-    padding: 3px 10px;
-    z-index: 999;
-}
 #editCancelBtn {
     position: absolute;
-    right: 135px;
-    margin-top: 5px;
-    padding: 3px 0px;
-    width: 40px;
-    z-index: 999;
+right: 96px;
+margin-top: 6px;
+padding: 5px 10px;
+z-index: 999;
+width: 50px;
 }
 a.sina {
     height: 16px;
@@ -1988,4 +1980,6 @@ color: #fff;
 .m-votebar.voted i {
     background-position: -194px -232px;
 }
-
+.note-toolbar {
+    height: 41px;
+}
