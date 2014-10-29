@@ -221,7 +221,9 @@ a {
     margin-bottom: 20px;
 }
 .zm-votebar {
-    float: right;
+    position: absolute;
+right: 0;
+margin-top: -1px;
 }
 .zm-votebar .up, .zm-votebar .down {
     display: block;
@@ -232,7 +234,7 @@ a {
     border-radius: 3px;
     border: 0;
     cursor: pointer;
-    background: #eff6fa;
+    background-color: #dfeaf4;
     font-weight: 700;
     font-weight: 500;
     position: relative;
@@ -1977,3 +1979,4 @@ word-wrap: break-word;
 .summary .user-name {
     margin-bottom: 5px;
 }
+

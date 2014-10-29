@@ -273,6 +273,30 @@
                     </div>
                 </div>
             </div>
+
+            <div id="inviteJoinModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">邀请朋友加入</h4>
+            </div>
+            <div class="modal-body">
+                <div class="invite-email input-group">
+                    <input id="inviteEmailInput" type="text" class="form-control" placeholder="输入 email 邀请朋友加入买买买">
+                    <span class="input-group-btn">
+
+                        <button id="inviteEmail" class="btn btn-default" type="button" data-post="">发送邀请</button>
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         </div>
         <!-- /container -->
         {% block navigation %}{% endblock %} 
@@ -306,7 +330,8 @@
                     $(document).on('click', '.comingsoon', function() {
                         $('#comingsoonModal').modal('show');
                     });
-            
+
+                    /* user_info == none */
                     {% if user_info == none %}
                     $(".username-input").focus(function() {
                         $(".bootstrap-switch-id-gender-switch").hide();
@@ -540,53 +565,7 @@
                     });
             
                     $("#gender-switch").bootstrapSwitch(); 
-                    {% endif %}
-            
-                    $(document).on('click', '.video-link', function() {
-                        $('.t_Tooltip').hide();
-                        var video_id = $(this).attr('data-video');
-                        $(this).replaceWith('<iframe width="100%" height="" src="http://player.youku.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
-                        $('iframe').height(document.body.clientWidth/1.9-3);
-                    });
-            
-                    $('.tipped_ajax_user').each(function() {
-                        Tipped.create(this, {
-                            spinner: true,
-                            ajax: true,
-                            skin: 'white',
-                            hook: 'topleft'
-                        });
-                    });
-            
-                    $('.tipped_ajax_youku').each(function() {
-                        Tipped.create(this, {
-                            spinner: true,
-                            ajax: true,
-                            skin: 'white',
-                            hook: 'topleft'
-                        });
-                    });
-            
-                    $('.tipped_ajax_tag').each(function() {
-                        Tipped.create(this, {
-                            spinner: true,
-                            ajax: true,
-                            skin: 'white',
-                            hook: 'topleft'
-                        });
-                    });
-            
-                    $.scrollUp({
-                        scrollName: 'scrollUp', // Element ID
-                        topDistance: '300', // Distance from top before showing element (px)
-                        topSpeed: 300, // Speed back to top (ms)
-                        animation: 'fade', // Fade, slide, none
-                        animationInSpeed: 200, // Animation in speed (ms)
-                        animationOutSpeed: 200, // Animation out speed (ms)
-                        scrollText: '回顶部', // Text for element
-                        activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
-                    });
-            
+                    {% else %}
                     $(document).on('click', '.report', function() {
                         var report_id = $(this).attr('data-id');
                         var report_type = $(this).attr('data-type');
@@ -637,6 +616,72 @@
                             }
                         });
                     });
+
+$(document).on('click', '#inviteEmail', function() {
+        var email = $('#inviteEmailInput').val();
+
+        $.getJSON('/invite/to/join?email=' + email, function(data) {
+            if (data.success != 0) {
+                $('#inviteEmailInput').val('');
+                $('#inviteJoinModal').modal('hide');
+            } else {
+                alert('邀请发送失败!');
+            }
+        });
+    });
+
+                    $(document).on('click', '.m-votebar', function() {
+                        $(this).hide();
+                        $(this).parent().find('.zm-votebar').show();
+                    });
+                    {% endif %}
+            
+                    $(document).on('click', '.video-link', function() {
+                        $('.t_Tooltip').hide();
+                        var video_id = $(this).attr('data-video');
+                        $(this).replaceWith('<iframe width="100%" height="" src="http://player.youku.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>');
+                        $('iframe').height(document.body.clientWidth/1.9-3);
+                    });
+            
+                    $('.tipped_ajax_user').each(function() {
+                        Tipped.create(this, {
+                            spinner: true,
+                            ajax: true,
+                            skin: 'white',
+                            hook: 'topleft'
+                        });
+                    });
+            
+                    $('.tipped_ajax_youku').each(function() {
+                        Tipped.create(this, {
+                            spinner: true,
+                            ajax: true,
+                            skin: 'white',
+                            hook: 'topleft'
+                        });
+                    });
+            
+                    $('.tipped_ajax_tag').each(function() {
+                        Tipped.create(this, {
+                            spinner: true,
+                            ajax: true,
+                            skin: 'white',
+                            hook: 'topleft'
+                        });
+                    });
+            
+                    $.scrollUp({
+                        scrollName: 'scrollUp', // Element ID
+                        topDistance: '300', // Distance from top before showing element (px)
+                        topSpeed: 300, // Speed back to top (ms)
+                        animation: 'fade', // Fade, slide, none
+                        animationInSpeed: 200, // Animation in speed (ms)
+                        animationOutSpeed: 200, // Animation out speed (ms)
+                        scrollText: '回顶部', // Text for element
+                        activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+                    });
+            
+                    
                 });
         </script>
     </body>

@@ -147,29 +147,7 @@
     </div>
 </div>
 
-<div id="inviteJoinModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title">邀请朋友加入</h4>
-            </div>
-            <div class="modal-body">
-                <div class="invite-email input-group">
-                    <input id="inviteEmailInput" type="text" class="form-control" placeholder="输入 email 邀请朋友加入买买买">
-                    <span class="input-group-btn">
 
-                        <button id="inviteEmail" class="btn btn-default" type="button" data-post="">发送邀请</button>
-
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}
 
 {% block navigation %}
@@ -299,18 +277,7 @@
         });
     });
 
-    $(document).on('click', '#inviteEmail', function() {
-        var email = $('#inviteEmailInput').val();
-
-        $.getJSON('/invite/to/join?email=' + email, function(data) {
-            if (data.success != 0) {
-                $('#inviteEmailInput').val('');
-                $('#inviteJoinModal').modal('hide');
-            } else {
-                alert('邀请发送失败!');
-            }
-        });
-    });
+    
 
     $('.feed-list').jscroll({
         loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',

@@ -37,9 +37,26 @@
                         </div>
                 </div>
 
-                <div class="m-votebar">
-                <a href="#" class="m-votenum"><span>{{post.up_num}}</span>{% if post.author_id != user_info.uid %}<i class=" arrow"></i>{%endif%}</a>
+                <div class="m-votebar {%if user_info==none%}unlogin{%endif%}">
+                <a href="javascript:;" class="m-votenum"><span>{{post.up_num}}</span>{% if post.author_id != user_info.uid %}<i class=" arrow"></i>{%endif%}</a>
                 </div>
+
+                <div class="zm-votebar post-votebar" style="display:none;">
+                {% if post.author_id != user_info.uid %}
+                <button class="up vote-btn vote-post {%if post.vote_up_down and post.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}" title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-id="{{post.id}}"
+                data-type="up">
+                    <i class="icon vote-arrow"></i>
+                    <span class="label">赞同</span>
+                    <span class="count">{{post.up_num}}</span>
+                </button>
+                <button class="down vote-btn vote-post {%if post.vote_up_down and post.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}" title="反对，不会显示你的姓名" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-id="{{post.id}}"
+                data-type="down">
+                    <i class="icon vote-arrow"></i>
+                    <span class="label">反对，不会显示你的姓名</span>
+                    <span class="count" style="display: none;">{{post.down_num}}</span>
+                </button>
+                {% endif %}
+            </div>
                 
                 
             </div>
@@ -137,9 +154,30 @@
                         {% set i=i+1 %}
                         </div>
 
-                        <div class="m-votebar">
-                <a href="#" class="m-votenum"><span>{{reply.up_num}}</span>{% if reply.author_id != user_info.uid %}<i class=" arrow"></i>{%endif%}</a>
+                        <div class="m-votebar {%if user_info==none%}unlogin{%endif%}">
+                <a href="javascript:;" class="m-votenum"><span>{{reply.up_num}}</span>{% if reply.author_id != user_info.uid %}<i class=" arrow"></i>{%endif%}</a>
                 </div>
+                <div class="zm-votebar" style="display:none;">
+                        {% if reply.author_id != user_info.uid %}
+                        <button class="up vote-btn vote-reply {%if reply.vote_up_down and reply.vote_up_down=='up'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}" title="赞同" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-id="{{reply.id}}"
+                        data-type="up">
+                            <i class="icon vote-arrow"></i>
+                            <span class="label">赞同</span>
+                            <span class="count">{{reply.up_num}}</span>
+                        </button>
+                        <button class="down vote-btn vote-reply {%if reply.vote_up_down and reply.vote_up_down=='down'%}voted{%endif%} {%if user_info == none%}unlogin{%endif%}" title="反对，不会显示你的姓名" {%if user_info==none%}data-link="{{link}}" data-link2="{{link2}}" {%endif%} data-id="{{reply.id}}"
+                        data-type="down">
+                            <i class="icon vote-arrow"></i>
+                            <span class="label">反对，不会显示你的姓名</span>
+                            <span class="count" style="display: none;">{{reply.down_num}}</span>
+                        </button>
+                        {% else %}
+                        <button class="up vote-btn vote-self-btn" title="赞同">
+                            <span class="label">赞同</span>
+                            <span class="count">{{reply.up_num}}</span>
+                        </button>
+                        {% endif %}
+                    </div>
 
                         
                     </div>                  
