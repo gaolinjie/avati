@@ -15,34 +15,34 @@
             {% set pre_feed=-1%} {%for feed in feeds.list%} {%if feed.id!=pre_feed%} {% set pre_feed=feed.id%} {%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
             <div class="feed" id='{{feed.id}}'>
                 <div class="user-wrapper">
-                {%if 0%}
-                    <div class="zm-votebar post-votebar">
-                        <button class="up vote-btn vote-self-btn" title="{{feed.post_up_num}} 人赞同">
-                            <span class="label">赞同</span>
-                            <span class="count">{{feed.post_up_num}}</span>
-                        </button>
-                    </div>
+                <div class="user-title user-title-wrapper">                 
                     <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}">
                         <a href="/u/{{feed.author_username}}">
-                            <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
+                            <img src="{{feed.author_avatar}}-avatar" width="32px" height="32px" alt="" class="avatar-img">
                         </a>
                     </div>
-                    {%endif%}
-                    <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
-                        <div class="user-meta meta">
-                            <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
-                            {{feed.feed_text}}
+                    <div class="username-wrapper">
+                <div class="user-meta meta">
+                    <a class="tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
+                    {{feed.feed_text}}
+                </div>
+                <div class="answer-user-meta meta">
+                {{feed.created|pretty_date}}
                         </div>
-                        <div class="feed-title">
+                </div>
+                <div class="m-votebar">
+                <a href="javascript:;" class="m-votenum"><span>{{feed.post_up_num}}</span></a>
+                </div>
+
+                    </div>                                           
+                </div>
+                <div class="feed-title">
                             <h2>
 
                                 <a href="/p/{{feed.post_id}}">{{feed.post_title}}</a>
 
                             </h2>
                         </div>
-                    </div>
-                </div>
                 <div class="summary">
                     <div class="summary-text">{{feed.post_content|index_content_process}}</div>
                 </div>

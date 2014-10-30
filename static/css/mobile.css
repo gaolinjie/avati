@@ -350,14 +350,10 @@ margin-top: -1px;
 .follow-box {
     padding-top: 0;
 }
-.feed .user-avatar {
-    position: absolute;
-    left: -54px;
-}
 .feed .user-meta {
     color: #999;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.2;
 }
 .summary {
     float: left;
