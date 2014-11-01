@@ -19,11 +19,6 @@
                     {%if notice.notice_type==1 or notice.notice_type==4 or notice.notice_type==5 or notice.notice_type==8 or notice.notice_type==11 or notice.notice_type==12 or notice.notice_type==7 or notice.notice_type==14%}
                     <div class="feed">
                         <div class="user-wrapper">
-                            <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{notice.username}}">
-                                <a href="/u/{{notice.username}}">
-                                    <img src="{{notice.avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
-                                </a>
-                            </div>
                             <div class="user-title">
                                 <div class="time">{{notice.created|pretty_date}}</div>
                                 <div class="user-meta meta">
@@ -45,11 +40,6 @@
                     {%if notice.notice_type==2 or notice.notice_type==3 or notice.notice_type==9 or notice.notice_type==10 or notice.notice_type==16 or notice.notice_type==17%}
                     <div class="feed">
                         <div class="user-wrapper">
-                            <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{notice.username}}">
-                                <a href="/u/{{notice.username}}">
-                                    <img src="{{notice.avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
-                                </a>
-                            </div>
                             <div class="user-title">
                                 <div class="time">{{notice.created|pretty_date}}</div>
                                 <div class="user-meta meta">
@@ -69,11 +59,6 @@
                     {%if notice.notice_type==6 or notice.notice_type==13%}
                     <div class="feed">
                         <div class="user-wrapper">
-                            <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{notice.username}}">
-                                <a href="/u/{{notice.username}}">
-                                    <img src="{{notice.avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
-                                </a>
-                            </div>
                             <div class="user-title">
                                 <div class="time">{{notice.created|pretty_date}}</div>
                                 <div class="user-meta meta">
@@ -95,11 +80,6 @@
                     {%if notice.notice_type==15%}
                     <div class="feed">
                         <div class="user-wrapper">
-                            <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{notice.username}}">
-                                <a href="/u/{{notice.username}}">
-                                    <img src="{{notice.avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
-                                </a>
-                            </div>
                             <div class="user-title">
                                 <div class="time">{{notice.created|pretty_date}}</div>
                                 <div class="user-meta meta">
@@ -131,11 +111,6 @@
                     {%if feed.feed_type==2 or feed.feed_type==8%}
                     <div class="feed">
                         <div class="user-wrapper">
-                            <div class="user-avatar tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}">
-                                <a href="/u/{{feed.author_username}}">
-                                    <img src="{{feed.author_avatar}}-avatar" width="46px" height="46px" alt="" class="avatar-img">
-                                </a>
-                            </div>
                             <div class="user-title">
                                 <div class="time">{{feed.created|pretty_date}}</div>
                                 <div class="user-meta meta">
