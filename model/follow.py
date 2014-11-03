@@ -116,7 +116,7 @@ class FollowModel(Query):
                 follow.obj_id as follow_obj_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
-    def get_user_all_follow_and_all_post_feeds(self, author_id, num = 100, current_page = 1):
+    def get_user_all_follow_and_all_post_feeds(self, author_id, num = 10, current_page = 1):
         where = "follow.author_id = %s" % author_id
         join = "RIGHT JOIN feed ON ((follow.obj_type = 'u' AND follow.obj_id = feed.user_id ) OR  (follow.obj_type = 't' AND follow.obj_id = feed.tag_id) OR (feed.feed_type = 1 OR feed.feed_type = 7 OR feed.feed_type = 4 OR feed.feed_type = 6 OR feed.feed_type = 10 OR feed.feed_type = 12 OR feed.feed_type = 14 OR feed.feed_type = 16)) AND (feed.user_id != %s OR  feed.feed_type = 1 OR feed.feed_type = 7)\
                 LEFT JOIN user AS author_user ON feed.user_id = author_user.uid \
