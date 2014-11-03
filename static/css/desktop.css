@@ -1,6 +1,10 @@
 body {
     padding-top: 70px;
     line-height: 1.5;
+    font-size: 13px;
+}
+blockquote {
+    font-size: 13px;
 }
 body, input, textarea {
     font-family: '微软雅黑', 'Helvetica Neue', sans-serif, SimHei;
