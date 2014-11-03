@@ -3,9 +3,29 @@ body {
     line-height: 1.5;
     font-size: 13px;
 }
+    
 blockquote {
-    font-size: 13px;
+border-left: 3px solid #D0E5F2;
+font-style: normal;
+padding: 0 0 0 10px;
+display: block;
+line-height: 22px;
+vertical-align: baseline;
+font-size: 100%;
+margin: 0;
+font-size: 13px;
 }
+
+pre {
+margin: 0;
+padding: .4em .6em;
+font-size: 12px;
+line-height: 1.5;
+border-radius: 2px;
+background: #f8f8f8;
+border: 0;
+}
+
 body, input, textarea {
     font-family: '微软雅黑', 'Helvetica Neue', sans-serif, SimHei;
     -webkit-font-smoothing: antialiased;
