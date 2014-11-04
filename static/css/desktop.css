@@ -16,6 +16,15 @@ margin: 0;
 font-size: 13px;
 }
 
+blockquote:first-child
+{ 
+margin-top: 10px;
+}
+blockquote:last-child
+{ 
+margin-bottom: 10px;
+}
+
 pre {
 margin: 0;
 padding: .4em .6em;
@@ -24,6 +33,18 @@ line-height: 1.5;
 border-radius: 2px;
 background: #f8f8f8;
 border: 0;
+}
+pre:first-child
+{ 
+margin-top: 10px;
+}
+pre:last-child
+{ 
+margin-bottom: 10px;
+}
+
+.answer-text p:first-child {
+    margin-top: 10px;
 }
 
 body, input, textarea {
@@ -92,10 +113,6 @@ a {
 }
 .question {
     margin-bottom: 20px;
-}
-.question h2 {
-    font-size: 25;
-    line-height: 1.5;
 }
 .answers-title {
     border-top: 1px solid #ccc;
@@ -226,7 +243,7 @@ a {
 }
 .answer-text {
     float: left;
-    margin: 10px 0 0 0;
+    margin: 0;
 }
 .answer-meta {
     float: left;
@@ -1581,7 +1598,7 @@ td a {
     height: 20px;
     display: inline-block;
     vertical-align: bottom;
-    margin: 0 5px 2px 0px;
+    margin: 0;
     background-repeat: no-repeat;
 }
 .video-link {
@@ -1811,4 +1828,7 @@ td a {
 }
 .form-control-feedback {
     top: 5px;
+}
+.answer-item .user-avatar, .comment-box .user-avatar {
+    margin-top: -6px;
 }
