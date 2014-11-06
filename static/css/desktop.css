@@ -235,6 +235,7 @@ a {
 }
 .answers-area {
     float: left;
+    width: 100%;
 }
 .answer-item {
     float: left;

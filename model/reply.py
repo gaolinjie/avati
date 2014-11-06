@@ -15,7 +15,7 @@ class ReplyModel(Query):
     def add_new_reply(self, reply_info):
         return self.data(reply_info).add()
 
-    def get_post_all_replys_sort_by_voted(self, post_id, user_id, num = 5, current_page = 1):
+    def get_post_all_replys_sort_by_voted(self, post_id, user_id, num = 50, current_page = 1):
         where = "reply.post_id = %s" % post_id
         join = "LEFT JOIN user ON reply.author_id = user.uid \
                 LEFT JOIN vote ON vote.author_id = %s AND reply.id = vote.reply_id \
@@ -31,7 +31,7 @@ class ReplyModel(Query):
                 report.id as reply_report_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
-    def get_post_all_replys_sort_by_voted2(self, post_id, num = 5, current_page = 1):
+    def get_post_all_replys_sort_by_voted2(self, post_id, num = 50, current_page = 1):
         where = "reply.post_id = %s" % post_id
         join = "LEFT JOIN user ON reply.author_id = user.uid"
         order = "reply.up_num DESC, reply.down_num ASC, reply.created ASC"
@@ -41,7 +41,7 @@ class ReplyModel(Query):
                 user.avatar as author_avatar"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
-    def get_post_all_replys_sort_by_created(self, post_id, user_id, num = 10, current_page = 1):
+    def get_post_all_replys_sort_by_created(self, post_id, user_id, num = 50, current_page = 1):
         where = "reply.post_id = %s" % post_id
         join = "LEFT JOIN user ON reply.author_id = user.uid \
                 LEFT JOIN vote ON vote.author_id = %s AND reply.id = vote.reply_id \
@@ -57,7 +57,7 @@ class ReplyModel(Query):
                 report.id as reply_report_id"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
-    def get_post_all_replys_sort_by_created2(self, post_id, num = 10, current_page = 1):
+    def get_post_all_replys_sort_by_created2(self, post_id, num = 50, current_page = 1):
         where = "reply.post_id = %s" % post_id
         join = "LEFT JOIN user ON reply.author_id = user.uid"
         order = "reply.created ASC, reply.id ASC"
