@@ -292,11 +292,18 @@
 
     $(".summary-text").each(function() {
         var text = $(this);
+        var img = $(this).find('img').attr('src');
+        //alert(img);
+        
         str = text.text();
-        textLeng = 200;
+        textLeng = 180;
         if (str.length > textLeng) {
-            text.html(str.substring(0, textLeng) + "...");
+            str = str.substring(0, textLeng) + "...";
         }
+        if (img) {
+            str = str+'<img src="'+img+'">';
+        }
+        text.html(str);
     });
 </script>
 {%endif%}
