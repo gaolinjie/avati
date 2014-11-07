@@ -212,9 +212,10 @@
 {% endblock %} 
 
 {% block javascript %} 
-{%if user_info!=none%}
+
 <script src="/static/jscroll-master/jquery.jscroll.js"></script>
 <script>
+    {%if user_info!=none%}
     $(document).on('click', '.feed-post-follow-btn', function() {
         var obj_id = $(this).attr('data-obj');
         var obj_type = $(this).attr('data-type');
@@ -272,6 +273,7 @@
             }
         });
     });
+    {%endif%}
 
     $('.feed-list').jscroll({
         loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
@@ -281,11 +283,17 @@
         callback: function(newElems) {
             $(".summary-text").each(function() {
                 var text = $(this);
-                str = text.html();
-                textLeng = 1300;
+                var img = $(this).find('img').attr('src');
+        
+                str = text.text();
+                textLeng = 180;
                 if (str.length > textLeng) {
-                    text.html(str.substring(0, textLeng) + "...");
+                    str = str.substring(0, textLeng) + "...";
                 }
+                if (img) {
+                    str = str+'<img src="'+img+'">';
+                }
+                text.html(str);
             });
         },
     });
@@ -293,7 +301,6 @@
     $(".summary-text").each(function() {
         var text = $(this);
         var img = $(this).find('img').attr('src');
-        //alert(img);
         
         str = text.text();
         textLeng = 180;
@@ -306,5 +313,5 @@
         text.html(str);
     });
 </script>
-{%endif%}
+
 {% endblock %}
