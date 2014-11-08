@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="summary">
-                            <div class="summary-text">{{notice.reply_content}}</div>
+                            <div class="summary-text">{{notice.reply_content|index_content_process}}</div>
                         </div>
                     </div>
                     {%endif%} 
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="summary">
-                            <div class="summary-text">{{notice.post_content}}</div>
+                            <div class="summary-text">{{notice.post_content|index_content_process}}</div>
                         </div>
                     </div>
                     {%endif%} 
@@ -266,11 +266,17 @@
     $(document).ready(function() {
         $(".summary-text").each(function() {
             var text = $(this);
-            str = text.html();
-            textLeng = 1300;
-            if (str.length > textLeng) {
-                text.html(str.substring(0, textLeng) + "...");
-            }
+        var img = $(this).find('img').attr('src');
+        
+        str = text.text();
+        textLeng = 180;
+        if (str.length > textLeng) {
+            str = str.substring(0, textLeng) + "...";
+        }
+        if (img) {
+            str = str+'<img src="'+img+'">';
+        }
+        text.html(str);
         });
 
         $(document).on('click', '#inviteEmail', function() {
@@ -304,11 +310,17 @@
             callback: function(newElems) {
                 $(".summary-text").each(function() {
                     var text = $(this);
-                    str = text.html();
-                    textLeng = 1300;
-                    if (str.length > textLeng) {
-                        text.html(str.substring(0, textLeng) + "...");
-                    }
+        var img = $(this).find('img').attr('src');
+        
+        str = text.text();
+        textLeng = 180;
+        if (str.length > textLeng) {
+            str = str.substring(0, textLeng) + "...";
+        }
+        if (img) {
+            str = str+'<img src="'+img+'">';
+        }
+        text.html(str);
                 });
             },
         });
@@ -321,11 +333,17 @@
             callback: function(newElems) {
                 $(".summary-text").each(function() {
                     var text = $(this);
-                    str = text.html();
-                    textLeng = 1300;
-                    if (str.length > textLeng) {
-                        text.html(str.substring(0, textLeng) + "...");
-                    }
+        var img = $(this).find('img').attr('src');
+        
+        str = text.text();
+        textLeng = 180;
+        if (str.length > textLeng) {
+            str = str.substring(0, textLeng) + "...";
+        }
+        if (img) {
+            str = str+'<img src="'+img+'">';
+        }
+        text.html(str);
                 });
             },
         });
