@@ -12,7 +12,7 @@
 <div class="col-xs-12 col-md-9 shifter-page">
     <div class="feed-list">
         <div class="feeds-inner">
-            {% set pre_feed=-1%} {%for feed in feeds.list%} {%if feed.id!=pre_feed%} {% set pre_feed=feed.id%} {%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
+            {%for feed in feeds.list%}{%if feed.feed_type==1 or feed.feed_type==3 or feed.feed_type==4 or feed.feed_type==7 or feed.feed_type==9 or feed.feed_type==10 or feed.feed_type==13 or feed.feed_type==14 or feed.feed_type==15 or feed.feed_type==16%}
             <div class="feed" id='{{feed.id}}'>
                 <div class="user-wrapper">
                 <div class="user-title user-title-wrapper">                 
@@ -109,7 +109,7 @@
                     {% endif %}
                 </div>
             </div>
-            {%endif%} {%endif%} {%endfor%} {% if feeds.page.next!=feeds.page.current %}
+            {%endif%}{%endfor%} {% if feeds.page.next!=feeds.page.current %}
             <div class="next jscroll-next-parent">
                 <a href="/?p={{feeds.page.next}}" id="load-more" class="jscroll-next load-more-btn infscr-loading" style="display: block;">更多</a>
             </div>
@@ -228,9 +228,10 @@
 {% endblock %} 
 
 {% block javascript %} 
-{%if user_info!=none%}
+
 <script src="/static/jscroll-master/jquery.jscroll.js"></script>
 <script>
+{%if user_info!=none%}
     $(document).on('click', '.feed-post-follow-btn', function() {
         var obj_id = $(this).attr('data-obj');
         var obj_type = $(this).attr('data-type');
@@ -275,8 +276,8 @@
             }
         });
     });
+{%endif%}
 
-    
 
     $('.feed-list').jscroll({
         loadingHtml: '<a href="/?p={{feeds.page.next}}" id="load-more" class="load-more-btn infscr-loading" style="display: block;">加载中...</a>',
@@ -286,23 +287,34 @@
         callback: function(newElems) {
             $(".summary-text").each(function() {
                 var text = $(this);
-                str = text.html();
-                textLeng = 1300;
+                var img = $(this).find('img').attr('src');
+        
+                str = text.text();
+                textLeng = 180;
                 if (str.length > textLeng) {
-                    text.html(str.substring(0, textLeng) + "...");
+                    str = str.substring(0, textLeng) + "...";
                 }
+                if (img) {
+                    str = str+'<img src="'+img+'">';
+                }
+                text.html(str);
             });
         },
     });
 
     $(".summary-text").each(function() {
         var text = $(this);
-        str = text.html();
-        textLeng = 1300;
+        var img = $(this).find('img').attr('src');
+        
+        str = text.text();
+        textLeng = 180;
         if (str.length > textLeng) {
-            text.html(str.substring(0, textLeng) + "...");
+            str = str.substring(0, textLeng) + "...";
         }
+        if (img) {
+            str = str+'<img src="'+img+'">';
+        }
+        text.html(str);
     });
 </script>
-{%endif%}
 {% endblock %}

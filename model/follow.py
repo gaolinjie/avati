@@ -26,7 +26,6 @@ class FollowModel(Query):
         where = "follow.obj_id = %s AND (follow.obj_type = 'q' OR follow.obj_type = 'p')" % post_id
         return self.where(where).delete()
 
-    
 
     def get_user_all_follow_feeds(self, author_id, num = 10, current_page = 1):
         where = "follow.author_id = %s" % author_id
@@ -44,6 +43,7 @@ class FollowModel(Query):
                 LEFT JOIN thank AS reply_thank ON reply_thank.from_user = %s AND reply_thank.to_user = reply.author_id AND reply_thank.obj_id = reply.id AND reply_thank.obj_type = 'reply'\
                 LEFT JOIN report AS reply_report ON reply_report.from_user = %s AND reply_report.to_user = reply.author_id AND reply_report.obj_id = reply.id AND reply_report.obj_type = 'reply'" % (author_id, author_id, author_id, author_id, author_id, author_id)
         order = "feed.created DESC, feed.id DESC"
+        group = "feed.id"
         field = "feed.*, \
                 author_user.username as author_username, \
                 author_user.avatar as author_avatar, \
@@ -69,7 +69,7 @@ class FollowModel(Query):
                 post_report.id as post_report_id, \
                 reply_thank.id as reply_thank_id, \
                 reply_report.id as reply_report_id"
-        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+        return self.where(where).order(order).group(group).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_user_all_follow_and_hot_feeds(self, author_id, num = 10, current_page = 1):
         where = "follow.author_id = %s" % author_id
@@ -87,6 +87,7 @@ class FollowModel(Query):
                 LEFT JOIN thank AS reply_thank ON reply_thank.from_user = %s AND reply_thank.to_user = reply.author_id AND reply_thank.obj_id = reply.id AND reply_thank.obj_type = 'reply'\
                 LEFT JOIN report AS reply_report ON reply_report.from_user = %s AND reply_report.to_user = reply.author_id AND reply_report.obj_id = reply.id AND reply_report.obj_type = 'reply'" % (author_id, author_id, author_id, author_id, author_id, author_id)
         order = "feed.created DESC, feed.id DESC"
+        group = "feed.id"
         field = "feed.*, \
                 author_user.username as author_username, \
                 author_user.avatar as author_avatar, \
@@ -114,7 +115,7 @@ class FollowModel(Query):
                 reply_report.id as reply_report_id, \
                 follow.obj_type as follow_obj_type, \
                 follow.obj_id as follow_obj_id"
-        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+        return self.where(where).order(order).group(group).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_user_all_follow_and_all_post_feeds(self, author_id, num = 30, current_page = 1):
         where = "follow.author_id = %s" % author_id
@@ -183,6 +184,7 @@ class FollowModel(Query):
                 LEFT JOIN thank AS reply_thank ON reply_thank.from_user = %s AND reply_thank.to_user = reply.author_id AND reply_thank.obj_id = reply.id AND reply_thank.obj_type = 'reply'\
                 LEFT JOIN report AS reply_report ON reply_report.from_user = %s AND reply_report.to_user = reply.author_id AND reply_report.obj_id = reply.id AND reply_report.obj_type = 'reply'" % (author_id, author_id, author_id, author_id, author_id, author_id)
         order = "feed.created DESC, feed.id DESC"
+        group = "feed.id"
         field = "feed.*, \
                 author_user.username as author_username, \
                 author_user.avatar as author_avatar, \
@@ -210,7 +212,7 @@ class FollowModel(Query):
                 reply_report.id as reply_report_id, \
                 follow.obj_type as follow_obj_type, \
                 follow.obj_id as follow_obj_id"
-        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+        return self.where(where).order(order).group(group).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_user_follow_hot_posts(self, author_id, num = 10, current_page = 1):
         where = "follow.author_id = %s AND follow.obj_type = 't'" % author_id
