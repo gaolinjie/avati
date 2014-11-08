@@ -139,6 +139,9 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function(url) {
+                $('.note-image-dialog').modal('hide');
+                $('.note-image-input').removeClass('uploading');
+                $('.note-group-select-from-files h5').text('从本地上传');
                 editor.insertImage(editable, url);
             }
         });
@@ -171,6 +174,8 @@ $(document).ready(function() {
         ],
         lang: 'zh-CN',
         onImageUpload: function(files, editor, editable) {
+            $('.note-group-select-from-files h5').text('正在上传图片');
+            $('.note-image-input').addClass('uploading');
             sendFile(files[0], editor, editable);
         },
     });

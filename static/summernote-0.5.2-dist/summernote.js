@@ -2832,7 +2832,7 @@
       async.createImage(sUrl, filename).then(function ($image) {
         $image.css({
           display: '',
-          width: Math.min($editable.width(), $image.width())
+          width: Math.min(/*$editable.width()*/638, $image.width())
         });
         range.create().insertNode($image[0]);
         afterCommand($editable);
@@ -3547,7 +3547,7 @@
           $imageInput.replaceWith($imageInput.clone()
             .on('change', function () {
               deferred.resolve(this.files);
-              $imageDialog.modal('hide');
+              //$imageDialog.modal('hide');
             })
             .val('')
           );
@@ -3819,7 +3819,7 @@
             editor.insertImage($editable, data);
           } else {
             // array of files
-            insertImages($editable, data);
+            insertImages($editable, data);           
           }
         }).fail(function () {
           editor.restoreRange($editable);

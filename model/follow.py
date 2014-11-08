@@ -228,6 +228,7 @@ class FollowModel(Query):
                 LEFT JOIN user AS post_user ON post.author_id = post_user.uid "
         order = "post.created DESC, post.id DESC"
         field = "post.*,\
+                post.id as post_id, \
                 post_user.username as author_username, \
                 post_user.avatar as author_avatar"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)   
@@ -238,6 +239,7 @@ class FollowModel(Query):
                 LEFT JOIN user AS post_user ON post.author_id = post_user.uid "
         order = "post.created DESC, post.id DESC"
         field = "post.*,\
+                post.id as post_id, \
                 post_user.username as author_username, \
                 post_user.avatar as author_avatar"
         return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)     
