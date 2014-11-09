@@ -246,6 +246,8 @@ $(document).ready(function() {
         ],
         lang: 'zh-CN',
         onImageUpload: function(files, editor, editable) {
+            $('.note-group-select-from-files h5').text('正在上传图片');
+            $('.note-image-input').addClass('uploading');
             sendFile(files[0], editor, editable);
         },
     });
