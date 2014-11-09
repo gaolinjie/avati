@@ -30,7 +30,7 @@
                     <label for="tag_category">标签类别</label>
                     <select id="tag_category" name="category" class="form-control">
                         {%for category in categorys%}
-                        <option {% if category.id==t ag.category %} selected="selected" {% endif %}>{{category.name}}</option>
+                        <option {% if category.id==tag.category %} selected="selected" {% endif %}>{{category.name}}</option>
                         {%endfor%}
                     </select>
                 </div>
@@ -39,7 +39,7 @@
                     <label for="tag_type">标签类型</label>
                     <select id="tag_type" name="tag_type" class="form-control">
                         {%for tag_type in tag_types%}
-                        <option {% if tag_type.id==t ag.tag_type %} selected="selected" {% endif %}>{{tag_type.name}}</option>
+                        <option {% if tag_type.id==tag.tag_type %} selected="selected" {% endif %}>{{tag_type.name}}</option>
                         {%endfor%}
                     </select>
                 </div>
