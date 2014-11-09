@@ -1426,21 +1426,21 @@ class EditTagHandler(BaseHandler):
             usr_home = os.path.expanduser('~')
             thumb.save(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name, "PNG")
 
-            policy = qiniu.rs.PutPolicy("mmm-cdn:m_%s.png" % tag_name)
+            policy = qiniu.rs.PutPolicy("mmm-avatar:m_%s.png" % tag_name)
             uptoken = policy.token()
             data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
             ret, err = qiniu.io.put(uptoken, "m_"+tag_name+".png", data)  
  
             os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
 
-            thumb_name = "http://mmm-cdn.qiniudn.com/m_"+tag_name
+            thumb_name = "http://mmm-avatar.qiniudn.com/m_"+tag_name
             self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "thumb": "%s.png" %  thumb_name, "category": category.id, "tag_type": tag_type.id})
 
             if origin_thumb:
                 pattern = re.compile(r'm_.*.png') 
                 match = pattern.search(origin_thumb) 
                 if match: 
-                    ret, err = qiniu.rs.Client().delete("mmm-cdn", match.group())
+                    ret, err = qiniu.rs.Client().delete("mmm-avatar", match.group())
         else:
             self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "category": category.id, "tag_type": tag_type.id})
 
