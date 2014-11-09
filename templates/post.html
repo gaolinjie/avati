@@ -347,10 +347,10 @@
                 contentType: false,
                 processData: false,
                 success: function(url) {
+                    editor.insertImage(editable, url);
                     $('.note-image-dialog').modal('hide');
                     $('.note-image-input').removeClass('uploading');
-                    $('.note-group-select-from-files h5').text('从本地上传');
-                    editor.insertImage(editable, url);
+                    $('.note-group-select-from-files h5').text('从本地上传');                  
                 }
             });
         }
