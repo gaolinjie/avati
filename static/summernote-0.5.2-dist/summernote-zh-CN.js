@@ -50,7 +50,7 @@
         style: '样式',
         normal: '普通',
         blockquote: '引用',
-        pre: '代码',
+        pre: '高亮',
       },
       lists: {
         unordered: '无序列表',

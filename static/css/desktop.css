@@ -59,7 +59,7 @@ body, input, textarea {
 .navbar-brand {
     width: 78px;
     height: 49px;
-    background: url(/static/img/logo.png) 0 0 no-repeat;
+    background: url(http://mmm-static.qiniudn.com/logo.png) 0 0 no-repeat;
     background-size: 78px Auto;
     background-position: center;
 }
@@ -412,37 +412,37 @@ a {
     margin: 5px 0;
 }
 .icon-home {
-    background-image: url(/static/img/web-icon-large.png);
+    background-image: url(http://mmm-static.qiniudn.com/web-icon-large.png-25px);
 }
 .icon-follow {
-    background-image: url(/static/img/cart-icon-large.png);
+    background-image: url(http://mmm-static.qiniudn.com/cart-icon-large.png-25px);
 }
 .icon-message {
-    background-image: url(/static/img/email-icon-large.png);
+    background-image: url(http://mmm-static.qiniudn.com/email-icon-large.png-25px);
 }
 .icon-invitation {
-    background-image: url(/static/img/Tea-Cup.png);
+    background-image: url(http://mmm-static.qiniudn.com/Tea-Cup.png-25px);
 }
 .icon-list {
-    background-image: url(/static/img/Heart.png);
+    background-image: url(http://mmm-static.qiniudn.com/Heart.png-25px);
 }
 .icon-invite {
-    background-image: url(/static/img/Envelope.png);
+    background-image: url(http://mmm-static.qiniudn.com/Envelope.png-25px);
 }
 .icon-setting {
-    background-image: url(/static/img/Spanner.png);
+    background-image: url(http://mmm-static.qiniudn.com/Spanner.png-25px);
 }
 .icon-avatar {
-    background-image: url(/static/img/Camera.png);
+    background-image: url(http://mmm-static.qiniudn.com/Camera.png-25px);
 }
 .icon-cover {
-    background-image: url(/static/img/Photo.png);
+    background-image: url(http://mmm-static.qiniudn.com/Photo.png-25px);
 }
 .icon-password {
-    background-image: url(/static/img/Key.png);
+    background-image: url(http://mmm-static.qiniudn.com/Key.png-25px);
 }
 .icon-social {
-    background-image: url(/static/img/Wine.png);
+    background-image: url(http://mmm-static.qiniudn.com/Wine.png-25px);
 }
 .nav-list [class^="icon-"], .nav-list [class*=" icon-"] {
     width: 25px;
@@ -922,7 +922,7 @@ i.icon {
 .bds_tsina {
     width: 115px !important;
     height: 28px !important;
-    background: url(/static/img/weibo.png) 0 0 no-repeat !important;
+    background: url(http://mmm-static.qiniudn.com/weibo.png-28px) 0 0 no-repeat !important;
     background-size: 28px 28px !important;
     font-size: 13px !important;
     padding-left: 32px !important;
@@ -933,7 +933,7 @@ i.icon {
 .bds_weixin {
     width: 115px !important;
     height: 28px !important;
-    background: url(/static/img/weixin.png) 0 0 no-repeat !important;
+    background: url(http://mmm-static.qiniudn.com/weixin.png-28px) 0 0 no-repeat !important;
     background-size: 28px 28px !important;
     font-size: 13px !important;
     padding-left: 32px !important;
@@ -1058,28 +1058,28 @@ a.sina {
     height: 16px;
     width: 16px;
     display: inline-block;
-    background: url('/static/img/16-sinaweibo.png')no-repeat;
+    background: url('http://mmm-static.qiniudn.com/16-sinaweibo.png')no-repeat;
     position: relative;
 }
 a.qzone {
     height: 16px;
     width: 16px;
     display: inline-block;
-    background: url('/static/img/16-qzone.png')no-repeat;
+    background: url('http://mmm-static.qiniudn.com/16-qzone.png')no-repeat;
     position: relative;
 }
 a.douban {
     height: 16px;
     width: 16px;
     display: inline-block;
-    background: url('/static/img/16-douban.png')no-repeat;
+    background: url('http://mmm-static.qiniudn.com/16-douban.png')no-repeat;
     position: relative;
 }
 a.renren {
     height: 16px;
     width: 16px;
     display: inline-block;
-    background: url('/static/img/16-renren.png')no-repeat;
+    background: url('http://mmm-static.qiniudn.com/16-renren.png')no-repeat;
     position: relative;
 }
 .btn-right {
@@ -1607,16 +1607,16 @@ td a {
     background-repeat: no-repeat;
 }
 .video-link {
-    background-image: url(/static/img/button_video.png);
+    background-image: url(http://mmm-static.qiniudn.com/button_video.png);
 }
 .taobao-link {
-    background-image: url(/static/img/button_taobao.png);
+    background-image: url(http://mmm-static.qiniudn.com/button_taobao.png);
 }
 .tmall-link {
-    background-image: url(/static/img/button_tmall.png);
+    background-image: url(http://mmm-static.qiniudn.com/button_tmall.png);
 }
 .web-link {
-    background-image: url(/static/img/button_web.png);
+    background-image: url(http://mmm-static.qiniudn.com/button_web.png);
 }
 .ad-box .ad-link {
     background: #fff;
