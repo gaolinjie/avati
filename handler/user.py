@@ -38,7 +38,7 @@ import qiniu.rs
 qiniu.conf.ACCESS_KEY = "DaQzr1UhFQD6im_kJJjZ8tQUKQW7ykiHo4ZWfC25"
 qiniu.conf.SECRET_KEY = "Ge61JJtUSC5myXVrntdVOqAZ5L7WpXR_Taa9C8vb"
 
-DEBUG_FLAG = True
+DEBUG_FLAG = False
 
 def do_login(self, user_id):
     user_info = self.user_model.get_user_by_uid(user_id)

@@ -43,5 +43,9 @@ class NoticeModel(Query):
             "readed": 1
         }).where(where).save()
 
+    def delete_notice_by_reply_id(self, reply_id):
+        where = "notice.reply_id = %s " % reply_id
+        return self.where(where).delete()
+
 
 

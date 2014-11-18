@@ -1097,6 +1097,7 @@ class DeleteReplyHandler(BaseHandler):
             self.report_model.delete_report_by_reply_id(reply_id)
             self.reply_model.delete_reply_by_id(reply_id)
             self.feed_model.delete_feed_by_reply_id(reply_id)
+            self.notice_model.delete_notice_by_reply_id(reply_id)
 
             post = self.post_model.get_post_by_post_id(reply.post_id)
             if post.post_type=='q':
