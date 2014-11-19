@@ -302,7 +302,9 @@ class SettingHandler(BaseHandler):
             return
 
         # continue while validate succeed
-
+        website = form.website.data.replace("http://", "")
+        website = website.replace("https://", "")
+        website = website.replace("www.", "")
         user_info = self.current_user
         update_result = self.user_model.set_user_base_info_by_uid(user_info["uid"], {
             "sign": form.sign.data,
@@ -311,7 +313,7 @@ class SettingHandler(BaseHandler):
             "business": form.business.data,
             "edu": form.edu.data,
             "company": form.company.data,
-            "website": form.website.data,
+            "website": website,
             "intro": form.intro.data,
             "updated": time.strftime('%Y-%m-%d %H:%M:%S')
         })
