@@ -294,10 +294,11 @@
                 if (str.length > textLeng) {
                     str = str.substring(0, textLeng) + "...";
                 }
-                if (img) {
-                    str = '<img src="'+img+'">' + str;
-                }
                 text.html(str);
+                if (img) {
+                    $('<img src="'+img+'" style="float: left; margin-right:10px;">').insertBefore(this);
+                    text.addClass('summary-text2');
+                }                
             });
         },
     });
@@ -311,10 +312,10 @@
         if (str.length > textLeng) {
             str = str.substring(0, textLeng) + "...";
         }
-
         text.html(str);
         if (img) {
             $('<img src="'+img+'" style="float: left; margin-right:10px;">').insertBefore(this);
+            text.addClass('summary-text2');
         }
     });
 </script>
