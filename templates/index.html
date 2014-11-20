@@ -295,7 +295,7 @@
                     str = str.substring(0, textLeng) + "...";
                 }
                 if (img) {
-                    str = str+'<img src="'+img+'">';
+                    str = '<img src="'+img+'">' + str;
                 }
                 text.html(str);
             });
@@ -311,10 +311,11 @@
         if (str.length > textLeng) {
             str = str.substring(0, textLeng) + "...";
         }
-        if (img) {
-            str = str+'<img src="'+img+'">';
-        }
+
         text.html(str);
+        if (img) {
+            $('<img src="'+img+'" style="float: left; margin-right:10px;">').insertBefore(this);
+        }
     });
 </script>
 
