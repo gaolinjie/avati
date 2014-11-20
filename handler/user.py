@@ -305,6 +305,7 @@ class SettingHandler(BaseHandler):
         website = form.website.data.replace("http://", "")
         website = website.replace("https://", "")
         website = website.replace("www.", "")
+        website = website.rstrip("/")
         user_info = self.current_user
         update_result = self.user_model.set_user_base_info_by_uid(user_info["uid"], {
             "sign": form.sign.data,
