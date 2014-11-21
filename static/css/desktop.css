@@ -949,6 +949,7 @@ i.icon {
 .topic-title h2 {
     margin-top: 0px;
     line-height: 1.2;
+    font-weight: 300;
 }
 .topic-content  {
     line-height: 1.7;
