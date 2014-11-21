@@ -245,6 +245,7 @@ a {
 .answer-text {
     float: left;
     margin: 0;
+    line-height: 1.7;
 }
 .answer-meta {
     float: left;
@@ -949,7 +950,7 @@ i.icon {
     margin-top: 0px;
     line-height: 1.2;
 }
-.topic-content p {
+.topic-content  {
     line-height: 1.7;
 }
 #post-user-wrapper {
