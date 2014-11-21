@@ -320,9 +320,12 @@
         }
         if (img3) {
             $('<img class="mmm-img" src="'+img2+'">').insertBefore(this);
-            $('<img class="mmm-img last-img" src="'+img3+'">').insertBefore(this);     
+            $('<img class="mmm-img last-img" src="'+img3+'">').insertBefore(this);  
+            text.addClass('summary-text3');     
         } else {
-            text.addClass('summary-text2');  
+            if (img1) {
+                text.addClass('summary-text2');  
+            }
         }
     });
 </script>
