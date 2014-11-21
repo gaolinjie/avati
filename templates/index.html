@@ -305,7 +305,9 @@
 
     $(".summary-text").each(function() {
         var text = $(this);
-        var img = $(this).find('.mmm-img').attr('src');
+        var img1 = $(this).find('.mmm-img:nth-child(1)').attr('src');
+        var img2 = $(this).find('.mmm-img:nth-child(2)').attr('src');
+        var img3 = $(this).find('.mmm-img:nth-child(3)').attr('src');
         
         str = text.text();
         textLeng = 180;
@@ -313,8 +315,14 @@
             str = str.substring(0, textLeng) + "...";
         }
         text.html(str);
-        if (img) {
-            $('<img class="mmm-img" src="'+img+'" style="float: left; margin-right:10px;">').insertBefore(this);
+        if (img3) {
+            $('<img class="mmm-img" src="'+img3+'">').insertBefore(this);
+        }
+        if (img2) {
+            $('<img class="mmm-img" src="'+img2+'">').insertBefore(this);
+        }
+        if (img1) {
+            $('<img class="mmm-img" src="'+img1+'">').insertBefore(this);
             text.addClass('summary-text2');
         }
     });

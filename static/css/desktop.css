@@ -1850,3 +1850,8 @@ background-position: center right;
     float: left;
     width: 423px;
 }
+
+.mmm-img {
+    float: left; 
+    margin-right:10px;
+}
