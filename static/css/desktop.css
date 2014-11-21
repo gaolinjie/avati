@@ -1851,6 +1851,15 @@ background-position: center right;
     width: 423px;
 }
 
+.summary-text {
+    margin-top: 5px;
+    float: left;
+}
+
+.mmm-img.last-img {
+    margin-right: 0;
+}
+
 .mmm-img {
     float: left; 
     margin-right:10px;
