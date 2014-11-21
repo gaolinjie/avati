@@ -305,7 +305,7 @@
 
     $(".summary-text").each(function() {
         var text = $(this);
-        var img = $(this).find('img').attr('src');
+        var img = $(this).find('.mmm-img').attr('src');
         
         str = text.text();
         textLeng = 180;
@@ -314,7 +314,7 @@
         }
         text.html(str);
         if (img) {
-            $('<img src="'+img+'" style="float: left; margin-right:10px;">').insertBefore(this);
+            $('<img class="mmm-img" src="'+img+'" style="float: left; margin-right:10px;">').insertBefore(this);
             text.addClass('summary-text2');
         }
     });
