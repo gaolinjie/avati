@@ -2006,3 +2006,7 @@ margin: 0 0 5px;
     overflow-x:hidden;
 overflow-y: auto;
 }
+
+.summary .mmm-img{
+    max-width: 100%;
+}

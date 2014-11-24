@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="summary">
-                            <div class="summary-text">{{notice.reply_content|index_content_process}}</div>
+                            <div class="summary-text">{{notice.reply_content|mobile_index_process}}</div>
                         </div>
                     </div>
                     {%endif%} 
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="summary">
-                            <div class="summary-text">{{notice.post_content|index_content_process}}</div>
+                            <div class="summary-text">{{notice.post_content|mobile_index_process}}</div>
                         </div>
                     </div>
                     {%endif%} 
@@ -128,7 +128,7 @@
                             <div class="user-name">
                                 <a class="reply-user-link tipped_ajax_user" data-tipped="/get/user/{{feed.reply_user_username}}" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
                             </div>
-                            <div class="summary-text">{{feed.reply_content|index_content_process}}</div>
+                            <div class="summary-text">{{feed.reply_content|mobile_index_process}}</div>
                         </div>
                         <div class="answer-meta meta">
                             <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
@@ -265,13 +265,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".summary-text").each(function() {
-            var text = $(this);
+                var text = $(this);
         var img1 = $(this).find('.mmm-img:eq(0)').attr('src');
-        var img2 = $(this).find('.mmm-img:eq(1)').attr('src');
-        var img3 = $(this).find('.mmm-img:eq(2)').attr('src');
         
         str = text.text();
-        textLeng = 140;
+        textLeng = 88;
         if (str.length > textLeng) {
             str = str.substring(0, textLeng) + "...";
         }
@@ -279,16 +277,7 @@
         if (img1) {
             $('<img class="mmm-img" src="'+img1+'">').insertBefore(this); 
         }
-        if (img3) {
-            $('<img class="mmm-img" src="'+img2+'">').insertBefore(this);
-            $('<img class="mmm-img last-img" src="'+img3+'">').insertBefore(this);  
-            text.addClass('summary-text3');     
-        } else {
-            if (img1) {
-                text.addClass('summary-text2');  
-            }
-        }
-        });
+            });
 
         $(document).on('click', '#inviteEmail', function() {
             var email = $('#inviteEmailInput').val();
@@ -320,13 +309,11 @@
             autoTrigger: false,
             callback: function(newElems) {
                 $(".summary-text").each(function() {
-                    var text = $(this);
+                var text = $(this);
         var img1 = $(this).find('.mmm-img:eq(0)').attr('src');
-        var img2 = $(this).find('.mmm-img:eq(1)').attr('src');
-        var img3 = $(this).find('.mmm-img:eq(2)').attr('src');
         
         str = text.text();
-        textLeng = 140;
+        textLeng = 88;
         if (str.length > textLeng) {
             str = str.substring(0, textLeng) + "...";
         }
@@ -334,16 +321,7 @@
         if (img1) {
             $('<img class="mmm-img" src="'+img1+'">').insertBefore(this); 
         }
-        if (img3) {
-            $('<img class="mmm-img" src="'+img2+'">').insertBefore(this);
-            $('<img class="mmm-img last-img" src="'+img3+'">').insertBefore(this);  
-            text.addClass('summary-text3');     
-        } else {
-            if (img1) {
-                text.addClass('summary-text2');  
-            }
-        }
-                });
+            });
             },
         });
 
@@ -354,13 +332,11 @@
             autoTrigger: false,
             callback: function(newElems) {
                 $(".summary-text").each(function() {
-                    var text = $(this);
+                var text = $(this);
         var img1 = $(this).find('.mmm-img:eq(0)').attr('src');
-        var img2 = $(this).find('.mmm-img:eq(1)').attr('src');
-        var img3 = $(this).find('.mmm-img:eq(2)').attr('src');
         
         str = text.text();
-        textLeng = 140;
+        textLeng = 88;
         if (str.length > textLeng) {
             str = str.substring(0, textLeng) + "...";
         }
@@ -368,16 +344,7 @@
         if (img1) {
             $('<img class="mmm-img" src="'+img1+'">').insertBefore(this); 
         }
-        if (img3) {
-            $('<img class="mmm-img" src="'+img2+'">').insertBefore(this);
-            $('<img class="mmm-img last-img" src="'+img3+'">').insertBefore(this);  
-            text.addClass('summary-text3');     
-        } else {
-            if (img1) {
-                text.addClass('summary-text2');  
-            }
-        }
-                });
+            });
             },
         });
 

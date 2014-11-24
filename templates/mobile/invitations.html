@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="summary">
-                    <div class="summary-text">{{feed.post_content|index_content_process}}</div>
+                    <div class="summary-text">{{feed.post_content|mobile_index_process}}</div>
                 </div>
             </div>
             {%endfor%} {% if feeds.page.next!=feeds.page.current %}
@@ -149,13 +149,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".summary-text").each(function() {
-            var text = $(this);
+                var text = $(this);
         var img1 = $(this).find('.mmm-img:eq(0)').attr('src');
-        var img2 = $(this).find('.mmm-img:eq(1)').attr('src');
-        var img3 = $(this).find('.mmm-img:eq(2)').attr('src');
         
         str = text.text();
-        textLeng = 140;
+        textLeng = 88;
         if (str.length > textLeng) {
             str = str.substring(0, textLeng) + "...";
         }
@@ -163,16 +161,7 @@
         if (img1) {
             $('<img class="mmm-img" src="'+img1+'">').insertBefore(this); 
         }
-        if (img3) {
-            $('<img class="mmm-img" src="'+img2+'">').insertBefore(this);
-            $('<img class="mmm-img last-img" src="'+img3+'">').insertBefore(this);  
-            text.addClass('summary-text3');     
-        } else {
-            if (img1) {
-                text.addClass('summary-text2');  
-            }
-        }
-        });
+            });
 
         $(document).on('click', '#inviteEmail', function() {
             var email = $('#inviteEmailInput').val();
@@ -195,13 +184,11 @@
             autoTrigger: false,
             callback: function(newElems) {
                 $(".summary-text").each(function() {
-                    var text = $(this);
+                var text = $(this);
         var img1 = $(this).find('.mmm-img:eq(0)').attr('src');
-        var img2 = $(this).find('.mmm-img:eq(1)').attr('src');
-        var img3 = $(this).find('.mmm-img:eq(2)').attr('src');
         
         str = text.text();
-        textLeng = 140;
+        textLeng = 88;
         if (str.length > textLeng) {
             str = str.substring(0, textLeng) + "...";
         }
@@ -209,16 +196,7 @@
         if (img1) {
             $('<img class="mmm-img" src="'+img1+'">').insertBefore(this); 
         }
-        if (img3) {
-            $('<img class="mmm-img" src="'+img2+'">').insertBefore(this);
-            $('<img class="mmm-img last-img" src="'+img3+'">').insertBefore(this);  
-            text.addClass('summary-text3');     
-        } else {
-            if (img1) {
-                text.addClass('summary-text2');  
-            }
-        }
-                });
+            });
             },
         });
 
