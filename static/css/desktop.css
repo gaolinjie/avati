@@ -1870,3 +1870,7 @@ background-position: center right;
     float: left; 
     margin-right:10px;
 }
+
+.topic-content img, .answer-text img {
+    margin: 5px auto;
+}
