@@ -67,7 +67,7 @@
             <span class="bullet">•</span>
             {% endif %}
             <span class="time">{{post.created|pretty_date}}</span>
-            {% if post.author_id == user_info.uid %}
+            {% if post.author_id == user_info.uid or user_info.permission > 1%}
             <span class="bullet">•</span>
             <a class="edit" href="/edit/{{post.id}}" data-id="{{post.id}}" data-type="post">修改</a>
             {% if replys.list|length ==0 %}
@@ -172,7 +172,7 @@
                     <span class="bullet">•</span>
                     {% endif %}
                     <span class="time">{{reply.created|pretty_date}}</span>
-                    {% if reply.author_id == user_info.uid %}
+                    {% if reply.author_id == user_info.uid or user_info.permission > 1 %}
                     <span class="bullet">•</span>
                     <a class="edit" href="javascript:;" data-id="{{reply.id}}" data-type="reply">修改</a>
                     <span class="bullet">•</span>
