@@ -1029,10 +1029,10 @@ class ThankHandler(BaseHandler):
                 self.notice_model.add_new_notice(notice_info)
 
                 self.user_model.update_user_info_by_user_id(user_info.uid, {"income": user_info.expend+10})
-                self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 9, "amount": -10, "balance": user_info.income-user_info.expend-10, "post_id": post_id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
+                self.balance_model.add_new_balance({"author_id":  user_info.uid, "balance_type": 9, "amount": -10, "balance": user_info.income-user_info.expend-10, "post_id": post.id, "reply_id": reply.id, "user_id": post.author_id, "created": time.strftime('%Y-%m-%d %H:%M:%S')})  
                 post_author = self.user_model.get_user_by_uid(post.author_id)
                 self.user_model.update_user_info_by_user_id(post_author.uid, {"income": post_author.income+10})
-                self.balance_model.add_new_balance({"author_id":  post_author.uid, "balance_type": 10, "amount": 10, "balance": post_author.income-post_author.expend+10, "post_id": post_id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
+                self.balance_model.add_new_balance({"author_id":  post_author.uid, "balance_type": 10, "amount": 10, "balance": post_author.income-post_author.expend+10, "post_id": post.id, "reply_id": reply.id, "user_id":  user_info.uid, "created": time.strftime('%Y-%m-%d %H:%M:%S')}) 
 
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
