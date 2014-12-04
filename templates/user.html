@@ -4,6 +4,10 @@
 <title>{{view_user.username}} - 买买买</title>
 {% endblock %} 
 
+{% block stylesheet %}
+<link rel="stylesheet" href="/static/fontdiao/fontdiao/css/fontdiao.css" />
+{% endblock %} 
+
 {% block main %}
 <div class="col-xs-12 col-md-9">
 
@@ -15,19 +19,19 @@
             <div id="header-links">
                 <ul class="about-network-links">
                     <li class="channel-links-item">
-                        <a class="sina" href="{{view_user.weibo or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank"></a>
+                        <a class="sina" href="{{view_user.weibo or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.weibo %}的微博{% else %}还未设置{% endif %}" target="_blank"><i class="header-icon icon-weibo"></i></a>
                     </li>
 
                     <li class="channel-links-item">
-                        <a class="qzone" href="{{view_user.qzone or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.qzone %}的QQ空间{% else %}还未设置{% endif %}" target="_blank"></a>
+                        <a class="douban" href="{{view_user.douban or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.douban %}的豆瓣主页{% else %}还未设置{% endif %}" target="_blank"><i class="header-icon icon-douban"></i></a>
                     </li>
 
                     <li class="channel-links-item">
-                        <a class="douban" href="{{view_user.douban or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.douban %}的豆瓣主页{% else %}还未设置{% endif %}" target="_blank"></a>
-                    </li>
+                        <a class="qzone" href="{{view_user.qzone or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.qzone %}的QQ空间{% else %}还未设置{% endif %}" target="_blank"><i class="header-icon icon-qzone"></i></a>
+                    </li>                   
 
                     <li class="channel-links-item">
-                        <a class="renren" href="{{view_user.renren or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"></a>
+                        <a class="renren" href="{{view_user.renren or 'javascript:;'}}" title="@{{view_user.username}} {%if view_user.renren %}的人人主页{% else %}还未设置{% endif %}" target="_blank"><i class="header-icon icon-renren"></i></a>
                     </li>
 
                 </ul>
@@ -35,7 +39,7 @@
                 <ul class="about-custom-links">
                     <li class="channel-links-item">
                         <a href="http://{{view_user.website}}" rel="me nofollow" target="_blank" title="{{view_user.website}}" class="about-channel-link yt-uix-redirect-link about-channel-link-with-icon">
-                            <img src="/static/img/website.png" class="about-channel-link-favicon" alt="" width="16" height="16">
+                            <i class="fa fa-globe"></i>
                             <span class="about-channel-link-text">{{view_user.website}}</span>
                         </a>
                     </li>
