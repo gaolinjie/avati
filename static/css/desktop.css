@@ -48,17 +48,17 @@ margin-bottom: 10px;
 }
 
 body, input, textarea {
-    font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif;
+    font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif !important;
     -webkit-font-smoothing: antialiased;
 }
 
 .topic-content p, .topic-content span, .topic-content br {
-font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif;
+font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif !important;
     -webkit-font-smoothing: antialiased;
 }
 
 .answer-text p, .answer-text span, .answer-text br {
-font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif;
+font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif !important;
     -webkit-font-smoothing: antialiased;
 }
 
