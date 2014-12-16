@@ -24,7 +24,7 @@
                     {%if tag.intro%} {{tag.intro}} {%else%} 目前还没有关于这个标签的介绍 {%endif%}
                 </p>
             </div>
-            {%if user_info.permission > 1%}
+            {%if user_info and user_info.permission > 1%}
             <div class="tag-edit">
                 <a href="/edit/tag/{{tag.id}}">编辑</a>
             </div>
