@@ -49,8 +49,9 @@ class Post_tagModel(Query):
         join = "RIGHT JOIN post_tag AS related_post_tag ON (post_tag.tag_id = related_post_tag.tag_id AND related_post_tag.post_id != post_tag.post_id)\
                 LEFT JOIN post ON related_post_tag.post_id = post.id"
         order = "post.reply_num DESC, post.created DESC, post.id DESC"
+        group = "post.id"
         field = "post.*"
-        return self.where(where).order(order).join(join).field(field).pages(current_page = current_page, list_rows = num)
+        return self.where(where).order(order).group(group).join(join).field(field).pages(current_page = current_page, list_rows = num)
 
     def get_post_related_users(self, post_id, author_id, num = 40, current_page = 1):
         where = "post_tag.post_id = %s" % post_id
