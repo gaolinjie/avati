@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="summary">
-                            <div class="content-text hidden">{{feed.reply_content|index_content_process}}</div>
+                            <div class="content-text hidden">{{notice.reply_content|index_content_process}}</div>
                             <div class="summary-text"></div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="summary">
-                            <div class="content-text hidden">{{feed.post_content|index_content_process}}</div>
+                            <div class="content-text hidden">{{notice.post_content|index_content_process}}</div>
                             <div class="summary-text"></div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                             <div class="user-name">
                                 <a class="reply-user-link tipped_ajax_user" data-tipped="/get/user/{{feed.reply_user_username}}" href="/u/{{feed.reply_user_username}}">{{feed.reply_user_username}}</a>{%if feed.reply_user_sign%}，{{feed.reply_user_sign}}{%endif%}
                             </div>
-                            <div class="content-text hidden">{{feed.reply_content|index_content_process}}</div>
+                            <div class="content-text hidden">{{notice.reply_content|index_content_process}}</div>
                             <div class="summary-text"></div>
                         </div>
                         <div class="answer-meta meta">
