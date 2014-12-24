@@ -68,6 +68,18 @@ HOWTO deploy on Linode
 ###Install Qiniu sdk
     $ pip install qiniu
 
+###Install pyquery
+    apt-get install libxml2-dev libxslt-dev
+    apt-get install python-dev python-setuptools
+    # 如果内存为512mb，安装pyquery会内存不够，解决方法为下：
+    # http://stackoverflow.com/questions/18334366/out-of-memory-issue-in-installing-packages-on-ubuntu-server
+    $ dd if=/dev/zero of=/swapfile bs=1024 count=1024k
+    $ mkswap /swapfile
+    $ swapon /swapfile
+    pip install pyquery
+    $ swapoff -v /swapfile
+    $ rm /swapfile
+
 ###Create symbolic links to conf files
 	$ cd /etc/nginx 
 	$ rm nginx.conf
