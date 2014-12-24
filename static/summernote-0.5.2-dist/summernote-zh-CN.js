@@ -40,6 +40,13 @@
         url: '视频地址',
         providers: '(暂时只支持优酷)'
       },
+      shopping: {
+        shopping: '宝贝',
+        shoppingLink: '宝贝链接',
+        insert: '插入宝贝',
+        url: '宝贝地址',
+        providers: '(暂时只支持京东)'
+      },
       table: {
         table: '表格'
       },

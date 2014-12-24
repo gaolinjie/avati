@@ -1301,7 +1301,7 @@
         ['para', ['ul', 'ol', 'paragraph']],
         ['height', ['height']],
         ['table', ['table']],
-        ['insert', ['link', 'picture', 'video', 'hr']],
+        ['insert', ['link', 'picture', 'video', 'shopping', 'hr']],
         ['view', ['fullscreen', 'codeview']],
         ['help', ['help']]
       ],
@@ -1374,6 +1374,8 @@
       onkeydown: null,          // keydown
       onImageUpload: null,      // imageUpload
       onImageUploadError: null, // imageUploadError
+      onShoppingUpload: null,      // shoppingUpload
+      onShoppingUploadError: null, // shoppingUploadError
       onToolbarClick: null,
 
       /**
@@ -1502,6 +1504,13 @@
           insert: 'Insert Video',
           url: 'Video URL?',
           providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)'
+        },
+        shopping: {
+          shopping: 'Shopping',
+          shoppingLink: 'Shopping Link',
+          insert: 'Insert Shopping',
+          url: 'Shopping URL?',
+          providers: '(JD)'
         },
         table: {
           table: 'Table'
@@ -2844,6 +2853,15 @@
       });
     };
 
+    this.insertShopping = function ($editable, msg) {
+      var $item;
+      $item = $('<div class="mmm-item" data-id="'+msg.id+'"><div class="mitem-l"><a target="_blank" href="/item/'+msg.id+'"><img src="'+msg.img+'"></a></div><div class="mitem-r"><div class="mitem-ru"><a target="_blank" class="mitem-title" href="/item/'+msg.id+'" title="'+msg.name+'">'+msg.name+'</a></div><div class="mitem-rd"><i class="fa fa-rmb"></i><span class="mitem-price">'+msg.price+'</span><i class="fa fa-heart-o"></i><span class="mitem-like">'+msg.like_num+'</span></div></div></div>');
+      if ($item) {
+        range.create().insertNode($item[0]);
+        afterCommand($editable);
+      }
+    };
+
     /**
      * insert video
      * @param {jQuery} $editable
@@ -3050,6 +3068,27 @@
      * @return {Object}
      */
     this.getVideoInfo = function ($editable) {
+      $editable.focus();
+
+      var rng = range.create();
+
+      if (rng.isOnAnchor()) {
+        var anchor = dom.ancestor(rng.sc, dom.isAnchor);
+        rng = range.createFromNode(anchor);
+      }
+
+      return {
+        text: rng.toString()
+      };
+    };
+
+    /**
+     * get shopping info
+     *
+     * @param {jQuery} $editable
+     * @return {Object}
+     */
+    this.getShoppingInfo = function ($editable) {
       $editable.focus();
 
       var rng = range.create();
@@ -3627,6 +3666,50 @@
     };
 
     /**
+     * Show shopping dialog and set event handlers on dialog controls.
+     *
+     * @param {jQuery} $dialog 
+     * @param {Object} shoppingInfo 
+     * @return {Promise}
+     */
+    this.showShoppingDialog = function ($editable, $dialog, shoppingInfo) {
+      return $.Deferred(function (deferred) {
+        var $shoppingDialog = $dialog.find('.note-shopping-dialog');
+        var $shoppingUrl = $shoppingDialog.find('.note-shopping-url'),
+            $shoppingBtn = $shoppingDialog.find('.note-shopping-btn');
+
+        $shoppingDialog.one('shown.bs.modal', function () {
+
+          $shoppingBtn.click(function (event) {
+            event.preventDefault();
+
+            deferred.resolve($shoppingUrl.val());
+            $shoppingDialog.modal('hide');
+          });
+  $shoppingUrl.on('keyup paste', function (event) {
+            var url;
+            
+            if (event.type === 'paste') {
+              url = event.originalEvent.clipboardData.getData('text');
+            } else {
+              url = $shoppingUrl.val();
+            }
+            
+            toggleBtn($shoppingBtn, url);
+          }).val('').trigger('focus');
+        }).one('hidden.bs.modal', function () {
+          // dettach events
+          $shoppingUrl.off('keyup');
+          $shoppingBtn.off('click');
+
+          if (deferred.state() === 'pending') {
+            deferred.reject();
+          }
+        }).modal('show');
+      });
+    };
+
+    /**
      * Show link dialog and set event handlers on dialog controls.
      *
      * @param {jQuery} $dialog
@@ -3780,6 +3863,17 @@
       }
     };
 
+    var insertShoppings = function ($editable, sUrl) {
+      var callbacks = $editable.data('callbacks');
+
+      // If onImageUpload options setted
+      if (callbacks.onShoppingUpload) {
+        callbacks.onShoppingUpload(sUrl, editor, $editable);
+      // else insert Image as dataURL
+      } else {
+      }
+    };
+
     var commands = {
       /**
        * @param {Object} layoutInfo
@@ -3838,6 +3932,24 @@
         dialog.showVideoDialog($editable, $dialog, videoInfo).then(function (sUrl) {
           editor.restoreRange($editable);
           editor.insertVideo($editable, sUrl);
+        }).fail(function () {
+          editor.restoreRange($editable);
+        });
+      },
+
+      /**
+       * @param {Object} layoutInfo
+       */
+      showShoppingDialog: function (layoutInfo) {
+        var $dialog = layoutInfo.dialog(),
+            $editable = layoutInfo.editable(),
+            shoppingInfo = editor.getShoppingInfo($editable);
+
+        editor.saveRange($editable);
+        dialog.showShoppingDialog($editable, $dialog, shoppingInfo).then(function (sUrl) {
+          editor.restoreRange($editable);
+          //editor.insertShopping($editable, sUrl);
+          insertShoppings($editable, sUrl); 
         }).fail(function () {
           editor.restoreRange($editable);
         });
@@ -4380,7 +4492,9 @@
         onImageUpload: options.onImageUpload,
         onImageUploadError: options.onImageUploadError,
         onFileUpload: options.onFileUpload,
-        onFileUploadError: options.onFileUpload
+        onFileUploadError: options.onFileUpload,
+        onShoppingUpload: options.onShoppingUpload,
+        onShoppingUploadError: options.onShoppingUploadError
       });
     };
 
@@ -4522,6 +4636,13 @@
         return tplIconButton('fa fa-youtube-play icon-play', {
           event: 'showVideoDialog',
           title: lang.video.video,
+          hide: true
+        });
+      },
+      shopping: function (lang) {
+        return tplIconButton('fa fa-shopping-cart icon-shopping', {
+          event: 'showShoppingDialog',
+          title: lang.shopping.shopping,
           hide: true
         });
       },
@@ -4999,6 +5120,15 @@
         return tplDialog('note-video-dialog', lang.video.insert, body, footer);
       };
 
+      var tplShoppingDialog = function () {
+        var body = '<div class="form-group">' +
+                     '<label>' + lang.shopping.url + '</label>&nbsp;<small class="text-muted">' + lang.shopping.providers + '</small>' +
+                     '<input class="note-shopping-url form-control span12" type="text" />' +
+                   '</div>';
+        var footer = '<button href="#" class="btn btn-primary note-shopping-btn disabled" disabled>' + lang.shopping.insert + '</button>';
+        return tplDialog('note-shopping-dialog', lang.shopping.insert, body, footer);
+      };
+
       var tplHelpDialog = function () {
         var body = '<a class="modal-close pull-right" aria-hidden="true" tabindex="-1">' + lang.shortcut.close + '</a>' +
                    '<div class="title">' + lang.shortcut.shortcuts + '</div>' +
@@ -5015,6 +5145,7 @@
                tplImageDialog() +
                tplLinkDialog() +
                tplVideoDialog() +
+               tplShoppingDialog() +
                tplHelpDialog() +
              '</div>';
     };

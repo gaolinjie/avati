@@ -136,6 +136,10 @@ class BaseHandler(tornado.web.RequestHandler):
     def balance_type_model(self):
         return self.application.balance_type_model
 
+    @property
+    def item_model(self):
+        return self.application.item_model
+
 '''
     @property
     def write_error(self, **kwargs):

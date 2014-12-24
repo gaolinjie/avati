@@ -372,3 +372,23 @@ CREATE TABLE `ads` (
   `link` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `item`
+-- ----------------------------
+DROP TABLE IF EXISTS `item`;
+CREATE TABLE `item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sku` text,
+  `name` text,
+  `img` text,
+  `price` text,
+  `link` text,
+  `cps_link` text,
+  `vendor` text,
+  `view_num` int(11) DEFAULT 0,
+  `add_num` int(11) DEFAULT 0,
+  `like_num` int(11) DEFAULT 0,
+  `fav_num` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

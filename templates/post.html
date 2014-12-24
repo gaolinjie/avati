@@ -5,7 +5,7 @@
 {% endblock %} 
 
 {% block stylesheet %}
-<link rel="stylesheet" href="/static/font-awesome-4.1.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/static/fontdiao/fontdiao/css/fontdiao.css" />
 <link rel="stylesheet" href="/static/summernote-0.5.2-dist/summernote.css">{% endblock %} {% block main %}
 <div class="col-xs-12 col-md-9">
     <div class="question">
@@ -324,7 +324,7 @@
                 ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
                 //['height', ['height']],
                 //['table', ['table']],
-                ['insert', ['link', 'picture', 'video']], // no insert buttons
+                ['insert', ['link', 'picture', 'video', 'shopping']], // no insert buttons
                 //['insert', ['link']],
                 ['view', ['fullscreen' /*, 'codeview'*/ ]],
             ],
@@ -334,7 +334,32 @@
                 $('.note-image-input').addClass('uploading');
                 sendFile(files[0], editor, editable);
             },
+            onShoppingUpload: function(sUrl, editor, editable) {
+                sendShopping(sUrl, editor, editable);
+            },
         });
+
+        function sendShopping(sUrl, editor, editable) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: "/additem",
+                data: JSON.stringify({
+                    url: sUrl,
+                }),
+                success: function(msg) {
+                    if (msg.success != 0) {
+                        editor.insertShopping(editable, msg);
+                    } else {
+                        alert("error");
+                    }
+                },
+                error: function(msg) {
+                    alert("error");
+                }
+            });
+        }
 
         function sendFile(file, editor, editable) {
             data = new FormData();

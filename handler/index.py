@@ -18,6 +18,7 @@ import math
 import datetime 
 import os
 import requests
+import urllib
 
 from base import *
 from lib.sendmail import send
@@ -27,6 +28,7 @@ from lib.xss import XssCleaner
 from lib.utils import find_mentions
 from lib.reddit import hot
 from lib.utils import pretty_date
+from pyquery import PyQuery as pyq
 
 from lib.mobile import is_mobile_browser
 from form.post import *
@@ -1132,6 +1134,78 @@ class EditReplyHandler(BaseHandler):
             self.write(lib.jsonp.print_JSON({
                     "success": 0,
                 }))
+
+class AddItemHandler(BaseHandler):
+    @tornado.web.authenticated
+    def post(self, template_variables = {}):
+        user_info = self.current_user
+
+        if(user_info):
+            data = json.loads(self.request.body)
+            url = data["url"]
+            sku = ""
+            pattern = re.compile(r'http://item.jd.com/(\d+).html') 
+            match = pattern.search(url) 
+            if match: 
+                sku = match.group(1)
+                item = self.item_model.get_item_by_sku_and_vendor(sku, "jd")
+                if item:
+                    self.item_model.update_item_by_id(item.id, {"add_num": item.add_num+1})
+                    self.write(lib.jsonp.print_JSON({
+                        "success": 1,
+                        "id": item.id,
+                        "sku": item.sku,
+                        "name": item.name,
+                        "img": item.img,
+                        "like_num": item.like_num,
+                        "price": item.price
+                    }))
+                else:
+                    price_url = "http://p.3.cn/prices/mgets?skuIds=J_"+sku+"&type=1"
+                    price_page = urllib.urlopen(price_url)
+                    price_data=price_page.read()
+                    price_json = json.loads(price_data)
+                    price = price_json[0]["p"]
+                    doc=pyq(url)
+                    info = doc('#product-intro')
+                    name = info.find('#name h1').text()
+                    img = info.find('#preview #spec-n1 img').attr('src')
+                    item_id = self.item_model.add_new_item({
+                        "sku": sku,
+                        "name": name,
+                        "img": img,
+                        "link": url,
+                        "vendor": "jd",
+                        "price": price
+                    })
+                    self.write(lib.jsonp.print_JSON({
+                        "success": 1,
+                        "id": item_id,
+                        "sku": sku,
+                        "name": name,
+                        "img": img,
+                        "like_num": 0,
+                        "price": price
+                    }))                
+            else:
+                self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+        else:
+            self.write(lib.jsonp.print_JSON({
+                    "success": 0,
+                }))
+
+class ItemHandler(BaseHandler):
+    def get(self, item_id, template_variables = {}):
+        item = self.item_model.get_item_by_id(item_id)
+        if item:
+            template_variables["redirect_time"] = 1
+            template_variables["redirect_url"] = item.link
+            self.render("item.html", **template_variables)
+        else:
+            self.render("404.html", **template_variables)
+        
 
 class DeletePostHandler(BaseHandler):
     def get(self, post_id, template_variables = {}):

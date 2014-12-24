@@ -99,6 +99,9 @@ class Application(tornado.web.Application):
             (r"/get/user/(.*)", handler.index.GetUserHandler),
             (r"/get/tag/(.*)", handler.index.GetTagHandler),
             (r"/get/tags", handler.index.GetTagsHandler),
+
+            (r"/additem", handler.index.AddItemHandler),
+            (r"/item/(\d+)", handler.index.ItemHandler),
             #(r".*", handler.index.PageNotFoundHandler)
         ]
 
@@ -119,7 +122,7 @@ class Application(tornado.web.Application):
         self.post_model = self.loader.use("post.model")
         self.reply_model = self.loader.use("reply.model")
         self.feed_type_model = self.loader.use("feed_type.model")
-        self.llike_model = self.loader.use("like.model")
+        self.like_model = self.loader.use("like.model")
         self.vote_model = self.loader.use("vote.model")
         self.post_tag_model = self.loader.use("post_tag.model")
         self.tag_model = self.loader.use("tag.model")
@@ -136,6 +139,7 @@ class Application(tornado.web.Application):
         self.balance_model = self.loader.use("balance.model")
         self.balance_type_model = self.loader.use("balance_type.model")
         self.ads_model = self.loader.use("ads.model")
+        self.item_model = self.loader.use("item.model")
 
         # Have one global session controller
         self.session_manager = SessionManager(settings["cookie_secret"], ["127.0.0.1:11211"], 0)
