@@ -147,6 +147,28 @@ $(document).ready(function() {
         });
     }
 
+    function sendShopping(sUrl, editor, editable) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: "/additem",
+                data: JSON.stringify({
+                    url: sUrl,
+                }),
+                success: function(msg) {
+                    if (msg.success != 0) {
+                        editor.insertShopping(editable, msg);
+                    } else {
+                        alert("error");
+                    }
+                },
+                error: function(msg) {
+                    alert("error");
+                }
+            });
+        }
+
     var sampleTags = [];
     $.getJSON('/get/tags', function(data) {
         $.each(data, function(key, val) {
@@ -177,6 +199,9 @@ $(document).ready(function() {
             $('.note-group-select-from-files h5').text('正在上传图片');
             $('.note-image-input').addClass('uploading');
             sendFile(files[0], editor, editable);
+        },
+        onShoppingUpload: function(sUrl, editor, editable) {
+            sendShopping(sUrl, editor, editable);
         },
     });
     var qContent = $('#qContentText2').html();

@@ -765,6 +765,9 @@
                         $('.note-image-input').addClass('uploading');
                         sendFile(files[0], editor, editable);
                     },
+                    onShoppingUpload: function(sUrl, editor, editable) {
+                        sendShopping(sUrl, editor, editable);
+                    },
                 });
                 $('#editSummernote').code(reply_text);
                 $('<div class="edit-cancel-btn"><input type="cancel" id="editCancelBtn" data-id="' + edit_id + '" class="btn btn-sm btn-default" value="取消"></div>').insertAfter('#' + edit_id + ' .editor-wrapper #editSummernote');
