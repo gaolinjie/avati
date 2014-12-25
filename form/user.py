@@ -29,9 +29,9 @@ class SignupForm(Form):
 
     password_confirm = TextField('Password_confirm')
 
-    #invite = TextField('Invite', [
-    #    validators.Required(message = "必须填写邀请码"),
-    #])
+    invite = TextField('Invite', [
+        validators.Required(message = "必须填写邀请码"),
+    ])
 
     gender = TextField('Gender', [
         validators.Optional(),
