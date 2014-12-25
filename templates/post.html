@@ -271,6 +271,13 @@
             次
         </div>
     </div>
+
+    <div class="item-box box" style="display:none">
+        <h3>相关宝贝</h3>
+        <div class="item-list">
+
+        </div>
+    </div>
 </div>
 
 <div id="delModal" class="modal fade">
@@ -805,6 +812,21 @@
             });
         }); 
         {% endif %}
+
+        $(".mmm-item").each(function() {
+            var status_box = $('.status-box');
+            var item_box = $('.item-box');
+            if (status_box.hasClass('bottom-box')) {
+                status_box.removeClass('bottom-box');
+            }
+            if (item_box.hasClass('bottom-box')==false) {
+                item_box.addClass('bottom-box');
+            }
+            item_box.show();
+            var item_list = $('.item-list');
+            var list_str = item_list.html() + $("<p>").append($(this).clone()).html()
+            item_list.html(list_str)
+        });
 
         window._bd_share_config = {
             "common": {

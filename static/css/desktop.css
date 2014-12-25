@@ -1974,3 +1974,18 @@ flex: 1;
 .answer-text p{
     margin: 0 !important;
 }
+
+.item-list .mmm-item {
+    margin: 10px 0;
+    width: 233px;
+    height: 68px;
+}
+
+.item-list .mmm-item .mitem-l {
+    width: 68px;
+}
+
+.item-list .mmm-item .mitem-l img {
+max-height: 68px;
+max-width: 68px;
+}
