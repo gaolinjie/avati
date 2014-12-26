@@ -29,9 +29,19 @@ class SignupForm(Form):
 
     password_confirm = TextField('Password_confirm')
 
-    invite = TextField('Invite', [
-        validators.Required(message = "必须填写邀请码"),
+    geetest_challenge = TextField('Geetest_challenge', [
+        validators.Required(message = "验证码验证失败"),
     ])
+    geetest_validate = TextField('Geetest_validate', [
+        validators.Required(message = "验证码验证失败"),
+    ])
+    geetest_seccode = TextField('Geetest_seccode', [
+        validators.Required(message = "验证码验证失败"),
+    ])
+
+    #invite = TextField('Invite', [
+    #    validators.Required(message = "必须填写邀请码"),
+    #])
 
     gender = TextField('Gender', [
         validators.Optional(),

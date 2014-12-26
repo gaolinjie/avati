@@ -35,10 +35,14 @@ import qiniu.conf
 import qiniu.io
 import qiniu.rs
 
+import geetest
+
+gt=geetest.geetest("b3def7f6a704f9649f2d907b1b661e70")
+
 qiniu.conf.ACCESS_KEY = "DaQzr1UhFQD6im_kJJjZ8tQUKQW7ykiHo4ZWfC25"
 qiniu.conf.SECRET_KEY = "Ge61JJtUSC5myXVrntdVOqAZ5L7WpXR_Taa9C8vb"
 
-DEBUG_FLAG = False
+DEBUG_FLAG = True
 
 def do_login(self, user_id):
     user_info = self.user_model.get_user_by_uid(user_id)
@@ -140,6 +144,13 @@ class SignupHandler(BaseHandler):
 
         if not form.validate():
             self.get({"errors": form.errors})
+            return
+
+        challenge=form.geetest_challenge.data
+        validate=form.geetest_validate.data
+        seccode=form.geetest_seccode.data
+        print 'challenge'+challenge;print 'validate'+validate;print 'seccode'+seccode
+        if not gt.geetest_validate(challenge,validate,seccode):
             return
 
         if form.gender.data=="on":

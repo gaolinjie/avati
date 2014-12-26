@@ -1426,6 +1426,9 @@ li a.nav-signup {
     padding-top: 20px;
     padding-bottom: 15px;
 }
+.signup-form .action {
+    padding-top: 0px;
+}
 #loginModal .title .title-label {
     font-size: 16px;
     color: #555;
@@ -1988,4 +1991,8 @@ flex: 1;
 .item-list .mmm-item .mitem-l img {
 max-height: 68px;
 max-width: 68px;
+}
+
+.form-group .float {
+    float: none !important;
 }
