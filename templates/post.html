@@ -240,7 +240,7 @@
     </div>
     {% if related_posts.list %}
     <div class="related-box box">
-        <h3>相关{% if post.post_type=='q'%}问题{%else%}文章{%endif%}</h3>
+        <h3>相似{% if post.post_type=='q'%}问题{%else%}文章{%endif%}</h3>
         {% for related_post in related_posts.list %}
         <p>
             <a href="/p/{{related_post.id}}">{{related_post.title}}</a>

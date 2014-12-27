@@ -190,6 +190,34 @@
         </div>
         {%endif%}
     </div>
+
+    <div class="item-box box bottom-box">
+        <h3>热门宝贝</h3>
+        <div class="item-list">
+        {% for item in hot_items %}
+        <div class="mmm-item" data-id="{{item.id}}">
+            <div class="mitem-l">
+                <a target="_blank" href="/item/{{item.id}}">
+                    <img src="{{item.img}}">
+                </a>
+            </div>
+            <div class="mitem-r">
+                <div class="mitem-ru">
+                    <a target="_blank" class="mitem-title" href="/item/{{item.id}}" title="{{item.name}}">
+                        {{item.name}}
+                    </a>
+                </div>
+                <div class="mitem-rd">
+                    <i class="fa fa-rmb"></i>
+                    <span class="mitem-price">{{item.price}}</span>
+                    <i class="fa fa-heart-o"></i>
+                    <span class="mitem-like">{{item.like_num}}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
 </div>
 
 <div id="inviteJoinModal" class="modal fade">

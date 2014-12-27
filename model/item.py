@@ -29,3 +29,8 @@ class ItemModel(Query):
 
     def add_new_item(self, item_info):
         return self.data(item_info).add()
+
+    def get_rand_items(self):
+        order = "RAND()"
+        limit = "3"
+        return self.order(order).limit(limit).select()
