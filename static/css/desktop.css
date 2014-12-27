@@ -1996,3 +1996,6 @@ max-width: 68px;
 .form-group .float {
     float: none !important;
 }
+.index-item-box .mmm-item .mitem-r .mitem-rd .fa {
+    margin-right: 0px;
+}
