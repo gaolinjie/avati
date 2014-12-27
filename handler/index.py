@@ -29,7 +29,6 @@ from lib.utils import find_mentions
 from lib.reddit import hot
 from lib.utils import pretty_date
 from pyquery import PyQuery as pyq
-from ghost import Ghost
 
 from lib.mobile import is_mobile_browser
 from form.post import *
