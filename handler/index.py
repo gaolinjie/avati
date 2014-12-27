@@ -29,6 +29,7 @@ from lib.utils import find_mentions
 from lib.reddit import hot
 from lib.utils import pretty_date
 from pyquery import PyQuery as pyq
+from ghost import Ghost
 
 from lib.mobile import is_mobile_browser
 from form.post import *
@@ -1145,11 +1146,32 @@ class AddItemHandler(BaseHandler):
             data = json.loads(self.request.body)
             url = data["url"]
             sku = ""
-            pattern = re.compile(r'http://item.jd.com/(\d+).html') 
-            match = pattern.search(url) 
-            if match: 
-                sku = match.group(1)
-                item = self.item_model.get_item_by_sku_and_vendor(sku, "jd.com")
+            link = ""
+            pyq_url = ""
+            vendor = ""
+            jd_pattern = re.compile(r'http://item.jd.com/(\d+).html') 
+            jd_match = jd_pattern.search(url) 
+            if jd_match: 
+                sku = jd_match.group(1)
+                link = 'http://item.jd.com/' + sku + '.html'
+                pyq_url = 'http://gouwu.sogou.com/compare?p=40251500&clf=2&query=129493916&adsUrl=http%3A%2F%2Fitem.jd.com%2F'+sku+'.html'
+                vendor = 'jd.com'
+            tmall_pattern = re.compile(r'http://detail.tmall.com/item.htm?\S*id=(\d+)')
+            tmall_match = tmall_pattern.search(url) 
+            if tmall_match: 
+                sku = tmall_match.group(1)
+                link = 'http://detail.tmall.com/item.htm?id=' + sku
+                pyq_url = 'http://gouwu.sogou.com/compare?p=40251500&query=-100&adsUrl=http%3A%2F%2Fdetail.tmall.com%2Fitem.htm%3Fid%3D'+sku
+                vendor = 'tmall.com'
+            taobao_pattern = re.compile(r'http://item.taobao.com/item.htm?\S*id=(\d+)')
+            taobao_match = taobao_pattern.search(url) 
+            if taobao_match: 
+                sku = taobao_match.group(1)
+                link = 'http://item.taobao.com/item.htm?id=' + sku
+                pyq_url = 'http://gouwu.sogou.com/compare?p=40251500&query=-100&adsUrl=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'+sku
+                vendor = 'taobao.com'
+            if jd_match or tmall_match or taobao_match: 
+                item = self.item_model.get_item_by_sku_and_vendor(sku, vendor)
                 if item:
                     self.item_model.update_item_by_id(item.id, {"add_num": item.add_num+1})
                     self.write(lib.jsonp.print_JSON({
@@ -1162,21 +1184,17 @@ class AddItemHandler(BaseHandler):
                         "price": item.price
                     }))
                 else:
-                    price_url = "http://p.3.cn/prices/mgets?skuIds=J_"+sku+"&type=1"
-                    price_page = urllib.urlopen(price_url)
-                    price_data=price_page.read()
-                    price_json = json.loads(price_data)
-                    price = price_json[0]["p"]
-                    doc=pyq(url)
-                    info = doc('#product-intro')
-                    name = info.find('#name h1').text()
-                    img = info.find('#preview #spec-n1 img').attr('src')
+                    doc=pyq(pyq_url)
+                    info = doc('.nbox1')
+                    name = info.find('.nst1 #sb_title').text()
+                    img = info.find('.nbox1_imgmn #sb_pic img').attr('src')
+                    price = info.find('.n_list .shopprice').text()
                     item_id = self.item_model.add_new_item({
                         "sku": sku,
                         "name": name,
                         "img": img,
-                        "link": url,
-                        "vendor": "jd",
+                        "link": link,
+                        "vendor": vendor,
                         "price": price
                     })
                     self.write(lib.jsonp.print_JSON({

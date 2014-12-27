@@ -45,7 +45,7 @@
         shoppingLink: '宝贝链接',
         insert: '插入宝贝',
         url: '宝贝地址',
-        providers: '(暂时只支持京东)'
+        providers: '(暂时只支持京东、淘宝和天猫)'
       },
       table: {
         table: '表格'

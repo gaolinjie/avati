@@ -68,6 +68,10 @@ HOWTO deploy on Linode
 ###Install Qiniu sdk
     $ pip install qiniu
 
+###Install ghost.py on mac osx
+	# Install qt and pyside follow http://qt-project.org/wiki/PySide_Binaries_MacOSX
+	# pip install --pre Ghost.py
+
 ###Install pyquery
     apt-get install libxml2-dev libxslt-dev
     apt-get install python-dev python-setuptools
