@@ -239,7 +239,7 @@ $(document).ready(function() {
             ['para', ['ul', 'ol' /*, 'paragraph'*/ ]],
             //['height', ['height']],
             //['table', ['table']],
-            ['insert', ['link', 'picture', 'video']], // no insert buttons
+            ['insert', ['link', 'picture', 'video', 'shopping']], // no insert buttons
             //['insert', ['link']],
             ['view', ['fullscreen' /*, 'codeview'*/ ]],
         ],
@@ -248,6 +248,9 @@ $(document).ready(function() {
             $('.note-group-select-from-files h5').text('正在上传图片');
             $('.note-image-input').addClass('uploading');
             sendFile(files[0], editor, editable);
+        },
+        onShoppingUpload: function(sUrl, editor, editable) {
+            sendShopping(sUrl, editor, editable);
         },
     });
     var pContent = $('#pContentText2').html();
