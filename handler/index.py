@@ -1233,11 +1233,14 @@ class LikeItemHandler(BaseHandler):
         if(user_info):
             like = self.like_item_model.get_like_by_author_and_item(user_info.uid, item_id)
             if not like:
+                item = self.item_model.get_item_by_id(item_id)
+                self.item_model.update_item_by_id(item_id, {"like_num": item.like_num+1})
                 self.like_item_model.add_new_like({
                     "author_id": user_info.uid,
                     "item_id": item_id,
                     "created": time.strftime('%Y-%m-%d %H:%M:%S')
                 })
+                
             self.write(lib.jsonp.print_JSON({
                     "success": 1,
                 }))
