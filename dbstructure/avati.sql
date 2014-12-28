@@ -389,6 +389,5 @@ CREATE TABLE `item` (
   `view_num` int(11) DEFAULT 0,
   `add_num` int(11) DEFAULT 0,
   `like_num` int(11) DEFAULT 0,
-  `fav_num` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

@@ -2855,7 +2855,7 @@
 
     this.insertShopping = function ($editable, msg) {
       var $item;
-      $item = $('<div class="mmm-item" data-id="'+msg.id+'"><div class="mitem-l"><a target="_blank" href="/item/'+msg.id+'"><img src="'+msg.img+'"></a></div><div class="mitem-r"><div class="mitem-ru"><a target="_blank" class="mitem-title" href="/item/'+msg.id+'" title="'+msg.name+'">'+msg.name+'</a></div><div class="mitem-rd"><i class="fa fa-rmb"></i><span class="mitem-price">'+msg.price+'</span><i class="fa fa-heart-o"></i><span class="mitem-like">'+msg.like_num+'</span></div></div></div>');
+      $item = $('<div class="mmm-item" data-id="'+msg.id+'"><div class="mitem-l"><a target="_blank" href="/item/'+msg.id+'"><img src="'+msg.img+'"></a></div><div class="mitem-r"><div class="mitem-ru"><a target="_blank" class="mitem-title" href="/item/'+msg.id+'" title="'+msg.name+'">'+msg.name+'</a></div><div class="mitem-rd"><i class="fa fa-rmb"></i><span class="mitem-price">'+msg.price+'</span><a href="javascript:;" title="喜欢"><i class="mmm-like fa fa-heart-o" data-id="'+msg.id+'"></i></a><span class="mitem-like">'+msg.like_num+'</span></div></div></div>');
       if ($item) {
         range.create().insertNode($item[0]);
         afterCommand($editable);

@@ -1999,3 +1999,6 @@ max-width: 68px;
 .index-item-box .mmm-item .mitem-r .mitem-rd .fa {
     margin-right: 0px;
 }
+.mmm-like.fa-heart-o {
+    color: #757575;
+}
