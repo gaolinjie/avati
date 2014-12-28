@@ -195,7 +195,7 @@ class FeedModel(Query):
         return self.where(where).count()
 
 
-    def get_default_feeds(self, num = 10, current_page = 1):
+    def get_default_feeds(self, num = 20, current_page = 1):
         where = "feed.feed_type = 1 OR feed.feed_type = 7" 
         join = "LEFT JOIN user AS author_user ON feed.user_id = author_user.uid \
                 LEFT JOIN tag ON feed.tag_id = tag.id \
