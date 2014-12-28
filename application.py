@@ -102,6 +102,7 @@ class Application(tornado.web.Application):
 
             (r"/additem", handler.index.AddItemHandler),
             (r"/item/(\d+)", handler.index.ItemHandler),
+            (r"/like/(\d+)", handler.index.LikeItemHandler),
             #(r".*", handler.index.PageNotFoundHandler)
         ]
 
@@ -122,7 +123,7 @@ class Application(tornado.web.Application):
         self.post_model = self.loader.use("post.model")
         self.reply_model = self.loader.use("reply.model")
         self.feed_type_model = self.loader.use("feed_type.model")
-        self.like_model = self.loader.use("like.model")
+        self.like_item_model = self.loader.use("like_item.model")
         self.vote_model = self.loader.use("vote.model")
         self.post_tag_model = self.loader.use("post_tag.model")
         self.tag_model = self.loader.use("tag.model")

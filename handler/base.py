@@ -73,8 +73,8 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.application.feed_type_model
 
     @property
-    def like_model(self):
-        return self.application.like_model
+    def like_item_model(self):
+        return self.application.like_item_model
 
     @property
     def vote_model(self):

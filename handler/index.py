@@ -1225,6 +1225,23 @@ class ItemHandler(BaseHandler):
             self.render("item.html", **template_variables)
         else:
             self.render("404.html", **template_variables)
+
+class LikeItemHandler(BaseHandler):
+    def get(self, item_id, template_variables = {}):
+        user_info = self.current_user
+
+        if(user_info):
+            like = self.like_item_model.get_like_by_author_and_item(user_info.uid, item_id)
+            if not like:
+                self.like_item_model.add_new_like({
+                    "author_id": user_info.uid,
+                    "item_id": item_id,
+                    "created": time.strftime('%Y-%m-%d %H:%M:%S')
+                })
+            self.write(lib.jsonp.print_JSON({
+                    "success": 1,
+                }))
+
         
 
 class DeletePostHandler(BaseHandler):

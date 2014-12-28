@@ -688,6 +688,19 @@
                             }
                         });
                     });
+
+                    $(document).on('click', '.mmm-like', function() {
+                        var like_icon = $(this);
+                        var item_id = $(this).attr('data-id');
+                        var like_num = $(this).parent().parent().find('.mitem-like');
+                        $.getJSON('/like/' + item_id, function(data) {
+                            if (data.success != 0) {
+                                like_icon.removeClass('fa-heart-o');
+                                like_icon.addClass('fa-heart');
+                                like_num.text(parseInt(like_num.text())+1);
+                            }
+                        });
+                    });
                 });
         </script>
 

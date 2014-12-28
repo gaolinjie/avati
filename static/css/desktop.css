@@ -2002,6 +2002,9 @@ max-width: 68px;
 .mmm-like.fa-heart-o {
     color: #757575;
 }
+.mmm-item .fa-heart {
+    color: #e74c3c;
+}
 /*
 .mitem-icon {
     width: 16px;
