@@ -1154,21 +1154,21 @@ class AddItemHandler(BaseHandler):
                 sku = jd_match.group(1)
                 link = 'http://item.jd.com/' + sku + '.html'
                 pyq_url = 'http://gouwu.sogou.com/compare?p=40251500&clf=2&query=129493916&adsUrl=http%3A%2F%2Fitem.jd.com%2F'+sku+'.html'
-                vendor = 'jd.com'
+                vendor = 'jd'
             tmall_pattern = re.compile(r'http://detail.tmall.com/item.htm?\S*id=(\d+)')
             tmall_match = tmall_pattern.search(url) 
             if tmall_match: 
                 sku = tmall_match.group(1)
                 link = 'http://detail.tmall.com/item.htm?id=' + sku
                 pyq_url = 'http://gouwu.sogou.com/compare?p=40251500&query=-100&adsUrl=http%3A%2F%2Fdetail.tmall.com%2Fitem.htm%3Fid%3D'+sku
-                vendor = 'tmall.com'
+                vendor = 'tmall'
             taobao_pattern = re.compile(r'http://item.taobao.com/item.htm?\S*id=(\d+)')
             taobao_match = taobao_pattern.search(url) 
             if taobao_match: 
                 sku = taobao_match.group(1)
                 link = 'http://item.taobao.com/item.htm?id=' + sku
                 pyq_url = 'http://gouwu.sogou.com/compare?p=40251500&query=-100&adsUrl=http%3A%2F%2Fitem.taobao.com%2Fitem.htm%3Fid%3D'+sku
-                vendor = 'taobao.com'
+                vendor = 'taobao'
             if jd_match or tmall_match or taobao_match: 
                 item = self.item_model.get_item_by_sku_and_vendor(sku, vendor)
                 if item:
@@ -1180,7 +1180,8 @@ class AddItemHandler(BaseHandler):
                         "name": item.name,
                         "img": item.img,
                         "like_num": item.like_num,
-                        "price": item.price
+                        "price": item.price,
+                        "vendor": item.vendor
                     }))
                 else:
                     doc=pyq(pyq_url)
@@ -1203,7 +1204,8 @@ class AddItemHandler(BaseHandler):
                         "name": name,
                         "img": img,
                         "like_num": 0,
-                        "price": price
+                        "price": price,
+                        "vendor": vendor
                     }))                
             else:
                 self.write(lib.jsonp.print_JSON({

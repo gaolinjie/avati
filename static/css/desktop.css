@@ -2002,3 +2002,24 @@ max-width: 68px;
 .mmm-like.fa-heart-o {
     color: #757575;
 }
+.mitem-icon {
+    width: 16px;
+    height: 16px;
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    line-height: 1;
+    margin-bottom: -3px;
+    margin-right: 10px;
+    margin-left: 1px;
+}
+.item-taobao {
+    background-image: url(/static/img/淘宝.png);
+}
+.item-tmall {
+    background-image: url(/static/img/天猫.png);
+}
+.item-jd {
+    background-image: url(/static/img/京东.png);
+}
