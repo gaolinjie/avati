@@ -134,7 +134,7 @@
                             <div class="summary-text"></div>
                         </div>
                         <div class="answer-meta meta">
-                            <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注问题{%endif%}</a>
+                            <a class="feed-post-follow-btn {% if user_info == none%}unlogin{%endif%}" href="javascript:void(0)" data-obj="{{feed.post_id}}" data-type="{{feed.post_type}}">{%if feed.post_follow_id%}取消关注{%else%}关注{%endif%}</a>
                             <span class="bullet">•</span>
                             <a href="/p/{{feed.post_id}}">{{feed.post_reply_num}} 个{%if feed.post_type=='q'%}回答{%else%}评论{%endif%}</a>
                             {% if user_info.username != feed.author_username %}
