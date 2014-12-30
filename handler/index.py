@@ -1155,7 +1155,7 @@ class AddItemHandler(BaseHandler):
                 link = 'http://www.amazon.cn/gp/product/' + sku
                 pyq_url = link
                 vendor = 'amazoncn'
-                item = self.item_model.get_item_by_sku_and_vendor(sku, vendor)
+                item = self.item_model.get_item_by_sku_and_vendor2(sku, vendor)
                 if item:
                     self.item_model.update_item_by_id(item.id, {"add_num": item.add_num+1})
                     self.write(lib.jsonp.print_JSON({

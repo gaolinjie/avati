@@ -19,6 +19,10 @@ class ItemModel(Query):
         where = "sku = %s AND vendor = '%s'" % (sku, vendor)
         return self.where(where).find()
 
+    def get_item_by_sku_and_vendor2(self, sku, vendor):
+        where = "sku = '%s' AND vendor = '%s'" % (sku, vendor)
+        return self.where(where).find()
+
     def delete_item_by_id(self, id):
         where = "id = %s " % id
         return self.where(where).delete()
