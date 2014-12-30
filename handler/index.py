@@ -1155,13 +1155,6 @@ class AddItemHandler(BaseHandler):
                 link = 'http://www.amazon.cn/gp/product/' + sku
                 pyq_url = link
                 vendor = 'amazoncn'
-                doc=pyq(pyq_url)
-                info = doc('.a-container')
-                name = info.find('#centerCol #productTitle').text()
-                img = info.find('#leftCol #imgTagWrapperId img').attr('src')
-                price_url = 'http://s.etao.com/detail/10.html?uc_url=http%3A%2F%2Fwww.amazon.cn%2Fgp%2Fproduct%2F'+sku
-                price_doc=pyq(price_url)
-                price = price_doc('.real-price-num').text()
                 item = self.item_model.get_item_by_sku_and_vendor(sku, vendor)
                 if item:
                     self.item_model.update_item_by_id(item.id, {"add_num": item.add_num+1})
@@ -1176,6 +1169,13 @@ class AddItemHandler(BaseHandler):
                         "vendor": item.vendor
                     }))
                 else:
+                    doc=pyq(pyq_url)
+                    info = doc('.a-container')
+                    name = info.find('#centerCol #productTitle').text()
+                    img = info.find('#leftCol #imgTagWrapperId img').attr('src')
+                    price_url = 'http://s.etao.com/detail/10.html?uc_url=http%3A%2F%2Fwww.amazon.cn%2Fgp%2Fproduct%2F'+sku
+                    price_doc=pyq(price_url)
+                    price = price_doc('.real-price-num').text()
                     item_id = self.item_model.add_new_item({
                         "sku": sku,
                         "name": name,
