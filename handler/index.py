@@ -1148,6 +1148,53 @@ class AddItemHandler(BaseHandler):
             link = ""
             pyq_url = ""
             vendor = ""
+            amazoncn_pattern = re.compile(r'http://www.amazon.cn/gp/product/([0-9A-Z]{10})')
+            amazoncn_match = amazoncn_pattern.search(url)
+            if amazoncn_match: 
+                sku = amazoncn_match.group(1)
+                link = 'http://www.amazon.cn/gp/product/' + sku
+                pyq_url = link
+                vendor = 'amazoncn'
+                doc=pyq(pyq_url)
+                info = doc('.a-container')
+                name = info.find('#centerCol #productTitle').text()
+                img = info.find('#leftCol #imgTagWrapperId img').attr('src')
+                price_url = 'http://s.etao.com/detail/10.html?uc_url=http%3A%2F%2Fwww.amazon.cn%2Fgp%2Fproduct%2F'+sku
+                price_doc=pyq(price_url)
+                price = price_doc('.real-price-num').text()
+                item = self.item_model.get_item_by_sku_and_vendor(sku, vendor)
+                if item:
+                    self.item_model.update_item_by_id(item.id, {"add_num": item.add_num+1})
+                    self.write(lib.jsonp.print_JSON({
+                        "success": 1,
+                        "id": item.id,
+                        "sku": item.sku,
+                        "name": item.name,
+                        "img": item.img,
+                        "like_num": item.like_num,
+                        "price": item.price,
+                        "vendor": item.vendor
+                    }))
+                else:
+                    item_id = self.item_model.add_new_item({
+                        "sku": sku,
+                        "name": name,
+                        "img": img,
+                        "link": link,
+                        "vendor": vendor,
+                        "price": price
+                    })
+                    self.write(lib.jsonp.print_JSON({
+                        "success": 1,
+                        "id": item_id,
+                        "sku": sku,
+                        "name": name,
+                        "img": img,
+                        "like_num": 0,
+                        "price": price,
+                        "vendor": vendor
+                    }))             
+                return
             jd_pattern = re.compile(r'http://item.jd.com/(\d+).html') 
             jd_match = jd_pattern.search(url) 
             if jd_match: 
