@@ -172,6 +172,7 @@
                 </a>
             </li>
         </ul>
+        {% if related_posts %}
         {% if related_posts.list %}
         <div class="related-box box">
             <h3>热门问题</h3>
@@ -182,6 +183,7 @@
             {% endfor %}
         </div>
         {% endif %} 
+        {% endif %}
         {%if ad%}
         <div class="ad-box box bottom-box">
             <a class="ad-link" href="{{ad.link}}" target="_blank">
