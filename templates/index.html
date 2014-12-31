@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
+                        <div class="time">{{feed.post_updated|pretty_date}}</div>
                         <div class="user-meta meta">
                             <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                             {{feed.feed_text}}
@@ -76,7 +76,7 @@
                         </a>
                     </div>
                     <div class="user-title">
-                        <div class="time">{{feed.created|pretty_date}}</div>
+                        <div class="time">{{feed.post_updated|pretty_date}}</div>
                         <div class="user-meta meta">
                             <a class="user-link tipped_ajax_user" data-tipped="/get/user/{{feed.author_username}}" href="/u/{{feed.author_username}}">{{feed.author_username}}</a>
                             {{feed.feed_text}}

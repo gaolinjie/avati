@@ -204,7 +204,7 @@ class FeedModel(Query):
                 LEFT JOIN reply ON feed.reply_id = reply.id \
                 LEFT JOIN user AS reply_user ON reply.author_id = reply_user.uid\
                 LEFT JOIN feed_type ON feed.feed_type = feed_type.id"
-        order = "feed.created DESC, feed.id DESC"
+        order = "post.updated DESC, feed.created DESC, feed.id DESC"
         field = "feed.*, \
                 author_user.username as author_username, \
                 author_user.avatar as author_avatar, \
@@ -218,6 +218,7 @@ class FeedModel(Query):
                 post.up_num as post_up_num, \
                 post.reply_num as post_reply_num, \
                 post.created as post_created, \
+                post.updated as post_updated, \
                 post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\

@@ -132,7 +132,7 @@ class FollowModel(Query):
                 LEFT JOIN report AS post_report ON post_report.from_user = %s AND post_report.to_user = post.author_id AND post_report.obj_id = post.id AND post_report.obj_type = 'post'\
                 LEFT JOIN thank AS reply_thank ON reply_thank.from_user = %s AND reply_thank.to_user = reply.author_id AND reply_thank.obj_id = reply.id AND reply_thank.obj_type = 'reply'\
                 LEFT JOIN report AS reply_report ON reply_report.from_user = %s AND reply_report.to_user = reply.author_id AND reply_report.obj_id = reply.id AND reply_report.obj_type = 'reply'" % (author_id, author_id, author_id, author_id, author_id, author_id)
-        order = "feed.created DESC, feed.id DESC"
+        order = "post.updated DESC, feed.created DESC, feed.id DESC"
         group = "feed.id"
         field = "feed.*, \
                 author_user.username as author_username, \
@@ -147,6 +147,7 @@ class FollowModel(Query):
                 post.reply_num as post_reply_num, \
                 post.up_num as post_up_num, \
                 post.created as post_created, \
+                post.updated as post_updated, \
                 post_user.username as post_user_username, \
                 reply.id as reply_id, \
                 reply.content as reply_content,\
