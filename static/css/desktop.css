@@ -459,7 +459,7 @@ a {
 .nav-list [class^="icon-"], .nav-list [class*=" icon-"] {
     width: 25px;
     height: 25px;
-    margin-top: -3px;
+    margin-top: -4px;
     margin-right: 6px;
     vertical-align: text-top;
     background-position: 0px 0px;
