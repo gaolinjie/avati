@@ -295,8 +295,11 @@
         });
 
         $(".content-text").each(function() {
-        var summary = $(this).parent().find('.summary-text');
         var content = $(this);
+        if (content.hasClass('contented')) {
+            return;
+        }
+        var summary = $(this).parent().find('.summary-text');
         var img1 = content.find('.mmm-img:eq(0)').attr('src');
         var img2 = content.find('.mmm-img:eq(1)').attr('src');
         var img3 = content.find('.mmm-img:eq(2)').attr('src');
@@ -319,6 +322,7 @@
                 summary.addClass('summary-text2');  
             }
         }
+        content.addClass('contented');
     });
 
         {% if user_info != none %}
@@ -406,8 +410,11 @@
             autoTrigger: false,
             callback: function(newElems) {
                 $(".content-text").each(function() {
-        var summary = $(this).parent().find('.summary-text');
         var content = $(this);
+        if (content.hasClass('contented')) {
+            return;
+        }
+        var summary = $(this).parent().find('.summary-text');
         var img1 = content.find('.mmm-img:eq(0)').attr('src');
         var img2 = content.find('.mmm-img:eq(1)').attr('src');
         var img3 = content.find('.mmm-img:eq(2)').attr('src');
@@ -430,6 +437,7 @@
                 summary.addClass('summary-text2');  
             }
         }
+        content.addClass('contented');
     });
             },
         });
@@ -441,8 +449,11 @@
             autoTrigger: false,
             callback: function(newElems) {
                 $(".content-text").each(function() {
-        var summary = $(this).parent().find('.summary-text');
         var content = $(this);
+        if (content.hasClass('contented')) {
+            return;
+        }
+        var summary = $(this).parent().find('.summary-text');
         var img1 = content.find('.mmm-img:eq(0)').attr('src');
         var img2 = content.find('.mmm-img:eq(1)').attr('src');
         var img3 = content.find('.mmm-img:eq(2)').attr('src');
@@ -465,6 +476,7 @@
                 summary.addClass('summary-text2');  
             }
         }
+        content.addClass('contented');
     });
             },
         });
@@ -476,8 +488,11 @@
             autoTrigger: false,
             callback: function(newElems) {
                 $(".content-text").each(function() {
-        var summary = $(this).parent().find('.summary-text');
         var content = $(this);
+        if (content.hasClass('contented')) {
+            return;
+        }
+        var summary = $(this).parent().find('.summary-text');
         var img1 = content.find('.mmm-img:eq(0)').attr('src');
         var img2 = content.find('.mmm-img:eq(1)').attr('src');
         var img3 = content.find('.mmm-img:eq(2)').attr('src');
@@ -500,6 +515,7 @@
                 summary.addClass('summary-text2');  
             }
         }
+        content.addClass('contented');
     });
             },
         });
