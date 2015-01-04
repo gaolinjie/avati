@@ -49,6 +49,7 @@ margin-bottom: 10px;
 
 body, input, textarea {
     font-family: roboto,'Hiragino Sans GB','Microsoft YaHei',微软雅黑,STHeiti,'WenQuanYi Micro Hei',Helvetica,Arial,sans-serif !important;
+    font-family: 'Myriad Pro', 'TrebuchetMS', 'Helvetica Neue', 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif !important;
     -webkit-font-smoothing: antialiased;
 }
 
