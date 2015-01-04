@@ -1270,6 +1270,7 @@ class ItemHandler(BaseHandler):
             template_variables["redirect_time"] = 1
             template_variables["redirect_url"] = item.link
             self.render("item.html", **template_variables)
+            self.item_model.update_item_by_id(item.id, {"view_num": item.view_num+1})
         else:
             self.render("404.html", **template_variables)
 
