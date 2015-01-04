@@ -459,7 +459,10 @@ class ReplyHandler(BaseHandler):
             reply_id = self.reply_model.add_new_reply(reply_info)
 
             post = self.post_model.get_post_by_post_id(post_id)
-            self.post_model.update_post_by_post_id(post_id, {"reply_num": post.reply_num+1,})
+            self.post_model.update_post_by_post_id(post_id, {
+                "reply_num": post.reply_num+1, 
+                "updated": time.strftime('%Y-%m-%d %H:%M:%S'),
+            })
 
             if post.post_type == 'q':
                 feed_type = 2
