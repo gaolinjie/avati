@@ -1755,6 +1755,57 @@ class GetTagHandler(BaseHandler):
         self.write(tag_tip)
 
 
+class MenuManager:
+    accessUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=appid&secret=secret"
+    delMenuUrl = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token="
+    createUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="
+    getMenuUri="https://api.weixin.qq.com/cgi-bin/menu/get?access_token="
+    def getAccessToken(self):
+        f = urllib.request.urlopen(self.accessUrl)
+        accessT = f.read().decode("utf-8")
+        jsonT = json.loads(accessT)
+        return jsonT["access_token"]
+    def delMenu(self, accessToken):
+        html = urllib.request.urlopen(self.delMenuUrl + accessToken)
+        result = json.loads(html.read().decode("utf-8"))
+        return result["errcode"]
+    def createMenu(self, accessToken):
+        menu = '''{
+                    "button":[
+                        {
+                            "type":"click",
+                            "name":"今日歌曲",
+                            "key":"V1001_TODAY_MUSIC"
+                        },
+                        {
+                            "type":"view",
+                            "name":"歌手简介",
+                            "url":"http://www.qq.com/"
+                        },
+                        {
+                            "name":"菜单",
+                            "sub_button":[
+                                {
+                                    "type":"click",
+                                    "name":"hello word",
+                                    "key":"V1001_HELLO_WORLD"
+                                },
+                                {
+                                    "type":"click",
+                                    "name":"赞一下我们",
+                                    "key":"V1001_GOOD"
+                                }
+                            ]
+                        }
+                    ]
+                }'''
+        html = urllib.request.urlopen(self.createUrl + accessToken, menu.encode("utf-8"))
+        result = json.loads(html.read().decode("utf-8"))
+        return result["errcode"]
+    def getMenu(self):
+        html = urllib.request.urlopen(self.getMenuUri + accessToken)
+        print(html.read().decode("utf-8"))
+
 # for weixin test
 class SDJHandler(BaseHandler):
     def get(self, template_variables = {}):
@@ -1800,4 +1851,7 @@ class SDJHandler(BaseHandler):
                         <Content><![CDATA[%s]]></Content>
                     </xml>"""
         out = textTpl % (fromusername, tousername, str(int(time.time())), msgtype, result)
-        self.write(out)
+        #self.write(out)
+        wx = MenuManager()
+        accessToken = wx.getAccessToken()
+        wx.getMenu()
