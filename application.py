@@ -104,6 +104,8 @@ class Application(tornado.web.Application):
             (r"/item/(\d+)", handler.index.ItemHandler),
             (r"/like/(\d+)", handler.index.LikeItemHandler),
             #(r".*", handler.index.PageNotFoundHandler)
+            #
+            (r"/songdaojia", handler.index.SDJHandler),
         ]
 
         tornado.web.Application.__init__(self, handlers, **settings)

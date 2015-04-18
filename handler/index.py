@@ -1750,3 +1750,9 @@ class GetTagHandler(BaseHandler):
             follow = None
         tag_tip = self.render_string("tooltip/tag-tip.html", user_info=user_info, follow=follow, view_tag=view_tag, follow_users=follow_users)
         self.write(tag_tip)
+
+
+# for weixin test
+class SDJHandler(BaseHandler):
+    def get(self, template_variables = {}):
+        self.write('songdaojia')
