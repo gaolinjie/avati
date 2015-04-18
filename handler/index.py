@@ -1778,8 +1778,7 @@ class SDJHandler(BaseHandler):
         else:
             self.write('error,code 403')
 
-    @tornado.web.authenticated
-    def post(self, template_variables = {}):
+    def post(self):
         body = self.request.body
         data = ET.fromstring(body)
         tousername = data.find('ToUserName').text
