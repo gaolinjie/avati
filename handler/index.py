@@ -33,9 +33,14 @@ from pyquery import PyQuery as pyq
 from lib.mobile import is_mobile_browser
 from form.post import *
 
-import qiniu.conf
-import qiniu.io
-import qiniu.rs
+from qiniu import Auth
+from qiniu import BucketManager
+from qiniu import put_data
+
+access_key = "DaQzr1UhFQD6im_kJJjZ8tQUKQW7ykiHo4ZWfC25"
+secret_key = "Ge61JJtUSC5myXVrntdVOqAZ5L7WpXR_Taa9C8vb"
+q = Auth(access_key, secret_key)
+bucket = BucketManager(q)
 
 THRESHOLD = 2
 class IndexHandler(BaseHandler):
@@ -1592,10 +1597,9 @@ class EditTagHandler(BaseHandler):
             usr_home = os.path.expanduser('~')
             thumb.save(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name, "PNG")
 
-            policy = qiniu.rs.PutPolicy("mmm-avatar:m_%s.png" % tag_name)
-            uptoken = policy.token()
+            uptoken = q.upload_token("mmm-avatar", "m_%s.png" % tag_name)
             data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
-            ret, err = qiniu.io.put(uptoken, "m_"+tag_name+".png", data)  
+            ret, info = put_data(uptoken, "m_%s.png" % tag_name, data)
  
             os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % tag_name)
 
@@ -1606,7 +1610,8 @@ class EditTagHandler(BaseHandler):
                 pattern = re.compile(r'm_.*.png') 
                 match = pattern.search(origin_thumb) 
                 if match: 
-                    ret, err = qiniu.rs.Client().delete("mmm-avatar", match.group())
+                    ret, info = bucket.delete("mmm-avatar", match.group())
+                    #ret, err = qiniu.rs.Client().delete("mmm-avatar", match.group())
         else:
             self.tag_model.update_tag_by_tag_id(tag_id, {"name": form.name.data, "intro": form.intro.data, "category": category.id, "tag_type": tag_type.id})
 
@@ -1642,17 +1647,15 @@ class UploadHandler(BaseHandler):
             file = Image.open(file_buffer)
 
             usr_home = os.path.expanduser('~')
-            file.save(usr_home+"/www/avati/static/tmp/m_%s.png" % file_name, "PNG")
+            file.save(usr_home+"/www/avati/static/tmp/m_%s.png" % file_name, "PNG")  
 
-            policy = qiniu.rs.PutPolicy("mmm-cdn:m_%s.png" % file_name)
-            uptoken = policy.token()
+            uptoken = q.upload_token("mmm-cdn", "m_%s.png" % file_name)
             data=open(usr_home+"/www/avati/static/tmp/m_%s.png" % file_name)
-            ret, err = qiniu.io.put(uptoken, "m_"+file_name+".png", data)  
+            ret, info = put_data(uptoken, "m_%s.png" % file_name, data)
  
             os.remove(usr_home+"/www/avati/static/tmp/m_%s.png" % file_name)
 
             file_name = "http://mmm-cdn.qiniudn.com/m_"+file_name+".png"
-            print err
 
             self.write(file_name)
 

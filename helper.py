@@ -135,6 +135,8 @@ class Filters():
         return str(day_diff / 365) + " 天前"
 
     def index_content_process(self, content):
+        if None==content:
+            return
         # render content included gist
         #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
         # render sinaimg pictures
@@ -148,6 +150,8 @@ class Filters():
         return content
 
     def mobile_index_process(self, content):
+        if None==content:
+            return
         # render content included gist
         #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
         # render sinaimg pictures
@@ -161,6 +165,8 @@ class Filters():
         return content
 
     def desktop_content_process(self, content):
+        if None==content:
+            return
         content = re.sub(r'src="(http://mmm-cdn.qiniudn.com/\S+\.(png|gif|jpg|jpeg))"', r'src="\1-post"', content)
         content = re.sub(r'<iframe(.*)src="//player.youku.com/embed/(\w+)"(.*)></iframe>', r'<a class="mmm-link video-link tipped_ajax_youku" data-tipped="/get/youku/\2" href="javascript:;" data-video="\2"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*.taobao.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link taobao-link" href="\1" target="_blank"></a>', content)
@@ -171,6 +177,8 @@ class Filters():
         return content
 
     def mobile_content_process(self, content):
+        if None==content:
+            return
         # render content included gist
         #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
         # render sinaimg pictures
@@ -187,6 +195,8 @@ class Filters():
         return content
 
     def reply_process(self, content):
+        if None==content:
+            return
         # render content included gist
         content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
         # render all pictures
