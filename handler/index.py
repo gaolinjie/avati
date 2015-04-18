@@ -1800,41 +1800,4 @@ class SDJHandler(BaseHandler):
                         <Content><![CDATA[%s]]></Content>
                     </xml>"""
         out = textTpl % (fromusername, tousername, str(int(time.time())), msgtype, result)
-        #self.write(out)
-
-        user_info = self.current_user
-        template_variables["user_info"] = user_info
-        template_variables["gen_random"] = gen_random
-        p = int(self.get_argument("p", "1"))
-        template_variables["hot_items"] = self.item_model.get_rand_items()
-        if(user_info):
-            template_variables["related_posts"] = self.follow_model.get_user_follow_hot_posts(user_info.uid)
-            template_variables["feeds"] = self.follow_model.get_user_all_follow_and_all_post_feeds(user_info.uid, current_page = p)        
-            template_variables["notice_count"] = self.notice_model.get_user_unread_notice_count(user_info.uid)  + self.follow_model.get_user_all_follow_post_feeds_count(user_info.uid, user_info.view_follow, time.strftime('%Y-%m-%d %H:%M:%S'))
-            template_variables["invite_count"] = self.invite_model.get_user_unread_invite_count(user_info.uid)
-        else:
-            template_variables["sign_in_up"] = self.get_argument("s", "") 
-            link = self.get_argument("link", "")
-            if link!="":
-                template_variables["link"] =  link
-            link2 = self.get_argument("link2", "")
-            if link2!="":
-                template_variables["link2"] = link2 
-            invite = self.get_argument("i", "")
-            if invite!="":
-                template_variables["invite"] = invite
-            else:
-                template_variables["invite"] = None
-            error = self.get_argument("e", "")
-            if error!="":
-                template_variables["error"] = error
-            else:
-                template_variables["error"] = None
-            template_variables["notice_count"] = None
-            template_variables["invite_count"] = None
-            template_variables["feeds"] = self.feed_model.get_default_feeds(current_page = p)
-            feeds = self.feed_model.get_default_feeds(current_page = p)
-            for fee in feeds["list"]:
-                print fee.author_username
-
-            self.render("mobile/index.html", **template_variables) 
+        self.write(out)
