@@ -1826,6 +1826,9 @@ class SDJHandler(BaseHandler):
         hashcode=sha1.hexdigest()
         if hashcode == signature:
             self.write(echostr)
+            wx = MenuManager()
+            accessToken = wx.getAccessToken()
+            wx.getMenu()
         else:
             self.write('error,code 403')
 
@@ -1851,7 +1854,4 @@ class SDJHandler(BaseHandler):
                         <Content><![CDATA[%s]]></Content>
                     </xml>"""
         out = textTpl % (fromusername, tousername, str(int(time.time())), msgtype, result)
-        #self.write(out)
-        wx = MenuManager()
-        accessToken = wx.getAccessToken()
-        wx.getMenu()
+        self.write(out)    
