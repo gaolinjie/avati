@@ -1774,3 +1774,44 @@ class SDJHandler(BaseHandler):
             self.write(echostr)
         else:
             self.write('error,code 403')
+
+    def post(self): 
+#######简单接收和发送消息
+        body = self.request.body
+        data = ET.fromstring(body)
+        tousername = data.find('ToUserName').text
+        fromusername = data.find('FromUserName').text
+        createtime = data.find('CreateTime').text
+        msgtype = data.find('MsgType').text
+        content = data.find('Content').text
+        msgid = data.find('MsgId').text
+        
+#print 'fromusername: %s' % fromusername
+        
+#print 'tousername: %s' % tousername
+        
+#print 'createtime: %s' % createtime
+        
+#print 'msgtype: %s' % msgtype
+        
+#print 'msgid: %s' % msgid
+        if content.strip() in ('ls','pwd','w','uptime'):
+            result = commands.getoutput(content)
+        else:
+            result = '不可以哦!!!'
+        textTpl = 
+"""<xml>
+            
+<ToUserName><![CDATA[%s]]></ToUserName>
+            
+<FromUserName><![CDATA[%s]]></FromUserName>
+            
+<CreateTime>%s</CreateTime>
+            
+<MsgType><![CDATA[%s]]></MsgType>
+            
+<Content><![CDATA[%s]]></Content>
+            
+</xml>"""
+        out = textTpl % (fromusername, tousername, str(int(time.time())), msgtype, result)
+        self.write(out)
