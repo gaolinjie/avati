@@ -1755,22 +1755,22 @@ class GetTagHandler(BaseHandler):
 # for weixin test
 class SDJHandler(BaseHandler):
     def get(self, template_variables = {}):
-        self.get_argument("p", "1")
-        #获取输入参数
-        signature=self.get_argument("signature", "")
-        timestamp=self.get_argument("timestamp", "")
-        nonce=self.get_argument("nonce", "")
-        echostr=self.get_argument("echostr", "")
-        #自己的token
-        token="songdaojia" #这里改写你在微信公众平台里输入的token
-        #字典序排序
+        #获取微信公众平台发送的验证参数
+        signature = self.get_argument('signature', '')
+        timestamp = self.get_argument('timestamp', '')
+        nonce = self.get_argument('nonce', '')
+        echostr = self.get_argument('echostr', '')
+        #定义token，需要和Web页面上填写的一致
+        token = 'songdaojia'
+        #将参数放入列表中，并排序
         list=[token,timestamp,nonce]
         list.sort()
+        #加密列表中的参数
         sha1=hashlib.sha1()
         map(sha1.update,list)
+        #比较加密结果
         hashcode=sha1.hexdigest()
-        #sha1加密算法        
- 
-        #如果是来自微信的请求，则回复echostr
         if hashcode == signature:
-            return echostr
+            self.write(echostr)
+        else:
+            self.write('error,code 403')
