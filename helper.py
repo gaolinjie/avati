@@ -141,7 +141,7 @@ class Filters():
         #content = re.sub(r'http(s)?:\/\/gist.github.com\/(\d+)(.js)?', r'<script src="http://gist.github.com/\2.js"></script>', content)
         # render sinaimg pictures
         content = re.sub(r'src="(http://mmm-cdn.qiniudn.com/\S+\.(png|gif|jpg|jpeg))(-post|)"', r'class="mmm-img" src="\1-index2"', content)
-        content = re.sub(r'<iframe(.*)src="//player.youku.com/embed/(\w+)"(.*)></iframe>', r'<a class="mmm-link video-link tipped_ajax_youku" data-tipped="/get/youku/\2" href="javascript:;" data-video="\2"></a>', content)
+        #content = re.sub(r'<iframe(.*)src="//player.youku.com/embed/(\w+)"(.*)></iframe>', r'<a class="mmm-link video-link tipped_ajax_youku" data-tipped="/get/youku/\2" href="javascript:;" data-video="\2"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*.taobao.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link taobao-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*.tmall.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link tmall-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link web-link" href="\1" target="_blank"></a>', content)
@@ -168,7 +168,7 @@ class Filters():
         if None==content:
             return
         content = re.sub(r'src="(http://mmm-cdn.qiniudn.com/\S+\.(png|gif|jpg|jpeg))"', r'src="\1-post"', content)
-        content = re.sub(r'<iframe(.*)src="//player.youku.com/embed/(\w+)"(.*)></iframe>', r'<a class="mmm-link video-link tipped_ajax_youku" data-tipped="/get/youku/\2" href="javascript:;" data-video="\2"></a>', content)
+        #content = re.sub(r'<iframe(.*)src="//player.youku.com/embed/(\w+)"(.*)></iframe>', r'<a class="mmm-link video-link tipped_ajax_youku" data-tipped="/get/youku/\2" href="javascript:;" data-video="\2"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*.taobao.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link taobao-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*.tmall.com[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link tmall-link" href="\1" target="_blank"></a>', content)
         content = re.sub(r'([a-zA-z]+://[^\s]*)(\s*)(\&nbsp;*)', r'<a class="mmm-link web-link" href="\1" target="_blank"></a>', content)
@@ -206,7 +206,7 @@ class Filters():
         # render @ mention links
         content = re.sub(ur'@(?!_)(?!.*?_$)(?!\d+)([a-zA-Z0-9_\u4e00-\u9fa5]+)(\s|)', r'<a href="/u/\1">@\1</a> ', content)
         # render youku videos
-        content = re.sub(r'http://v.youku.com/v_show/id_(\w+).html', r'<embed src="http://player.youku.com/player.php/sid/\1/v.swf" quality="high" width="593" height="375" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash"></embed>', content)
+        #content = re.sub(r'http://v.youku.com/v_show/id_(\w+).html', r'<embed src="http://player.youku.com/player.php/sid/\1/v.swf" quality="high" width="593" height="375" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash"></embed>', content)
         return content
 
     def markdown(self, content):
