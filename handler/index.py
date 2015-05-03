@@ -435,7 +435,7 @@ class TagsHandler(BaseHandler):
         template_variables["user_info"] = user_info
         
         #template_variables["categorys"] = self.category_model.get_tag_categorys()
-        template_variables["tags"] = self.tag_model.get_all_tags()
+        template_variables["tags"] = self.tag_model.get_all_tags2()
         template_variables["scrollspy"] = "scrollspy"
 
         if is_mobile_browser(self):

@@ -16,6 +16,10 @@ class TagModel(Query):
         order = "tag.category DESC, tag.post_num DESC, tag.id DESC"
         return self.order(order).select()
 
+    def get_all_tags2(self):
+        order = "tag.post_num DESC, tag.id DESC"
+        return self.order(order).select()
+
     def get_tag_by_tag_name(self, tag_name):
     	where = "name = '%s'" % tag_name
         return self.where(where).find()
