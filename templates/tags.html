@@ -5,21 +5,15 @@
 {% endblock %} 
 
 {% block main %}
-<div class="col-xs-12 col-md-12">
-    {% for category in categorys %} 
-    {% if category.tag_num>0 %}
+<div class="col-xs-12 col-md-9">
     <div>
         <ul class="tag-ranking-list">
             {% for tag in tags %} 
-            {% if tag.category==category.id %}
             <li>
                 <a href="/t/{{tag.name}}" class="tag {%if tag.thumb%}tag-img{%endif%} tipped_ajax_tag" data-tipped="/get/tag/{{tag.name}}" {%if tag.thumb%}style="background-image: url({{tag.thumb}}-icon);{%endif%}">{{tag.name}}</a>
             </li>
-            {% endif %} 
             {% endfor %}
         </ul>
     </div>
-    {% endif %} 
-    {% endfor %}
 </div>
 {% endblock %}

@@ -434,7 +434,7 @@ class TagsHandler(BaseHandler):
         user_info = self.current_user
         template_variables["user_info"] = user_info
         
-        template_variables["categorys"] = self.category_model.get_tag_categorys()
+        #template_variables["categorys"] = self.category_model.get_tag_categorys()
         template_variables["tags"] = self.tag_model.get_all_tags()
         template_variables["scrollspy"] = "scrollspy"
 
