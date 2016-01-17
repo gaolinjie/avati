@@ -323,6 +323,18 @@
                 </div>
             </div>
         </div>
+
+        <div class="global_footer">
+            <div class="footer_inner clear">
+                <div class="inner_copyr">
+                  <span class="f12 gray"><a href="http://www.miibeian.gov.cn/" target="_blank" rel="nofollow">苏ICP备14006613号-1</a></span>
+                    <span class="inner_tech">&nbsp;</span><em>|</em>&nbsp;<span class="inner_copy">&nbsp;</span><em>|</em>&nbsp;<span class="inner_no">819 人在线&nbsp;</span><em>|</em>&nbsp;<span class="inner_no2">最高记录 1307&nbsp;</span>
+                </div>
+                <div class="inner_follow">
+                   <a class="external" href="http://dnspod.cn?from=36kr" target="_blank"><img alt="" src="http://a.36krcnd.com/photo/2014/0ae4f92e9796a8a8a8cfe97a2c29d1b2.png"></a>
+                </div>
+            </div>
+        </div>
         <!-- /container -->
 
         <!-- Bootstrap core JavaScript
@@ -346,20 +358,20 @@
                         e.preventDefault();
                         window.open('http://baidu.com/search?q=site:mmmai.com/p%20' + query, "_blank");
                     });
-            
+
                     $(document).on('click', '.comingsoon', function() {
                         $('#comingsoonModal').modal('show');
                     });
-            
+
                     {% if user_info == none %}
                     $(".username-input").focus(function() {
                         $(".bootstrap-switch-id-gender-switch").hide();
                     });
-            
+
                     $(".username-input").focusout(function() {
                         $(".bootstrap-switch-id-gender-switch").show();
                     });
-            
+
                     $('.signin-form').bootstrapValidator({
                         message: 'This value is not valid',
                         feedbackIcons: {
@@ -396,7 +408,7 @@
                             },
                         }
                     });
-            
+
                     $('.signup-form').bootstrapValidator({
                         message: 'This value is not valid',
                         feedbackIcons: {
@@ -461,8 +473,8 @@
                             },
                         }
                     });
-            
-                    {% if error == none %} 
+
+                    {% if error == none %}
                     {% if sign_in_up == "signin" %}
                     $('#loginModal').modal('show');
                     $('.signin-error').hide();
@@ -478,11 +490,11 @@
                         $(".signin-form").attr("action", action);
                     }
                     {% endif %}
-            
+
                     {% if sign_in_up == "signup" %}
                     {% if invite %}
                     var invite = $('.invite-input').val()
-                    $('.invite-input').parent().hide(); 
+                    $('.invite-input').parent().hide();
                     {% endif %}
                     $('#loginModal').modal('show');
                     $('.signin-form').hide();
@@ -495,7 +507,7 @@
                     if (link != null) {
                         action = "/signup?r=" + link;
                         if (link2 != null) {
-            
+
                             action = action + "&n=" + link2;
                         }
                         $(".signin-form").attr("action", action);
@@ -517,7 +529,7 @@
                     $('.signin-error .error-text').text(error_text);
                     $('.signin-error').show();
                     {% endif %}
-            
+
                     {% if sign_in_up == "signup" %}
                     $('#loginModal').modal('show');
                     $('.signin-form').hide();
@@ -538,7 +550,7 @@
                     $('.signup-error').show();
                     {% endif %}
                     {% endif %}
-            
+
                     $(document).on('click', '.unlogin', function() {
                         $('#loginModal').modal('show');
                         $('.signin-form').show();
@@ -556,33 +568,33 @@
                             $(".signin-form").attr("action", action);
                         }
                     });
-            
+
                     $(".input").focusin(function() {
                         $(this).find("span").animate({
                             "opacity": "0"
                         }, 200);
                     });
-            
+
                     $(".input").focusout(function() {
                         $(this).find("span").animate({
                             "opacity": "1"
                         }, 300);
                     });
-            
+
                     $(document).on('click', '.signup-switch', function() {
                         $('.signin-form').hide();
                         $('.signup-form').show();
                         $('.signin-error').hide();
                         $('.signup-error').hide();
                     });
-            
+
                     $(document).on('click', '.signin-switch', function() {
                         $('.signup-form').hide();
                         $('.signin-form').show();
                         $('.signin-error').hide();
                         $('.signup-error').hide();
                     });
-            
+
                     $(document).on('click', '.nav-signup', function() {
                         $('#loginModal').modal('show');
                         $('.signin-form').hide();
@@ -590,16 +602,16 @@
                         $('.signin-error').hide();
                         $('.signup-error').hide();
                     });
-            
-                    $("#gender-switch").bootstrapSwitch(); 
+
+                    $("#gender-switch").bootstrapSwitch();
                     {% endif %}
-            
+
                     $(document).on('click', '.video-link', function() {
                         $('.t_Tooltip').hide();
                         var video_id = $(this).attr('data-video');
                         $(this).replaceWith('<iframe webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" height="498" width="510" src="http://player.youku.com/player.php/sid/' + video_id + '/v.swf?VideoIDS=' +  video_id + '&embedid=&isAutoPlay=true&isShowRelatedVideo=false&embedid" frameborder="0"></iframe>');
                     });
-            
+
                     $('.tipped_ajax_user').each(function() {
                         Tipped.create(this, {
                             spinner: true,
@@ -608,7 +620,7 @@
                             hook: 'topleft'
                         });
                     });
-            
+
                     $('.tipped_ajax_youku').each(function() {
                         Tipped.create(this, {
                             spinner: true,
@@ -617,7 +629,7 @@
                             hook: 'topleft'
                         });
                     });
-            
+
                     $('.tipped_ajax_tag').each(function() {
                         Tipped.create(this, {
                             spinner: true,
@@ -626,7 +638,7 @@
                             hook: 'topleft'
                         });
                     });
-            
+
                     $.scrollUp({
                         scrollName: 'scrollUp', // Element ID
                         topDistance: '300', // Distance from top before showing element (px)
@@ -637,14 +649,14 @@
                         scrollText: '回顶部', // Text for element
                         activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
                     });
-            
+
                     $(document).on('click', '.report', function() {
                         var report_id = $(this).attr('data-id');
                         var report_type = $(this).attr('data-type');
-            
+
                         $('#reportModal .btn-success').attr('data-id', report_id);
                         $('#reportModal .btn-success').attr('data-type', report_type);
-            
+
                         var text1 = '';
                         var text2 = '';
                         if (report_type == 'pq') {
@@ -663,19 +675,19 @@
                         $('#reportModal .modal-title').text(text1);
                         $('#reportModal .header').text(text2);
                     });
-            
+
                     $(document).on('click', '#reportModal .btn-success', function() {
                         var report_id = $(this).attr('data-id');
                         var report_type = $(this).attr('data-type');
                         var report_text = $('#' + report_type + report_id);
-            
+
                         var obj_type = '';
                         if (report_type == 'pq' || report_type == 'pp') {
                             obj_type = 'post';
                         } else {
                             obj_type = 'reply';
                         }
-            
+
                         $.getJSON('/report/' + report_id + '?type=' + obj_type, function(data) {
                             if (data.success != 0) {
                                 report_text.text('已举报');
